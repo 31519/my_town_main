@@ -91,10 +91,20 @@ WSGI_APPLICATION = 'news_all.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'main_data',                      # Or path to database file if using sqlite3.
+        'USER': 'cosrumut',                      # Not used with sqlite3.
+        'PASSWORD': '31519',                  # Not used with sqlite3.
+        'HOST': 'localhost'
     }
 }
 
