@@ -200,3 +200,8 @@ CORS_ALLOW_ALL_ORIGINS=True
 
 
 # this is the test for github edit push
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
