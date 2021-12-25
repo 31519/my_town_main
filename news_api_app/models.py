@@ -171,3 +171,18 @@ class RequestForm(models.Model):
 
     def __str__(self):
         return str(self.username)
+
+
+class Request(models.Model):
+    username=models.CharField(max_length=200, blank=True)
+    email = models.CharField(max_length=200, blank=True)
+    category = models.CharField(max_length=200, blank=True)
+    content = models.TextField(max_length=5000, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.username)
+        super(RequestForm, self).save(*args, **kwargs)
+
+
+    def __str__(self):
+        return str(self.username)
