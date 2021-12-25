@@ -1,0 +1,28 @@
+.entertainment_main > h2 {
+    color: black;
+  }
+  
+  .entertainment_main {
+    display: flex;
+  }
+  
+  .entertainment_cards {
+    flex: 1;
+  }
+  
+  .entertainment_advertise {
+    flex: 0.6;
+    padding-left: 10px;
+  }
+  
+  @media screen and (max-width: 750px) {
+    .entertainment_main {
+      display: flex;
+      flex-direction: column;
+    }
+    .entertainment_advertise > h2 {
+      color: black;
+    }
+    
+  }
+  

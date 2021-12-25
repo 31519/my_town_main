@@ -1,0 +1,38 @@
+.chart_body{
+    padding: 10px 30px ;
+    height: 300px;
+    background-color: rgb(97, 177, 97);
+    border-radius:20px
+}
+
+
+@media screen and (max-width: 750px) {
+    h2 {
+      font-size: var(--mobile_text_size);
+      font-family: var(--mobile_font_family);
+      color: var(--mobile_text_color);
+      font-style: normal;
+      font-weight: var(--mobile_text_weight);
+      line-height: 1.5;
+      text-align: left;
+      text-align: start;
+      text-decoration: none;
+      text-shadow: none;
+      text-transform: none;
+      letter-spacing: normal;
+      word-break: normal;
+      word-spacing: normal;
+      white-space: normal;
+      line-break: auto;
+      word-wrap: break-word;
+      opacity: 10;
+    }
+
+    .chart_body{
+        padding: 10px 30px ;
+        height: 150px;
+        background-color: rgb(97, 177, 97);
+        border-radius:10px
+    }
+
+}

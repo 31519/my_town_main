@@ -1,0 +1,50 @@
+
+.tourist_screen {
+    display: flex;
+    padding-top: 10px;
+
+}
+
+.tourist_main {
+    flex: 1;
+    padding-right: 10px;
+}
+
+.tourist_event {
+    flex: 0.6
+}
+
+
+
+@media screen and (max-width: 750px) {
+    h2 {
+        font-size: var(--mobile_text_size);
+        font-family: var(--mobile_font_family);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.5;
+        text-align: left;
+        text-align: start;
+        text-decoration: none;
+        text-shadow: none;
+        text-transform: none;
+        letter-spacing: normal;
+        word-break: normal;
+        word-spacing: normal;
+        white-space: normal;
+        line-break: auto;
+        font-size: 0.875rem;
+        word-wrap: break-word;
+        opacity: 10;
+    }
+    .tourist_screen {
+        display: flex;
+        flex-direction: column;
+    
+    }
+
+    .tourist_main {
+        padding-right: 0px;
+    }
+
+}

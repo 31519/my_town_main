@@ -1,0 +1,21 @@
+:root {
+    --black: #000000;
+    --medium-text: 14px;
+    --medium-weight: 700;
+    --medium-spacing: 2px;
+
+    --mobile-text-color:black;
+    --mobile-font-weight: 700;
+    --mobile_font_family: "Montserrat", sans-serif;
+    --mobile_container_color: #000000;
+    --mobile-text-size: 8px;
+    --mobile-text-spacing: 1px;
+    --mobile_text_size_title: 8px;
+    --mobile_text_color_title: rgb(5, 5, 5);
+    }
+    
+
+.text-link {
+    text-decoration: none;
+    
+    }

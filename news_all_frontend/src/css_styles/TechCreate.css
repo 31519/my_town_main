@@ -1,0 +1,122 @@
+.techcreate {
+    display: block;
+    flex:1;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    margin: 0;
+    
+    align-items: center;
+    justify-content:center;
+    background-color: #15172b;
+    background-image: linear-gradient(rgb(45, 45, 51), rgb(26, 138, 138));
+}
+
+.subtitle {
+    padding: 10px;
+}
+
+.form {
+    /* display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content:center;
+    align-items: center; */
+    margin: 0px;
+    padding: 0px
+}
+
+
+.text {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+    padding-bottom: 10px;
+
+}
+
+.title {
+    color: white;
+
+}
+.subtitle {
+    color:white;
+}
+
+.form {
+    /* align-items: center; */
+    /* padding: 0;
+    margin: 0; */
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    margin:10px;
+    padding: 0px;
+
+
+}
+.input {
+    margin: 10px;
+    padding:10px;
+    width:97%;
+    border-radius:0px;
+
+}
+
+
+.input-container > label {
+    color: white;
+    margin: 10px;
+    padding:10px;
+}
+
+.input-container > textarea {
+    height: 200px;
+}
+
+.button_input{
+    margin: 10px;
+    text-align: center;
+    padding: 10px
+}
+
+.button_input:hover{
+    background-image: linear-gradient(rgb(5, 235, 243), rgb(54, 242, 63));
+}
+
+@media screen and (max-width: 750px) {
+
+    form{
+        padding:0px;
+        margin: 0px;
+    }
+
+    .input {
+        margin: 10px;
+        padding:10px;
+        width:100%;
+        border-radius:0px;
+    
+    }
+    .input-container > label {
+        color: white;
+        margin: 10px;
+        padding:10px;
+    }
+
+    .techcreate {
+        display: flex;
+        flex-direction: column;
+        flex:1;
+        padding: 0px;
+        margin: 0;
+        text-align:center;
+        align-items: center;
+        justify-content:center;
+        background-color: #15172b;
+        background-image: linear-gradient(rgb(45, 45, 51), rgb(26, 138, 138));
+    }
+}

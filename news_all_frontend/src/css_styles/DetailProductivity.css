@@ -1,0 +1,31 @@
+.productivity_main > h2 {
+    color: black;
+  }
+  
+  .productivity_main {
+    display: flex;
+  }
+  
+  .productivity_cards {
+    flex: 1;
+  }
+  
+  .productivity_advertise {
+    flex: 0.6;
+    padding-left: 10px;
+  }
+  
+  @media screen and (max-width: 750px) {
+    .productivity_main {
+      display: flex;
+      flex-direction: column;
+    }
+    .productivity_advertise > h2 {
+      color: black;
+    }
+    .productivity_advertise {
+        padding-left: 0px;
+      }
+    
+  }
+  

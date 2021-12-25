@@ -1,0 +1,12 @@
+.footer-links > div  {
+        display: flex;
+        align-items: start;
+        justify-content:stretch;
+        flex-wrap: wrap;
+      
+      }
+
+.footer-link {
+    display: flex;
+    flex-wrap: wrap;
+}
