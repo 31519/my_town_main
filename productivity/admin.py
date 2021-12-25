@@ -16,3 +16,6 @@ admin.site.register(Celebrities)
 admin.site.register(Hotels)
 admin.site.register(Tourisms)
 admin.site.register(Resell)
+
+
+# this the test for pust to github
