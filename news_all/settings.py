@@ -104,7 +104,8 @@ DATABASES = {
         'NAME': 'main_data',                      # Or path to database file if using sqlite3.
         'USER': 'cosrumut',                      # Not used with sqlite3.
         'PASSWORD': '31519',                  # Not used with sqlite3.
-        'HOST': 'localhost'
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 

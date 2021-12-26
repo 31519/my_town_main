@@ -12,8 +12,8 @@ import {
 const shops = [
     {
         'category': 'Flowers',
-        "image": "/static/flowers.png",
-        "link": "/flowers"
+        "image": "../images/flower.png",
+        "link": "/flower"
     },
     {
         "category": 'Restaurant',
@@ -60,7 +60,7 @@ const DetailCategory = () => {
   return (
     <Grid className="detailCategory" container>
         {shops.map((shop) => (
-        <Grid item className="detailCategoryItem" md={3} lg={3} sm={4} xs={4}>
+        <Grid item className="detailCategoryItem" md={3} lg={3} sm={6} xs={6}>
             <Link className="text-link" to={shop.link}>
             <div className='gridImage'>
                 <img src={shop.image} />
