@@ -3,6 +3,12 @@
     font-size: 13px;
 
 }
+
+
+
+.user_dashboard_main{
+    padding-top: 10px;
+}
 h3 {
     font-size: 13px;
     color: #000000;
@@ -142,6 +148,13 @@ hr {
 }
 
 
+/* .grid-main-table{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+} */
+
 
 @media screen and (max-width: 750px) {
     h2 {
@@ -214,6 +227,12 @@ hr {
         scrollbar-width: none;
         
         
+    }
+
+    .grid-main-table{
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
 

@@ -49,11 +49,11 @@ const useStyles = makeStyles((theme) => ({
   },
   status: {
     fontWeight: "bold",
-    fontSize: "0.75rem",
-    color: "white",
-    backgroundColor: "grey",
-    borderRadius: 8,
-    padding: "3px 10px",
+    fontSize: "1rem",
+    color: "black",
+    backgroundColor: "red",
+    borderRadius: '10px',
+    padding: "10px",
     display: "inline-block",
   },
 }));
@@ -99,7 +99,7 @@ const AdminTable = ({
         ) : createModelError ? (
           <Loaders />
         ) : (
-          <Button className={classes.status} onClick={modelCreateHandler}>
+          <Button variant='contained' color='success' className={classes.status} onClick={modelCreateHandler}>
             Create {redirect} Post
           </Button>
         )}
@@ -107,7 +107,7 @@ const AdminTable = ({
         {deleteModelError && (
           <ErrorMessage type="error" error={deleteModelError} />
         )}
-        <Grid>{listModel.length}</Grid>
+        <Grid>{listModel.length} Items</Grid>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>

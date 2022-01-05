@@ -5,20 +5,17 @@ import Footers from "../components/Footers";
 import Banners from "../components/Banners";
 import { useLocation } from "react-router-dom";
 
-import ReactGA from "react-ga4";
-
 import "../css_styles/TechList.css";
+
+import ReactGA from "react-ga4";
 // IMPORT FROM ACTIONS
-import { listTechs } from "../actions/techActions";
-import { advertiseListAction } from "../actions/advertiseActions";
+import { listHealth } from "../actions/techActions";
 
 import Categories from "../components/Categories";
 import CelebCarousel from "../components/CelebCarousel";
 import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import DetailCategory from "../components/DetailCategory";
-// import CategoryCarousel from "../components/CategoryCarousel";
-import ShopCategory from "../components/DetailCategory";
 import SearchBox from "../components/SearchBox";
 import Paginate from "../components/Pagination";
 
@@ -66,7 +63,7 @@ const useStyles = makeStyles({
 
 
 
-const HomeScreen = () => {
+const HealthScreen = () => {
   const location = useLocation();
   let keyword = location.search;
 
@@ -75,21 +72,20 @@ const HomeScreen = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const techList = useSelector((state) => state.techList);
+  const healthList = useSelector((state) => state.healthList);
 
-  const { error: techListError, loading: techListLoading, techs, pages, page } = techList;
+  const { error: healthListError, loading: healthListLoading, health, pages, page } = healthList;
 
   useEffect(() => {
-
     ReactGA.initialize("G-PY5JB3D19S");
     ReactGA.send(pathname);
-    dispatch(listTechs(keyword));
+    dispatch(listHealth(keyword));
   }, [dispatch, keyword]);
 
   return (
     <>
       <div className="techlist">
-        <CelebCarousel />
+        <CelebCarousel/>
         <Banners />
         <Categories />
         <DetailCategory/>
@@ -99,7 +95,7 @@ const HomeScreen = () => {
 
         <Grid className={classes.gridHeader} container item>
           <Typography className={classes.header} color="green" variant="h4">
-            TECHNOLOGY
+            HEALTH
           </Typography>
         </Grid>
 
@@ -107,14 +103,14 @@ const HomeScreen = () => {
           <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
             This is the ads section 
           </Grid>
-          {techListLoading ? (
+          {healthListLoading ? (
             <Loaders />
-          ) : techListError ? (
-            <ErrorMessage type="error" error={techListError} />
+          ) : healthListError ? (
+            <ErrorMessage type="error" error={healthListError} />
           ) : (
             <Grid spacing={1} item xs={12} sm={6} lg={6} md={6}>
-              {techs.map((tech) => (
-                <NewsCards key={tech.id} news={tech} model="technology"/>
+              {health && health.map((tech) => (
+                <NewsCards key={tech.id} news={tech} model="health"/>
               ))}
             </Grid>
           )}
@@ -133,4 +129,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default HealthScreen;

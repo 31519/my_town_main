@@ -9,28 +9,38 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 
+# @api_view(['GET'])
+# def ShopsList(request):
+#     query = request.query_params.get('keyword')
+#     if query ==None:
+#         query = ""
+#     shops = Shops.objects.filter(title__icontains=query)
+
+#     page = request.query_params.get('page')
+#     paginator = Paginator(shops, 5)
+#     try:
+#         shops = paginator.page(page)
+#     except EmptyPage:
+#         shops = paginator.page(1)
+#     except PageNotAnInteger:
+#         shops = paginator.page(paginator.num_pages)
+
+#     if page == None:
+#         page = 1
+#     page = int(page)
+
+#     serializer = ShopsSerializers(shops, many=True)
+#     return Response({"shop":serializer.data, "page":page, "pages": paginator.num_pages})
+
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def ShopsList(request):
-    query = request.query_params.get('keyword')
-    if query ==None:
-        query = ""
-    shops = Shops.objects.filter(title__icontains=query)
+    data = request.data
+    current_user = request.user
+    shops = Shops.objects.get(user=current_user)
+    serializer = ShopsSerializers(shops, many=False)
+    return Response({"shop":serializer.data})
 
-    page = request.query_params.get('page')
-    paginator = Paginator(shops, 5)
-    try:
-        shops = paginator.page(page)
-    except EmptyPage:
-        shops = paginator.page(1)
-    except PageNotAnInteger:
-        shops = paginator.page(paginator.num_pages)
-
-    if page == None:
-        page = 1
-    page = int(page)
-
-    serializer = ShopsSerializers(shops, many=True)
-    return Response({"shop":serializer.data, "page":page, "pages": paginator.num_pages})
 
 @api_view(['GET'])
 def ShopsDetailList(request, pk, slug):

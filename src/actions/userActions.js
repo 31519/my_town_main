@@ -62,7 +62,7 @@ export const userLoginActions = (username, password) => async (dispatch) => {
             }
         }
         const {data} = await axios.post(
-            "http://127.0.0.1:8000/api/users/login/",
+            `${process.env.REACT_APP_PORT}/api/users/login/`,
             {username, password},
             config
         )
@@ -107,7 +107,7 @@ export const userRegisterActions = (
             }
         }
         const {data} = await axios.post(
-            "http://127.0.0.1:8000/api/users/user-register/",
+            `${process.env.REACT_APP_PORT}/api/users/user-register/`,
             ({
                 username, 
                 email, 
@@ -174,9 +174,9 @@ export const userListActions = () => async ( dispatch, getState) => {
             }
         }
 
-        console.log("here user")
+
         const { data } = await axios.get(
-            `http://127.0.0.1:8000/api/users/users-list/`,
+            `${process.env.REACT_APP_PORT}/api/users/users-list/`,
             config
         );
 
@@ -216,7 +216,7 @@ export const userDetailActions = (id) => async ( dispatch, getState) => {
 
        
         const { data } = await axios.get(
-            `http://127.0.0.1:8000/api/users/users-detail/${id}/`,
+            `${process.env.REACT_APP_PORT}/api/users/users-detail/${id}/`,
             config
         );
 
@@ -255,7 +255,7 @@ export const userDeleteActions = (id) => async ( dispatch, getState) => {
 
        
         const { data } = await axios.delete(
-            `http://127.0.0.1:8000/api/users/users-delete/${id}/`,
+            `${process.env.REACT_APP_PORT}/api/users/users-delete/${id}/`,
             config
         );
 
@@ -295,7 +295,7 @@ export const userUpdateActions = (user) => async ( dispatch, getState) => {
 
        
         const { data } = await axios.put(
-            `http://127.0.0.1:8000/api/users/users-update/${user.id}/`,
+            `${process.env.REACT_APP_PORT}/api/users/users-update/${user.id}/`,
             user,
             config
         );
@@ -339,7 +339,7 @@ export const profileListActions = () => async ( dispatch, getState) => {
         }
 
         const { data } = await axios.get(
-            `http://127.0.0.1:8000/api/users/profile-list/`,
+            `${process.env.REACT_APP_PORT}/api/users/profile-list/`,
             config
         );
 
@@ -379,7 +379,7 @@ export const profileDetailActions = () => async ( dispatch, getState) => {
 
        
         const { data } = await axios.get(
-            `http://127.0.0.1:8000/api/users/profile-detail/`,
+            `${process.env.REACT_APP_PORT}/api/users/profile-detail/`,
             config
         );
 
@@ -419,7 +419,7 @@ export const profileUpdateActions = (profile) => async ( dispatch, getState) => 
 
        
         const { data } = await axios.put(
-            `http://127.0.0.1:8000/api/users/profile-update/${profile.id}/`,
+            `${process.env.REACT_APP_PORT}/api/users/profile-update/${profile.id}/`,
             profile,
             config
         );

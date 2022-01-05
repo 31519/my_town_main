@@ -1,10 +1,19 @@
 import "./App.css";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import Navbars from "./navbars/Navbars";
+import {useEffect} from "react";
+// import RouteChangeTracker from "./components/RouteChangeTracker";
+
+import ReactGA from "react-ga4";
 // import TechList from "./screens/TechLIst";
 import TechCreate from "./admin-screen/TechCreate";
-import LoginScreens from "./screens/LoginScreens"
 import DetailTechList from "./screens/DetailTechList";
+
+import HealthScreen from "./screens/HealthScreen"
+import BusinessScreen from "./screens/BusinessScreen";
+import ScienceScreen from "./screens/ScienceScreen";
+
+import LoginScreens from "./screens/LoginScreens"
 import CelebrityScreen from "./screens/CelebrityScreen";
 import Tourisms from "./screens/TourismsScreen";
 import DetailEntertainment from "./screens/DetailEntertainment";
@@ -22,8 +31,12 @@ import ProductivityCreate from "./admin-screen/ProductivityCreate";
 import UserProfileEdit from "./screens/UserProfileEdit";
 import UserUpdate from "./screens/UserUpdate";
 import HomeScreen from "./screens/HomeScreen";
+// import ShopHomePage from "./screens/ShopHomePage";
 
 // DETAIL PAGES
+
+import TechnologyDetail from "./detailPage/TechnologyDetail"
+
 import AdvertiseDetail from "./detailPage/AdvertiseDetail";
 import CelebrityDetail from "./detailPage/CelebrityDetail";
 import EventDetail from "./detailPage/EventDetail";
@@ -65,6 +78,10 @@ import AboutUs from "./screens/AboutUs"
 
 
 function App() {
+
+  // ReactGA.initialize("G-PY5JB3D19S");
+
+
   return (
     <div className="App">
       <Router>
@@ -77,7 +94,11 @@ function App() {
           <Route path="/user-update/:id" element={<UserUpdate/>} />
           <Route path="/my-dashboard" element={<UserDashboard/>} />
 
-          <Route path="/" element={<HomeScreen />} exact />
+          <Route path="/health-screen" element={<HealthScreen/>} />
+          <Route path="/business-screen" element={<BusinessScreen/>} />
+          <Route path="/science-screen" element={<ScienceScreen/>} />
+
+          <Route path="/" element={<HomeScreen/>} exact />
 
           <Route path="/celebrity" element={<CelebrityScreen/>} />
           <Route path="/tourisms" element={<Tourisms/>} />
@@ -97,6 +118,9 @@ function App() {
           <Route path="/tech-create" element={<TechCreate/>} />
           <Route path="/productivity-create" element={<ProductivityCreate/>} />
           <Route path="/user-profile-edit" element={<UserProfileEdit/>} />
+
+
+          <Route path="/technology-detail/:id/:slug" element={<TechnologyDetail/>} />
 
           <Route path="/advertise-detail/:id/:slug" element={<AdvertiseDetail/>} />
           <Route path="/celebrity-detail/:id/:slug" element={<CelebrityDetail/>} />
@@ -134,6 +158,7 @@ function App() {
           
           {/* About us */}
           <Route path="/about-us" element={<AboutUs/>} />
+          {/* <Route path="/shop-home-page" element={<ShopHomePage/>} /> */}
 
 
         </Routes>

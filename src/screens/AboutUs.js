@@ -6,7 +6,6 @@ import { useNavigate, Link } from "react-router-dom";
 import "../css_styles/TechList.css";
 // IMPORT FROM ACTIONS
 
-
 import { Grid, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
@@ -57,11 +56,8 @@ const AboutUs = () => {
   const classes = useStyles();
 
   const navigateHandler = () => {
-    navigate(-1)
-  }
-
-
-
+    navigate(-1);
+  };
 
   return (
     <>
@@ -69,7 +65,9 @@ const AboutUs = () => {
         <Banners />
 
         <Grid className={classes.gridHeader} container item>
-            <Button onClick={navigateHandler} color='info' variant='contained'>Back</Button>
+          <Button onClick={navigateHandler} color="info" variant="contained">
+            Back
+          </Button>
         </Grid>
 
         <Grid spacing={2} className={classes.gridContent} container>
@@ -78,13 +76,21 @@ const AboutUs = () => {
           </Grid>
 
           <Grid spacing={1} item xs={12} sm={6} lg={6} md={6}>
-            
-            <Grid style={{margin: '10px'}} item>
-            <h1>About Us</h1>
-            <h2>
-                We are company haha
-            </h2>
-
+            <Grid style={{ margin: "10px" }} item>
+              <h1>About Us</h1>
+              <h2>
+                Welcome to In my Town, your number one source for all things
+                [product]. We're dedicated to providing you the very best of
+                [product], with an emphasis on [store characteristic 1], [store
+                characteristic 2], [store characteristic 3]. Founded in [year]
+                by [founder name], In my Town has come a long way from its
+                beginnings in [starting location]. When [founder name] first
+                started out, [his/her/their] passion for [brand message - e.g.
+                "eco-friendly cleaning products"] drove them to start their own
+                business. We hope you enjoy our products as much as we enjoy
+                offering them to you. If you have any questions or comments,
+                please don't hesitate to contact us. Sincerely, [founder name]
+              </h2>
             </Grid>
           </Grid>
 

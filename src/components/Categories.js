@@ -64,30 +64,30 @@ const Categories = () => {
         </div>
         <div className="techlist_footer_category_item">
           <div className="hover-item">
-            <Link className="text-link" to="/">
+            <Link className="text-link" to="/science-screen">
               {/* <h2 className="techlist_footer_category_item1">Science</h2> */}
               <h2 className={classes.title} variant="h3">Science</h2>   
             </Link>
           </div>
           <div>
-            <Link className="text-link" to="/health-news">
+            <Link className="text-link" to="/health-screen">
             <h2 className={classes.title} variant="h3">Health</h2> 
             </Link>
           </div>
 
           <div>
-            <Link className="text-link" to="/technology-news">
+            <Link className="text-link" to="/">
             <h2 className={classes.title} variant="h3">Technology</h2> 
             </Link>
           </div>
 
           <div>
-            <Link className="text-link" to="/">
+            <Link className="text-link" to="/business-screen">
             <h2 className={classes.title} variant="h3">Business</h2> 
             </Link>
           </div>
 
-          <div>
+          {/* <div>
             <Link className="text-link" to="/jobs">
             <h2 className={classes.title} variant="h3">Jobs</h2> 
             </Link>
@@ -97,9 +97,9 @@ const Categories = () => {
             <Link className="text-link" to="/tourisms">
             <h2 className={classes.title} variant="h3">Tourisms</h2> 
             </Link>
-          </div>
+          </div> */}
 
-          <div>
+          {/* <div>
             <Link className="text-link" to="/celebrity">
             <h2 className={classes.title} variant="h3">Celebrity</h2> 
             </Link>
@@ -131,7 +131,7 @@ const Categories = () => {
             <Link className="text-link" to="/shops">
             <h2 className={classes.title} variant="h3">Shop</h2> 
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

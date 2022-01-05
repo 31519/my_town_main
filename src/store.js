@@ -3,7 +3,16 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import {
     techListReducer,
+    healthListReducer,
+    businessListReducer,
+    scienceListReducer,
+
+    techDetailReducer,
+
     createTechReducer,
+    createScienceReducer,
+    createHealthReducer,
+    createBusinessReducer,
 } from '../src/reducers/techReducers'
 
 import {
@@ -99,7 +108,18 @@ import {
 
 const reducer = combineReducers({
     techList: techListReducer,
+    healthList: healthListReducer,
+    businessList: businessListReducer,
+    scienceList: scienceListReducer,
+
+    techDetail: techDetailReducer,
+
+
     techCreate:createTechReducer,
+    businessCreate:createBusinessReducer,
+    healthCreate:createHealthReducer,
+    scienceCreate: createScienceReducer,
+
 
     // USERS
     userLogin:userLoginReducer,

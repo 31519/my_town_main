@@ -4,14 +4,36 @@ from news_api_app.models import Health
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from news_api_app.serializers import HealthSerializers
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 
 @api_view(['GET'])
 def HealthList(request):
-    health = Health.objects.all()
+    query = request.query_params.get('keyword')
+    if query ==None:
+        query = ""
+
+
+    health = Health.objects.filter(title__icontains=query)
+
+    page = request.query_params.get('page')
+    paginator =  Paginator(health, 5)
+
+    try:
+        health = paginator.page(page)
+    except PageNotAnInteger:
+        health = paginator.page(1)
+    except EmptyPage:
+        health = paginator.page(paginator.num_pages)
+    if page == None:
+        page=1
+
+    page=int(page)
+
+
     serializer = HealthSerializers(health, many=True)
-    return Response(serializer.data)
+    return Response({"health":serializer.data, "page":page, "pages":paginator.num_pages})
 
 @api_view(['GET'])
 def HealthDetailList(request, pk):

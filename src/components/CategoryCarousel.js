@@ -55,55 +55,38 @@ const useStyles = makeStyles({
     }
   });
 
-const CategoryCarousel = ({ celeb }) => {
+const CategoryCarousel = () => {
+
+  const shops = {
+    title: "title",
+    urlToImage:
+      "https://staticg.sportskeeda.com/editor/2021/11/caca5-16370851386444-1920.jpg",
+    description: "description",
+    author: "author",
+    content: "content",
+  };
   return (
     <div className="slideshow-container fade">
       <Carousel infiniteLoop useKeyboardArrows autoPlay centerMode>
-      <Link to="/celebrity-detail" state={{ models: 'CELEB'}}>
+      {shops && (
+        shops.map((shop) => (
+
+        <Link to="/celebrity-detail" state={{ models: 'CELEB'}}>
         <div className="Containers">
           <div className="MessageInfo">
-            <img src={celeb.urlToImage} alt="" />
+            <img src={shop.urlToImage} alt="" />
 
             <div className="Info">
-              <h2 className="carousel__title">vv{celeb.title}</h2>
+              <h2 className="carousel__title">{shop.title}</h2>
             </div>
           </div>
         </div>
       </Link>
-      <Link to="/celebrity-detail" state={{ models: 'CELEB'}}>
-        <div className="Containers">
-          <div className="MessageInfo">
-            <img src={celeb.urlToImage} alt="" />
+        ))
+        )}
 
-            <div className="Info">
-              <h2 className="carousel__title">{celeb.title}</h2>
-            </div>
-          </div>
-        </div>
-      </Link>
 
-      <Link to="/celebrity-detail" state={{ models: 'CELEB'}}>
-        <div className="Containers">
-          <div className="MessageInfo">
-            <img src={celeb.urlToImage} alt="" />
 
-            <div className="Info">
-              <h2 className="carousel__title">{celeb.title}</h2>
-            </div>
-          </div>
-        </div>
-      </Link>
-      <Link to="/celebrity-detail" state={{ models: 'CELEB'}}>
-        <div className="Containers">
-          <div className="MessageInfo">
-            <img src={celeb.urlToImage} alt="" />
-
-            <div className="Info">
-              <h2 className="carousel__title">{celeb.title}</h2>
-            </div>
-          </div>
-        </div>
-      </Link>
       </Carousel>
 
     </div>

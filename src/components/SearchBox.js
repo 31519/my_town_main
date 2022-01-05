@@ -6,14 +6,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Grid, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import {
-  FormControl,
-  InputLabel,
-  Input,
-  FormHelperText,
+
   Button,
+  TextField
 } from "@mui/material";
 
-import TextareaAutosize from "@mui/material/TextareaAutosize";
 
 const useStyles = makeStyles({
   root: {
@@ -59,6 +56,7 @@ const useStyles = makeStyles({
     justifyContent: "center",
     textAlign: "center",
     alignItems: "center",
+    paddingBottom:"20px"
   },
   search: {
     "&:hover": {
@@ -69,6 +67,10 @@ const useStyles = makeStyles({
   },
 
   button: {
+    display: "flex",
+    justifyContent: "center",
+    textAlign: "center",
+    alignItems: "center",
     "&:hover": {
       background: "green",
       color: "white",
@@ -100,19 +102,24 @@ const SearchBox = () => {
     <form style={{ margin: "0px" }} onSubmit={searchHandler}>
       <Grid className={classes.gridHeader1}>
         <Grid className={classes.gridHeader} xs={12} sm={12} lg={6} md={6} item>
-          <TextareaAutosize
+          
+          <TextField
             aria-label="empty textarea"
-            placeholder="Serach"
+            label="Search"
+            variant="filled" 
             value = {keyword}
             onChange={(e) => setKeyword(e.target.value)}
             style={{ width: "75%", height: "20px" }}
           />
-          <Button className={classes.button} type="submit" >
+          
+          
+          {/* <Button className={classes.button} type="submit" >
             <SearchIcon
               className={classes.search}
               style={{ fontWeight: "bold", color: "black" }}
             />
-          </Button>
+          </Button> */}
+          
         </Grid>
       </Grid>
     </form>

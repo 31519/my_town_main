@@ -470,8 +470,6 @@ export const shopListReducer = (state = {shops: []}, action) => {
             return {
                 loading: false,
                 shops: action.payload.shop,
-                page: action.payload.page,
-                pages: action.payload.pages,
             };
 
         case SHOP_LIST_FAIL:

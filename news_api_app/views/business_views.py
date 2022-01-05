@@ -4,14 +4,37 @@ from news_api_app.models import Business
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from news_api_app.serializers import BusinessSerializers
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 
 @api_view(['GET'])
 def BusinessList(request):
-    business = Business.objects.all()
+
+    query = request.query_params.get('keyword')
+    if query ==None:
+        query = ""
+
+
+    business = Business.objects.filter(title__icontains=query)
+
+    page = request.query_params.get('page')
+    paginator =  Paginator(business, 5)
+
+    try:
+        business = paginator.page(page)
+    except PageNotAnInteger:
+        business = paginator.page(1)
+    except EmptyPage:
+        business = paginator.page(paginator.num_pages)
+    if page == None:
+        page=1
+
+    page=int(page)
+
     serializer = BusinessSerializers(business, many=True)
-    return Response(serializer.data)
+    return Response({"business":serializer.data, "page":page, "pages":paginator.num_pages})
 
 @api_view(['GET'])
 def BusinessDetailList(request, pk):

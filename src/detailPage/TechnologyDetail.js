@@ -4,8 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 import Footers from "../components/Footers";
 import "../css_styles/DetailProductivity.css";
 import { useParams, useLocation } from "react-router-dom";
+import CelebCarousel from "../components/CelebCarousel";
 
-import { jobDetailAction } from "../actions/advertiseActions2";
+import { techDetailAction } from "../actions/techActions";
 import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import Categories from "../components/Categories";
@@ -56,7 +57,7 @@ const useStyles = makeStyles({
   },
 });
 
-const JobDetail = () => {
+const TechnologyDetail = () => {
   const params = useParams();
   const {id, slug} = params;
 
@@ -65,31 +66,29 @@ const JobDetail = () => {
   const dispatch = useDispatch();
 
 
-  const jobDetail = useSelector((state) => state.jobDetail);
+  const techDetail = useSelector((state) => state.techDetail);
 
   const {
-    error: detailJobError,
-    loading: detailJobLoading,
-    job: detailJob,
-  } = jobDetail;
+    error: detailTechError,
+    loading: detailTechLoading,
+    tech: detailTech,
+  } = techDetail;
 
   useEffect(() => {
-    dispatch(jobDetailAction(id, slug));
+    dispatch(techDetailAction(id, slug));
   }, [dispatch, id, slug]);
     return (
 
           <>
           <div className="techlist">
-            {/* <CelebCarousel celeb={celeb} /> */}
+            <CelebCarousel/>
             <Banners />
             <Categories />
       
-            {/* <SearchBox /> */}
-            {/* Content */}
       
             <Grid className={classes.gridHeader} container item>
               <Typography className={classes.header} color="green" variant="h3">
-                DETAIL JOB
+                DETAIL
               </Typography>
             </Grid>
       
@@ -97,14 +96,14 @@ const JobDetail = () => {
               <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
                 This is  the ad section
               </Grid>
-              {detailJobLoading ? (
+              {detailTechLoading ? (
                 <Loaders />
-              ) : detailJobError ? (
-                <ErrorMessage type="error" error={detailJobError} />
+              ) : detailTechError ? (
+                <ErrorMessage type="error" error={detailTechError} />
               ) : (
                 <Grid spacing={1} item xs={12} sm={6} lg={6} md={6}>
                   
-                    <DetailCard key={detailJob.id} item={detailJob}/>
+                    <DetailCard key={detailTech.id} item={detailTech}/>
 
                 </Grid>
               )}
@@ -123,4 +122,4 @@ const JobDetail = () => {
     );
   };
 
-export default JobDetail;
+export default TechnologyDetail;

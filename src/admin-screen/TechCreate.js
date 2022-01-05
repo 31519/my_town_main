@@ -58,7 +58,6 @@ const TechCreate = () => {
       publishedAt,
       content
     ))
-    console.log('clicked', author)
   }
 
   return (

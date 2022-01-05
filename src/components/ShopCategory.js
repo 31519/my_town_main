@@ -10,20 +10,16 @@ import {
   Button,
 } from "@mui/material";
 const shops = [
-    // {
-    //     'category': 'Shop',
-    //     "image": "../images/shop.png",
-    //     "link": "/shop-home-page"
-    // }
+
 ]
 
 
-const DetailCategory = () => {
+const ShopCategory = () => {
 
 
   return (
     <Grid className="detailCategory" container>
-        {shops &&shops.map((shop) => (
+        {shops && shops.map((shop) => (
         <Grid item className="detailCategoryItem" md={3} lg={3} sm={4} xs={4}>
             <Link className="text-link" to={shop.link}>
             <div className='gridImage'>
@@ -38,4 +34,4 @@ const DetailCategory = () => {
   );
 };
 
-export default DetailCategory;
+export default ShopCategory;

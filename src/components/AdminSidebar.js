@@ -38,7 +38,7 @@ const AdminSidebar = ({ tech }) => {
   return (
     <>
       <div className="dashboard">
-        {/* <CloseIcon/> */}
+      
         <div className="dashboard_header">
           <Link className="text-link" to={`/user-detail`}>
             <div className="profile-img">this</div>

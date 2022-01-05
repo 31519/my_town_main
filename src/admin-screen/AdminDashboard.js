@@ -626,7 +626,7 @@ const AdminDashboard = ({ tech }) => {
 
 
           {/*  SHOP PORTIOn */}
-          <AdminTable 
+          {/* <AdminTable 
                 listModelLoading=  {listShopLoading}
                 listModelError=    {listShopError}
                 listModel=         {listShop}
@@ -636,7 +636,7 @@ const AdminDashboard = ({ tech }) => {
                 modelCreateHandler={shopCreateHandler}
                 modelDeleteHandler={shopDeleteHandler}
                 redirect ="shop"
-            />
+            /> */}
 
           {/*  TOURISMS PORTIOn */}
           <AdminTable 

@@ -38,16 +38,21 @@ const DetailCards = ({ item }) => {
    
       <div className="cards">
         <div className="card-image">
-
+        {
+        item.urlToImage
+        ?
+        <img src={item.urlToImage} alt="" />
+        :
         <img src={item.image} alt="" />
+        }
         </div>
         <div  className="card-text">
           <div className="card-date">
           <Typography className={classes.date} variant="h3"><CalendarTodayIcon style={{fill:'green', fontSize: '12px', fontWeight: '700'}}/>{item.createdAt}</Typography>
           </div>
 
-        <Typography className={classes.title} variant="h3">{item.title}</Typography>
-        <Typography className={classes.title} variant="h3">{item.content}</Typography>        
+        <h2 className={classes.title} variant="h3">{item.title}</h2>
+        <h2 className={classes.title} variant="h3">{item.content}</h2>        
         </div>
       </div>
 
