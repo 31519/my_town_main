@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 
-// IMPORT COMPONENT
-
 // import TechCreateNewsApi from "../admin-screen/TechCreateNewsApi";
 import {
   resellerDetailAction,
