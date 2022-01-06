@@ -6,4 +6,5 @@ urlpatterns = [
     path('list/<int:pk>/', views.LocalNewsDetailList, name="detail"),
     path('create/', views.LocalNewsCreate, name="create"),
     path('delete/<int:pk>/', views.LocalNewsDelete, name="delete"),
+    path('upload/', views.LocalNewsImage, name="upload"),
 ]

@@ -39,6 +39,18 @@ def LocalNewsCreate(request):
     serializer = LocalNewsSerializers(local, many=False)
     return Response(serializer.data)
 
+@api_view(['POST'])
+def LocalNewsImage(request):
+    data = request.data
+
+    product_id = data['product_id']
+    product = LocalNews.objects.get(id=product_id)
+
+    product.image = request.FILES.get('image')
+    product.save()
+    
+    return Response("Image was uploaded")
+
 @api_view(['GET', 'DELETE'])
 @permission_classes([IsAdminUser])
 def LocalNewsDelete(request, pk):

@@ -12,7 +12,7 @@ import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import AdminTable from "../components/Table";
 
-import { Grid, Button, Paper } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 
 // CONSTANT IMPORT
 import {
@@ -126,11 +126,200 @@ const UserDashboard = () => {
   }, [dispatch, userInfo]);
 
   return (
-    <div className="user_dashboard">
-      <Grid container className="grid-shop" md={10} lg={10} sm={12} xs={12}>
+    <Grid container className="user_dashboard">
+      <Grid container className="grid-shop" md={4} lg={4} sm={12} xs={12}>
         {profileLoading && <Loaders />}
         {profileError && <ErrorMessage type="error" error={profileError} />}
-        {profile && profile.isApprovedShop && (
+
+        {profile && (
+        <Grid item container className="profile-grid" md={12} sm={12} xs={12} lg={12}>
+          <Grid className="image-grid" item md={12} sm={12} xs={12} lg={12}>
+            <img src={"../images/music.png"} alt="photo" />
+          </Grid>
+          <Grid className="profile-info name" item md={12} sm={12} xs={12} lg={12}>
+            {profile && <h1 className="profile-name ">{profile.username}</h1>}
+          </Grid>
+          <Grid className="profile-info " item md={12} sm={12} xs={12} lg={12}>
+            {profile && <h2 className="profile-name">{profile.profession}</h2>}
+          </Grid>
+          
+        </Grid>
+        )}
+        
+        {profile && (
+        <Grid item container className="profile-grid-detail" md={12} sm={12} xs={12} lg={12}>
+          <Grid item className="profile-detail"  md={12} sm={12} xs={12} lg={12}>
+            <Grid className="profile-detail-edit" item><h3>Profile Details</h3></Grid>
+            <Grid  className="profile-detail-edit" item md={12} sm={12} xs={12} lg={12}>
+            <Button variant='contained' color='primary'>Edit</Button>
+            </Grid>
+
+          </Grid>
+          <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
+            <label>Full Name</label>
+            <Grid item>
+              <span className="profile-full-name">{profile.firstName} {profile.lastName}</span>
+            </Grid>
+          </Grid>
+
+          <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
+            <label>Email</label>
+            <Grid item>
+              <span className="profile-full-name">{profile.email}</span>
+            </Grid>
+          </Grid>
+          <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
+            <label>Gender</label>
+            <Grid item>
+              <span className="profile-full-name">{profile.gender}</span>
+            </Grid>
+          </Grid>
+          <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
+            <label>Phone</label>
+            <Grid item>
+              <span className="profile-full-name">{profile.phone}</span>
+            </Grid>
+          </Grid>
+          <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
+            <label>Country</label>
+            <Grid item>
+              <span className="profile-full-name">{profile.country}</span>
+            </Grid>
+          </Grid>
+          <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
+            <label>State</label>
+            <Grid item>
+              <span className="profile-full-name">{profile.state}</span>
+            </Grid>
+          </Grid>
+          <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
+            <label>Town</label>
+            <Grid item>
+              <span className="profile-full-name">{profile.town}</span>
+            </Grid>
+          </Grid>
+          <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
+            <label>Pin code</label>
+            <Grid item>
+              <span className="profile-full-name">{profile.pincode}</span>
+            </Grid>
+          </Grid>
+          <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
+            <label>Profession</label>
+            <Grid item>
+              <span className="profile-full-name">{profile.profession}</span>
+            </Grid>
+          </Grid>
+          <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
+            <label>Shop</label>
+            {
+            profile.isApprovedShop
+            ? (<Grid item>
+              <span className="profile-approved">Approved</span>
+            </Grid>)
+            : (<Grid item>
+              <span className="profile-not-approved">Not Approved</span>
+            </Grid>)
+            }
+          </Grid>
+          <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
+            <label>Job</label>
+            {
+            profile.isApprovedJob
+            ? (<Grid item>
+              <span className="profile-approved">Approved</span>
+            </Grid>)
+            : (<Grid item>
+              <span className="profile-not-approved">Not Approved</span>
+            </Grid>)
+            }
+          </Grid>
+          <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
+            <label>Reseller</label>
+            {
+            profile.isApprovedResseller
+            ? (<Grid item>
+              <span className="profile-approved">Approved</span>
+            </Grid>)
+            : (<Grid item>
+              <span className="profile-not-approved">Not Approved</span>
+            </Grid>)
+            }
+          </Grid>
+          <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
+            <label>Advertise</label>
+            {
+            profile.isApprovedAdvertise
+            ? (<Grid item>
+              <span className="profile-approved">Approved</span>
+            </Grid>)
+            : (<Grid item>
+              <span className="profile-not-approved">Not Approved</span>
+            </Grid>)
+            }
+          </Grid>
+          <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
+            <label>Celebrity</label>
+            {
+            profile.isApprovedCelebrities
+            ? (<Grid item>
+              <span className="profile-approved">Approved</span>
+            </Grid>)
+            : (<Grid item>
+              <span className="profile-not-approved">Not Approved</span>
+            </Grid>)
+            }
+          </Grid>
+          <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
+            <label>Tourisms</label>
+            {
+            profile.isApprovedTourisms
+            ? (<Grid item>
+              <span className="profile-approved">Approved</span>
+            </Grid>)
+            : (<Grid item>
+              <span className="profile-not-approved">Not Approved</span>
+            </Grid>)
+            }
+          </Grid>
+          <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
+            <label>Hotel</label>
+            {
+            profile.isApprovedHotel
+            ? (<Grid item>
+              <span className="profile-approved">Approved</span>
+            </Grid>)
+            : (<Grid item>
+              <span className="profile-not-approved">Not Approved</span>
+            </Grid>)
+            }
+          </Grid>
+          <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
+            <label>Event</label>
+            {
+            profile.isApprovedEvent
+            ? (<Grid item>
+              <span className="profile-approved">Approved</span>
+            </Grid>)
+            : (<Grid item>
+              <span className="profile-not-approved">Not Approved</span>
+            </Grid>)
+            }
+          </Grid>
+          <Grid item className="profile-request"  md={12} sm={12} xs={12} lg={12}>
+            <label className='request-label'>Request To Upload</label>
+            <Grid item>
+              <span className="profile-request-button">Request</span>
+            </Grid>
+          </Grid>
+          
+          
+        </Grid>
+        )}
+
+        
+    
+        {/* {profile && profile.isApprovedShop && (
           <Grid item md={12} lg={12} sm={12} xs={12}>
             {listShop ? null : (
               <Button
@@ -142,18 +331,17 @@ const UserDashboard = () => {
               </Button>
             )}
           </Grid>
-        )}
-        {listShop && (
+        )} */}
+        {/* {listShop && (
           <div className="shop-info">
-            <div className='shop-info-1'>
+            <div className="shop-info-1">
               <div>Owner's Shop {listShop.title}</div>
               <div>{process.env.REACT_APP_TEST}</div>
             </div>
-            
           </div>
-        )}
-        <Grid item md={12} lg={12} sm={12} xs={12} className="users_post">
-          {/* {profile && profile.isApprovedShop && (
+        )} */}
+        {/* <Grid item md={12} lg={12} sm={12} xs={12} className="users_post"> */}
+        {/* {profile && profile.isApprovedShop && (
             <AdminTable
               listModelLoading={listShopLoading}
               listModelError={listShopError}
@@ -166,10 +354,26 @@ const UserDashboard = () => {
               redirect="shop product"
             />
           )} */}
+        {/* </Grid> */}
+      </Grid>
+      <Grid container className="grid-shop" md={8} lg={8} sm={12} xs={12}>
+        <Grid
+            className="profile-grid"
+            container
+            md={12}
+            lg={12}
+            sm={12}
+            xs={12}
+          >
+          
+          <Grid>
+            {/* <PostTable cat='new'/> */}
+          </Grid>
+
         </Grid>
       </Grid>
       <Footers />
-    </div>
+    </Grid>
   );
 };
 

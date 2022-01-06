@@ -105,6 +105,7 @@ class LocalNews(models.Model):
     title = models.TextField(null=True, blank=True, default='Title')
     description = models.TextField(null=True, blank=True, default='Description')
     url= models.CharField(max_length=500, null=True, blank=True, default='Url')
+    image = models.ImageField(null=True, blank=True, default='/image.png')
     urlToImage= models.CharField(max_length=300, null=True, blank=True, default='UrlToImage')
     publishedAt = models.CharField(max_length=300, null=True,blank=True, default='PublishedAt')
     content = models.TextField(null=True, blank=True, default='content')

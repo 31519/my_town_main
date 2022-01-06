@@ -1,70 +1,99 @@
-
-/* table {
-    width: 100%;
-} */
-.post_table {
-    /* padding-bottom: 30px; */
-    /* margin: 30px; */
-}
-
-.post_scroll {
-    margin: 10px 30px;
-    justify-content: center;
-    height: 300px;
-    overflow-y: auto;
-    display: block;
-}
-
-
 table {
     border-collapse: collapse;
-    width: 800px;
-    height: 100px;
-    border: 1px solid #bdc3c7;
-    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2);
-}
-.post_scroll > thead {
+    /* table-layout: fixed; */
     width: 100%;
+    background-color:white;
+    border: 2px solid blue;
+    border-radius:10px;
+    /* overflow: scroll; */
+    white-space: nowrap;
 }
 
-.post_table_text{
-    padding: 10px 0px 0px 10px;
+
+/* style={{ overflowX: "auto", display:"block", tableLayout:"fixed"
+     */
+
+.table100{
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
-.post_header{
-    background-color: #6470da;
-    color: #fff;
+.link-text {
+    text-decoration: none;
 }
 
-@media screen and (max-width: 768px) {
-    .post_table {
-        padding-bottom: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+.body th td{
+    font-family:"Open Sans",sans-serif
+}
+
+thead {
+    border-radius: 10px;
+}
+tbody{
+    padding: 10px;
+
+}
+
+table th, 
+table td{
+    font-family:"Open Sans",sans-serif;
+    font-size: 10px;
+    width: 15px;
+    word-wrap: break-word;
+}
+
+
+td > h3 {
+    margin: 0;
+    padding: 0;
+
+}
+
+
+
+
+
+@media screen and (max-width: 350px) {
+    h2 {
+      font-size: var(--mobile_text_size);
+      font-family: var(--mobile_font_family);
+      color: var(--mobile_text_color);
+      font-style: normal;
+      font-weight: var(--mobile_text_weight);
+      line-height: 1.5;
+      text-align: left;
+      text-align: start;
+      text-decoration: none;
+      text-shadow: none;
+      text-transform: none;
+      letter-spacing: normal;
+      word-break: normal;
+      word-spacing: normal;
+      white-space: normal;
+      line-break: auto;
+      word-wrap: break-word;
+      opacity: 10;
     }
-    .post_scroll {
-        margin:10px 10px 0px 10px;
-        width: 90%;
-        height: 200px;
-        overflow-y: auto;
+    .table100{
+        overflow-x: auto;
         display: block;
-        font-size: 10px;
     }
-    
-    .post_scroll > thead {
-        width: 100%;
+
+
+
+
+
+
+
+    table th, 
+    table td{
+        font-family:"Open Sans",sans-serif;
+        font-size: 9px;
     }
-    
-    .post_table_text{
-        padding: 10px 0px 0px 10px;
-        color:black;
-    }
-    
-    .post_header{
-        background-color: #6470da;
-        color: rgb(255, 252, 252);
-    }
-    
+
+
+
+
+
+
 }
