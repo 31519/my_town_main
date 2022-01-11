@@ -107,8 +107,7 @@ const HotelsScreen = () => {
 
       <Grid spacing={2} className={classes.gridContent} container>
         <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-          Hi Loverlj lask jflks jfkslajfkl sdajfk sjsdljgk ldjgksjdk fgjs
-          kldjgl dfjl jfkls ajfkls
+           {/* This is the add section */}
         </Grid>
         {listHotelLoading ? (
           <Loaders />
@@ -117,14 +116,13 @@ const HotelsScreen = () => {
         ) : (
           <Grid spacing={1} item xs={12} sm={6} lg={6} md={6}>
             {listHotel.map((hotel) => (
-              <AllCards key={hotel.id} item={hotel} model="hotel" />
+              <AllCards key={hotel.id} item={hotel} model="hotel" socialmedia="hotels" />
             ))}
           </Grid>
         )}
 
         <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-          jal;fjdsj dfksjflkdjk fhkjasdjg sgjslkgjk ldjfkjdl fjdhfkjash
-          fijksdhf
+           {/* This is the add section */}
         </Grid>
       </Grid>
       <Paginate keyword={keyword} page={page} pages={pages}/>

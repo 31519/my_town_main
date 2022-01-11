@@ -21,7 +21,7 @@ h3 {
 
 }
 
-.profile-img{
+.profile-img > img{
     display: flex;
     background-color:aqua;
     height:50px;

@@ -50,7 +50,7 @@ def OwnBusinessUpdate(request, pk):
     business.state = data['state']
     business.address = data['address']
     business.contact = data['contact']
-    business.image=data['image']
+    # business.image=data['image']
     business.title = data['title']
     business.content = data['content']
     business.save()
@@ -69,7 +69,7 @@ def OwnBusinessAdminUpdate(request, pk):
     business.state = data['state']
     business.address = data['address']
     business.contact = data['contact']
-    business.image=data['image']
+    # business.image=data['image']
     business.title = data['title']
     business.content = data['content']
     business.isApproved = data['isApproved']
@@ -80,7 +80,7 @@ def OwnBusinessAdminUpdate(request, pk):
 
 
 @api_view(['DELETE', 'GET'])
-@permission_classes([IsAdminUser])
+@permission_classes([IsAuthenticated])
 def OwnBusinessDelete(request, pk):
     if request.method == 'GET':
         business = OwnBusiness.objects.get(pk=pk)
@@ -91,3 +91,20 @@ def OwnBusinessDelete(request, pk):
         business = OwnBusiness.objects.get(pk=pk)
         business.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+
+@api_view(['POST'])
+def OwnBusinessImage(request):
+    data = request.data
+
+    product_id = data['product_id']
+    ownbusiness = OwnBusiness.objects.get(id=product_id)
+
+    ownbusiness.image = request.FILES.get('image')
+    ownbusiness.save()
+
+    serializer = OwnBusinessSerializers(ownbusiness, many=False)
+    
+    return Response(serializer.data)

@@ -89,14 +89,13 @@ const ResellerDetail = () => {
       
             <Grid className={classes.gridHeader} container item>
               <Typography className={classes.header} color="green" variant="h3">
-                DETAIL JOB
+                RESELLER DETAIL
               </Typography>
             </Grid>
       
             <Grid spacing={2} className={classes.gridContent} container>
               <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-                Hi Loverlj lask jflks jfkslajfkl sdajfk sjsdljgk ldjgksjdk fgjs
-                kldjgl dfjl jfkls ajfkls
+                 {/* This is the add section */}
               </Grid>
               {detailResellerLoading ? (
                 <Loaders />
@@ -111,8 +110,7 @@ const ResellerDetail = () => {
               )}
       
               <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-                jal;fjdsj dfksjflkdjk fhkjasdjg sgjslkgjk ldjfkjdl fjdhfkjash
-                fijksdhf
+                 {/* This is the add section */}
               </Grid>
             </Grid>
             {/* <Paginate keyword={keyword} page={page} pages={pages}/> */}

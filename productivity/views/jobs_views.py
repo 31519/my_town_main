@@ -17,7 +17,7 @@ def JobsList(request):
         query = ""
 
 
-    jobs = Jobs.objects.all()
+    jobs = Jobs.objects.filter(title__icontains=query)
 
     page = request.query_params.get('page')
     paginator = Paginator(jobs, 5)
@@ -73,10 +73,9 @@ def JobsUpdate(request, pk, slug):
     jobs.state = data['state']
     jobs.address = data['address']
     jobs.contact = data['contact']
-    jobs.image=data['image']
+    # jobs.image=data['image']
     jobs.title = data['title']
     jobs.content = data['content']
-    jobs.isApproved = data['isApproved']
     jobs.save()
     serializer = JobsSerializers(jobs, many=False)
     return Response(serializer.data)
@@ -93,7 +92,7 @@ def JobsAdminUpdate(request, pk):
     jobs.state = data['state']
     jobs.address = data['address']
     jobs.contact = data['contact']
-    jobs.image=data['image']
+    # jobs.image=data['image']
     jobs.title = data['title']
     jobs.content = data['content']
     jobs.isApproved = data['isApproved']
@@ -104,7 +103,7 @@ def JobsAdminUpdate(request, pk):
 
 
 @api_view(['DELETE', 'GET'])
-@permission_classes([IsAdminUser])
+@permission_classes([IsAuthenticated])
 def JobsDelete(request, pk, slug):
     if request.method == 'GET':
         jobs = Jobs.objects.get(pk=pk, slug=slug)
@@ -115,3 +114,18 @@ def JobsDelete(request, pk, slug):
         jobs = Jobs.objects.get(pk=pk, slug=slug)
         jobs.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['POST'])
+def JobsImage(request):
+    data = request.data
+
+    product_id = data['product_id']
+    jobs = Jobs.objects.get(id=product_id)
+
+    jobs.image = request.FILES.get('image')
+    jobs.save()
+
+    serializer = JobsSerializers(jobs, many=False)
+    
+    return Response(serializer.data)

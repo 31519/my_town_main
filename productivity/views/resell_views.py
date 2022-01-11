@@ -69,10 +69,9 @@ def ResellUpdate(request, pk, slug):
     resell.state = data['state']
     resell.address = data['address']
     resell.contact = data['contact']
-    resell.image=data['image']
+    # resell.image=data['image']
     resell.title = data['title']
     resell.content = data['content']
-    resell.isApproved = data['isApproved']
     resell.save()
     serializer = ResellSerializers(resell, many=False)
     return Response(serializer.data)
@@ -100,7 +99,7 @@ def ResellAdminUpdate(request, pk):
 
 
 @api_view(['DELETE', 'GET'])
-@permission_classes([IsAdminUser])
+@permission_classes([IsAuthenticated])
 def ResellDelete(request, pk,slug):
     if request.method == 'GET':
         resell = Resell.objects.get(pk=pk, slug=slug)
@@ -111,3 +110,18 @@ def ResellDelete(request, pk,slug):
         resell = Resell.objects.get(pk=pk, slug=slug)
         resell.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['POST'])
+def ResellImage(request):
+    data = request.data
+
+    product_id = data['product_id']
+    resell = Resell.objects.get(id=product_id)
+
+    resell.image = request.FILES.get('image')
+    resell.save()
+
+    serializer = ResellSerializers(resell, many=False)
+    
+    return Response(serializer.data)

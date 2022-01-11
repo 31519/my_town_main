@@ -41,7 +41,6 @@ const TechCreateNewsApi = () => {
     const techs = data.articles;
 
     for (let i = 0; i < techs.length; i++) {
-      console.log("interval start", techs.length);
       const author = techs[i].author;
       const title = techs[i].title;
       const description = techs[i].description;
@@ -49,7 +48,6 @@ const TechCreateNewsApi = () => {
       const urlToImage = techs[i].urlToImage;
       const publishedAt = techs[i].publishedAt;
       const content = techs[i].content;
-      console.log("interval ended author", techs[i].author);
 
       dispatch(
         createTechs(

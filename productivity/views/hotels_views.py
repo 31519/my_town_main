@@ -70,10 +70,9 @@ def HotelsUpdate(request, pk, slug):
     hotels.state = data['state']
     hotels.address = data['address']
     hotels.contact = data['contact']
-    hotels.image=data['image']
+    # hotels.image=data['image']
     hotels.title = data['title']
     hotels.content = data['content']
-    hotels.isApproved = data['isApproved']
     hotels.save()
     serializer = HotelsSerializers(hotels, many=False)
     return Response(serializer.data)
@@ -101,7 +100,7 @@ def HotelsAdminUpdate(request, pk):
 
 
 @api_view(['DELETE', 'GET'])
-@permission_classes([IsAdminUser])
+@permission_classes([IsAuthenticated])
 def HotelsDelete(request, pk, slug):
     if request.method == 'GET':
         hotels = Hotels.objects.get(pk=pk,slug=slug)
@@ -112,3 +111,20 @@ def HotelsDelete(request, pk, slug):
         hotels = Hotels.objects.get(pk=pk,slug=slug)
         hotels.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+
+@api_view(['POST'])
+def HotelsImage(request):
+    data = request.data
+
+    product_id = data['product_id']
+    hotels = Hotels.objects.get(id=product_id)
+
+    hotels.image = request.FILES.get('image')
+    hotels.save()
+
+    serializer = HotelsSerializers(hotels, many=False)
+    
+    return Response(serializer.data)

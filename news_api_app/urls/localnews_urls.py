@@ -3,8 +3,9 @@ from django.urls import path
 
 urlpatterns = [
     path('list/', views.LocalNewsList, name="list"),
-    path('list/<int:pk>/', views.LocalNewsDetailList, name="detail"),
+    path('list/<int:pk>/<str:slug>/', views.LocalNewsDetailList, name="detail"),
     path('create/', views.LocalNewsCreate, name="create"),
-    path('delete/<int:pk>/', views.LocalNewsDelete, name="delete"),
-    path('upload/', views.LocalNewsImage, name="upload"),
+    path('image/', views.LocalNewsImage, name='image'),
+    path('delete/<int:pk>/<str:slug>/', views.LocalNewsDelete, name="delete"),
+    path('update/<int:pk>/<str:slug>/', views.LocalNewsUpdate, name="update"),
 ]

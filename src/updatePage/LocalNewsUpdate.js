@@ -4,104 +4,129 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import {
   Grid,
-  Paper,
-  Typography,
-  Avatar,
-  TextField,
-  Button,
+
 } from "@mui/material";
 // IMPORT COMPONENT
+
+
+import axios from "axios";
+
 import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 
 // import TechCreateNewsApi from "../admin-screen/TechCreateNewsApi";
-import { advertiseDetailAction } from "../actions/advertiseActions";
-import { advertiseUpdateAction } from "../actions/advertiseActions";
-import { ADVERTISE_UPDATE_RESET } from "../constants/productivityConstants";
+import { localDetailAction } from "../actions/advertiseActions";
+import { localUpdateAction } from "../actions/advertiseActions";
+import { LOCAL_UPDATE_RESET } from "../constants/productivityConstants";
 
 import "../css_styles/TechCreate.css";
 
-const AdvertiseUpdate = () => {
-  const gridStyle = { margin: 0, paddingBottom: "20px" };
-  const avatarStyle = { backgroundColor: "#1bbd7e" };
-  const marginTop = { marginTop: 5 };
+const LocalnewsUpdate = () => {
   const params = useParams();
-  const { id, slug } = params;
+  const {id,slug} = params;
   const navigate = useNavigate();
 
   const [category, setCategory] = useState("");
-  const [country, setCountry] = useState("");
-  const [state, setState] = useState("");
-  const [address, setAddress] = useState("");
-  const [contact, setContact] = useState("");
+  const [author, setAuthor] = useState("");
+  const [description, setDescription] = useState("");
+  const [url, setUrl] = useState("");
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false)
+
+
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   const dispatch = useDispatch();
-  const advertiseDetail = useSelector((state) => state.advertiseDetail);
+  const localDetail = useSelector((state) => state.localDetail);
   const {
-    error: detailAdvertiseError,
-    loading: detailAdvertiseLoading,
-    advertise: detailAdvertise,
-  } = advertiseDetail;
+    error: detailLocalnewsError,
+    loading: detailLocalnewsLoading,
+    local: detailLocalnews,
+  } = localDetail;
 
-  const advertiseUpdate = useSelector((state) => state.advertiseUpdate);
+  const localUpdate = useSelector((state) => state.localUpdate);
   const {
-    error: updateAdvertiseError,
-    loading: updateAdvertiseLoading,
-    success: updateAdvertiseSuccess,
-    advertise: updateAdvertise,
-  } = advertiseUpdate;
+    error: updateLocalnewsError,
+    loading: updateLocalnewsLoading,
+    success: updateLocalnewsSuccess,
+    local: updateLocalnews,
+  } = localUpdate;
 
   useEffect(() => {
-    if (updateAdvertiseSuccess) {
-      dispatch({ type: ADVERTISE_UPDATE_RESET });
+    if (!userInfo) {
+      navigate("/");
+    }
+    if (updateLocalnewsSuccess) {
+      dispatch({ type: LOCAL_UPDATE_RESET });
       if (userInfo.isAdmin) {
         navigate("/admin-dashboard");
       } else {
-        navigate("/advertise-create");
+        navigate("/my-dashboard");
       }
     } else {
       if (
         // !detailAdvertise.title ||
-        detailAdvertise.id !== Number(id)
+        detailLocalnews.id !== Number(id)
       ) {
-        dispatch(advertiseDetailAction(id, slug));
+        dispatch(localDetailAction(id, slug));
       } else {
-        setCategory(detailAdvertise.category);
-        setCountry(detailAdvertise.country);
-        setState(detailAdvertise.state);
-        setAddress(detailAdvertise.address);
-        setContact(detailAdvertise.contact);
-        setImage(detailAdvertise.image);
-        setTitle(detailAdvertise.title);
-        setContent(detailAdvertise.content);
+        setCategory(detailLocalnews.category);
+        setAuthor(detailLocalnews.author);
+        setDescription(detailLocalnews.description);
+        setUrl(detailLocalnews.url);
+        setImage(detailLocalnews.image);
+        setTitle(detailLocalnews.title);
+        setContent(detailLocalnews.content);
       }
     }
   }, [
     dispatch,
     id,
     slug,
-    detailAdvertise,
-    updateAdvertiseSuccess,
-    updateAdvertise,
+    detailLocalnews,
+    updateLocalnewsSuccess,
+    updateLocalnews,
   ]);
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0]
+    const formData = new FormData()
+
+    formData.append('image', file)
+    formData.append('product_id', id)
+
+    setLoading(true)
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+
+      const { data } = await axios.post(`${process.env.REACT_APP_PORT}/api/localnews/image/`,
+      formData, config)
+
+      setImage(data.image)
+      setLoading(false)
+    } catch (error){
+      setLoading(false)
+    }
+  }
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
-      advertiseUpdateAction({
+      localUpdateAction({
         id: id,
         slug: slug,
         category,
-        country,
-        state,
-        address,
-        contact,
+        author,
+        url,
         image,
         title,
         content,
@@ -111,197 +136,110 @@ const AdvertiseUpdate = () => {
 
   return (
     <>
-      <Grid container className="techcreate">
-        <Grid container style={{border: "1px solid white"}}>
-          <form className="form" onSubmit={submitHandler}>
-            <Grid item sm={12} xs={12} lg={12} md={12} className="text">
+      <div className="techcreate">
+        <div className="form">
+          <form onSubmit={submitHandler}>
+            <div className="text">
               <div className="subtitle">Let's Update Models</div>
-            </Grid>
-            {/* <Grid style={gridStyle} container> */}
-              <Grid
-                item
-                sm={12}
-                xs={12}
-                lg={12}
-                md={12}
-                className="input-container"
-              >
-                <TextField
-                  id="category"
-                  className="input"
-                  type="text"
-                  placeholder="categorygfhfg"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                />
-              </Grid>
-              <Grid style={gridStyle} container>
-              <Grid
-                item
-                sm={6}
-                xs={6}
-                lg={6}
-                md={6}
-                // className="input-container"
-              >
-                <label>Country</label>
-                <TextField
-                  id="country"
-                  className="input"
-                  type="text"
-                  placeholder="country"
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                />
-              </Grid>
-
-              <Grid
-                item
-                sm={6}
-                xs={6}
-                lg={6}
-                md={6}
-                // className="input-container"
-              >
-                <label>State</label>
-                <TextField
-                  id="state"
-                  className="input"
-                  type="state"
-                  placeholder="state"
-                  value={state}
-                  onChange={(e) => setState(e.target.value)}
-                />
-              </Grid>
-              </Grid>
-
-              <Grid
-                item
-                sm={12}
-                xs={12}
-                lg={12}
-                md={12}
-                className="input-container ic2"
-              >
-                <label>Address</label>
-                <TextField
-                  id="address"
-                  className="input"
-                  type="address"
-                  placeholder="Url"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-              </Grid>
-              <Grid
-                item
-                sm={12}
-                xs={12}
-                lg={12}
-                md={12}
-                className="input-container ic2"
-              >
-                <label>Contact</label>
-                <TextField
-                  id="contact"
-                  className="input"
-                  type="text"
-                  placeholder="contact"
-                  value={contact}
-                  onChange={(e) => setContact(e.target.value)}
-                />
-              </Grid>
-              <Grid
-                item
-                sm={12}
-                xs={12}
-                lg={12}
-                md={12}
-                className="input-container ic2"
-              >
-                <label>Title</label>
-                <TextField
-                  id="title"
-                  className="input"
-                  type="text"
-                  placeholder="title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                />
-              </Grid>
-
-              <Grid
-                item
-                sm={12}
-                xs={12}
-                lg={12}
-                md={12}
-                className="input-container ic2"
-              >
-                <label>Content</label>
-                <textarea
-                  id="content"
-                  className="input"
-                  type="textfield"
-                  placeholder="Content"
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                />
-              </Grid>
-
-              <Grid
-                item
-                sm={12}
-                xs={12}
-                lg={12}
-                md={12}
-                className="input-container ic2"
-              >
-                <label>Images</label>
-                <TextField
-                  id="image"
-                  className="input"
-                  type="text"
-                  placeholder="image"
-                  value={image}
-                  onChange={(e) => setImage(e.target.value)}
-                />
-              </Grid>
-              {/* {userInfo.isAdmin && (
-              <Grid item sm={12} xs={12} lg={12} md={12}  className="input-container ic2">
-              <label>Approved</label>
+            </div>
+            <div className="input-container">
+              <label>Category</label>
               <input
-                id="approved"
+                id="category"
                 className="input"
                 type="text"
-                placeholder="approved"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
+                placeholder="categorygfhfg"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
               />
-            </Grid>
-            )} */}
-              <Grid
-              item
-              sm={12}
-              xs={12}
-              lg={12}
-              md={12}
-              // className="input-container ic2"
-            > 
+            </div>
+            <div className="input-container">
+              <label>Author</label>
+              <input
+                id="country"
+                className="input"
+                type="text"
+                placeholder="Author"
+                value={author}
+                onChange={(e) => setAuthor(e.target.value)}
+              />
+            </div>
+            {/* <div className="input-container">
+              <label>Description</label>
+              <input
+                id="state"
+                className="input"
+                type="state"
+                placeholder="state"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div> */}
+            <div className="input-container ic2">
+              <label>Url</label>
+              <input
+                id="address"
+                className="input"
+                type="address"
+                placeholder="Url"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+              />
+            </div>
+            <div className="input-container ic2">
+              <label>Title</label>
+              <input
+                id="title"
+                className="input"
+                type="text"
+                placeholder="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
+
+            <div className="input-container ic2">
+              <label>Content</label>
+              <textarea
+                id="content"
+                className="input"
+                type="textfield"
+                placeholder="Content"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />
+            </div>
+
+            <Grid className="input-container ic2">
+                <label>Images</label>
+                <img src={image} style={{widht:'80px', height:'50px'}} />
+              </Grid>
+                <input
+                  className="input"
+                  type="file"
+                  onChange={uploadFileHandler}
+                />
+                {loading && <Loaders/>}
             
-            <Button className="button_input" type="submit">
-              Submit
-            </Button>
-            </Grid>
+            <div className="input-container ic2">
+              <button className="button_input" type="submit">
+                Submit
+              </button>
+            </div>
+            <div>
+
+              {updateLocalnewsLoading && <Loaders/>}
+              {updateLocalnewsError && <ErrorMessage type="error" error={updateLocalnewsError}/>}
+            </div>
           </form>
           {/* <div className="techcreate">
             {<TechCreateNewsApi/>}
             
           </div> */}
-        </Grid>
-      </Grid>
+        </div>
+      </div>
     </>
   );
 };
 
-export default AdvertiseUpdate;
+export default LocalnewsUpdate;

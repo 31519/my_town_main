@@ -71,7 +71,7 @@ def CelebritiesUpdate(request, pk, slug):
     celebrities.state = data['state']
     celebrities.address = data['address']
     celebrities.contact = data['contact']
-    celebrities.image=data['image']
+    # celebrities.image=data['image']
     celebrities.title = data['title']
     celebrities.content = data['content']
     celebrities.save()
@@ -101,7 +101,7 @@ def CelebritiesAdminUpdate(request, pk):
 
 
 @api_view(['DELETE', 'GET'])
-@permission_classes([IsAdminUser])
+@permission_classes([IsAuthenticated])
 def CelebritiesDelete(request, pk, slug):
     if request.method == 'GET':
         celebrities = Celebrities.objects.get(pk=pk, slug=slug)
@@ -112,3 +112,19 @@ def CelebritiesDelete(request, pk, slug):
         celebrities = Celebrities.objects.get(pk=pk)
         celebrities.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+@api_view(['POST'])
+def CelebritiesImage(request):
+    data = request.data
+
+    product_id = data['product_id']
+    celebrity = Celebrities.objects.get(id=product_id)
+
+    celebrity.image = request.FILES.get('image')
+    celebrity.save()
+
+    serializer = CelebritiesSerializers(celebrity, many=False)
+    
+    return Response(serializer.data)

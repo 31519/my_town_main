@@ -61,6 +61,29 @@ import {
     shopDeleteReducer,
 
 
+    // MEME PORTION
+    memeListReducer,
+    memeDetailReducer,
+    memeCreateReducer,
+    memeUpdateReducer,
+    memeDeleteReducer,
+
+    // MEME PORTION
+    localListReducer,
+    localDetailReducer,
+    localCreateReducer,
+    localUpdateReducer,
+    localDeleteReducer,
+
+    // FORM PORTION
+    formListReducer,
+    formDetailReducer,
+    formCreateReducer,
+    formUpdateReducer,
+
+    // BANNER PORTION
+    bannerListReducer,
+
 } from '../src/reducers/productivityReducers'
 
 
@@ -170,6 +193,30 @@ const reducer = combineReducers({
     shopUpdate: shopUpdateReducer,
     shopDelete: shopDeleteReducer,
     shopCreate: shopCreateReducer,
+
+    
+    // LOCAL PORTION
+    localList:   localListReducer,
+    localDetail: localDetailReducer,
+    localUpdate: localUpdateReducer,
+    localDelete: localDeleteReducer,
+    localCreate: localCreateReducer,
+
+    // SHOP PORTION
+    memeList:   memeListReducer,
+    memeDetail: memeDetailReducer,
+    memeUpdate: memeUpdateReducer,
+    memeDelete: memeDeleteReducer,
+    memeCreate: memeCreateReducer,
+
+    // FORM PORTION
+    formList:   formListReducer,
+    formDetail: formDetailReducer,
+    formUpdate: formUpdateReducer,
+    formCreate: formCreateReducer,
+
+    // BANNER PORTION
+    bannerList:   bannerListReducer,
 
     // RESELLER PORTION
     resellerList:   resellerListReducer,

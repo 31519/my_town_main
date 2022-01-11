@@ -109,8 +109,8 @@ const CelebrityScreen = () => {
 
       <Grid spacing={2} className={classes.gridContent} container>
         <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-          Hi Loverlj lask jflks jfkslajfkl sdajfk sjsdljgk ldjgksjdk fgjs
-          kldjgl dfjl jfkls ajfkls
+          
+          {/* This is the add section */}
         </Grid>
         {listCelebrityLoading ? (
           <Loaders />
@@ -119,14 +119,14 @@ const CelebrityScreen = () => {
         ) : (
           <Grid spacing={1} item xs={12} sm={6} lg={6} md={6}>
             {listCelebrity.map((celebrity) => (
-              <AllCards key={celebrity.id} item={celebrity} model="celebrity" />
+              <AllCards key={celebrity.id} item={celebrity} model="celebrity" socialmedia="celebrity" />
             ))}
           </Grid>
         )}
 
         <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-          jal;fjdsj dfksjflkdjk fhkjasdjg sgjslkgjk ldjfkjdl fjdhfkjash
-          fijksdhf
+          {/* This is the add section */}
+
         </Grid>
       </Grid>
       <Paginate keyword={keyword} page={page} pages={pages}/>

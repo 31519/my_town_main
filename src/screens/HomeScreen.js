@@ -105,7 +105,7 @@ const HomeScreen = () => {
 
         <Grid spacing={2} className={classes.gridContent} container>
           <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-            This is the ads section 
+             {/* This is the add section */}
           </Grid>
           {techListLoading ? (
             <Loaders />
@@ -120,7 +120,7 @@ const HomeScreen = () => {
           )}
 
           <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-          This is the ads section 
+           {/* This is the add section */}
           </Grid>
         </Grid>
         <Paginate keyword={keyword} page={page} pages={pages}/>

@@ -51,6 +51,7 @@ const useStyles = makeStyles({
 
 const PrivacyPolicy = () => {
   const navigate = useNavigate();
+  console.log(navigate, 'navigate')
   // console.log(navigate, 'navigate')
 
   // const pathname = window.location.pathname

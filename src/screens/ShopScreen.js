@@ -15,14 +15,6 @@ import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import { makeStyles } from "@mui/styles";
 
-const celeb = {
-  title: "title",
-  urlToImage:
-    "https://staticg.sportskeeda.com/editor/2021/11/caca5-16370851386444-1920.jpg",
-  description: "description",
-  author: "author",
-  content: "content",
-};
 
 const useStyles = makeStyles({
   root: {
@@ -63,14 +55,7 @@ const useStyles = makeStyles({
   },
 });
 
-const techss = {
-  title: "title",
-  urlToImage:
-    "https://staticg.sportskeeda.com/editor/2021/11/caca5-16370851386444-1920.jpg",
-  description: "description",
-  author: "author",
-  content: "content",
-};
+
 
 const ShopScreen = () => {
   const location = useLocation();
@@ -81,10 +66,12 @@ const ShopScreen = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+
   const shopList = useSelector((state) => state.shopList);
 
   const { error: listShopError, loading: listShopLoading , shops: listShop, pages, page } = shopList;
 
+  
   useEffect(() => {
     dispatch(shopListAction(keyword));
   }, [dispatch, keyword]);
@@ -92,7 +79,7 @@ const ShopScreen = () => {
 
     <>
     <div className="techlist">
-      <CelebCarousel celeb={celeb} />
+      <CelebCarousel  />
       <Banners />
       <Categories />
 
@@ -107,8 +94,7 @@ const ShopScreen = () => {
 
       <Grid spacing={2} className={classes.gridContent} container>
         <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-          Hi Loverlj lask jflks jfkslajfkl sdajfk sjsdljgk ldjgksjdk fgjs
-          kldjgl dfjl jfkls ajfkls
+           {/* This is the add section */}
         </Grid>
         {listShopLoading ? (
           <Loaders />
@@ -117,20 +103,19 @@ const ShopScreen = () => {
         ) : (
           <Grid spacing={1} item xs={12} sm={6} lg={6} md={6}>
             {listShop.map((shop) => (
-              <AllCards key={shop.id} item={shop} model="shop" />
+              <AllCards key={shop.id} item={shop} model="shop" socialmedia="shops"/>
             ))}
           </Grid>
         )}
 
         <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-          jal;fjdsj dfksjflkdjk fhkjasdjg sgjslkgjk ldjfkjdl fjdhfkjash
-          fijksdhf
+           {/* This is the add section */}
         </Grid>
       </Grid>
       <Paginate keyword={keyword} page={page} pages={pages}/>
 
       {/* <CategoryCarousel celeb={techss} /> */}
-
+      
       <Footers />
     </div>
     </>

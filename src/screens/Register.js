@@ -39,6 +39,7 @@ const Register = () => {
   const [pincode, setPincode] = useState("");
   const [country, setCountry] = useState("");
   const [gender, setGender] = useState("");
+  const [visibility, setVisibility] = useState(false)
 
   const navigate = useNavigate();
 
@@ -79,6 +80,9 @@ const Register = () => {
       ));
   };
 
+  const visibilityHandler = (e) => {
+    setVisibility(!visibility)
+  }
 
   // const paperStyle = { padding: '30px 20px', width: 300, margin: "20px auto" }
   const textStyle = { margin: 0,}
@@ -87,7 +91,7 @@ const Register = () => {
   return (
     <>
       <Grid >
-        <Paper className="paperHeader" elevation={10}>
+        <Paper className="paperHeader" elevation={20}>
           <Grid  className="gridHeader">
             <Grid item sm={12} xs={12} lg={12} md={12} className="gridIcon" align="center">
               {registerUserLoading && <Loaders />}
@@ -241,7 +245,7 @@ const Register = () => {
               <TextField
                 id="password"
                 className="input"
-                type="password"
+                type={visibility?"text" :"password"}
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -254,7 +258,7 @@ const Register = () => {
               <TextField
                 id="password"
                 className="input"
-                type="password"
+                type={visibility?"text" :"password"}
                 placeholder="Confirm Password"
                 value={password2}
                 onChange={(e) => setPassword2(e.target.value)}
@@ -265,10 +269,11 @@ const Register = () => {
 
               <FormControlLabel
                 control={<Checkbox name="checkedA" />}
-                label="I accept the terms and conditions."
+                onClick={visibilityHandler}
+                label="Show Password"
               />
               <Button
-                className="button"
+                // className="button"
                 // onClick={submitHandler}
                 type="submit"
                 color="success"

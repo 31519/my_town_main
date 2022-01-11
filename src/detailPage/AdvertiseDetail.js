@@ -12,18 +12,14 @@ import ErrorMessage from "../components/ErrorMessage";
 import Categories from "../components/Categories";
 import DetailCard from "../components/DetailCard";
 
-import { Grid, Typography } from "@mui/material";
+import { 
+  Grid,
+  Typography ,
+  
+} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Banners from "../components/Banners";
 
-const celeb = {
-  title: "title",
-  urlToImage:
-    "https://staticg.sportskeeda.com/editor/2021/11/caca5-16370851386444-1920.jpg",
-  description: "description",
-  author: "author",
-  content: "content",
-};
 
 const useStyles = makeStyles({
   root: {
@@ -98,14 +94,13 @@ const AdvertiseDetail = () => {
       
             <Grid className={classes.gridHeader} container item>
               <Typography className={classes.header} color="green" variant="h3">
-                DETAIL NEWS
+                DETAIL ADS
               </Typography>
             </Grid>
       
             <Grid spacing={2} className={classes.gridContent} container>
               <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-                Hi Loverlj lask jflks jfkslajfkl sdajfk sjsdljgk ldjgksjdk fgjs
-                kldjgl dfjl jfkls ajfkls
+                {/* This is the ad section */}
               </Grid>
               {detailAdvertiseLoading ? (
                 <Loaders />
@@ -114,14 +109,13 @@ const AdvertiseDetail = () => {
               ) : (
                 <Grid spacing={1} item xs={12} sm={6} lg={6} md={6}>
                   
-                    <DetailCard key={detailAdvertise.id} item={detailAdvertise}/>
+                    <DetailCard key={detailAdvertise.id} item={detailAdvertise} socialmedia={`${process.env.REACT_APP_PORT}/$advertise-detail/${detailAdvertise.id}/${detailAdvertise.slug}`}/>
 
                 </Grid>
               )}
       
               <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-                jal;fjdsj dfksjflkdjk fhkjasdjg sgjslkgjk ldjfkjdl fjdhfkjash
-                fijksdhf
+                {/* This is the ad section */}
               </Grid>
             </Grid>
             {/* <Paginate keyword={keyword} page={page} pages={pages}/> */}

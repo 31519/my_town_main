@@ -189,8 +189,6 @@ def ProfileUpdate(request, pk):
     profile.pincode = data['pincode']
     profile.profession = data['profession']
     profile.phoneNumber = data['phoneNumber']
-    profile.isApproved = data['isApproved']
-    profile.save()
     current_user.username = profile.username
     current_user.email = profile.email
     current_user.save()
@@ -198,6 +196,20 @@ def ProfileUpdate(request, pk):
     return Response(serializer.data)
 
 
+
+@api_view(['POST'])
+def ProfileImage(request):
+    data = request.data
+
+    product_id = data['product_id']
+    product = Profile.objects.get(id=product_id)
+
+    product.image = request.FILES.get('image')
+    product.save()
+
+    serializer = ProfileSerializers(product, many=False)
+    
+    return Response(serializer.data)
 
 
 

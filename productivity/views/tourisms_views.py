@@ -69,10 +69,9 @@ def TourismsUpdate(request, pk, slug):
     tourisms.state = data['state']
     tourisms.address = data['address']
     tourisms.contact = data['contact']
-    tourisms.image=data['image']
+    # tourisms.image=data['image']
     tourisms.title = data['title']
     tourisms.content = data['content']
-    tourisms.isApproved = data['isApproved']
     tourisms.save()
     serializer = TourismsSerializers(tourisms, many=False)
     return Response(serializer.data)
@@ -100,7 +99,7 @@ def TourismsAdminUpdate(request, pk, slug):
 
 
 @api_view(['DELETE', 'GET'])
-@permission_classes([IsAdminUser])
+@permission_classes([IsAuthenticated])
 def TourismsDelete(request, pk, slug):
     if request.method == 'GET':
         tourisms = Tourisms.objects.get(pk=pk, slug=slug)
@@ -111,3 +110,20 @@ def TourismsDelete(request, pk, slug):
         tourisms = Tourisms.objects.get(pk=pk, slug=slug)
         tourisms.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+
+@api_view(['POST'])
+def TourismsImage(request):
+    data = request.data
+
+    product_id = data['product_id']
+    tourisms = Tourisms.objects.get(id=product_id)
+
+    tourisms.image = request.FILES.get('image')
+    tourisms.save()
+
+    serializer = TourismsSerializers(tourisms, many=False)
+    
+    return Response(serializer.data)

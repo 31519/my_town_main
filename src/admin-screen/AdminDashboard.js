@@ -320,7 +320,6 @@ const AdminDashboard = ({ tech }) => {
     dispatch(shopListAction());
     dispatch(tourismsListAction());
 
-
     // ADVERTISE PORTION
     dispatch(advertiseListAction());
     dispatch({ type: ADVERTISE_CREATE_RESET });
@@ -653,9 +652,6 @@ const AdminDashboard = ({ tech }) => {
 
 
           <TechCreateNewsApi/>
-
-
-
             {/* ************************BIG CONTENT FOR ADMIN USER ************************** */}
           </div>
         </div>
@@ -669,7 +665,7 @@ const AdminDashboard = ({ tech }) => {
                 <tr className="user_header">
                   <th>user</th>
                   <th>username</th>
-                  <th>password</th>
+                  <th>password aafjalfdjlsajfdljdfksajdfljskldajflskajflskjflksjdfkljjsdkfkjfsd</th>
                 </tr>
               </thead>
               <tbody>

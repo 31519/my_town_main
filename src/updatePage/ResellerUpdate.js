@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 
+import axios from "axios";
+import { Grid} from "@mui/material";
+import Loaders from "../components/Loader";
+
 // import TechCreateNewsApi from "../admin-screen/TechCreateNewsApi";
 import {
   resellerDetailAction,
@@ -25,7 +29,7 @@ const ResellerUpdate = () => {
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [isApproved, setIsApproved] = useState(true);
+  const [loading, setLoading] = useState(false)
 
   const dispatch = useDispatch();
   const resellerDetail = useSelector((state) => state.resellerDetail);
@@ -47,6 +51,9 @@ const ResellerUpdate = () => {
   const { userInfo } = userLogin;
 
   useEffect(() => {
+    if (!userInfo) {
+      navigate("/");
+    }
     if (updateResellerSuccess) {
       dispatch({ type: RESELLER_UPDATE_RESET });
       if (userInfo.isAdmin){
@@ -71,6 +78,32 @@ const ResellerUpdate = () => {
     }
   }, [dispatch, id, detailReseller, updateResellerSuccess, updateReseller]);
 
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0]
+    const formData = new FormData()
+
+    formData.append('image', file)
+    formData.append('product_id', id)
+
+    setLoading(true)
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+
+      const { data } = await axios.post(`${process.env.REACT_APP_PORT}/api/resell/image/`,
+      formData, config)
+
+      setImage(data.image)
+      setLoading(false)
+    } catch (error){
+      setLoading(false)
+    }
+  }
+
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
@@ -85,7 +118,6 @@ const ResellerUpdate = () => {
         image,
         title,
         content,
-        isApproved,
       })
     );
   };
@@ -177,49 +209,16 @@ const ResellerUpdate = () => {
               />
             </div>
 
-            <div className="input-container ic2">
-              <label>Images</label>
-              <input
-                id="image"
-                className="input"
-                type="text"
-                placeholder="image"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-              />
-            </div>
-            {userInfo.isAdmin && (
-              <div className="input-container ic2">
-                <label>Approved</label>
-                <select className="input-container ic2">
-                  <option>Choose</option>
-                  <option
-                    id="image"
-                    className="input"
-                    value={false}
-                    onChange={(e) => setIsApproved(e.target.value)}
-                  >
-                    Do not Approved
-                  </option>
-                  <option
-                    id="isApproved"
-                    className="input"
-                    value={true}
-                    onChange={(e) => setIsApproved(e.target.value)}
-                  >
-                    Approved
-                  </option>
-                </select>
-                {/* <input
-                id="approved"
-                className="input"
-                type="text"
-                placeholder="approved"
-                value={isApproved}
-                onChange={(e) => setIsApproved(e.target.value)}
-              /> */}
-              </div>
-            )}
+            <Grid className="input-container ic2">
+                <label>Images</label>
+                <img src={image} style={{widht:'80px', height:'50px'}} />
+            </Grid>
+            <input
+              className="input"
+              type="file"
+              onChange={uploadFileHandler}
+            />
+            {loading && <Loaders/>}
             <div className="input-container ic2">
               <button className="button_input" type="submit">
                 Submit

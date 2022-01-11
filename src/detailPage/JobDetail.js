@@ -95,7 +95,7 @@ const JobDetail = () => {
       
             <Grid spacing={2} className={classes.gridContent} container>
               <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-                This is  the ad section
+                 {/* This is the add section */}
               </Grid>
               {detailJobLoading ? (
                 <Loaders />
@@ -110,7 +110,7 @@ const JobDetail = () => {
               )}
       
               <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-              This is  the ad section
+               {/* This is the add section */}
               </Grid>
             </Grid>
             {/* <Paginate keyword={keyword} page={page} pages={pages}/> */}

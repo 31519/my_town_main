@@ -34,6 +34,7 @@ urlpatterns = [
     path('api/science/', include('news_api_app.urls.science_urls')),
     path('api/localnews/', include('news_api_app.urls.localnews_urls')),
     path('api/users/', include('news_api_app.urls.users_urls')),
+    path('api/form/', include('news_api_app.urls.form_urls')),
 
     # productivity apps
     path('api/jobs/', include('productivity.urls.jobs_urls')),
@@ -46,10 +47,10 @@ urlpatterns = [
     path('api/hotels/', include('productivity.urls.hotels_urls')),
     path('api/resell/', include('productivity.urls.resell_urls')),
     path('api/tourisms/', include('productivity.urls.tourisms_urls')),
+    path('api/meme/', include('productivity.urls.meme_urls')),
     
     
 ]
-
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -33,14 +33,27 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 #     return Response({"shop":serializer.data, "page":page, "pages": paginator.num_pages})
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def ShopsList(request):
-    data = request.data
-    current_user = request.user
-    shops = Shops.objects.get(user=current_user)
-    serializer = ShopsSerializers(shops, many=False)
-    return Response({"shop":serializer.data})
+    query = request.query_params.get('keyword')
+    if query ==None:
+        query = ""
+    shops = Shops.objects.filter(title__icontains=query)
 
+    page = request.query_params.get('page')
+    paginator = Paginator(shops, 5)
+    try:
+        shops = paginator.page(page)
+    except EmptyPage:
+        shops = paginator.page(1)
+    except PageNotAnInteger:
+        shops = paginator.page(paginator.num_pages)
+
+    if page == None:
+        page = 1
+    page = int(page)
+
+    serializer = ShopsSerializers(shops, many=True)
+    return Response({"shop":serializer.data, "page":page, "pages": paginator.num_pages})
 
 @api_view(['GET'])
 def ShopsDetailList(request, pk, slug):
@@ -79,10 +92,8 @@ def ShopsUpdate(request, pk, slug):
     shops.state = data['state']
     shops.address = data['address']
     shops.contact = data['contact']
-    shops.image=data['image']
     shops.title = data['title']
     shops.content = data['content']
-    shops.isApproved = data['isApproved']
     shops.save()
     serializer = ShopsSerializers(shops, many=False)
     return Response(serializer.data)
@@ -110,7 +121,7 @@ def ShopsAdminUpdate(request, pk):
 
 
 @api_view(['DELETE', 'GET'])
-@permission_classes([IsAdminUser])
+@permission_classes([IsAuthenticated])
 def ShopsDelete(request, pk,slug):
     if request.method == 'GET':
         shops = Shops.objects.get(pk=pk, slug=slug)
@@ -121,3 +132,18 @@ def ShopsDelete(request, pk,slug):
         shops = Shops.objects.get(pk=pk, slug=slug)
         shops.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['POST'])
+def ShopsImage(request):
+    data = request.data
+
+    product_id = data['product_id']
+    shops = Shops.objects.get(id=product_id)
+
+    shops.image = request.FILES.get('image')
+    shops.save()
+
+    serializer = ShopsSerializers(shops, many=False)
+    
+    return Response(serializer.data)

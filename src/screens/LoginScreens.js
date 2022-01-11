@@ -23,6 +23,7 @@ const LoginScreens = () => {
   const avatarStyle = {backgroundColor:'green'}
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [visibility, setVisibility] = useState(false)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,6 +47,10 @@ const LoginScreens = () => {
     e.preventDefault();
     dispatch(userLoginActions(username, password));
   };
+
+  const visibilityHandler = (e) => {
+    setVisibility(!visibility)
+  }
 
   return (
     <>
@@ -75,20 +80,24 @@ const LoginScreens = () => {
             <TextField
               id="password"
               className="input"
-              type="password"
+              type={visibility?"text" :"password"}
               placeholder="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               fullWidth
               required
             />
+            {/* <input
+            type="checkbox"
+            onClick={setVisibility("text")}
+            /> */}
             <FormControlLabel
-              label="Remember me"
+              label="Show Password"
               control={<Checkbox name="checkedB" color="success" />}
+              onClick={visibilityHandler}
             />
 
             <Button
-            className="button"
               onClick={submitHandler}
               type="submit"
               color="success"

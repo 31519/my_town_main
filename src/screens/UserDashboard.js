@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import { profileDetailActions } from "../actions/userActions";
 import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
-import AdminTable from "../components/Table";
 
 import { Grid, Button } from "@mui/material";
 
@@ -30,9 +29,30 @@ import {
   RESELLER_DELETE_RESET,
   SHOP_CREATE_RESET,
   SHOP_DELETE_RESET,
+  MEME_CREATE_RESET,
+  MEME_DELETE_RESET,
+  LOCAL_CREATE_RESET,
+  LOCAL_DELETE_RESET,
   TOURISMS_CREATE_RESET,
   TOURISMS_DELETE_RESET,
 } from "../constants/productivityConstants";
+
+
+// ACTION IMPORT
+import {
+  hotelListAction,
+  hotelCreateAction,
+  hotelDeleteAction,
+  jobListAction,
+  jobCreateAction,
+  jobDeleteAction,
+  resellerListAction,
+  resellerCreateAction,
+  resellerDeleteAction,
+  tourismsListAction,
+  tourismsCreateAction,
+  tourismsDeleteAction,
+} from "../actions/advertiseActions2";
 
 // ACTION IMPORT
 
@@ -49,19 +69,33 @@ import {
   shopListAction,
   shopCreateAction,
   shopDeleteAction,
+  memeListAction,
+  memeCreateAction,
+  memeDeleteAction,
+  localListAction,
+  localCreateAction,
+  localDeleteAction,
+  formCreateAction
 } from "../actions/advertiseActions";
 
 const UserDashboard = () => {
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
-
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-
   const profileDetail = useSelector((state) => state.profileDetail);
-
   const { profile, profileLoading, profileError } = profileDetail;
+
+
+  // FORM CREATE
+
+  // const formCreate = useSelector((state) => state.formCreate);
+  // const {
+  //   error: createFormError,
+  //   loading: createFormLoading,
+  //   form: createForm,
+  //   success: createFormSuccess,
+  // } = formCreate;
 
   // SHOP CREATE
 
@@ -90,10 +124,237 @@ const UserDashboard = () => {
     success: deleteShopSuccess,
   } = shopDelete;
 
+  // ADVERTISE CREATE
+
+  const advertiseCreate = useSelector((state) => state.advertiseCreate);
+  const {
+    error: createAdvertiseError,
+    loading: createAdvertiseLoading,
+    advertise: createAdvertise,
+    success: createAdvertiseSuccess,
+  } = advertiseCreate;
+
+  // ADVERTISE LIST
+  const advertiseList = useSelector((state) => state.advertiseList);
+  const {
+    error: listAdvertiseError,
+    loading: listAdvertiseLoading,
+    advertises: listAdvertise,
+  } = advertiseList;
+
+  // ADVERTISE DELETE
+  const advertiseDelete = useSelector((state) => state.advertiseDelete);
+  const {
+    error: deleteAdvertiseError,
+    loading: deleteAdvertiseLoading,
+    advertise: deleteAdvertise,
+    success: deleteAdvertiseSuccess,
+  } = advertiseDelete;
+
+  // EVENT CREATE
+
+  const eventCreate = useSelector((state) => state.eventCreate);
+  const {
+    error: createEventError,
+    loading: createEventLoading,
+    event: createEvent,
+    success: createEventSuccess,
+  } = eventCreate;
+
+  // EVENT LIST
+  const eventList = useSelector((state) => state.eventList);
+  const {
+    error: listEventError,
+    loading: listEventLoading,
+    events: listEvent,
+  } = eventList;
+
+  // EVENT DELETE
+  const eventDelete = useSelector((state) => state.eventDelete);
+  const {
+    error: deleteEventError,
+    loading: deleteEventLoading,
+    event: deleteEvent,
+    success: deleteEventSuccess,
+  } = eventDelete;
+
+
+
+  // JOB CREATE
+
+  const jobCreate = useSelector((state) => state.jobCreate);
+  const {
+    error:     createJobError,
+    loading:   createJobLoading,
+    job     :  createJob,
+    success:   createJobSuccess,
+  } = jobCreate;
+
+  // JOB LIST
+  const jobList = useSelector((state) => state.jobList);
+  const {
+    error:      listJobError,
+    loading:    listJobLoading,
+    jobs   :    listJob,
+  } = jobList;
+
+  // JOB DELETE
+  const jobDelete = useSelector((state) => state.jobDelete);
+  const {
+    error:     deleteJobError,
+    loading:   deleteJobLoading,
+    job :      deleteJob,
+    success:   deleteJobSuccess,
+  } = jobDelete;
+
+
+
+  // HOTEL CREATE
+
+  const hotelCreate = useSelector((state) => state.hotelCreate);
+  const {
+    error: createHotelError,
+    loading: createHotelLoading,
+    hotel: createHotel,
+    success: createHotelSuccess,
+  } = hotelCreate;
+
+  // HOTEL LIST
+  const hotelList = useSelector((state) => state.hotelList);
+  const {
+    error: listHotelError,
+    loading: listHotelLoading,
+    hotels: listHotel,
+  } = hotelList;
+
+  // HOTEL DELETE
+  const hotelDelete = useSelector((state) => state.hotelDelete);
+  const {
+    error: deleteHotelError,
+    loading: deleteHotelLoading,
+    hotel: deleteHotel,
+    success: deleteHotelSuccess,
+  } = hotelDelete;
+
+  // MEME CREATE
+
+  const memeCreate = useSelector((state) => state.memeCreate);
+  const {
+    error: createMemeError,
+    loading: createMemeLoading,
+    meme: createMeme,
+    success: createMemeSuccess,
+  } = memeCreate;
+
+  // MEME LIST
+  const memeList = useSelector((state) => state.memeList);
+  const {
+    error: listMemeError,
+    loading: listMemeLoading,
+    memes: listMeme,
+  } = memeList;
+
+  // MEME DELETE
+  const memeDelete = useSelector((state) => state.memeDelete);
+  const {
+    error: deleteMemeError,
+    loading: deleteMemeLoading,
+    meme: deleteMeme,
+    success: deleteMemeSuccess,
+  } = memeDelete;
+
+
+
+  // CELEBRITIES CREATE
+
+  const celebrityCreate = useSelector((state) => state.celebrityCreate);
+  const {
+    error: createCelebrityError,
+    loading: createCelebrityLoading,
+    celebrity: createCelebrity,
+    success: createCelebritySuccess,
+  } = celebrityCreate;
+
+  // CELEBRITIES LIST
+  const celebrityList = useSelector((state) => state.celebrityList);
+  const {
+    error: listCelebrityError,
+    loading: listCelebrityLoading,
+    celebrities: listCelebrity,
+  } = celebrityList;
+
+  // CELEBRITIES DELETE
+  const celebrityDelete = useSelector((state) => state.celebrityDelete);
+  const {
+    error: deleteCelebrityError,
+    loading: deleteCelebrityLoading,
+    celebrity: deleteCelebrity,
+    success: deleteCelebritySuccess,
+  } = celebrityDelete;
+
+
+  // TOURISMS CREATE
+
+  const tourismsCreate = useSelector((state) => state.tourismsCreate);
+  const {
+    error:     createTourismsError,
+    loading:   createTourismsLoading,
+    tourisms : createTourisms,
+    success:   createTourismsSuccess,
+  } = tourismsCreate;
+
+  // TOURISMS LIST
+  const tourismsList = useSelector((state) => state.tourismsList);
+  const {
+    error:      listTourismsError,
+    loading:    listTourismsLoading,
+    tourismss:  listTourisms,
+  } = tourismsList;
+
+  // TOURISMS DELETE
+  const tourismsDelete = useSelector((state) => state.tourismsDelete);
+  const {
+    error:     deleteTourismsError,
+    loading:   deleteTourismsLoading,
+    tourisms : deleteTourisms,
+    success:   deleteTourismsSuccess,
+  } = tourismsDelete;
+
+  // local new CREATE
+
+  const localCreate = useSelector((state) => state.localCreate);
+  const {
+    error:     createLocalError,
+    loading:   createLocalLoading,
+    local : createLocal,
+    success:   createLocalSuccess,
+  } = localCreate;
+
+  // local new LIST
+  const localList = useSelector((state) => state.localList);
+  const {
+    error:      listLocalError,
+    loading:    listLocalLoading,
+    locals:  listLocal,
+  } = localList;
+
+  // local new DELETE
+  const localDelete = useSelector((state) => state.localDelete);
+  const {
+    error:     deleteLocalError,
+    loading:   deleteLocalLoading,
+    local : deleteLocal,
+    success:   deleteLocalSuccess,
+  } = localDelete;
+
+
+// Profile UseEffect
+
   useEffect(() => {
     dispatch(profileDetailActions());
   }, [dispatch, userInfo]);
 
+  // Shop useEffect
   useEffect(() => {
     if (!userInfo) {
       navigate("/");
@@ -105,17 +366,244 @@ const UserDashboard = () => {
     if (createShopSuccess) {
       navigate(`/shop-update/${createShop.id}/${createShop.slug}`);
     }
-  }, [dispatch, userInfo, createShopSuccess]);
+
+    // if (createFormSuccess) {
+    //   navigate(`/requestform-update/${createForm.id}/${createForm.slug}`);
+    // }
+  }, [dispatch, userInfo, createShopSuccess, deleteShopSuccess, deleteShop]);
+
+   // Advertise useEffect
+   useEffect(() => {
+    if (!userInfo) {
+      navigate("/");
+    }
+    dispatch(advertiseListAction());
+    dispatch({ type: ADVERTISE_CREATE_RESET });
+    dispatch({ type: ADVERTISE_DELETE_RESET });
+
+    if (createAdvertiseSuccess) {
+      navigate(`/advertise-update/${createAdvertise.id}/${createAdvertise.slug}`);
+    }
+  }, [dispatch, userInfo, createAdvertiseSuccess, deleteAdvertiseSuccess, deleteAdvertise]);
+
+
+   // Event useEffect
+   useEffect(() => {
+    if (!userInfo) {
+      navigate("/");
+    }
+    dispatch(eventListAction());
+    dispatch({ type: EVENT_CREATE_RESET });
+    dispatch({ type: EVENT_DELETE_RESET });
+
+    if (createEventSuccess) {
+      navigate(`/event-update/${createEvent.id}/${createEvent.slug}`);
+    }
+  }, [dispatch, userInfo, createEventSuccess, deleteEventSuccess, deleteEvent]);
+
+
+  // Jobs useEffect
+  useEffect(() => {
+  if (!userInfo) {
+    navigate("/");
+  }
+  dispatch(jobListAction());
+  dispatch({ type: JOBS_CREATE_RESET });
+  dispatch({ type: JOBS_DELETE_RESET });
+
+  if (createJobSuccess) {
+    navigate(`/job-update/${createJob.id}/${createJob.slug}`);
+  }
+}, [dispatch, userInfo, createJobSuccess, deleteJobSuccess, deleteJob]);
+
+// Hotel useEffect
+useEffect(() => {
+  if (!userInfo) {
+    navigate("/");
+  }
+  dispatch(hotelListAction());
+  dispatch({ type: HOTEL_CREATE_RESET });
+  dispatch({ type: HOTEL_DELETE_RESET });
+
+  if (createHotelSuccess) {
+    navigate(`/hotel-update/${createHotel.id}/${createHotel.slug}`);
+  }
+}, [dispatch, userInfo, createHotelSuccess, deleteHotelSuccess, deleteHotel]);
+
+  // MEME useEffect
+  useEffect(() => {
+    if (!userInfo) {
+      navigate("/");
+    }
+    dispatch(memeListAction());
+    dispatch({ type: MEME_CREATE_RESET });
+    dispatch({ type: MEME_DELETE_RESET });
+  
+    if (createMemeSuccess) {
+      navigate(`/meme-update/${createMeme.id}/${createMeme.slug}`);
+    }
+  }, [dispatch, userInfo, createMemeSuccess, deleteMemeSuccess, deleteMeme]);
+    
+
+  
+  // celebrity useEffect
+  useEffect(() => {
+    if (!userInfo) {
+      navigate("/");
+    }
+    dispatch(celebrityListAction());
+    dispatch({ type: CELEBRITY_CREATE_RESET });
+    dispatch({ type: CELEBRITY_DELETE_RESET });
+  
+    if (createCelebritySuccess) {
+      navigate(`/celebrity-update/${createCelebrity.id}/${createCelebrity.slug}`);
+    }
+  }, [dispatch, userInfo, createCelebritySuccess, deleteCelebritySuccess, deleteCelebrity]);
+    
+     
+  // Tourisms useEffect
+  useEffect(() => {
+    if (!userInfo) {
+      navigate("/");
+    }
+    dispatch(tourismsListAction());
+    dispatch({ type: TOURISMS_CREATE_RESET });
+    dispatch({ type: TOURISMS_DELETE_RESET });
+  
+    if (createTourismsSuccess) {
+      navigate(`/tourisms-update/${createTourisms.id}/${createTourisms.slug}`);
+    }
+  }, [dispatch, userInfo, createTourismsSuccess, deleteTourismsSuccess, deleteTourisms]);
+    
+     
+  // Local news useEffect
+  useEffect(() => {
+    if (!userInfo) {
+      navigate("/");
+    }
+    dispatch(localListAction());
+    dispatch({ type: LOCAL_CREATE_RESET });
+    dispatch({ type: LOCAL_DELETE_RESET });
+  
+    if (createLocalSuccess) {
+      navigate(`/local-update/${createLocal.id}/${createLocal.slug}`);
+    }
+  }, [dispatch, userInfo, createLocalSuccess, deleteLocalSuccess, deleteLocal]);
+    
+  
+  
 
   // CREATE SHOP HANDLER
   const shopCreateHandler = () => {
     dispatch(shopCreateAction());
   };
 
+  // CREATE form HANDLER
+  const formCreateHandler = () => {
+    dispatch(formCreateAction());
+  };
+
   // DELETE SHOP HANDLER
   const shopDeleteHandler = (id, slug) => {
     if (window.confirm("Are You Sure You Want To Delete This Items")) {
       dispatch(shopDeleteAction(id, slug));
+    }
+  };
+
+
+  // CREATE ADVERTISE HANDLER
+  const advertiseCreateHandler = () => {
+    dispatch(advertiseCreateAction());
+  };
+
+  // DELETE ADVERTISE HANDLER
+  const advertiseDeleteHandler = (id,slug) => {
+    if (window.confirm("Are You Sure You Want To Delete This Items")) {
+      dispatch(advertiseDeleteAction(id,slug));
+    }
+  };
+
+  // CREATE EVENT HANDLER
+  const eventCreateHandler = () => {
+    dispatch(eventCreateAction());
+  };
+
+  // DELETE EVENT HANDLER
+  const eventDeleteHandler = (id, slug) => {
+    if (window.confirm("Are You Sure You Want To Delete This Items")) {
+      dispatch(eventDeleteAction(id, slug));
+    }
+  };
+
+  // CREATE JOB HANDLER
+  const jobCreateHandler = () => {
+    dispatch(jobCreateAction());
+  };
+
+  // DELETE JOB HANDLER
+  const jobDeleteHandler = (id, slug) => {
+    if (window.confirm("Are You Sure You Want To Delete This Items")) {
+      dispatch(jobDeleteAction(id, slug));
+    }
+  };
+
+  // CREATE HOTEL HANDLER
+  const hotelCreateHandler = () => {
+    dispatch(hotelCreateAction());
+  };
+
+  // DELETE HOTEL HANDLER
+  const hotelDeleteHandler = (id, slug) => {
+    if (window.confirm("Are You Sure You Want To Delete This Items")) {
+      dispatch(hotelDeleteAction(id, slug));
+    }
+  };
+
+  // CREATE Meme HANDLER
+  const memeCreateHandler = () => {
+    dispatch(memeCreateAction());
+  };
+
+  // DELETE Meme HANDLER
+  const memeDeleteHandler = (id, slug) => {
+    if (window.confirm("Are You Sure You Want To Delete This Items")) {
+      dispatch(memeDeleteAction(id, slug));
+    }
+  };
+
+  // CREATE CELEBRITY HANDLER
+  const celebrityCreateHandler = () => {
+    dispatch(celebrityCreateAction());
+  };
+
+  // DELETE CELEBRITY HANDLER
+  const celebrityDeleteHandler = (id,slug) => {
+    if (window.confirm("Are You Sure You Want To Delete This Items")) {
+      dispatch(celebrityDeleteAction(id,slug));
+    }
+  };
+
+  // CREATE TOURISMS HANDLER
+  const tourismsCreateHandler = () => {
+    dispatch(tourismsCreateAction());
+  };
+
+  // DELETE TOURISMS HANDLER
+  const tourismsDeleteHandler = (id, slug) => {
+    if (window.confirm("Are You Sure You Want To Delete This Items")) {
+      dispatch(tourismsDeleteAction(id, slug));
+    }
+  };
+
+  // CREATE local new HANDLER
+  const localCreateHandler = () => {
+    dispatch(localCreateAction());
+  };
+
+  // DELETE lcoal new HANDLER
+  const localDeleteHandler = (id, slug) => {
+    if (window.confirm("Are You Sure You Want To Delete This Items")) {
+      dispatch(localDeleteAction(id, slug));
     }
   };
 
@@ -134,7 +622,7 @@ const UserDashboard = () => {
         {profile && (
         <Grid item container className="profile-grid" md={12} sm={12} xs={12} lg={12}>
           <Grid className="image-grid" item md={12} sm={12} xs={12} lg={12}>
-            <img src={"../images/music.png"} alt="photo" />
+            <img src={profile.image} alt="photo" />
           </Grid>
           <Grid className="profile-info name" item md={12} sm={12} xs={12} lg={12}>
             {profile && <h1 className="profile-name ">{profile.username}</h1>}
@@ -151,7 +639,9 @@ const UserDashboard = () => {
           <Grid item className="profile-detail"  md={12} sm={12} xs={12} lg={12}>
             <Grid className="profile-detail-edit" item><h3>Profile Details</h3></Grid>
             <Grid  className="profile-detail-edit" item md={12} sm={12} xs={12} lg={12}>
-            <Button variant='contained' color='primary'>Edit</Button>
+              <Link className="text-link" to={`/user-update/${profile.id}`}>
+                <Button variant='contained' color='primary'>Edit</Button>
+              </Link>
             </Grid>
 
           </Grid>
@@ -306,55 +796,36 @@ const UserDashboard = () => {
             </Grid>)
             }
           </Grid>
+          <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
+            <label>Meme</label>
+            {
+            profile.isApprovedMeme
+            ? (<Grid item>
+              <span className="profile-approved">Approved</span>
+            </Grid>)
+            : (<Grid item>
+              <span className="profile-not-approved">Not Approved</span>
+            </Grid>)
+            }
+          </Grid>
           <Grid item className="profile-request"  md={12} sm={12} xs={12} lg={12}>
             <label className='request-label'>Request To Upload</label>
             <Grid item>
-              <span className="profile-request-button">Request</span>
+              <Link to='/requestform-create'>
+                <Button variant='contained' className="profile-request-button">Request</Button>
+              </Link>
             </Grid>
+          </Grid>
+          <Grid md={12} sm={12} xs={12} lg={12}>
+
+            {/* {createFormLoading && <Loaders/>}
+            {createFormError && <ErrorMessage type="error" error={createFormError}/>} */}
           </Grid>
           
           
         </Grid>
         )}
 
-        
-    
-        {/* {profile && profile.isApprovedShop && (
-          <Grid item md={12} lg={12} sm={12} xs={12}>
-            {listShop ? null : (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={shopCreateHandler}
-              >
-                Create Shop
-              </Button>
-            )}
-          </Grid>
-        )} */}
-        {/* {listShop && (
-          <div className="shop-info">
-            <div className="shop-info-1">
-              <div>Owner's Shop {listShop.title}</div>
-              <div>{process.env.REACT_APP_TEST}</div>
-            </div>
-          </div>
-        )} */}
-        {/* <Grid item md={12} lg={12} sm={12} xs={12} className="users_post"> */}
-        {/* {profile && profile.isApprovedShop && (
-            <AdminTable
-              listModelLoading={listShopLoading}
-              listModelError={listShopError}
-              listModel={listShop}
-              createModelError={createShopError}
-              deleteModelError={deleteShopError}
-              deleteModelLoading={deleteShopLoading}
-              modelCreateHandler={shopCreateHandler}
-              modelDeleteHandler={shopDeleteHandler}
-              redirect="shop product"
-            />
-          )} */}
-        {/* </Grid> */}
       </Grid>
       <Grid container className="grid-shop" md={8} lg={8} sm={12} xs={12}>
         <Grid
@@ -367,7 +838,140 @@ const UserDashboard = () => {
           >
           
           <Grid>
-            {/* <PostTable cat='new'/> */}
+            {/* Shop Table */}
+            {profile && profile.isApprovedShop && (
+            <PostTable
+              listModelLoading={listShopLoading}
+              listModelError={listShopError}
+              listModel={listShop}
+              createModelError={createShopError}
+              deleteModelError={deleteShopError}
+              deleteModelLoading={deleteShopLoading}
+              modelCreateHandler={shopCreateHandler}
+              modelDeleteHandler={shopDeleteHandler}
+              redirect="shop"
+            />
+            )} 
+
+            {/* Advertise Table */}
+            {profile && profile.isApprovedAdvertise && (
+            <PostTable
+              listModelLoading={listAdvertiseLoading}
+              listModelError={listAdvertiseError}
+              listModel={listAdvertise}
+              createModelError={createAdvertiseError}
+              deleteModelError={deleteAdvertiseError}
+              deleteModelLoading={deleteAdvertiseLoading}
+              modelCreateHandler={advertiseCreateHandler}
+              modelDeleteHandler={advertiseDeleteHandler}
+              redirect="advertise"
+            />
+            )} 
+
+            {/* Event Table */}
+            {profile && profile.isApprovedEvent && (
+            <PostTable
+              listModelLoading={listEventLoading}
+              listModelError={listEventError}
+              listModel={listEvent}
+              createModelError={createEventError}
+              deleteModelError={deleteEventError}
+              deleteModelLoading={deleteEventLoading}
+              modelCreateHandler={eventCreateHandler}
+              modelDeleteHandler={eventDeleteHandler}
+              redirect="event"
+            />
+            )} 
+
+          {/* Job Table */}
+          {profile && profile.isApprovedJob && (
+            <PostTable
+              listModelLoading={listJobLoading}
+              listModelError={listJobError}
+              listModel={listJob}
+              createModelError={createJobError}
+              deleteModelError={deleteJobError}
+              deleteModelLoading={deleteJobLoading}
+              modelCreateHandler={jobCreateHandler}
+              modelDeleteHandler={jobDeleteHandler}
+              redirect="job"
+            />
+            )} 
+
+          {/* Hotel Table */}
+          {profile && profile.isApprovedHotel && (
+          <PostTable
+            listModelLoading={listHotelLoading}
+            listModelError={listHotelError}
+            listModel={listHotel}
+            createModelError={createHotelError}
+            deleteModelError={deleteHotelError}
+            deleteModelLoading={deleteHotelLoading}
+            modelCreateHandler={hotelCreateHandler}
+            modelDeleteHandler={hotelDeleteHandler}
+            redirect="hotel"
+          />
+          )} 
+
+          {/* Meme Table */}
+          {profile && profile.isApprovedMeme && (
+          <PostTable
+            listModelLoading={listMemeLoading}
+            listModelError={listMemeError}
+            listModel={listMeme}
+            createModelError={createMemeError}
+            deleteModelError={deleteMemeError}
+            deleteModelLoading={deleteMemeLoading}
+            modelCreateHandler={memeCreateHandler}
+            modelDeleteHandler={memeDeleteHandler}
+            redirect="meme"
+          />
+          )} 
+
+          {/* celebrity Table */}
+          {profile && profile.isApprovedCelebrities && (
+          <PostTable
+            listModelLoading={listCelebrityLoading}
+            listModelError={listCelebrityError}
+            listModel={listCelebrity}
+            createModelError={createCelebrityError}
+            deleteModelError={deleteCelebrityError}
+            deleteModelLoading={deleteCelebrityLoading}
+            modelCreateHandler={celebrityCreateHandler}
+            modelDeleteHandler={celebrityDeleteHandler}
+            redirect="celebrity"
+          />
+          )} 
+
+          {/* Tourisms Table */}
+          {profile && profile.isApprovedTourisms && (
+          <PostTable
+            listModelLoading={listTourismsLoading}
+            listModelError={listTourismsError}
+            listModel={listTourisms}
+            createModelError={createTourismsError}
+            deleteModelError={deleteTourismsError}
+            deleteModelLoading={deleteTourismsLoading}
+            modelCreateHandler={tourismsCreateHandler}
+            modelDeleteHandler={tourismsDeleteHandler}
+            redirect="tourisms"
+          />
+          )} 
+  
+          {/* Local news Table */}
+          {profile && profile.isApproved && (
+          <PostTable
+            listModelLoading={listLocalLoading}
+            listModelError={listLocalError}
+            listModel={listLocal}
+            createModelError={createLocalError}
+            deleteModelError={deleteLocalError}
+            deleteModelLoading={deleteLocalLoading}
+            modelCreateHandler={localCreateHandler}
+            modelDeleteHandler={localDeleteHandler}
+            redirect="local"
+          />
+          )} 
           </Grid>
 
         </Grid>

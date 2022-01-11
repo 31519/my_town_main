@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Grid, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { createTechs } from "../actions/techActions";
-
+import Loaders from "../components/Loader";
 // import TechCreateNewsApi from "../admin-screen/TechCreateNewsApi";
 import { advertiseDetailAction } from "../actions/advertiseActions";
 import { advertiseUpdateAction } from "../actions/advertiseActions";
@@ -26,6 +27,7 @@ const UserPostUpdate = () => {
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false)
   const dispatch = useDispatch();
   const advertiseDetail = useSelector((state) => state.advertiseDetail);
   const {
@@ -46,9 +48,12 @@ const UserPostUpdate = () => {
   const {userInfo} = userLogin
 
   useEffect(() => {
+    if (!userInfo) {
+      navigate("/");
+    }
     if (updateAdvertiseSuccess) {
       dispatch({ type: ADVERTISE_UPDATE_RESET });
-      navigate('/advertise-create')
+      navigate('/my-dashboard')
     } else {
       if (
         !detailAdvertise.title ||
@@ -67,6 +72,33 @@ const UserPostUpdate = () => {
       }
     }
   }, [dispatch, slug, id, detailAdvertise, updateAdvertiseSuccess, ]);
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0]
+    const formData = new FormData()
+
+    formData.append('image', file)
+    formData.append('product_id', id)
+    console.log("file upload")
+
+    setLoading(true)
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+
+      const { data } = await axios.post(`${process.env.REACT_APP_PORT}/api/advertisement/image/`,
+      formData, config)
+
+      setImage(data.image)
+      setLoading(false)
+    } catch (error){
+      setLoading(false)
+    }
+  }
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -92,7 +124,7 @@ const UserPostUpdate = () => {
         <div className="form">
           <form onSubmit={submitHandler}>
             <div className="text">
-              <div className="subtitle">Let's Update Models</div>
+              <div className="subtitle">Let's Update Advertise</div>
             </div>
             <div className="input-container">
               <label>Category</label>
@@ -173,30 +205,17 @@ const UserPostUpdate = () => {
               />
             </div>
 
-            <div className="input-container ic2">
+            <Grid className="input-container ic2">
               <label>Images</label>
+              <img src={image} style={{widht:'80px', height:'50px'}} />
               <input
-                id="image"
                 className="input"
-                type="text"
-                placeholder="image"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
+                type="file"
+                onChange={uploadFileHandler}
               />
-            </div>
-            {userInfo.isAdmin && (
-              <div className="input-container ic2">
-              <label>Approved</label>
-              <input
-                id="approved"
-                className="input"
-                type="text"
-                placeholder="approved"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-              />
-            </div>
-            )}
+              {loading && <Loaders/>}
+            </Grid>
+            
             <div className="input-container ic2">
               <button className="button_input" type="submit">
                 Submit

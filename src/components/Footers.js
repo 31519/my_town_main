@@ -99,75 +99,83 @@ const Footers = () => {
             </Link>
           </div>
 
-          <div>
+          {/* <div>
             <Link className="text-link" to="/business-screen">
               <h2 className={classes.title} variant="h3">
                 Business
               </h2>
             </Link>
-          </div>
+          </div> */}
 
-          {/* <div>
+          <div>
             <Link className="text-link" to="/jobs">
               <h2 className={classes.title} variant="h3">
                 Jobs
               </h2>
             </Link>
-          </div> */}
+          </div>
 
-          {/* <div>
+          <div>
             <Link className="text-link" to="/tourisms">
               <h2 className={classes.title} variant="h3">
                 Tourisms
               </h2>
             </Link>
-          </div> */}
+          </div>
 
-          {/* <div>
+          <div>
             <Link className="text-link" to="/celebrity">
               <h2 className={classes.title} variant="h3">
                 Celebrity
               </h2>
             </Link>
-          </div> */}
+          </div>
 
-          {/* <div>
+          <div>
             <Link className="text-link" to="/event">
               <h2 className={classes.title} variant="h3">
                 Event
               </h2>
             </Link>
-          </div> */}
+          </div>
 
-          {/* <div>
+          <div>
             <Link className="text-link" to="/advertise">
               <h2 className={classes.title} variant="h3">
                 Advertise
               </h2>
             </Link>
-          </div> */}
+          </div>
 
-          {/* <div>
+          <div>
             <Link className="text-link" to="/reseller">
               <h2 className={classes.title} variant="h3">
                 Reseller
               </h2>
             </Link>
-          </div> */}
-          {/* <div>
+          </div>
+          <div>
             <Link className="text-link" to="/hotels">
               <h2 className={classes.title} variant="h3">
                 Hotels
               </h2>
             </Link>
-          </div> */}
-          {/* <div>
+          </div>
+          <div>
             <Link className="text-link" to="/shops">
               <h2 className={classes.title} variant="h3">
                 Shop
               </h2>
             </Link>
-          </div> */}
+          </div>
+
+          <div>
+            <Link className="text-link" to="/meme">
+              <h2 className={classes.title} variant="h3">
+                Meme
+              </h2>
+            </Link>
+          </div>
 
         </div>
       </Grid>

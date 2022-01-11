@@ -107,8 +107,7 @@ const TourismsScreen = () => {
 
       <Grid spacing={2} className={classes.gridContent} container>
         <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-          Hi Loverlj lask jflks jfkslajfkl sdajfk sjsdljgk ldjgksjdk fgjs
-          kldjgl dfjl jfkls ajfkls
+          {/* This is the add section */}
         </Grid>
         {listTourismsLoading ? (
           <Loaders />
@@ -117,14 +116,13 @@ const TourismsScreen = () => {
         ) : (
           <Grid spacing={1} item xs={12} sm={6} lg={6} md={6}>
             {listTourisms.map((tourisms) => (
-              <AllCards key={tourisms.id} item={tourisms} model="tourisms" />
+              <AllCards key={tourisms.id} item={tourisms} model="tourisms" socialmedia="tourisms" />
             ))}
           </Grid>
         )}
 
         <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-          jal;fjdsj dfksjflkdjk fhkjasdjg sgjslkgjk ldjfkjdl fjdhfkjash
-          fijksdhf
+           {/* This is the add section */}
         </Grid>
       </Grid>
       <Paginate keyword={keyword} page={page} pages={pages}/>

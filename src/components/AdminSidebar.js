@@ -41,7 +41,13 @@ const AdminSidebar = ({ tech }) => {
       
         <div className="dashboard_header">
           <Link className="text-link" to={`/user-detail`}>
-            <div className="profile-img">this</div>
+            <div className="profile-img">
+              {profile 
+              ? <img src={profile.image}/>
+              : <p>No Profile</p>
+              }
+              
+              </div>
             <div className="dashboard_email">
               {
               profile

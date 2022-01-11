@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from productivity.models import Jobs, Advertisement, Shops, OwnBusiness, Celebrities, Hotels, Tourisms, Resell, Event
+from productivity.models import Jobs, Advertisement, Shops, OwnBusiness, Celebrities, Hotels, Tourisms, Resell, Event, Meme, Banner
 
 class JobsSerializers(serializers.ModelSerializer):
     class Meta:
@@ -53,4 +53,16 @@ class ResellSerializers(serializers.ModelSerializer):
 class EventSerializers(serializers.ModelSerializer):
     class Meta:
         model = Event
+        fields ='__all__'
+
+
+
+class MemeSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Meme
+        fields ='__all__'
+
+class BannerSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Banner
         fields ='__all__'

@@ -252,3 +252,114 @@ const AdminTable = ({
 };
 
 export default AdminTable;
+
+
+// <div>
+//       {listModelLoading ? (
+//         <Loaders />
+//       ) : listModelError ? (
+//         <ErrorMessage type="error" error={listModelError} />
+//       ) : (
+
+      
+//       <TableContainer component={Paper} className={classes.tableContainer}>
+//         {createModelError ? (
+//           <ErrorMessage type="error" error={createModelError} />
+//         ) : createModelError ? (
+//           <Loaders />
+//         ) : (
+//           <Button variant='contained' color='success' className={classes.status} onClick={modelCreateHandler}>
+//             Create {redirect} Post
+//           </Button>
+//         )}
+
+//         {deleteModelError && (
+//           <ErrorMessage type="error" error={deleteModelError} />
+//         )}
+//         <Grid>{listModel.length} Items</Grid>
+//         <Table className={classes.table} aria-label="simple table">
+//           <TableHead>
+//             <TableRow>
+//               <TableCell className={classes.tableHeaderCell}>Title</TableCell>
+//               <TableCell className={classes.tableHeaderCell}>
+//                 Created At
+//               </TableCell>
+//               <TableCell className={classes.tableHeaderCell}>
+//                 Approved
+//               </TableCell>
+//               <TableCell className={classes.tableHeaderCell}>Edit</TableCell>
+//               <TableCell className={classes.tableHeaderCell}>Delete</TableCell>
+//             </TableRow>
+//           </TableHead>
+//           <TableBody>
+//             {listModel.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((model) => (
+//               <TableRow key={model.id}>
+//                 <TableCell>
+//                   <Grid container>
+//                     {/* <Grid item lg={2}>
+//                           <Avatar alt={model.id} src='.' className={classes.avatar}/>
+//                       </Grid> */}
+//                     <Grid item lg={12}>
+//                       <Typography className={classes.name}>
+//                         {model.title}
+//                       </Typography>
+//                       {/* <Typography color="textSecondary" variant="body2">{row.email}</Typography>
+//                           <Typography color="textSecondary" variant="body2">{row.phone}</Typography> */}
+//                     </Grid>
+//                   </Grid>
+//                 </TableCell>
+//                 <TableCell>
+//                   <Typography color="primary" variant="subtitle2">
+//                     {model.createdAt}
+//                   </Typography>
+//                   {/* <Typography color="textSecondary" variant="body2">{row.company}</Typography> */}
+//                 </TableCell>
+//                 <TableCell>
+//                   <Typography
+//                     className={classes.status}
+//                     style={{
+//                       backgroundColor:
+//                         (model.isApproved === true && "green") ||
+//                         (model.isApproved === false && "red"),
+//                     }}
+//                   >
+//                     {model.isApproved ? "Approved" : "Not yet"}
+//                   </Typography>
+//                 </TableCell>
+//                 <TableCell>
+//                   <Link to={`/${redirect}-update/${model.id}/${model.slug}`}>
+//                     <Typography className={classes.status}>Edit</Typography>
+//                   </Link>
+//                 </TableCell>
+//                 <TableCell>
+//                   {deleteModelLoading ? (
+//                     <Loaders />
+//                   ) : (
+//                     <Button
+//                       className={classes.status}
+//                       onClick={() => modelDeleteHandler(model.id, model.slug)}
+//                     >
+//                       Delete
+//                     </Button>
+//                   )}
+//                 </TableCell>
+//               </TableRow>
+              
+//             ))}
+
+//           </TableBody>
+//           <TableFooter>
+//             <TablePagination
+//             rowsPerPageOptions={[5, 10, 15]}
+//             component="div"
+//             count={listModel.length}
+//             rowsPerPage={rowsPerPage}
+//             page={page}
+//             onChangePage={handleChangePage}
+//             onChangeRowsPerPage={handleChangeRowsPerPage}
+//         />
+//           </TableFooter>
+//         </Table>
+//       </TableContainer>
+
+//   )}

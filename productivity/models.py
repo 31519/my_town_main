@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+from django.utils.timezone import now 
 
 # Create your models here.
 
@@ -11,7 +12,7 @@ class Jobs(models.Model):
     state = models.CharField(max_length=300, blank=True, null=True, default='Meghalaya')
     address = models.CharField(max_length=300, blank=True, null=True, default='Jowai')
     contact = models.CharField(max_length=300, blank=True, null=True, default='contact')
-    image = models.CharField(max_length=300, blank=True, default='image')
+    image = models.ImageField(blank=True, default='/placeholder.png')
     title = models.TextField(blank=True, null=True, default='title')
     content = models.TextField(blank=True, null=True, default='content')
     isApproved = models.BooleanField(default=False, null=True)
@@ -35,7 +36,7 @@ class Event(models.Model):
     state = models.CharField(max_length=300, blank=True, null=True, default='Meghalaya')
     address = models.CharField(max_length=300, blank=True, null=True, default='Jowai')
     contact = models.CharField(max_length=300, blank=True, null=True, default='contact')
-    image = models.CharField(max_length=300, blank=True, default='image')
+    image = models.ImageField(blank=True, default='/placeholder.png')
     title = models.TextField(blank=True, null=True, default='title')
     content = models.TextField(blank=True, null=True, default='content')
     isApproved = models.BooleanField(default=False, null=True)
@@ -58,7 +59,7 @@ class Advertisement(models.Model):
     state = models.CharField(max_length=300, blank=True, null=True, default='Meghalaya')
     address = models.CharField(max_length=300, blank=True, null=True, default='Jowai')
     contact = models.CharField(max_length=300, blank=True, null=True, default='contact')
-    image = models.CharField(max_length=300, blank=True, default='image')
+    image = models.ImageField(blank=True, default='/placeholder.png')
     title = models.TextField(blank=True, null=True, default='title')
     content = models.TextField(blank=True, null=True, default='content')
     isApproved = models.BooleanField(default=False, null=True)
@@ -81,7 +82,7 @@ class OwnBusiness(models.Model):
     state = models.CharField(max_length=300, blank=True, null=True, default='Meghalaya')
     address = models.CharField(max_length=300, blank=True, null=True, default='Jowai')
     contact = models.CharField(max_length=300, blank=True, null=True, default='contact')
-    image = models.CharField(max_length=300, blank=True, default='image')
+    image = models.ImageField(blank=True, default='/placeholder.png')
     title = models.TextField(blank=True, null=True, default='title')
     content = models.TextField(blank=True, null=True, default='content')
     isApproved = models.BooleanField(default=False, null=True)
@@ -103,7 +104,7 @@ class Shops(models.Model):
     state = models.CharField(max_length=300, blank=True, null=True, default='Meghalaya')
     address = models.CharField(max_length=300, blank=True, null=True, default='Jowai')
     contact = models.CharField(max_length=300, blank=True, null=True, default='contact')
-    image = models.CharField(max_length=300, blank=True, default='image')
+    image = models.ImageField(blank=True, default='/placeholder.png')
     title = models.TextField(blank=True, null=True, default='title')
     content = models.TextField(blank=True, null=True, default='content')
     isApproved = models.BooleanField(default=False, null=True)
@@ -121,7 +122,7 @@ class Shops(models.Model):
 class ShopProduct(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE )
     shops = models.ForeignKey(Shops, on_delete=models.CASCADE)
-    image = models.CharField(max_length=300, blank=True, default='image')
+    image = models.ImageField(blank=True, default='/placeholder.png')
     title = models.TextField(blank=True, null=True, default='title')
     content = models.TextField(blank=True, null=True, default='content')
     price = models.IntegerField(blank=True, null=True)
@@ -144,7 +145,7 @@ class Celebrities(models.Model):
     state = models.CharField(max_length=300, blank=True, null=True, default='Meghalaya')
     address = models.CharField(max_length=300, blank=True, null=True, default='Jowai')
     contact = models.CharField(max_length=300, blank=True, null=True, default='contact')
-    image = models.CharField(max_length=300, blank=True, default='image')
+    image = models.ImageField(blank=True, default='/placeholder.png')
     title = models.TextField(blank=True, null=True, default='title')
     content = models.TextField(blank=True, null=True, default='content')
     isApproved = models.BooleanField(default=False, null=True)
@@ -167,7 +168,7 @@ class Hotels(models.Model):
     state = models.CharField(max_length=300, blank=True, null=True, default='Meghalaya')
     address = models.CharField(max_length=300, blank=True, null=True, default='Jowai')
     contact = models.CharField(max_length=300, blank=True, null=True, default='contact')
-    image = models.CharField(max_length=300, blank=True, default='image')
+    image = models.ImageField(blank=True, default='/placeholder.png')
     title = models.TextField(blank=True, null=True, default='title')
     content = models.TextField(blank=True, null=True, default='content')
     isApproved = models.BooleanField(default=False, null=True)
@@ -191,7 +192,7 @@ class Tourisms(models.Model):
     state = models.CharField(max_length=300, blank=True, null=True, default='Meghalaya')
     address = models.CharField(max_length=300, blank=True, null=True, default='Jowai')
     contact = models.CharField(max_length=300, blank=True, null=True, default='contact')
-    image = models.CharField(max_length=300, blank=True, default='image')
+    image = models.ImageField(blank=True, default='/placeholder.png')
     title = models.TextField(blank=True, null=True, default='title')
     content = models.TextField(blank=True, null=True, default='content')
     isApproved = models.BooleanField(default=False, null=True)
@@ -214,7 +215,7 @@ class Resell(models.Model):
     state = models.CharField(max_length=300, blank=True, null=True, default='Meghalaya')
     address = models.CharField(max_length=300, blank=True, null=True, default='Jowai')
     contact = models.CharField(max_length=300, blank=True, null=True, default='contact')
-    image = models.CharField(max_length=300, blank=True, default='image')
+    image = models.ImageField(blank=True, default='/placeholder.png')
     title = models.TextField(blank=True, null=True, default='title')
     content = models.TextField(blank=True, null=True, default='content')
     isApproved = models.BooleanField(default=False, null=True)
@@ -228,3 +229,29 @@ class Resell(models.Model):
 
     def __str__(self):
         return str(self.title)
+
+
+class Meme(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(blank=True, default='/placeholder.png')
+    title = models.TextField(blank=True, null=True, default='title')
+    isApproved = models.BooleanField(default=False, null=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(max_length=500, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Meme,self).save(*args, **kwargs)
+
+    def __str__(self):
+        return str(self.title)
+
+
+class Banner(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(blank=True, default='/placeholder.png')
+    createdAt = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return str(self.createdAt)

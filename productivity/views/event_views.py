@@ -68,10 +68,8 @@ def EventUpdate(request, pk, slug):
     event.state = data['state']
     event.address = data['address']
     event.contact = data['contact']
-    event.image=data['image']
     event.title = data['title']
     event.content = data['content']
-    event.isApproved = data['isApproved']
     event.save()
     serializer = EventSerializers(event, many=False)
     return Response(serializer.data)
@@ -88,7 +86,7 @@ def EventAdminUpdate(request, pk):
     event.state = data['state']
     event.address = data['address']
     event.contact = data['contact']
-    event.image=data['image']
+    # event.image=data['image']
     event.title = data['title']
     event.content = data['content']
     event.isApproved = data['isApproved']
@@ -99,7 +97,6 @@ def EventAdminUpdate(request, pk):
 
 
 @api_view(['DELETE', 'GET'])
-@permission_classes([IsAdminUser])
 def EventDelete(request, pk, slug):
     if request.method == 'GET':
         event = Event.objects.get(pk=pk, slug=slug)
@@ -110,3 +107,20 @@ def EventDelete(request, pk, slug):
         event = Event.objects.get(pk=pk, slug=slug)
         event.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+
+@api_view(['POST'])
+def EventImage(request):
+    data = request.data
+
+    product_id = data['product_id']
+    event = Event.objects.get(id=product_id)
+
+    event.image = request.FILES.get('image')
+    event.save()
+
+    serializer = EventSerializers(event, many=False)
+    
+    return Response(serializer.data)

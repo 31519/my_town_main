@@ -4,6 +4,12 @@ import { useParams, useNavigate } from "react-router-dom";
 
 // IMPORT COMPONENT
 
+import axios from "axios";
+import { Grid} from "@mui/material";
+import Loaders from "../components/Loader";
+
+
+
 // import TechCreateNewsApi from "../admin-screen/TechCreateNewsApi";
 import {
   hotelDetailAction,
@@ -27,7 +33,7 @@ const HotelUpdate = () => {
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [isApproved, setIsApproved] = useState(true);
+  const [loading, setLoading] = useState(false)
 
   const dispatch = useDispatch();
   const hotelDetail = useSelector((state) => state.hotelDetail);
@@ -49,13 +55,16 @@ const HotelUpdate = () => {
   const { userInfo } = userLogin;
 
   useEffect(() => {
+    if (!userInfo) {
+      navigate("/");
+    }
     if (updateHotelSuccess) {
       dispatch({ type: HOTEL_UPDATE_RESET });
       if (userInfo.isAdmin){
         navigate("/admin-dashboard");
 
       } else{
-        navigate("/hotel-create")
+        navigate("/my-dashboard")
       }
     } else {
       if (!detailHotel.title || detailHotel.id !== Number(id)) {
@@ -73,6 +82,32 @@ const HotelUpdate = () => {
     }
   }, [dispatch, id, detailHotel, updateHotelSuccess, updateHotel]);
 
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0]
+    const formData = new FormData()
+
+    formData.append('image', file)
+    formData.append('product_id', id)
+
+    setLoading(true)
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+
+      const { data } = await axios.post(`${process.env.REACT_APP_PORT}/api/hotels/image/`,
+      formData, config)
+
+      setImage(data.image)
+      setLoading(false)
+    } catch (error){
+      setLoading(false)
+    }
+  }
+
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
@@ -87,7 +122,6 @@ const HotelUpdate = () => {
         image,
         title,
         content,
-        isApproved,
       })
     );
   };
@@ -179,49 +213,17 @@ const HotelUpdate = () => {
               />
             </div>
 
-            <div className="input-container ic2">
-              <label>Images</label>
+            <Grid className="input-container ic2">
+                <label>Images</label>
+                <img src={image} style={{widht:'80px', height:'50px'}} />
+              </Grid>
               <input
-                id="image"
                 className="input"
-                type="text"
-                placeholder="image"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
+                type="file"
+                onChange={uploadFileHandler}
               />
-            </div>
-            {userInfo.isAdmin && (
-              <div className="input-container ic2">
-                <label>Approved</label>
-                <select className="input-container ic2">
-                  <option>Choose</option>
-                  <option
-                    id="image"
-                    className="input"
-                    value={false}
-                    onChange={(e) => setIsApproved(e.target.value)}
-                  >
-                    Do not Approved
-                  </option>
-                  <option
-                    id="isApproved"
-                    className="input"
-                    value={true}
-                    onChange={(e) => setIsApproved(e.target.value)}
-                  >
-                    Approved
-                  </option>
-                </select>
-                {/* <input
-                id="approved"
-                className="input"
-                type="text"
-                placeholder="approved"
-                value={isApproved}
-                onChange={(e) => setIsApproved(e.target.value)}
-              /> */}
-              </div>
-            )}
+              {loading && <Loaders/>}
+          
             <div className="input-container ic2">
               <button className="button_input" type="submit">
                 Submit

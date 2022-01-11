@@ -15,10 +15,12 @@
 
 }
 
-
 .paperHeader {
     margin: 20px auto;
     min-height: 90%vh;
+    /* padding: 30px 20px;
+    width: 500px;
+    margin: '20px auto' */
 
 }
 .linkText {

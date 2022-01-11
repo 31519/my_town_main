@@ -20,6 +20,7 @@ urlpatterns = [
     # PROFILE
 
     path('profile-list/', views.ProfileList, name="profile-list"),
+    path('profile-image/', views.ProfileImage, name="profile-image"),
     path('profile-detail/', views.ProfileDetail, name="profile-detail"),
     path('profile-update/<int:pk>/', views.ProfileUpdate, name="profile-update"),
 

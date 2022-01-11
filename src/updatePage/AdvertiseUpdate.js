@@ -9,6 +9,9 @@ import {
   Avatar,
   TextField,
   Button,
+  Card,
+  Input,
+  FormControl
 } from "@mui/material";
 // IMPORT COMPONENT
 import Loaders from "../components/Loader";
@@ -58,12 +61,15 @@ const AdvertiseUpdate = () => {
   } = advertiseUpdate;
 
   useEffect(() => {
+    if (!userInfo) {
+      navigate("/");
+    }
     if (updateAdvertiseSuccess) {
       dispatch({ type: ADVERTISE_UPDATE_RESET });
       if (userInfo.isAdmin) {
         navigate("/admin-dashboard");
       } else {
-        navigate("/advertise-create");
+        navigate("/user-dashboard");
       }
     } else {
       if (
@@ -115,7 +121,7 @@ const AdvertiseUpdate = () => {
         <Grid container style={{border: "1px solid white"}}>
           <form className="form" onSubmit={submitHandler}>
             <Grid item sm={12} xs={12} lg={12} md={12} className="text">
-              <div className="subtitle">Let's Update Models</div>
+              <div className="subtitle">Let's Update Advertise</div>
             </Grid>
             {/* <Grid style={gridStyle} container> */}
               <Grid
@@ -257,11 +263,12 @@ const AdvertiseUpdate = () => {
                 md={12}
                 className="input-container ic2"
               >
-                <label>Images</label>
-                <TextField
+                <label>Imagess</label>
+                <img src={image} />
+                <Input
                   id="image"
                   className="input"
-                  type="text"
+                  type="file"
                   placeholder="image"
                   value={image}
                   onChange={(e) => setImage(e.target.value)}

@@ -9,7 +9,7 @@ const UserTable = ({user}) => {
                 <tr className="user_header">
                     <th>user</th>
                     <th>username</th>
-                    <th>password</th>
+                    <th>passwordjasdfjajfsajfslajflasjfksjadfjasljfsajdfsjfkljsafljsadjfsjflsjdflsjfasljfasljfslkdjflsdjf</th>
                 </tr>
             </thead>
             <tbody>

@@ -98,7 +98,7 @@ export const hotelListAction = (keyword='') => async (dispatch) => {
     try{
         dispatch({ type: HOTEL_LIST_REQUEST });
         const { data } = await axios.get(
-            `http://127.0.0.1:8000/api/hotels/list${keyword}`
+            `${process.env.REACT_APP_PORT}/api/hotels/list${keyword}`
         );
         dispatch({
             type: HOTEL_LIST_SUCCESS,
@@ -119,7 +119,7 @@ export const hotelDetailAction = (id,slug) => async (dispatch) => {
     try{
         dispatch({ type: HOTEL_DETAIL_REQUEST });
         const { data } = await axios.get(
-            `http://127.0.0.1:8000/api/hotels/list/${id}/${slug}`
+            `${process.env.REACT_APP_PORT}/api/hotels/list/${id}/${slug}`
         );
         dispatch({
             type: HOTEL_DETAIL_SUCCESS,
@@ -154,7 +154,7 @@ export const hotelCreateAction = () => async (dispatch, getState) => {
 
 
         const { data } = await axios.post(
-            `http://127.0.0.1:8000/api/hotels/create/`,
+            `${process.env.REACT_APP_PORT}/api/hotels/create/`,
             {},
             config
         );
@@ -192,7 +192,7 @@ export const hotelUpdateAction = (shop) => async (dispatch, getState) => {
 
 
         const { data } = await axios.put(
-            `http://127.0.0.1:8000/api/hotels/update/${shop.id}/${shop.slug}/`,
+            `${process.env.REACT_APP_PORT}/api/hotels/update/${shop.id}/${shop.slug}/`,
             shop,
             config
         );
@@ -233,7 +233,7 @@ export const hotelDeleteAction = (id, slug) => async (dispatch, getState) => {
 
 
         const { data } = await axios.delete(
-            `http://127.0.0.1:8000/api/hotels/delete/${id}/${slug}/`,
+            `${process.env.REACT_APP_PORT}/api/hotels/delete/${id}/${slug}/`,
             
             config
         );
@@ -263,7 +263,7 @@ export const resellerListAction = (keyword="") => async (dispatch) => {
     try{
         dispatch({ type: RESELLER_LIST_REQUEST });
         const { data } = await axios.get(
-            `http://127.0.0.1:8000/api/resell/list${keyword}`
+            `${process.env.REACT_APP_PORT}/api/resell/list${keyword}`
         );
         dispatch({
             type: RESELLER_LIST_SUCCESS,
@@ -284,7 +284,7 @@ export const resellerDetailAction = (id, slug) => async (dispatch) => {
     try{
         dispatch({ type: RESELLER_DETAIL_REQUEST });
         const { data } = await axios.get(
-            `http://127.0.0.1:8000/api/resell/list/${id}/${slug}`
+            `${process.env.REACT_APP_PORT}/api/resell/list/${id}/${slug}`
         );
         dispatch({
             type: RESELLER_DETAIL_SUCCESS,
@@ -319,7 +319,7 @@ export const resellerCreateAction = () => async (dispatch, getState) => {
 
 
         const { data } = await axios.post(
-            `http://127.0.0.1:8000/api/resell/create/`,
+            `${process.env.REACT_APP_PORT}/api/resell/create/`,
             {},
             config
         );
@@ -357,7 +357,7 @@ export const resellerUpdateAction = (reseller) => async (dispatch, getState) => 
 
 
         const { data } = await axios.put(
-            `http://127.0.0.1:8000/api/resell/update/${reseller.id}/${reseller.slug}/`,
+            `${process.env.REACT_APP_PORT}/api/resell/update/${reseller.id}/${reseller.slug}/`,
             reseller,
             config
         );
@@ -398,7 +398,7 @@ export const resellerDeleteAction = (id, slug) => async (dispatch, getState) => 
 
 
         const { data } = await axios.delete(
-            `http://127.0.0.1:8000/api/resell/delete/${id}/${slug}/`,
+            `${process.env.REACT_APP_PORT}/api/resell/delete/${id}/${slug}/`,
             
             config
         );
@@ -429,7 +429,7 @@ export const tourismsListAction = (keyword="") => async (dispatch) => {
     try{
         dispatch({ type: TOURISMS_LIST_REQUEST });
         const { data } = await axios.get(
-            `http://127.0.0.1:8000/api/tourisms/list${keyword}`
+            `${process.env.REACT_APP_PORT}/api/tourisms/list${keyword}`
         );
         dispatch({
             type: TOURISMS_LIST_SUCCESS,
@@ -450,7 +450,7 @@ export const tourismsDetailAction = (id, slug) => async (dispatch) => {
     try{
         dispatch({ type: TOURISMS_DETAIL_REQUEST });
         const { data } = await axios.get(
-            `http://127.0.0.1:8000/api/tourisms/list/${id}/${slug}`
+            `${process.env.REACT_APP_PORT}/api/tourisms/list/${id}/${slug}`
         );
         dispatch({
             type: TOURISMS_DETAIL_SUCCESS,
@@ -485,7 +485,7 @@ export const tourismsCreateAction = () => async (dispatch, getState) => {
 
 
         const { data } = await axios.post(
-            `http://127.0.0.1:8000/api/tourisms/create/`,
+            `${process.env.REACT_APP_PORT}/api/tourisms/create/`,
             {},
             config
         );
@@ -523,7 +523,7 @@ export const tourismsUpdateAction = (tourisms) => async (dispatch, getState) => 
 
 
         const { data } = await axios.put(
-            `http://127.0.0.1:8000/api/tourisms/update/${tourisms.id}/${tourisms.slug}/`,
+            `${process.env.REACT_APP_PORT}/api/tourisms/update/${tourisms.id}/${tourisms.slug}/`,
             tourisms,
             config
         );
@@ -564,7 +564,7 @@ export const tourismsDeleteAction = (id,slug) => async (dispatch, getState) => {
 
 
         const { data } = await axios.delete(
-            `http://127.0.0.1:8000/api/tourisms/delete/${id}/${slug}/`,
+            `${process.env.REACT_APP_PORT}/api/tourisms/delete/${id}/${slug}/`,
             
             config
         );
@@ -593,7 +593,7 @@ export const jobListAction = (keyword='') => async (dispatch) => {
     try{
         dispatch({ type: JOBS_LIST_REQUEST });
         const { data } = await axios.get(
-            `http://127.0.0.1:8000/api/jobs/list${keyword}`
+            `${process.env.REACT_APP_PORT}/api/jobs/list${keyword}`
         );
         dispatch({
             type: JOBS_LIST_SUCCESS,
@@ -614,7 +614,7 @@ export const jobDetailAction = (id,slug) => async (dispatch) => {
     try{
         dispatch({ type: JOBS_DETAIL_REQUEST });
         const { data } = await axios.get(
-            `http://127.0.0.1:8000/api/jobs/list/${id}/${slug}`
+            `${process.env.REACT_APP_PORT}/api/jobs/list/${id}/${slug}`
         );
         dispatch({
             type: JOBS_DETAIL_SUCCESS,
@@ -649,7 +649,7 @@ export const jobCreateAction = () => async (dispatch, getState) => {
 
 
         const { data } = await axios.post(
-            `http://127.0.0.1:8000/api/jobs/create/`,
+            `${process.env.REACT_APP_PORT}/api/jobs/create/`,
             {},
             config
         );
@@ -687,7 +687,7 @@ export const jobUpdateAction = (job) => async (dispatch, getState) => {
 
 
         const { data } = await axios.put(
-            `http://127.0.0.1:8000/api/jobs/update/${job.id}/${job.slug}/`,
+            `${process.env.REACT_APP_PORT}/api/jobs/update/${job.id}/${job.slug}/`,
             job,
             config
         );
@@ -728,7 +728,7 @@ export const jobDeleteAction = (id,slug) => async (dispatch, getState) => {
 
 
         const { data } = await axios.delete(
-            `http://127.0.0.1:8000/api/jobs/delete/${id}/${slug}/`,
+            `${process.env.REACT_APP_PORT}/api/jobs/delete/${id}/${slug}/`,
             
             config
         );

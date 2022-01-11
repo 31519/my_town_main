@@ -100,6 +100,79 @@ import {
     SHOP_DELETE_RESET,
 
 
+    // MEME PORTION
+    MEME_LIST_REQUEST,
+    MEME_LIST_SUCCESS,
+    MEME_LIST_FAIL,
+
+    MEME_DETAIL_REQUEST,
+    MEME_DETAIL_SUCCESS,
+    MEME_DETAIL_FAIL,
+
+    MEME_CREATE_REQUEST,
+    MEME_CREATE_SUCCESS,
+    MEME_CREATE_FAIL,
+    MEME_CREATE_RESET,
+
+    MEME_UPDATE_REQUEST,
+    MEME_UPDATE_SUCCESS,
+    MEME_UPDATE_FAIL,
+    MEME_UPDATE_RESET,
+
+    MEME_DELETE_REQUEST,
+    MEME_DELETE_SUCCESS,
+    MEME_DELETE_FAIL,
+    MEME_DELETE_RESET,
+
+
+    // MEME PORTION
+    LOCAL_LIST_REQUEST,
+    LOCAL_LIST_SUCCESS,
+    LOCAL_LIST_FAIL,
+    LOCAL_DETAIL_REQUEST,
+    LOCAL_DETAIL_SUCCESS,
+    LOCAL_DETAIL_FAIL,
+    LOCAL_CREATE_REQUEST,
+    LOCAL_CREATE_SUCCESS,
+    LOCAL_CREATE_FAIL,
+    LOCAL_CREATE_RESET,
+    LOCAL_UPDATE_REQUEST,
+    LOCAL_UPDATE_SUCCESS,
+    LOCAL_UPDATE_FAIL,
+    LOCAL_UPDATE_RESET,
+    LOCAL_DELETE_REQUEST,
+    LOCAL_DELETE_SUCCESS,
+    LOCAL_DELETE_FAIL,
+    LOCAL_DELETE_RESET,
+
+    // FORM PORTION
+    FORM_LIST_REQUEST,
+    FORM_LIST_SUCCESS,
+    FORM_LIST_FAIL,
+
+
+    FORM_DETAIL_REQUEST,
+    FORM_DETAIL_SUCCESS,
+    FORM_DETAIL_FAIL,
+
+
+    FORM_CREATE_REQUEST,
+    FORM_CREATE_SUCCESS,
+    FORM_CREATE_FAIL,
+    FORM_CREATE_RESET,
+
+    FORM_UPDATE_REQUEST,
+    FORM_UPDATE_SUCCESS,
+    FORM_UPDATE_FAIL,
+    FORM_UPDATE_RESET,
+
+    // BANNER PORTION
+    BANNER_LIST_REQUEST,
+    BANNER_LIST_SUCCESS,
+    BANNER_LIST_FAIL,
+
+
+
 
 
 } from '../constants/productivityConstants'
@@ -470,6 +543,8 @@ export const shopListReducer = (state = {shops: []}, action) => {
             return {
                 loading: false,
                 shops: action.payload.shop,
+                page: action.payload.page,
+                pages: action.payload.pages,
             };
 
         case SHOP_LIST_FAIL:
@@ -479,6 +554,26 @@ export const shopListReducer = (state = {shops: []}, action) => {
             return state;
     }
 }
+
+
+// export const shopListReducer = (state = {shops: []}, action) => {
+//     switch (action.type) {
+//         case SHOP_LIST_REQUEST:
+//             return { loading: true, shops:[]};
+        
+//         case SHOP_LIST_SUCCESS:
+//             return {
+//                 loading: false,
+//                 shops: action.payload.shop,
+//             };
+
+//         case SHOP_LIST_FAIL:
+//             return {loading:false, error: action.payload}
+
+//         default:
+//             return state;
+//     }
+// }
 
 
 export const shopDetailReducer = (state = {shop: []}, action) => {
@@ -572,3 +667,359 @@ export const shopDeleteReducer = (state = {}, action) => {
             return state;
     }
 }
+
+
+
+
+// meme PORTION
+
+export const memeListReducer = (state = {memes: []}, action) => {
+    switch (action.type) {
+        case MEME_LIST_REQUEST:
+            return { loading: true, memes:[]};
+        
+        case MEME_LIST_SUCCESS:
+            return {
+                loading: false,
+                memes: action.payload.meme,
+                page: action.payload.page,
+                pages: action.payload.pages,
+            };
+
+        case MEME_LIST_FAIL:
+            return {loading:false, error: action.payload}
+
+        default:
+            return state;
+    }
+}
+
+
+export const memeDetailReducer = (state = {meme: []}, action) => {
+    switch (action.type) {
+        case MEME_DETAIL_REQUEST:
+            return { loading: true, ...state};
+        
+        case MEME_DETAIL_SUCCESS:
+            return {
+                loading: false,
+                meme: action.payload,
+            };
+
+        case MEME_DETAIL_FAIL:
+            return {loading:false, error: action.payload}
+
+        default:
+            return state;
+    }
+}
+
+
+
+export const memeCreateReducer = (state = {}, action) => {
+    switch (action.type) {
+        case MEME_CREATE_REQUEST:
+            return { loading: true, meme:[]};
+        
+        case MEME_CREATE_SUCCESS:
+            return {
+                loading: false,
+                meme: action.payload,
+                success:true
+            };
+
+        case MEME_CREATE_FAIL:
+            return {loading:false, error: action.payload}
+        
+        case MEME_CREATE_RESET:
+            return {}
+
+        default:
+            return state;
+    }
+}
+
+
+export const memeUpdateReducer = (state = {}, action) => {
+    switch (action.type) {
+        case MEME_UPDATE_REQUEST:
+            return { loading: true};
+        
+        case MEME_UPDATE_SUCCESS:
+            return {
+                loading: false,
+                meme: action.payload,
+                success:true
+            };
+
+        case MEME_UPDATE_FAIL:
+            return {loading:false, error: action.payload}
+        
+        case MEME_UPDATE_RESET:
+            return {}
+
+        default:
+            return state;
+    }
+}
+
+
+export const memeDeleteReducer = (state = {}, action) => {
+    switch (action.type) {
+        case MEME_DELETE_REQUEST:
+            return { loading: true};
+        
+        case MEME_DELETE_SUCCESS:
+            return {
+                loading: false,
+                meme: action.payload,
+                success:true
+            };
+
+        case MEME_DELETE_FAIL:
+            return {loading:false, error: action.payload}
+        
+        case MEME_DELETE_RESET:
+            return {}
+
+        default:
+            return state;
+    }
+}
+
+
+
+
+// LOCAL PORTION
+
+export const localListReducer = (state = {locals: []}, action) => {
+    switch (action.type) {
+        case LOCAL_LIST_REQUEST:
+            return { loading: true, locals:[]};
+        
+        case LOCAL_LIST_SUCCESS:
+            return {
+                loading: false,
+                locals: action.payload.local,
+                page: action.payload.page,
+                pages: action.payload.pages,
+            };
+
+        case LOCAL_LIST_FAIL:
+            return {loading:false, error: action.payload}
+
+        default:
+            return state;
+    }
+}
+
+
+export const localDetailReducer = (state = {local: []}, action) => {
+    switch (action.type) {
+        case LOCAL_DETAIL_REQUEST:
+            return { loading: true, ...state};
+        
+        case LOCAL_DETAIL_SUCCESS:
+            return {
+                loading: false,
+                local: action.payload,
+            };
+
+        case LOCAL_DETAIL_FAIL:
+            return {loading:false, error: action.payload}
+
+        default:
+            return state;
+    }
+}
+
+
+
+export const localCreateReducer = (state = {}, action) => {
+    switch (action.type) {
+        case LOCAL_CREATE_REQUEST:
+            return { loading: true, local:[]};
+        
+        case LOCAL_CREATE_SUCCESS:
+            return {
+                loading: false,
+                local: action.payload,
+                success:true
+            };
+
+        case LOCAL_CREATE_FAIL:
+            return {loading:false, error: action.payload}
+        
+        case LOCAL_CREATE_RESET:
+            return {}
+
+        default:
+            return state;
+    }
+}
+
+
+export const localUpdateReducer = (state = {}, action) => {
+    switch (action.type) {
+        case LOCAL_UPDATE_REQUEST:
+            return { loading: true};
+        
+        case LOCAL_UPDATE_SUCCESS:
+            return {
+                loading: false,
+                local: action.payload,
+                success:true
+            };
+
+        case LOCAL_UPDATE_FAIL:
+            return {loading:false, error: action.payload}
+        
+        case LOCAL_UPDATE_RESET:
+            return {}
+
+        default:
+            return state;
+    }
+}
+
+
+export const localDeleteReducer = (state = {}, action) => {
+    switch (action.type) {
+        case LOCAL_DELETE_REQUEST:
+            return { loading: true};
+        
+        case LOCAL_DELETE_SUCCESS:
+            return {
+                loading: false,
+                local: action.payload,
+                success:true
+            };
+
+        case LOCAL_DELETE_FAIL:
+            return {loading:false, error: action.payload}
+        
+        case LOCAL_DELETE_RESET:
+            return {}
+
+        default:
+            return state;
+    }
+}
+
+
+
+// form PORTION
+
+export const formListReducer = (state = {forms: []}, action) => {
+    switch (action.type) {
+        case FORM_LIST_REQUEST:
+            return { loading: true, forms:[]};
+        
+        case FORM_LIST_SUCCESS:
+            return {
+                loading: false,
+                forms: action.payload
+            };
+
+        case FORM_LIST_FAIL:
+            return {loading:false, error: action.payload}
+
+        default:
+            return state;
+    }
+}
+
+
+
+export const formDetailReducer = (state = {form: []}, action) => {
+    switch (action.type) {
+        case FORM_DETAIL_REQUEST:
+            return { loading: true, ...state};
+        
+        case FORM_DETAIL_SUCCESS:
+            return {
+                loading: false,
+                form: action.payload,
+            };
+
+        case FORM_DETAIL_FAIL:
+            return {loading:false, error: action.payload}
+
+        default:
+            return state;
+    }
+}
+
+
+
+export const formCreateReducer = (state = {}, action) => {
+    switch (action.type) {
+        case FORM_CREATE_REQUEST:
+            return { loading: true, form:[]};
+        
+        case FORM_CREATE_SUCCESS:
+            return {
+                loading: false,
+                form: action.payload,
+                success:true
+            };
+
+        case FORM_CREATE_FAIL:
+            return {loading:false, error: action.payload}
+        
+        case FORM_CREATE_RESET:
+            return {}
+
+        default:
+            return state;
+    }
+}
+
+
+export const formUpdateReducer = (state = {}, action) => {
+    switch (action.type) {
+        case FORM_UPDATE_REQUEST:
+            return { loading: true};
+        
+        case FORM_UPDATE_SUCCESS:
+            return {
+                loading: false,
+                form: action.payload,
+                success:true
+            };
+
+        case FORM_UPDATE_FAIL:
+            return {loading:false, error: action.payload}
+        
+        case FORM_UPDATE_RESET:
+            return {}
+
+        default:
+            return state;
+    }
+}
+
+
+// banner PORTION
+
+export const bannerListReducer = (state = {banners: []}, action) => {
+    switch (action.type) {
+        case BANNER_LIST_REQUEST:
+            return { loading: true, banners:[]};
+        
+        case BANNER_LIST_SUCCESS:
+            return {
+                loading: false,
+                banners: action.payload
+            };
+
+        case BANNER_LIST_FAIL:
+            return {loading:false, error: action.payload}
+
+        default:
+            return state;
+    }
+}
+
+
+

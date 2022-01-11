@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from news_api_app.models import Technology, Science, Health, Business, LocalNews, Profile
+from news_api_app.models import Technology, Science, Health, Business, LocalNews, Profile, RequestForm
 
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -28,6 +28,12 @@ class BusinessSerializers(serializers.ModelSerializer):
 class LocalNewsSerializers(serializers.ModelSerializer):
     class Meta:
         model = LocalNews
+        fields = '__all__'
+
+
+class RequestFormSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = RequestForm
         fields = '__all__'
 
 class UserSerializers(serializers.ModelSerializer):

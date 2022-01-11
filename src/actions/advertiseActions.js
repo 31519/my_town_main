@@ -97,6 +97,76 @@ import {
     SHOP_DELETE_FAIL,
     SHOP_DELETE_RESET,
 
+    // MEME PORTION
+    MEME_LIST_REQUEST,
+    MEME_LIST_SUCCESS,
+    MEME_LIST_FAIL,
+
+    MEME_DETAIL_REQUEST,
+    MEME_DETAIL_SUCCESS,
+    MEME_DETAIL_FAIL,
+
+    MEME_CREATE_REQUEST,
+    MEME_CREATE_SUCCESS,
+    MEME_CREATE_FAIL,
+    MEME_CREATE_RESET,
+
+    MEME_UPDATE_REQUEST,
+    MEME_UPDATE_SUCCESS,
+    MEME_UPDATE_FAIL,
+    MEME_UPDATE_RESET,
+
+    MEME_DELETE_REQUEST,
+    MEME_DELETE_SUCCESS,
+    MEME_DELETE_FAIL,
+    MEME_DELETE_RESET,
+
+
+
+    // MEME PORTION
+    LOCAL_LIST_REQUEST,
+    LOCAL_LIST_SUCCESS,
+    LOCAL_LIST_FAIL,
+    LOCAL_DETAIL_REQUEST,
+    LOCAL_DETAIL_SUCCESS,
+    LOCAL_DETAIL_FAIL,
+    LOCAL_CREATE_REQUEST,
+    LOCAL_CREATE_SUCCESS,
+    LOCAL_CREATE_FAIL,
+    LOCAL_CREATE_RESET,
+    LOCAL_UPDATE_REQUEST,
+    LOCAL_UPDATE_SUCCESS,
+    LOCAL_UPDATE_FAIL,
+    LOCAL_UPDATE_RESET,
+    LOCAL_DELETE_REQUEST,
+    LOCAL_DELETE_SUCCESS,
+    LOCAL_DELETE_FAIL,
+    LOCAL_DELETE_RESET,
+
+    // FORM PORTION
+    FORM_LIST_REQUEST,
+    FORM_LIST_SUCCESS,
+    FORM_LIST_FAIL,
+
+    FORM_DETAIL_REQUEST,
+    FORM_DETAIL_SUCCESS,
+    FORM_DETAIL_FAIL,
+
+    FORM_CREATE_REQUEST,
+    FORM_CREATE_SUCCESS,
+    FORM_CREATE_FAIL,
+    FORM_CREATE_RESET,
+
+    FORM_UPDATE_REQUEST,
+    FORM_UPDATE_SUCCESS,
+    FORM_UPDATE_FAIL,
+    FORM_UPDATE_RESET,
+
+    // BANNER PORTION
+    BANNER_LIST_REQUEST,
+    BANNER_LIST_SUCCESS,
+    BANNER_LIST_FAIL,
+
 
 } from '../constants/productivityConstants'
 
@@ -108,7 +178,7 @@ export const advertiseListAction = (keyword = '') => async (dispatch) => {
     try{
         dispatch({ type: ADVERTISE_LIST_REQUEST });
         const { data } = await axios.get(
-            `http://127.0.0.1:8000/api/advertisement/list${keyword}`
+            `${process.env.REACT_APP_PORT}/api/advertisement/list${keyword}`
         );
         dispatch({
             type: ADVERTISE_LIST_SUCCESS,
@@ -131,7 +201,7 @@ export const advertiseDetailAction = (id, slug) => async (dispatch) => {
     try{
         dispatch({ type: ADVERTISE_DETAIL_REQUEST });
         const { data } = await axios.get(
-            `http://127.0.0.1:8000/api/advertisement/list/${id}/${slug}`
+            `${process.env.REACT_APP_PORT}/api/advertisement/list/${id}/${slug}`
         );
         dispatch({
             type: ADVERTISE_DETAIL_SUCCESS,
@@ -167,7 +237,7 @@ export const advertiseCreateAction = () => async (dispatch, getState) => {
 
 
         const { data } = await axios.post(
-            `http://127.0.0.1:8000/api/advertisement/create/`,
+            `${process.env.REACT_APP_PORT}/api/advertisement/create/`,
             {},
             config
         );
@@ -207,7 +277,7 @@ export const advertiseUpdateAction = (advertise) => async (dispatch, getState) =
 
 
         const { data } = await axios.put(
-            `http://127.0.0.1:8000/api/advertisement/update/${advertise.id}/${advertise.slug}/`,
+            `${process.env.REACT_APP_PORT}/api/advertisement/update/${advertise.id}/${advertise.slug}/`,
             advertise,
             config
         );
@@ -249,7 +319,7 @@ export const advertiseDeleteAction = (id, slug) => async (dispatch, getState) =>
 
 
         const { data } = await axios.delete(
-            `http://127.0.0.1:8000/api/advertisement/delete/${id}/${slug}/`,
+            `${process.env.REACT_APP_PORT}/api/advertisement/delete/${id}/${slug}/`,
             
             config
         );
@@ -277,7 +347,7 @@ export const celebrityListAction = (keyword='') => async (dispatch) => {
     try{
         dispatch({ type: CELEBRITY_LIST_REQUEST });
         const { data } = await axios.get(
-            `http://127.0.0.1:8000/api/celebrities/list${keyword}`
+            `${process.env.REACT_APP_PORT}/api/celebrities/list${keyword}`
         );
         dispatch({
             type: CELEBRITY_LIST_SUCCESS,
@@ -298,7 +368,7 @@ export const celebrityDetailAction = (id, slug) => async (dispatch) => {
     try{
         dispatch({ type: CELEBRITY_DETAIL_REQUEST });
         const { data } = await axios.get(
-            `http://127.0.0.1:8000/api/celebrities/list/${id}/${slug}`
+            `${process.env.REACT_APP_PORT}/api/celebrities/list/${id}/${slug}`
         );
         dispatch({
             type: CELEBRITY_DETAIL_SUCCESS,
@@ -334,7 +404,7 @@ export const celebrityCreateAction = () => async (dispatch, getState) => {
 
 
         const { data } = await axios.post(
-            `http://127.0.0.1:8000/api/celebrities/create/`,
+            `${process.env.REACT_APP_PORT}/api/celebrities/create/`,
             {},
             config
         );
@@ -373,7 +443,7 @@ export const celebrityUpdateAction = (celebrity) => async (dispatch, getState) =
 
 
         const { data } = await axios.put(
-            `http://127.0.0.1:8000/api/celebrities/update/${celebrity.id}/${celebrity.slug}/`,
+            `${process.env.REACT_APP_PORT}/api/celebrities/update/${celebrity.id}/${celebrity.slug}/`,
             celebrity,
             config
         );
@@ -415,7 +485,7 @@ export const celebrityDeleteAction = (id,slug) => async (dispatch, getState) => 
 
 
         const { data } = await axios.delete(
-            `http://127.0.0.1:8000/api/celebrities/delete/${id}/${slug}`,
+            `${process.env.REACT_APP_PORT}/api/celebrities/delete/${id}/${slug}`,
             
             config
         );
@@ -444,7 +514,7 @@ export const eventListAction = (keyword="") => async (dispatch) => {
     try{
         dispatch({ type: EVENT_LIST_REQUEST });
         const { data } = await axios.get(
-            `http://127.0.0.1:8000/api/event/list${keyword}`
+            `${process.env.REACT_APP_PORT}/api/event/list${keyword}`
         );
         dispatch({
             type: EVENT_LIST_SUCCESS,
@@ -465,7 +535,7 @@ export const eventDetailAction = (id, slug) => async (dispatch) => {
     try{
         dispatch({ type: EVENT_DETAIL_REQUEST });
         const { data } = await axios.get(
-            `http://127.0.0.1:8000/api/event/list/${id}/${slug}/`
+            `${process.env.REACT_APP_PORT}/api/event/list/${id}/${slug}/`
         );
         dispatch({
             type: EVENT_DETAIL_SUCCESS,
@@ -501,7 +571,7 @@ export const eventCreateAction = () => async (dispatch, getState) => {
 
 
         const { data } = await axios.post(
-            `http://127.0.0.1:8000/api/event/create/`,
+            `${process.env.REACT_APP_PORT}/api/event/create/`,
             {},
             config
         );
@@ -539,7 +609,7 @@ export const eventUpdateAction = (event) => async (dispatch, getState) => {
 
 
         const { data } = await axios.put(
-            `http://127.0.0.1:8000/api/event/update/${event.id}/${event.slug}/`,
+            `${process.env.REACT_APP_PORT}/api/event/update/${event.id}/${event.slug}/`,
             event,
             config
         );
@@ -581,7 +651,7 @@ export const eventDeleteAction = (id, slug) => async (dispatch, getState) => {
 
 
         const { data } = await axios.delete(
-            `http://127.0.0.1:8000/api/event/delete/${id}/${slug}/`,
+            `${process.env.REACT_APP_PORT}/api/event/delete/${id}/${slug}/`,
             
             config
         );
@@ -608,22 +678,8 @@ export const eventDeleteAction = (id, slug) => async (dispatch, getState) => {
 export const shopListAction = (keyword="") => async (dispatch, getState) => {
     try{
         dispatch({ type: SHOP_LIST_REQUEST });
-
-
-        const {
-            userLogin: { userInfo },
-        } = getState()
-        
-        const config = {
-            headers: {
-                'Content-type': 'application/json',
-                Authorization: `Bearer ${userInfo.token}`
-            }
-        }
-
         const { data } = await axios.get(
-            `/api/shops/list/`,
-            config
+            `${process.env.REACT_APP_PORT}/api/shops/list${keyword}`
         );
         dispatch({
             type: SHOP_LIST_SUCCESS,
@@ -644,7 +700,7 @@ export const shopDetailAction = (id, slug) => async (dispatch) => {
     try{
         dispatch({ type: SHOP_DETAIL_REQUEST });
         const { data } = await axios.get(
-            `http://127.0.0.1:8000/api/shops/list/${id}/${slug}`
+            `${process.env.REACT_APP_PORT}/api/shops/list/${id}/${slug}`
         );
         dispatch({
             type: SHOP_DETAIL_SUCCESS,
@@ -679,7 +735,7 @@ export const shopCreateAction = () => async (dispatch, getState) => {
 
 
         const { data } = await axios.post(
-            `http://127.0.0.1:8000/api/shops/create/`,
+            `${process.env.REACT_APP_PORT}/api/shops/create/`,
             {},
             config
         );
@@ -717,7 +773,7 @@ export const shopUpdateAction = (shop) => async (dispatch, getState) => {
 
 
         const { data } = await axios.put(
-            `http://127.0.0.1:8000/api/shops/update/${shop.id}/${shop.slug}/`,
+            `${process.env.REACT_APP_PORT}/api/shops/update/${shop.id}/${shop.slug}/`,
             shop,
             config
         );
@@ -758,7 +814,7 @@ export const shopDeleteAction = (id, slug) => async (dispatch, getState) => {
 
 
         const { data } = await axios.delete(
-            `http://127.0.0.1:8000/api/shops/delete/${id}/${slug}/`,
+            `${process.env.REACT_APP_PORT}/api/shops/delete/${id}/${slug}/`,
             
             config
         );
@@ -779,3 +835,479 @@ export const shopDeleteAction = (id, slug) => async (dispatch, getState) => {
     }
 }
 
+
+
+// MEME PORTION
+
+export const memeListAction = (keyword="") => async (dispatch, getState) => {
+    try{
+        dispatch({ type: MEME_LIST_REQUEST });
+        const { data } = await axios.get(
+            `${process.env.REACT_APP_PORT}/api/meme/list${keyword}`
+        );
+        dispatch({
+            type: MEME_LIST_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: MEME_LIST_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
+export const memeDetailAction = (id, slug) => async (dispatch) => {
+    try{
+        dispatch({ type: MEME_DETAIL_REQUEST });
+        const { data } = await axios.get(
+            `${process.env.REACT_APP_PORT}/api/meme/list/${id}/${slug}`
+        );
+        dispatch({
+            type: MEME_DETAIL_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: MEME_DETAIL_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
+
+export const memeCreateAction = () => async (dispatch, getState) => {
+    try{
+        dispatch({ type: MEME_CREATE_REQUEST });
+        
+        const {
+            userLogin: { userInfo },
+        } = getState()
+        
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+
+        const { data } = await axios.post(
+            `${process.env.REACT_APP_PORT}/api/meme/create/`,
+            {},
+            config
+        );
+
+
+        dispatch({
+            type: MEME_CREATE_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: MEME_CREATE_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
+export const memeUpdateAction = (meme) => async (dispatch, getState) => {
+    try{
+        dispatch({ type: MEME_UPDATE_REQUEST });
+        
+        const {
+            userLogin: { userInfo },
+        } = getState()
+        
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+
+        const { data } = await axios.put(
+            `${process.env.REACT_APP_PORT}/api/meme/update/${meme.id}/${meme.slug}/`,
+            meme,
+            config
+        );
+
+
+        dispatch({
+            type: MEME_UPDATE_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: MEME_UPDATE_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
+
+
+
+export const memeDeleteAction = (id, slug) => async (dispatch, getState) => {
+    try{
+        dispatch({ type: MEME_DELETE_REQUEST });
+        
+        const {
+            userLogin: { userInfo },
+        } = getState()
+        
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+
+        const { data } = await axios.delete(
+            `${process.env.REACT_APP_PORT}/api/meme/delete/${id}/${slug}/`,
+            
+            config
+        );
+
+
+        dispatch({
+            type: MEME_DELETE_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: MEME_DELETE_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
+
+
+// LOCAL PORTION
+
+export const localListAction = (keyword="") => async (dispatch, getState) => {
+    try{
+        dispatch({ type: LOCAL_LIST_REQUEST });
+        const { data } = await axios.get(
+            `${process.env.REACT_APP_PORT}/api/localnews/list${keyword}`
+        );
+        dispatch({
+            type: LOCAL_LIST_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: LOCAL_LIST_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
+export const localDetailAction = (id, slug) => async (dispatch) => {
+    try{
+        dispatch({ type: LOCAL_DETAIL_REQUEST });
+        const { data } = await axios.get(
+            `${process.env.REACT_APP_PORT}/api/localnews/list/${id}/${slug}`
+        );
+        dispatch({
+            type: LOCAL_DETAIL_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: LOCAL_DETAIL_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
+
+export const localCreateAction = () => async (dispatch, getState) => {
+    try{
+        dispatch({ type: LOCAL_CREATE_REQUEST });
+        
+        const {
+            userLogin: { userInfo },
+        } = getState()
+        
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+
+        const { data } = await axios.post(
+            `${process.env.REACT_APP_PORT}/api/localnews/create/`,
+            {},
+            config
+        );
+
+
+        dispatch({
+            type: LOCAL_CREATE_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: LOCAL_CREATE_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
+export const localUpdateAction = (local) => async (dispatch, getState) => {
+    try{
+        dispatch({ type: LOCAL_UPDATE_REQUEST });
+        
+        const {
+            userLogin: { userInfo },
+        } = getState()
+        
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+
+        const { data } = await axios.put(
+            `${process.env.REACT_APP_PORT}/api/localnews/update/${local.id}/${local.slug}/`,
+            local,
+            config
+        );
+
+
+        dispatch({
+            type: LOCAL_UPDATE_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: LOCAL_UPDATE_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
+
+
+
+export const localDeleteAction = (id, slug) => async (dispatch, getState) => {
+    try{
+        dispatch({ type: LOCAL_DELETE_REQUEST });
+        
+        const {
+            userLogin: { userInfo },
+        } = getState()
+        
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+
+        const { data } = await axios.delete(
+            `${process.env.REACT_APP_PORT}/api/localnews/delete/${id}/${slug}/`,
+            
+            config
+        );
+
+
+        dispatch({
+            type: LOCAL_DELETE_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: LOCAL_DELETE_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
+
+
+// form PORTION
+
+export const formListAction = (keyword="") => async (dispatch, getState) => {
+    try{
+        dispatch({ type: FORM_LIST_REQUEST });
+        const { data } = await axios.get(
+            `${process.env.REACT_APP_PORT}/api/form/list${keyword}`
+        );
+        dispatch({
+            type: FORM_LIST_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: FORM_LIST_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
+export const formDetailAction = (id, slug) => async (dispatch) => {
+    try{
+        dispatch({ type: FORM_DETAIL_REQUEST });
+        const { data } = await axios.get(
+            `${process.env.REACT_APP_PORT}/api/form/list/${id}/${slug}`
+        );
+        dispatch({
+            type: FORM_DETAIL_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: FORM_DETAIL_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
+
+
+export const formCreateAction = (form) => async (dispatch, getState) => {
+    try{
+        dispatch({ type: FORM_CREATE_REQUEST });
+        
+        const {
+            userLogin: { userInfo },
+        } = getState()
+        
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+
+        const { data } = await axios.post(
+            `${process.env.REACT_APP_PORT}/api/form/create/`,
+            form,
+            config
+        );
+
+
+        dispatch({
+            type: FORM_CREATE_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: FORM_CREATE_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
+
+export const formUpdateAction = (form) => async (dispatch, getState) => {
+    try{
+        dispatch({ type: FORM_UPDATE_REQUEST });
+        
+        const {
+            userLogin: { userInfo },
+        } = getState()
+        
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+
+        const { data } = await axios.put(
+            `${process.env.REACT_APP_PORT}/api/form/update/${form.id}/${form.slug}/`,
+            form,
+            config
+        );
+
+
+        dispatch({
+            type: FORM_UPDATE_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: FORM_UPDATE_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
+
+// banner PORTION
+
+export const bannerListAction = (keyword="") => async (dispatch, getState) => {
+    try{
+        dispatch({ type: BANNER_LIST_REQUEST });
+        const { data } = await axios.get(
+            `${process.env.REACT_APP_PORT}/api/meme/banner/list${keyword}`
+        );
+        dispatch({
+            type: BANNER_LIST_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: BANNER_LIST_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}

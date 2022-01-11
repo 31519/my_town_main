@@ -2,26 +2,25 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link, useParams } from "react-router-dom";
 
-import {PROFILE_UPDATE_RESET} from "../constants/userConstants"
+import { PROFILE_UPDATE_RESET } from "../constants/userConstants";
+import axios from "axios"
 
 import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
-import { 
-    userDetailActions,
-    userUpdateActions,
+import {
+  userDetailActions,
+  userUpdateActions,
+  profileDetailActions,
+  profileUpdateActions,
+} from "../actions/userActions";
 
-    profileDetailActions,
-    profileUpdateActions
+import "../css_styles/ProfileEdit.css";
 
- } from "../actions/userActions";
-
-import "../css_styles/Signup.css";
+import { Grid, Card, FormControl, Input, InputLabel } from "@mui/material";
 
 const UserUpdate = () => {
-    const params = useParams()
-    const profile_id = params.id
-
-
+  const params = useParams();
+  const profile_id = params.id;
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -33,107 +32,125 @@ const UserUpdate = () => {
   const [pincode, setPincode] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [profession, setProfession] = useState("");
-  const [isApproved, setIsApproved] = useState(false);
+  const [loading, setLoading] = useState(false);
 
+  const [image, setImage] = useState();
 
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
   const userDetail = useSelector((state) => state.userDetail);
-  const userUpdate = useSelector((state) => state.userUpdate)
-
+  const userUpdate = useSelector((state) => state.userUpdate);
 
   const profileDetail = useSelector((state) => state.profileDetail);
-  const profileUpdate = useSelector((state) => state.profileUpdate)
-
+  const profileUpdate = useSelector((state) => state.profileUpdate);
 
   const {
-    error:   detailUserError,
+    error: detailUserError,
     loading: detailUserLoading,
-    user   : detailUser,
+    user: detailUser,
   } = userDetail;
 
   const {
-      error:    updateUserError,
-      loading:  updateUserLoading,
-      user    : updateUser,
-      success : updateUserSuccess
-  } = userUpdate
+    error: updateUserError,
+    loading: updateUserLoading,
+    user: updateUser,
+    success: updateUserSuccess,
+  } = userUpdate;
 
   const {
-    error:   detailProfileError,
+    error: detailProfileError,
     loading: detailProfileLoading,
-    profile 
+    profile,
   } = profileDetail;
 
   const {
-      error:    updateProfileError,
-      loading:  updateProfileLoading,
-      profile : updateProfile,
-      success : updateProfileSuccess
-  } = profileUpdate
-
+    error: updateProfileError,
+    loading: updateProfileLoading,
+    profile: updateProfile,
+    success: updateProfileSuccess,
+  } = profileUpdate;
 
   useEffect(() => {
-    if(updateProfileSuccess){
-        dispatch({type: PROFILE_UPDATE_RESET})
-        navigate('/my-dashboard')
+    if (updateProfileSuccess) {
+      dispatch({ type: PROFILE_UPDATE_RESET });
+      navigate("/my-dashboard");
     } else {
-        if(profile.id !==Number(profile_id) ){
+      if (profile.id !== Number(profile_id)) {
+        dispatch(profileDetailActions());
+      } else {
+        setUsername(profile.username);
+        setEmail(profile.email);
+        setFirstName(profile.firstName);
+        setLastName(profile.lastName);
+        setImage(profile.image);
+        setState(profile.state);
+        setTown(profile.town);
+        setCountry(profile.country);
+        setPincode(profile.pincode);
+        setPhoneNumber(profile.phoneNumber);
+        setProfession(profile.profession);
+      }
+    }
+  }, [dispatch, updateProfileSuccess, profile]);
 
-        dispatch(profileDetailActions())
-        } else {
-            setUsername(profile.username)
-            setEmail(profile.email)
-            setFirstName(profile.firstName)
-            setLastName(profile.lastName)
-            setState(profile.state)
-            setTown(profile.town)
-            setCountry(profile.country)
-            setPincode(profile.pincode)
-            setPhoneNumber(profile.phoneNumber)
-            setProfession(profile.profession)
-            setIsApproved(profile.isApproved)
 
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0]
+    const formData = new FormData()
+
+    formData.append('image', file)
+    formData.append('product_id', profile_id)
+
+    setLoading(true)
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
+      }
 
-}
-  },[ dispatch, updateProfileSuccess, profile])
+      const { data } = await axios.post('/api/users/profile-image/',
+      formData, config)
+
+      setImage(data.image)
+      setLoading(false)
+    } catch (error){
+      setLoading(false)
+    }
+  }
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(profileUpdateActions({
-        id:profile.id,
+    dispatch(
+      profileUpdateActions({
+        id: profile.id,
         username,
         email,
         firstName,
         lastName,
+        image,
         state,
         town,
         country,
         pincode,
         phoneNumber,
         profession,
-        isApproved
-    }
-        
-    ));
+      })
+    );
   };
 
   return (
     <>
-      <div className="signup">
-        <div className="signup_main">
-          <div className="signup_form">
+      <div className="edit">
+        <div className="edit-main">
+          <Card className="edit-form">
             <form onSubmit={submitHandler}>
-              <div className="signup_text">
-                <div className="signup_text1">LOGIN</div>
-              </div>
-              <div className="signup_container">
+              <FormControl variant="standard" className="signup_container">
                 <label>username</label>
-                <input
+                <Input
                   id="username"
                   className="input"
                   type="text"
@@ -141,10 +158,10 @@ const UserUpdate = () => {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
-              </div>
-              <div className="signup_container">
+              </FormControl>
+              <FormControl className="signup_container">
                 <label>email</label>
-                <input
+                <Input
                   id="email"
                   className="input"
                   type="email"
@@ -152,11 +169,11 @@ const UserUpdate = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-              </div>
+              </FormControl>
 
-              <div className="signup_container">
+              <FormControl className="signup_container">
                 <label>First Name</label>
-                <input
+                <Input
                   id="firstName"
                   className="input"
                   type="text"
@@ -164,11 +181,11 @@ const UserUpdate = () => {
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                 />
-              </div>
+              </FormControl>
 
-              <div className="signup_container">
+              <FormControl className="signup_container">
                 <label>Last Name</label>
-                <input
+                <Input
                   id="lastName"
                   className="input"
                   type="text"
@@ -176,11 +193,26 @@ const UserUpdate = () => {
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                 />
-              </div>
+              </FormControl>
+              <Grid className="signup_container">
+                <label>Image</label>
+                <img src={image} style={{width:"80%", height:"30%"}} alt="img"/>
+                <Input 
+                  type="file"
+                  accept="image/*"
+                  // value={image}
+                  onChange={uploadFileHandler}
+                />
+                {loading && <Loaders/>}
 
-              <div className="signup_container">
+              </Grid>
+
+
+
+
+              <FormControl className="signup_container">
                 <label>State</label>
-                <input
+                <Input
                   id="state"
                   className="input"
                   type="text"
@@ -188,11 +220,11 @@ const UserUpdate = () => {
                   value={state}
                   onChange={(e) => setState(e.target.value)}
                 />
-              </div>
+              </FormControl>
 
-              <div className="signup_container">
+              <FormControl className="signup_container">
                 <label>Town</label>
-                <input
+                <Input
                   id="text"
                   className="input"
                   type="text"
@@ -200,11 +232,11 @@ const UserUpdate = () => {
                   value={town}
                   onChange={(e) => setTown(e.target.value)}
                 />
-              </div>
+              </FormControl>
 
-              <div className="signup_container">
+              <FormControl className="signup_container">
                 <label>Country</label>
-                <input
+                <Input
                   id="country"
                   className="input"
                   type="text"
@@ -212,11 +244,11 @@ const UserUpdate = () => {
                   value={country}
                   onChange={(e) => setCountry(e.target.value)}
                 />
-              </div>
+              </FormControl>
 
-              <div className="signup_container">
+              <FormControl className="signup_container">
                 <label>Pincode</label>
-                <input
+                <Input
                   id="pincode"
                   className="input"
                   type="number"
@@ -224,11 +256,11 @@ const UserUpdate = () => {
                   value={pincode}
                   onChange={(e) => setPincode(e.target.value)}
                 />
-              </div>
+              </FormControl>
 
-              <div className="signup_container">
+              <FormControl className="signup_container">
                 <label>Phone Number</label>
-                <input
+                <Input
                   id="phonenumber"
                   className="input"
                   type="number"
@@ -236,11 +268,11 @@ const UserUpdate = () => {
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                 />
-              </div>
+              </FormControl>
 
-              <div className="signup_container">
+              <FormControl className="signup_container">
                 <label>Profession</label>
-                <input
+                <Input
                   id="profession"
                   className="input"
                   type="text"
@@ -248,21 +280,7 @@ const UserUpdate = () => {
                   value={profession}
                   onChange={(e) => setProfession(e.target.value)}
                 />
-              </div>
-
-              <div className="signup_container">
-                <label>Approved</label>
-                <input
-                  id="profession"
-                  className="input"
-                  type="text"
-                  placeholder="Profession"
-                  value={isApproved}
-                  onChange={(e) => setIsApproved(e.target.value)}
-                />
-              </div>
-
-
+              </FormControl>
 
               <div className="signup_button">
                 <button className="button_input" type="submit">
@@ -274,8 +292,7 @@ const UserUpdate = () => {
             {updateUserError && (
               <ErrorMessage type="error" error={updateUserError} />
             )}
-
-          </div>
+          </Card>
         </div>
       </div>
     </>

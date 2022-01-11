@@ -52,7 +52,7 @@ export default function Navbars() {
             <MenuIcon />
           </IconButton>
           <Link className="text-link" to="/">
-            <h2 className="navbar-logo">MyTown</h2>
+            <h2 className="navbar-logo">inmatown</h2>
           </Link>
           {auth && (
             <Grid className="navbarGrid" container>

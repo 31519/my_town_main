@@ -57,6 +57,11 @@ tr:hover {
     box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2);
 }
 
+.table-container {
+    max-width: 80%;
+    table-layout: fixed;
+}
+
 @media screen and (max-width: 768px) {
     h2 {
         font-size: var(--mobile_text_size);

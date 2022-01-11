@@ -68,7 +68,6 @@ def AdvertisementUpdate(request, pk, slug):
     advertisement.state = data['state']
     advertisement.address = data['address']
     advertisement.contact = data['contact']
-    advertisement.image=data['image']
     advertisement.title = data['title']
     advertisement.content = data['content']
     advertisement.save()
@@ -87,10 +86,9 @@ def AdvertisementAdminUpdate(request, pk):
     advertisement.state = data['state']
     advertisement.address = data['address']
     advertisement.contact = data['contact']
-    advertisement.image=data['image']
+    # advertisement.image=data['image']
     advertisement.title = data['title']
     advertisement.content = data['content']
-    advertisement.isApproved = data['isApproved']
     advertisement.save()
     serializer = AdvertisementSerializers(advertisement, many=False)
     return Response(serializer.data)
@@ -98,7 +96,7 @@ def AdvertisementAdminUpdate(request, pk):
 
 
 @api_view(['DELETE', 'GET'])
-@permission_classes([IsAdminUser])
+@permission_classes([IsAuthenticated])
 def AdvertisementDelete(request, pk, slug):
     if request.method == 'GET':
         advertisement = Advertisement.objects.get(pk=pk, slug=slug)
@@ -109,3 +107,20 @@ def AdvertisementDelete(request, pk, slug):
         advertisement = Advertisement.objects.get(pk=pk, slug=slug)
         advertisement.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+@api_view(['POST'])
+def AdvertisementImage(request):
+    data = request.data
+
+    product_id = data['product_id']
+    advertise = Advertisement.objects.get(id=product_id)
+
+    advertise.image = request.FILES.get('image')
+    advertise.save()
+
+    serializer = AdvertisementSerializers(advertise, many=False)
+    
+    return Response(serializer.data)
+

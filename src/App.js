@@ -4,7 +4,7 @@ import Navbars from "./navbars/Navbars";
 import {useEffect} from "react";
 // import RouteChangeTracker from "./components/RouteChangeTracker";
 
-import ReactGA from "react-ga4";
+
 // import TechList from "./screens/TechLIst";
 import TechCreate from "./admin-screen/TechCreate";
 import DetailTechList from "./screens/DetailTechList";
@@ -31,6 +31,7 @@ import ProductivityCreate from "./admin-screen/ProductivityCreate";
 import UserProfileEdit from "./screens/UserProfileEdit";
 import UserUpdate from "./screens/UserUpdate";
 import HomeScreen from "./screens/HomeScreen";
+
 // import ShopHomePage from "./screens/ShopHomePage";
 
 // DETAIL PAGES
@@ -46,6 +47,8 @@ import HotelDetail from "./detailPage/HotelDetail";
 import ShopDetail from "./detailPage/ShopDetail";
 import TourismsDetail from "./detailPage/TourismsDetail";
 import UserDetail from "./detailPage/UserDetail";
+import MemeDetail from "./detailPage/MemeDetail";
+import LocalDetail from "./detailPage/LocalDetail";
 
 // CREATE SCREEN
 import AdvertiseCreate from "./createPage/AdvertiseCreate";
@@ -56,6 +59,7 @@ import JobCreate from "./createPage/JobCreate";
 import HotelCreate from "./createPage/HotelCreate";
 import ShopCreate from "./createPage/ShopCreate";
 import TourismsCreate from "./createPage/TourismsCreate"
+import RequestFormCreate from "./updatePage/RequestFormCreate"
 
 // UPDATE SCREEN
 import UserPostUpdate  from "./screens/UserPostUpdate"
@@ -66,7 +70,15 @@ import JobUpdate from "./updatePage/JobUpdate";
 import HotelUpdate from "./updatePage/HotelUpdate";
 import ShopUpdate from "./updatePage/ShopUpdate";
 import TourismsUpdate from "./updatePage/TourismsUpdate";
-import AdvertiseUpdate from "./updatePage/AdvertiseUpdate";
+import MemeUpdate from "./updatePage/MemeUpdate";
+import LocalnewsUpdate from "./updatePage/LocalNewsUpdate";
+import RequestFormUpdate from "./updatePage/RequestFormUpdate"
+// import AdvertiseUpdate from "./updatePage/AdvertiseUpdate";
+
+
+import LocalScreen from "./screens/LocalScreen";
+import MemeScreen from "./screens/MemeScreen";
+
 
 
 // PRIVACY POLICY
@@ -83,7 +95,7 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="App" style={{backgrounColor:"#e0e7e9ee"}}>
       <Router>
         <Navbars />
         <Routes>
@@ -99,6 +111,8 @@ function App() {
           <Route path="/science-screen" element={<ScienceScreen/>} />
 
           <Route path="/" element={<HomeScreen/>} exact />
+          <Route path="/local" element={<LocalScreen/>} />
+          <Route path="/meme" element={<MemeScreen/>} />
 
           <Route path="/celebrity" element={<CelebrityScreen/>} />
           <Route path="/tourisms" element={<Tourisms/>} />
@@ -131,6 +145,8 @@ function App() {
           <Route path="/shop-detail/:id/:slug" element={<ShopDetail/>} />
           <Route path="/tourisms-detail/:id/:slug" element={<TourismsDetail/>} />
           <Route path="/user-detail" element={<UserDetail/>} />
+          <Route path="/meme-detail/:id/:slug" element={<MemeDetail/>} />
+          <Route path="/local-detail/:id/:slug" element={<LocalDetail/>} />
 
           <Route path="/advertise-create" element={<AdvertiseCreate/>} />
           <Route path="/celebrity-create" element={<CelebrityCreate/>} />
@@ -140,6 +156,7 @@ function App() {
           <Route path="/hotel-create" element={<HotelCreate/>} />
           <Route path="/shop-create" element={<ShopCreate/>} />
           <Route path="/tourisms-create" element={<TourismsCreate/>} />
+          <Route path="/requestform-update/:id/:slug" element={<RequestFormUpdate/>} />
 
           <Route path="/advertise-update/:id/:slug" element={<UserPostUpdate/>} />
           <Route path="/celebrity-update/:id/:slug" element={<CelebrityUpdate/>} />
@@ -149,8 +166,9 @@ function App() {
           <Route path="/hotel-update/:id/:slug" element={<HotelUpdate/>} />
           <Route path="/shop-update/:id/:slug" element={<ShopUpdate/>} />
           <Route path="/tourisms-update/:id/:slug" element={<TourismsUpdate/>} />
-          <Route path="/advertise-update/:id/:slug" element={<AdvertiseUpdate/>} />
-
+          <Route path="/meme-update/:id/:slug" element={<MemeUpdate/>} />
+          <Route path="/local-update/:id/:slug" element={<LocalnewsUpdate/>} />
+          <Route path="/requestform-create" element={<RequestFormCreate/>} />
 
           {/* Privacy policy */}
 

@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 
+import axios from "axios";
+import { Grid, Typography } from "@mui/material";
+import Loaders from "../components/Loader";
 
 // IMPORT COMPONENT
-import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 
 // import TechCreateNewsApi from "../admin-screen/TechCreateNewsApi";
@@ -30,6 +32,7 @@ const CelebrityUpdate = () => {
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -52,6 +55,9 @@ const CelebrityUpdate = () => {
 
 
   useEffect(() => {
+    if (!userInfo) {
+      navigate("/");
+    }
     if (updateCelebritySuccess) {
       dispatch({ type: CELEBRITY_UPDATE_RESET });
       // dispatch({ type: CELEBRITY_DETAIL_RESET });
@@ -59,7 +65,7 @@ const CelebrityUpdate = () => {
         navigate("/admin-dashboard");
 
       } else{
-        navigate("/celebrity-create")
+        navigate("/my-dashboard")
       }
     } else {
       if (
@@ -80,6 +86,33 @@ const CelebrityUpdate = () => {
     }
   }, [dispatch, id, detailCelebrity,updateCelebritySuccess, updateCelebrity]);
 
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0]
+    const formData = new FormData()
+
+    formData.append('image', file)
+    formData.append('product_id', id)
+    console.log("file upload")
+
+    setLoading(true)
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+
+      const { data } = await axios.post(`${process.env.REACT_APP_PORT}/api/celebrities/image/`,
+      formData, config)
+
+      setImage(data.image)
+      setLoading(false)
+    } catch (error){
+      setLoading(false)
+    }
+  }
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -187,30 +220,18 @@ const CelebrityUpdate = () => {
                 />
               </div>
 
-              <div className="input-container ic2">
+              <Grid className="input-container ic2">
                 <label>Images</label>
+                <img src={image} style={{widht:'80px', height:'50px'}} />
+              </Grid>
                 <input
-                  id="image"
                   className="input"
-                  type="text"
-                  placeholder="image"
-                  value={image}
-                  onChange={(e) => setImage(e.target.value)}
+                  type="file"
+                  onChange={uploadFileHandler}
                 />
-              </div>
-              {/* {userInfo.isAdmin && (
-              <div className="input-container ic2">
-              <label>Approved</label>
-              <input
-                id="approved"
-                className="input"
-                type="text"
-                placeholder="approved"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-              />
-            </div>
-            )} */}
+                {loading && <Loaders/>}
+            
+
               <div className="input-container ic2">
                 <button className="button_input" type="submit">
                   Submit
