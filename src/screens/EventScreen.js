@@ -103,7 +103,7 @@ const EventScreen = () => {
 
       <Grid className={classes.gridHeader} container item>
         <Typography className={classes.header} color="green" variant="h3">
-          EVENT
+          EVENT SCREEN
         </Typography>
       </Grid>
 
