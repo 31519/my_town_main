@@ -17,10 +17,10 @@ def JobsList(request):
         query = ""
 
 
-    jobs = Jobs.objects.filter(title__icontains=query)
+    jobs = Jobs.objects.filter(title__icontains=query, isApproved=True)
 
     page = request.query_params.get('page')
-    paginator = Paginator(jobs, 5)
+    paginator = Paginator(jobs, 8)
     try:
         jobs = paginator.page(page)
     except EmptyPage:
@@ -50,14 +50,14 @@ def JobsCreate(request):
     current_user = request.user
     jobs = Jobs.objects.create(
         user =current_user,
-        category="Jobs category",
-        country='Jobs country',
-        state='Jobs state',
-        address='Jobs address',
-        contact='Jobs contact',
-        image='Jobs image',
-        title='Jobs title',
-        content='Jobs content'
+        category="",
+        country='',
+        state=  '',
+        address='',
+        contact='',
+        image=  '',
+        title=  'jobs',
+        content=''
     )
     serializer = JobsSerializers(jobs, many=False)
     return Response(serializer.data)
@@ -128,4 +128,13 @@ def JobsImage(request):
 
     serializer = JobsSerializers(jobs, many=False)
     
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def UserJobsList(request):
+    current_user = request.user
+    jobs = Jobs.objects.filter(user=current_user)
+    serializer = JobsSerializers(jobs, many=True)
     return Response(serializer.data)

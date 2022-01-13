@@ -15,11 +15,11 @@ def HotelsList(request):
     if query ==None:
         query = ""
 
-    hotels = Hotels.objects.filter(title__icontains=query)
+    hotels = Hotels.objects.filter(title__icontains=query, isApproved=True)
 
 
     page = request.query_params.get('page')
-    paginator = Paginator(hotels, 5)
+    paginator = Paginator(hotels, 8)
     try:
         hotels = paginator.page(page)
     except EmptyPage:
@@ -47,14 +47,14 @@ def HotelsCreate(request):
     current_user = request.user
     hotels = Hotels.objects.create(
         user =current_user,
-        category="Hotel category",
-        country='Hotel country',
-        state='Hotel state',
-        address='Hotel address',
-        contact='Hotel contact',
-        image='Hotel image',
-        title='Hotel title',
-        content='Hotel content'
+        category="",
+        country='',
+        state=  '',
+        address='',
+        contact='',
+        image=  '',
+        title=  'hotel',
+        content=''
     )
     serializer = HotelsSerializers(hotels, many=False)
     return Response(serializer.data)
@@ -127,4 +127,13 @@ def HotelsImage(request):
 
     serializer = HotelsSerializers(hotels, many=False)
     
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def UserHotelsList(request):
+    current_user = request.user
+    hotels = Hotels.objects.filter(user=current_user)
+    serializer = HotelsSerializers(hotels, many=True)
     return Response(serializer.data)

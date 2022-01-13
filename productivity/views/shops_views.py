@@ -37,10 +37,10 @@ def ShopsList(request):
     query = request.query_params.get('keyword')
     if query ==None:
         query = ""
-    shops = Shops.objects.filter(title__icontains=query)
+    shops = Shops.objects.filter(title__icontains=query, isApproved=True)
 
     page = request.query_params.get('page')
-    paginator = Paginator(shops, 5)
+    paginator = Paginator(shops, 8)
     try:
         shops = paginator.page(page)
     except EmptyPage:
@@ -69,14 +69,14 @@ def ShopsCreate(request):
     current_user = request.user
     shops = Shops.objects.create(
         user =current_user,
-        category="Shop category",
-        country='Shop country',
-        state='Shop state',
-        address='Shop address',
-        contact='Shop contact',
-        image='Shop image',
-        title='Shop title',
-        content='Shop content'
+        category="",
+        country='',
+        state='',
+        address='',
+        contact='',
+        image='',
+        title='shop',
+        content=''
     )
     serializer = ShopsSerializers(shops, many=False)
     return Response(serializer.data)
@@ -146,4 +146,12 @@ def ShopsImage(request):
 
     serializer = ShopsSerializers(shops, many=False)
     
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def UserShopsList(request):
+    current_user = request.user
+    shops = Shops.objects.filter(user=current_user)
+    serializer = ShopsSerializers(shops, many=True)
     return Response(serializer.data)

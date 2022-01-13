@@ -515,11 +515,17 @@ const AdminDashboard = ({ tech }) => {
 
 
 
-
+{/* <Link to=`${process.env.REACT_APP_PORT}/admin`> */}
 
   return (
     <div className="admin">
-      <div className="admin_top">Admin Headers</div>
+      <div className="admin_top">
+        
+        <a href={`${process.env.REACT_APP_PORT}/admin`} target="_blank">
+
+        Admin Headers
+        </a>
+        </div>
 
       <div className="admin_main">
         <div className="admin_sidebar">

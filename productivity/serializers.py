@@ -3,6 +3,14 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from productivity.models import Jobs, Advertisement, Shops, OwnBusiness, Celebrities, Hotels, Tourisms, Resell, Event, Meme, Banner
 
+class UserSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields ='__all__'
+
+
+
+
 class JobsSerializers(serializers.ModelSerializer):
     class Meta:
         model = Jobs
@@ -18,9 +26,15 @@ class AdvertisementSerializers(serializers.ModelSerializer):
 
 
 class ShopsSerializers(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Shops
         fields ='__all__'
+
+    def get_user(self, obj):
+        user = obj.user
+        serializer = UserSerializers(user, many=False)
+        return serializer.data
 
 
 class OwnBusinessSerializers(serializers.ModelSerializer):

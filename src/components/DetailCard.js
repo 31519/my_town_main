@@ -1,5 +1,5 @@
 import React from "react";
-
+import "../css_styles/DetailCard.css";
 import SocialShare from "../components/SocialShare"
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import { makeStyles } from '@mui/styles';
@@ -110,26 +110,18 @@ const DetailCards = ({ item}) => {
           </Typography>
 
           <br/>
-
-          <h2
-          variant={"h6"}
-          gutterBottom
-          className={classes.h2}
-          >
+          <Typography gutterBottom color='blue' >
             {item.country}
-          </h2>
-          <br/>
-          <h2
-          className={classes.h2}
-          >
-            {item.contact}
-          </h2>
-          <br/>
-          <h2
-          className={classes.h2}
-          >
+          </Typography>
+          <Typography gutterBottom  color='blue'>
+            {item.state}
+          </Typography>
+          <Typography gutterBottom color='blue' >
             {item.address}
-          </h2>
+          </Typography>
+          <Typography gutterBottom color='blue' >
+            {item.contact}
+          </Typography>
 
           <Divider className={classes.divider} />
           <h2

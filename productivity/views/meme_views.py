@@ -17,7 +17,7 @@ def MemeList(request):
         query = ""
 
 
-    meme = Meme.objects.filter(title__icontains=query)
+    meme = Meme.objects.filter(title__icontains=query, isApproved=True)
 
     page = request.query_params.get('page')
     paginator = Paginator(meme, 8)
@@ -105,4 +105,13 @@ def MemeImage(request):
 def BannerList(request):
     banner = Banner.objects.all()
     serializer = BannerSerializers(banner, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def UserMemeList(request):
+    current_user = request.user
+    meme = Meme.objects.filter(user=current_user)
+    serializer = MemeSerializers(meme, many=True)
     return Response(serializer.data)

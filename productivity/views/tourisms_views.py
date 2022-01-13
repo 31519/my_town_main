@@ -14,10 +14,10 @@ def TourismsList(request):
     query = request.query_params.get('keyword')
     if query ==None:
         query = ""
-    tourisms = Tourisms.objects.filter(title__icontains=query)
+    tourisms = Tourisms.objects.filter(title__icontains=query, isApproved=True)
 
     page = request.query_params.get('page')
-    paginator = Paginator(tourisms, 5)
+    paginator = Paginator(tourisms, 8)
     try:
         tourisms = paginator.page(page)
     except EmptyPage:
@@ -46,14 +46,14 @@ def TourismsCreate(request):
     current_user = request.user
     tourisms = Tourisms.objects.create(
         user =current_user,
-        category="Tourisms Category",
-        country= "Tourisms Country",
-        state=   "Tourisms State",
-        address= "Tourisms Address",
-        contact= "Tourisms Contact",
-        image=   "Tourisms Image",
-        title=   "Tourisms Title",
-        content= "Tourisms Content"
+        category="",
+        country= "",
+        state=   "",
+        address= "",
+        contact= '',
+        image=   "",
+        title=   "Tourisms",
+        content= ""
     )
     serializer = TourismsSerializers(tourisms, many=False)
     return Response(serializer.data)
@@ -126,4 +126,13 @@ def TourismsImage(request):
 
     serializer = TourismsSerializers(tourisms, many=False)
     
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def UserTourismsList(request):
+    current_user = request.user
+    tourisms = Tourisms.objects.filter(user=current_user)
+    serializer = TourismsSerializers(tourisms, many=True)
     return Response(serializer.data)

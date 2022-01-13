@@ -14,10 +14,10 @@ def ResellList(request):
     query = request.query_params.get('keyword')
     if query ==None:
         query = ""
-    resell = Resell.objects.filter(title__icontains=query)
+    resell = Resell.objects.filter(title__icontains=query, isApproved=True)
 
     page = request.query_params.get('page')
-    paginator = Paginator(resell, 5)
+    paginator = Paginator(resell, 8)
     try:
         resell = paginator.page(page)
     except EmptyPage:
@@ -46,14 +46,14 @@ def ResellCreate(request):
     current_user = request.user
     resell = Resell.objects.create(
         user =current_user,
-        category="Reseller Category",
-        country= "Reseller Country",
-        state=   "Reseller State",
-        address= "Reseller Address",
-        contact= "Reseller Contact",
-        image=   "Reseller Image",
-        title=   "Reseller Title",
-        content= "Reseller Content"
+        category="",
+        country= "",
+        state=   "",
+        address= "",
+        contact= '',
+        image=   "",
+        title=   "Resell",
+        content= ""
     )
     serializer = ResellSerializers(resell, many=False)
     return Response(serializer.data)
@@ -124,4 +124,13 @@ def ResellImage(request):
 
     serializer = ResellSerializers(resell, many=False)
     
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def UserResellList(request):
+    current_user = request.user
+    resell = Resell.objects.filter(user=current_user)
+    serializer = ResellSerializers(resell, many=True)
     return Response(serializer.data)

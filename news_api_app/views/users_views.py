@@ -192,6 +192,7 @@ def ProfileUpdate(request, pk):
     current_user.username = profile.username
     current_user.email = profile.email
     current_user.save()
+    profile.save()
     serializer = ProfileSerializers(profile, many=False)
     return Response(serializer.data)
 

@@ -22,10 +22,18 @@ import {
     ADVERTISE_DELETE_FAIL,
     // ADVERTISE_DELETE_RESET,
 
+    ADVERTISE_USER_LIST_REQUEST,
+    ADVERTISE_USER_LIST_SUCCESS,
+    ADVERTISE_USER_LIST_FAIL,
+
      // CELEBRITY PART
      CELEBRITY_LIST_REQUEST,
      CELEBRITY_LIST_SUCCESS,
      CELEBRITY_LIST_FAIL,
+
+     CELEBRITY_USER_LIST_REQUEST,
+     CELEBRITY_USER_LIST_SUCCESS,
+     CELEBRITY_USER_LIST_FAIL,
  
      CELEBRITY_DETAIL_REQUEST,
      CELEBRITY_DETAIL_SUCCESS,
@@ -35,23 +43,27 @@ import {
      CELEBRITY_CREATE_REQUEST,
      CELEBRITY_CREATE_SUCCESS,
      CELEBRITY_CREATE_FAIL,
-     CELEBRITY_CREATE_RESET,
+    //  CELEBRITY_CREATE_RESET,
  
      CELEBRITY_UPDATE_REQUEST,
      CELEBRITY_UPDATE_SUCCESS,
      CELEBRITY_UPDATE_FAIL,
-     CELEBRITY_UPDATE_RESET,
+    //  CELEBRITY_UPDATE_RESET,
  
      CELEBRITY_DELETE_REQUEST,
      CELEBRITY_DELETE_SUCCESS,
      CELEBRITY_DELETE_FAIL,
-     CELEBRITY_DELETE_RESET,
+    //  CELEBRITY_DELETE_RESET,
  
      // EVENT PORTION
  
      EVENT_LIST_REQUEST,
      EVENT_LIST_SUCCESS,
      EVENT_LIST_FAIL,
+
+     EVENT_USER_LIST_REQUEST,
+     EVENT_USER_LIST_SUCCESS,
+     EVENT_USER_LIST_FAIL,
  
      EVENT_DETAIL_REQUEST,
      EVENT_DETAIL_SUCCESS,
@@ -61,22 +73,26 @@ import {
      EVENT_CREATE_REQUEST,
      EVENT_CREATE_SUCCESS,
      EVENT_CREATE_FAIL,
-     EVENT_CREATE_RESET,
+    //  EVENT_CREATE_RESET,
  
      EVENT_UPDATE_REQUEST,
      EVENT_UPDATE_SUCCESS,
      EVENT_UPDATE_FAIL,
-     EVENT_UPDATE_RESET,
+    //  EVENT_UPDATE_RESET,
  
      EVENT_DELETE_REQUEST,
      EVENT_DELETE_SUCCESS,
      EVENT_DELETE_FAIL,
-     EVENT_DELETE_RESET,
+    //  EVENT_DELETE_RESET,
     
     // SHOP PORTION
     SHOP_LIST_REQUEST,
     SHOP_LIST_SUCCESS,
     SHOP_LIST_FAIL,
+
+    SHOP_USER_LIST_REQUEST,
+    SHOP_USER_LIST_SUCCESS,
+    SHOP_USER_LIST_FAIL,
 
     SHOP_DETAIL_REQUEST,
     SHOP_DETAIL_SUCCESS,
@@ -85,22 +101,26 @@ import {
     SHOP_CREATE_REQUEST,
     SHOP_CREATE_SUCCESS,
     SHOP_CREATE_FAIL,
-    SHOP_CREATE_RESET,
+    // SHOP_CREATE_RESET,
 
     SHOP_UPDATE_REQUEST,
     SHOP_UPDATE_SUCCESS,
     SHOP_UPDATE_FAIL,
-    SHOP_UPDATE_RESET,
+    // SHOP_UPDATE_RESET,
     
     SHOP_DELETE_REQUEST,
     SHOP_DELETE_SUCCESS,
     SHOP_DELETE_FAIL,
-    SHOP_DELETE_RESET,
+    // SHOP_DELETE_RESET,
 
     // MEME PORTION
     MEME_LIST_REQUEST,
     MEME_LIST_SUCCESS,
     MEME_LIST_FAIL,
+
+    MEME_USER_LIST_REQUEST,
+    MEME_USER_LIST_SUCCESS,
+    MEME_USER_LIST_FAIL,
 
     MEME_DETAIL_REQUEST,
     MEME_DETAIL_SUCCESS,
@@ -109,17 +129,17 @@ import {
     MEME_CREATE_REQUEST,
     MEME_CREATE_SUCCESS,
     MEME_CREATE_FAIL,
-    MEME_CREATE_RESET,
+    // MEME_CREATE_RESET,
 
     MEME_UPDATE_REQUEST,
     MEME_UPDATE_SUCCESS,
     MEME_UPDATE_FAIL,
-    MEME_UPDATE_RESET,
+    // MEME_UPDATE_RESET,
 
     MEME_DELETE_REQUEST,
     MEME_DELETE_SUCCESS,
     MEME_DELETE_FAIL,
-    MEME_DELETE_RESET,
+    // MEME_DELETE_RESET,
 
 
 
@@ -127,21 +147,29 @@ import {
     LOCAL_LIST_REQUEST,
     LOCAL_LIST_SUCCESS,
     LOCAL_LIST_FAIL,
+
+    LOCAL_USER_LIST_REQUEST,
+    LOCAL_USER_LIST_SUCCESS,
+    LOCAL_USER_LIST_FAIL,
+
     LOCAL_DETAIL_REQUEST,
     LOCAL_DETAIL_SUCCESS,
     LOCAL_DETAIL_FAIL,
+
     LOCAL_CREATE_REQUEST,
     LOCAL_CREATE_SUCCESS,
     LOCAL_CREATE_FAIL,
-    LOCAL_CREATE_RESET,
+    // LOCAL_CREATE_RESET,
+
     LOCAL_UPDATE_REQUEST,
     LOCAL_UPDATE_SUCCESS,
     LOCAL_UPDATE_FAIL,
-    LOCAL_UPDATE_RESET,
+    // LOCAL_UPDATE_RESET,
+
     LOCAL_DELETE_REQUEST,
     LOCAL_DELETE_SUCCESS,
     LOCAL_DELETE_FAIL,
-    LOCAL_DELETE_RESET,
+    // LOCAL_DELETE_RESET,
 
     // FORM PORTION
     FORM_LIST_REQUEST,
@@ -155,12 +183,12 @@ import {
     FORM_CREATE_REQUEST,
     FORM_CREATE_SUCCESS,
     FORM_CREATE_FAIL,
-    FORM_CREATE_RESET,
+    // FORM_CREATE_RESET,
 
     FORM_UPDATE_REQUEST,
     FORM_UPDATE_SUCCESS,
     FORM_UPDATE_FAIL,
-    FORM_UPDATE_RESET,
+    // FORM_UPDATE_RESET,
 
     // BANNER PORTION
     BANNER_LIST_REQUEST,
@@ -195,6 +223,38 @@ export const advertiseListAction = (keyword = '') => async (dispatch) => {
     }
 }
 
+export const advertiseUserListAction = () => async (dispatch, getState) => {
+    try{
+        dispatch({ type: ADVERTISE_USER_LIST_REQUEST });
+
+        const {
+            userLogin: { userInfo },
+        } = getState()
+        
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        const { data } = await axios.get(
+            `${process.env.REACT_APP_PORT}/api/advertisement/user-list/`,
+            config
+        );
+        dispatch({
+            type: ADVERTISE_USER_LIST_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: ADVERTISE_USER_LIST_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
 
 
 export const advertiseDetailAction = (id, slug) => async (dispatch) => {
@@ -218,7 +278,6 @@ export const advertiseDetailAction = (id, slug) => async (dispatch) => {
     }
 }
 
-
 export const advertiseCreateAction = () => async (dispatch, getState) => {
     try{
         dispatch({ type: ADVERTISE_CREATE_REQUEST });
@@ -233,7 +292,6 @@ export const advertiseCreateAction = () => async (dispatch, getState) => {
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-        console.log("userinfo", userInfo.token)
 
 
         const { data } = await axios.post(
@@ -273,7 +331,6 @@ export const advertiseUpdateAction = (advertise) => async (dispatch, getState) =
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-        console.log("userinfo", userInfo.token)
 
 
         const { data } = await axios.put(
@@ -297,9 +354,6 @@ export const advertiseUpdateAction = (advertise) => async (dispatch, getState) =
     })
     }
 }
-
-
-
 
 export const advertiseDeleteAction = (id, slug) => async (dispatch, getState) => {
     try{
@@ -363,6 +417,41 @@ export const celebrityListAction = (keyword='') => async (dispatch) => {
     })
     }
 }
+
+export const celebrityUserListAction = () => async (dispatch, getState) => {
+    try{
+        dispatch({ type: CELEBRITY_USER_LIST_REQUEST });
+
+        const {
+            userLogin: { userInfo },
+        } = getState()
+        
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+    
+        const { data } = await axios.get(
+            `${process.env.REACT_APP_PORT}/api/celebrities/user-list/`,
+            config
+        );
+        dispatch({
+            type: CELEBRITY_USER_LIST_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: CELEBRITY_USER_LIST_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
 
 export const celebrityDetailAction = (id, slug) => async (dispatch) => {
     try{
@@ -465,8 +554,6 @@ export const celebrityUpdateAction = (celebrity) => async (dispatch, getState) =
 }
 
 
-
-
 export const celebrityDeleteAction = (id,slug) => async (dispatch, getState) => {
     try{
         dispatch({ type: CELEBRITY_DELETE_REQUEST });
@@ -507,7 +594,6 @@ export const celebrityDeleteAction = (id,slug) => async (dispatch, getState) => 
 }
 
 
-
 // EVENT PORTION
 
 export const eventListAction = (keyword="") => async (dispatch) => {
@@ -531,6 +617,41 @@ export const eventListAction = (keyword="") => async (dispatch) => {
     }
 }
 
+export const eventUserListAction = () => async (dispatch, getState) => {
+    try{
+        dispatch({ type: EVENT_USER_LIST_REQUEST });
+
+        const {
+            userLogin: { userInfo },
+        } = getState()
+        
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+    
+        const { data } = await axios.get(
+            `${process.env.REACT_APP_PORT}/api/event/user-list/`,
+            config
+        );
+        dispatch({
+            type: EVENT_USER_LIST_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: EVENT_USER_LIST_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
+
 export const eventDetailAction = (id, slug) => async (dispatch) => {
     try{
         dispatch({ type: EVENT_DETAIL_REQUEST });
@@ -551,7 +672,6 @@ export const eventDetailAction = (id, slug) => async (dispatch) => {
     })
     }
 }
-
 
 export const eventCreateAction = () => async (dispatch, getState) => {
     try{
@@ -630,9 +750,6 @@ export const eventUpdateAction = (event) => async (dispatch, getState) => {
     }
 }
 
-
-
-
 export const eventDeleteAction = (id, slug) => async (dispatch, getState) => {
     try{
         dispatch({ type: EVENT_DELETE_REQUEST });
@@ -696,6 +813,41 @@ export const shopListAction = (keyword="") => async (dispatch, getState) => {
     }
 }
 
+export const shopUserListAction = () => async (dispatch, getState) => {
+    try{
+        dispatch({ type: SHOP_USER_LIST_REQUEST });
+        const {
+            userLogin: { userInfo },
+        } = getState()
+        
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+    
+        const { data } = await axios.get(
+            `${process.env.REACT_APP_PORT}/api/shops/user-list/`,
+            config
+        );
+        dispatch({
+            type: SHOP_USER_LIST_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: SHOP_USER_LIST_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
+
+
 export const shopDetailAction = (id, slug) => async (dispatch) => {
     try{
         dispatch({ type: SHOP_DETAIL_REQUEST });
@@ -716,7 +868,6 @@ export const shopDetailAction = (id, slug) => async (dispatch) => {
     })
     }
 }
-
 
 export const shopCreateAction = () => async (dispatch, getState) => {
     try{
@@ -794,9 +945,6 @@ export const shopUpdateAction = (shop) => async (dispatch, getState) => {
     }
 }
 
-
-
-
 export const shopDeleteAction = (id, slug) => async (dispatch, getState) => {
     try{
         dispatch({ type: SHOP_DELETE_REQUEST });
@@ -835,8 +983,6 @@ export const shopDeleteAction = (id, slug) => async (dispatch, getState) => {
     }
 }
 
-
-
 // MEME PORTION
 
 export const memeListAction = (keyword="") => async (dispatch, getState) => {
@@ -860,6 +1006,41 @@ export const memeListAction = (keyword="") => async (dispatch, getState) => {
     }
 }
 
+export const memeUserListAction = () => async (dispatch, getState) => {
+    try{
+        dispatch({ type: MEME_USER_LIST_REQUEST });
+        const {
+            userLogin: { userInfo },
+        } = getState()
+        
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+    
+        const { data } = await axios.get(
+            `${process.env.REACT_APP_PORT}/api/meme/user-list/`,
+            config
+        );
+        dispatch({
+            type: MEME_USER_LIST_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: MEME_USER_LIST_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
+
+
 export const memeDetailAction = (id, slug) => async (dispatch) => {
     try{
         dispatch({ type: MEME_DETAIL_REQUEST });
@@ -880,7 +1061,6 @@ export const memeDetailAction = (id, slug) => async (dispatch) => {
     })
     }
 }
-
 
 export const memeCreateAction = () => async (dispatch, getState) => {
     try{
@@ -958,9 +1138,6 @@ export const memeUpdateAction = (meme) => async (dispatch, getState) => {
     }
 }
 
-
-
-
 export const memeDeleteAction = (id, slug) => async (dispatch, getState) => {
     try{
         dispatch({ type: MEME_DELETE_REQUEST });
@@ -999,8 +1176,6 @@ export const memeDeleteAction = (id, slug) => async (dispatch, getState) => {
     }
 }
 
-
-
 // LOCAL PORTION
 
 export const localListAction = (keyword="") => async (dispatch, getState) => {
@@ -1024,6 +1199,40 @@ export const localListAction = (keyword="") => async (dispatch, getState) => {
     }
 }
 
+export const localUserListAction = () => async (dispatch, getState) => {
+    try{
+        dispatch({ type: LOCAL_USER_LIST_REQUEST });
+        const {
+            userLogin: { userInfo },
+        } = getState()
+        
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+    
+        const { data } = await axios.get(
+            `${process.env.REACT_APP_PORT}/api/localnews/user-list/`,
+            config
+        );
+        dispatch({
+            type: LOCAL_USER_LIST_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: LOCAL_USER_LIST_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
+
 export const localDetailAction = (id, slug) => async (dispatch) => {
     try{
         dispatch({ type: LOCAL_DETAIL_REQUEST });
@@ -1044,7 +1253,6 @@ export const localDetailAction = (id, slug) => async (dispatch) => {
     })
     }
 }
-
 
 export const localCreateAction = () => async (dispatch, getState) => {
     try{
@@ -1122,9 +1330,6 @@ export const localUpdateAction = (local) => async (dispatch, getState) => {
     }
 }
 
-
-
-
 export const localDeleteAction = (id, slug) => async (dispatch, getState) => {
     try{
         dispatch({ type: LOCAL_DELETE_REQUEST });
@@ -1162,8 +1367,6 @@ export const localDeleteAction = (id, slug) => async (dispatch, getState) => {
     })
     }
 }
-
-
 
 // form PORTION
 
@@ -1209,8 +1412,6 @@ export const formDetailAction = (id, slug) => async (dispatch) => {
     }
 }
 
-
-
 export const formCreateAction = (form) => async (dispatch, getState) => {
     try{
         dispatch({ type: FORM_CREATE_REQUEST });
@@ -1249,7 +1450,6 @@ export const formCreateAction = (form) => async (dispatch, getState) => {
     }
 }
 
-
 export const formUpdateAction = (form) => async (dispatch, getState) => {
     try{
         dispatch({ type: FORM_UPDATE_REQUEST });
@@ -1287,7 +1487,6 @@ export const formUpdateAction = (form) => async (dispatch, getState) => {
     })
     }
 }
-
 
 // banner PORTION
 

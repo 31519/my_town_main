@@ -15,10 +15,10 @@ def CelebritiesList(request):
     if query ==None:
         query = ""
 
-    celebrities = Celebrities.objects.filter(title__icontains=query)
+    celebrities = Celebrities.objects.filter(title__icontains=query, isApproved=True)
 
     page = request.query_params.get('page')
-    paginator = Paginator(celebrities, 5)
+    paginator = Paginator(celebrities, 8)
     try:
         celebrities = paginator.page(page)
     except EmptyPage:
@@ -48,14 +48,14 @@ def CelebritiesCreate(request):
     current_user = request.user
     celebrities = Celebrities.objects.create(
         user =current_user,
-        category="category",
-        country='country',
-        state='state',
-        address='address',
-        contact='contact',
-        image='image',
-        title='title',
-        content='content'
+        category="",
+        country= '',
+        state=   '',
+        address= '',
+        contact= '',
+        image=   '',
+        title=   'celeb',
+        content= ''
     )
     serializer = CelebritiesSerializers(celebrities, many=False)
     return Response(serializer.data)
@@ -127,4 +127,15 @@ def CelebritiesImage(request):
 
     serializer = CelebritiesSerializers(celebrity, many=False)
     
+    return Response(serializer.data)
+
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def UserCelebritiesList(request):
+    current_user = request.user
+    celebrity = Celebrities.objects.filter(user=current_user)
+    serializer = CelebritiesSerializers(celebrity, many=True)
     return Response(serializer.data)

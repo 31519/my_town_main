@@ -28,7 +28,7 @@ import AdvertiseScreen from "./screens/AdvertiseScreen";
 import ResellerScreen from "./screens/ResellerScreen";
 import EventScreen from "./screens/EventScreen";
 import ProductivityCreate from "./admin-screen/ProductivityCreate";
-import UserProfileEdit from "./screens/UserProfileEdit";
+// import UserProfileEdit from "./screens/UserProfileEdit";
 import UserUpdate from "./screens/UserUpdate";
 import HomeScreen from "./screens/HomeScreen";
 
@@ -112,8 +112,8 @@ function App() {
           <Route path="/business-screen" element={<BusinessScreen/>} />
           <Route path="/science-screen" element={<ScienceScreen/>} />
 
-          <Route path="/" element={<HomeScreen/>} exact />
-          <Route path="/local" element={<LocalScreen/>} />
+          <Route path="/technology" element={<HomeScreen/>} exact />
+          <Route path="/" element={<LocalScreen/>} />
           <Route path="/meme" element={<MemeScreen/>} />
 
           <Route path="/celebrity" element={<CelebrityScreen/>} />
@@ -133,7 +133,7 @@ function App() {
           <Route path="/admin-dashboard" element={<AdminDashboard/>} />
           <Route path="/tech-create" element={<TechCreate/>} />
           <Route path="/productivity-create" element={<ProductivityCreate/>} />
-          <Route path="/user-profile-edit" element={<UserProfileEdit/>} />
+          {/* <Route path="/user-profile-edit" element={<UserProfileEdit/>} /> */}
 
 
           <Route path="/technology-detail/:id/:slug" element={<TechnologyDetail/>} />

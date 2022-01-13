@@ -14,9 +14,9 @@ def AdvertisementList(request):
     query = request.query_params.get('keyword')
     if query ==None:
         query = ""
-    advertisement = Advertisement.objects.filter(title__icontains=query)
+    advertisement = Advertisement.objects.filter(title__icontains=query, isApproved=True)
     page = request.query_params.get('page')
-    paginator = Paginator(advertisement, 5)
+    paginator = Paginator(advertisement, 8)
     try:
         advertisement = paginator.page(page)
     except EmptyPage:
@@ -45,14 +45,14 @@ def AdvertisementCreate(request):
     current_user = request.user
     advertisement = Advertisement.objects.create(
         user =current_user,
-        category="category",
-        country='country',
-        state='state',
-        address='address',
-        contact='contact',
-        image='image',
-        title='title',
-        content='content'
+        category="",
+        country='',
+        state=  '',
+        address='',
+        contact='',
+        image=  '',
+        title=  'advertise',
+        content=''
     )
     serializer = AdvertisementSerializers(advertisement, many=False)
     return Response(serializer.data)
@@ -124,3 +124,12 @@ def AdvertisementImage(request):
     
     return Response(serializer.data)
 
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def UserAdvertisementList(request):
+    current_user = request.user
+    advertisement = Advertisement.objects.filter(user=current_user)
+    serializer = AdvertisementSerializers(advertisement, many=True)
+    return Response(serializer.data)

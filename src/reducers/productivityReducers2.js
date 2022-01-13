@@ -1,25 +1,27 @@
-
-
-
-
 import {
-
-    
     // HOTEL PORTION
     HOTEL_LIST_REQUEST,
     HOTEL_LIST_SUCCESS,
     HOTEL_LIST_FAIL,
+
+    HOTEL_USER_LIST_REQUEST,
+    HOTEL_USER_LIST_SUCCESS,
+    HOTEL_USER_LIST_FAIL,
+
     HOTEL_DETAIL_REQUEST,
     HOTEL_DETAIL_SUCCESS,
     HOTEL_DETAIL_FAIL,
+
     HOTEL_CREATE_REQUEST,
     HOTEL_CREATE_SUCCESS,
     HOTEL_CREATE_FAIL,
+
     HOTEL_CREATE_RESET,
     HOTEL_UPDATE_REQUEST,
     HOTEL_UPDATE_SUCCESS,
     HOTEL_UPDATE_FAIL,
     HOTEL_UPDATE_RESET,
+
     HOTEL_DELETE_REQUEST,
     HOTEL_DELETE_SUCCESS,
     HOTEL_DELETE_FAIL,
@@ -29,17 +31,25 @@ import {
     RESELLER_LIST_REQUEST,
     RESELLER_LIST_SUCCESS,
     RESELLER_LIST_FAIL,
+
+    RESELLER_USER_LIST_REQUEST,
+    RESELLER_USER_LIST_SUCCESS,
+    RESELLER_USER_LIST_FAIL,
+
     RESELLER_DETAIL_REQUEST,
     RESELLER_DETAIL_SUCCESS,
     RESELLER_DETAIL_FAIL,
+
     RESELLER_CREATE_REQUEST,
     RESELLER_CREATE_SUCCESS,
     RESELLER_CREATE_FAIL,
     RESELLER_CREATE_RESET,
+
     RESELLER_UPDATE_REQUEST,
     RESELLER_UPDATE_SUCCESS,
     RESELLER_UPDATE_FAIL,
     RESELLER_UPDATE_RESET,
+    
     RESELLER_DELETE_REQUEST,
     RESELLER_DELETE_SUCCESS,
     RESELLER_DELETE_FAIL,
@@ -50,17 +60,25 @@ import {
     TOURISMS_LIST_REQUEST,
     TOURISMS_LIST_SUCCESS,
     TOURISMS_LIST_FAIL,
+
+    TOURISMS_USER_LIST_REQUEST,
+    TOURISMS_USER_LIST_SUCCESS,
+    TOURISMS_USER_LIST_FAIL,
+
     TOURISMS_DETAIL_REQUEST,
     TOURISMS_DETAIL_SUCCESS,
     TOURISMS_DETAIL_FAIL,
+
     TOURISMS_CREATE_REQUEST,
     TOURISMS_CREATE_SUCCESS,
     TOURISMS_CREATE_FAIL,
     TOURISMS_CREATE_RESET,
+
     TOURISMS_UPDATE_REQUEST,
     TOURISMS_UPDATE_SUCCESS,
     TOURISMS_UPDATE_FAIL,
     TOURISMS_UPDATE_RESET,
+
     TOURISMS_DELETE_REQUEST,
     TOURISMS_DELETE_SUCCESS,
     TOURISMS_DELETE_FAIL,
@@ -70,17 +88,25 @@ import {
    JOBS_LIST_REQUEST,
    JOBS_LIST_SUCCESS,
    JOBS_LIST_FAIL,
+
+   JOBS_USER_LIST_REQUEST,
+   JOBS_USER_LIST_SUCCESS,
+   JOBS_USER_LIST_FAIL,
+
    JOBS_DETAIL_REQUEST,
    JOBS_DETAIL_SUCCESS,
    JOBS_DETAIL_FAIL,
+
    JOBS_CREATE_REQUEST,
    JOBS_CREATE_SUCCESS,
    JOBS_CREATE_FAIL,
    JOBS_CREATE_RESET,
+
    JOBS_UPDATE_REQUEST,
    JOBS_UPDATE_SUCCESS,
    JOBS_UPDATE_FAIL,
    JOBS_UPDATE_RESET,
+
    JOBS_DELETE_REQUEST,
    JOBS_DELETE_SUCCESS,
    JOBS_DELETE_FAIL,
@@ -113,6 +139,24 @@ export const hotelListReducer = (state = {hotels: []}, action) => {
     }
 }
 
+export const hotelUserListReducer = (state = {hotels: []}, action) => {
+    switch (action.type) {
+        case HOTEL_USER_LIST_REQUEST:
+            return { loading: true, hotels:[]};
+        
+        case HOTEL_USER_LIST_SUCCESS:
+            return {
+                loading: false,
+                hotels: action.payload
+            };
+
+        case HOTEL_USER_LIST_FAIL:
+            return {loading:false, error: action.payload}
+
+        default:
+            return state;
+    }
+}
 
 export const hotelDetailReducer = (state = {hotel: []}, action) => {
     switch (action.type) {
@@ -132,8 +176,6 @@ export const hotelDetailReducer = (state = {hotel: []}, action) => {
             return state;
     }
 }
-
-
 
 export const hotelCreateReducer = (state = {}, action) => {
     switch (action.type) {
@@ -158,7 +200,6 @@ export const hotelCreateReducer = (state = {}, action) => {
     }
 }
 
-
 export const hotelUpdateReducer = (state = {}, action) => {
     switch (action.type) {
         case HOTEL_UPDATE_REQUEST:
@@ -181,7 +222,6 @@ export const hotelUpdateReducer = (state = {}, action) => {
             return state;
     }
 }
-
 
 export const hotelDeleteReducer = (state = {}, action) => {
     switch (action.type) {
@@ -206,8 +246,6 @@ export const hotelDeleteReducer = (state = {}, action) => {
     }
 }
 
-
-
 // RESELLER PORTION
 
 export const resellerListReducer = (state = {resellers: []}, action) => {
@@ -224,6 +262,26 @@ export const resellerListReducer = (state = {resellers: []}, action) => {
             };
 
         case RESELLER_LIST_FAIL:
+            return {loading:false, error: action.payload}
+
+        default:
+            return state;
+    }
+}
+
+
+export const resellerUserListReducer = (state = {resellers: []}, action) => {
+    switch (action.type) {
+        case RESELLER_USER_LIST_REQUEST:
+            return { loading: true, resellers:[]};
+        
+        case RESELLER_USER_LIST_SUCCESS:
+            return {
+                loading: false,
+                resellers: action.payload
+            };
+
+        case RESELLER_USER_LIST_FAIL:
             return {loading:false, error: action.payload}
 
         default:
@@ -251,8 +309,6 @@ export const resellerDetailReducer = (state = {reseller: []}, action) => {
     }
 }
 
-
-
 export const resellerCreateReducer = (state = {}, action) => {
     switch (action.type) {
         case RESELLER_CREATE_REQUEST:
@@ -275,7 +331,6 @@ export const resellerCreateReducer = (state = {}, action) => {
             return state;
     }
 }
-
 
 export const resellerUpdateReducer = (state = {}, action) => {
     switch (action.type) {
@@ -300,7 +355,6 @@ export const resellerUpdateReducer = (state = {}, action) => {
     }
 }
 
-
 export const resellerDeleteReducer = (state = {}, action) => {
     switch (action.type) {
         case RESELLER_DELETE_REQUEST:
@@ -324,8 +378,6 @@ export const resellerDeleteReducer = (state = {}, action) => {
     }
 }
 
-
-
 // TOURISMS PORTION
 
 export const tourismsListReducer = (state = {tourismss: []}, action) => {
@@ -342,6 +394,25 @@ export const tourismsListReducer = (state = {tourismss: []}, action) => {
             };
 
         case TOURISMS_LIST_FAIL:
+            return {loading:false, error: action.payload}
+
+        default:
+            return state;
+    }
+}
+
+export const tourismsUserListReducer = (state = {tourismss: []}, action) => {
+    switch (action.type) {
+        case TOURISMS_USER_LIST_REQUEST:
+            return { loading: true, tourismss:[]};
+        
+        case TOURISMS_USER_LIST_SUCCESS:
+            return {
+                loading: false,
+                tourismss: action.payload
+            };
+
+        case TOURISMS_USER_LIST_FAIL:
             return {loading:false, error: action.payload}
 
         default:
@@ -369,8 +440,6 @@ export const tourismsDetailReducer = (state = {tourisms: []}, action) => {
     }
 }
 
-
-
 export const tourismsCreateReducer = (state = {}, action) => {
     switch (action.type) {
         case TOURISMS_CREATE_REQUEST:
@@ -393,7 +462,6 @@ export const tourismsCreateReducer = (state = {}, action) => {
             return state;
     }
 }
-
 
 export const tourismsUpdateReducer = (state = {}, action) => {
     switch (action.type) {
@@ -418,7 +486,6 @@ export const tourismsUpdateReducer = (state = {}, action) => {
     }
 }
 
-
 export const tourismsDeleteReducer = (state = {}, action) => {
     switch (action.type) {
         case TOURISMS_DELETE_REQUEST:
@@ -441,8 +508,6 @@ export const tourismsDeleteReducer = (state = {}, action) => {
             return state;
     }
 }
-
-
 
 // JOBS PORTION
 
@@ -467,6 +532,24 @@ export const jobListReducer = (state = {jobs: []}, action) => {
     }
 }
 
+export const jobUserListReducer = (state = {jobs: []}, action) => {
+    switch (action.type) {
+        case JOBS_USER_LIST_REQUEST:
+            return { loading: true, jobs:[]};
+        
+        case JOBS_USER_LIST_SUCCESS:
+            return {
+                loading: false,
+                jobs: action.payload
+            };
+
+        case JOBS_USER_LIST_FAIL:
+            return {loading:false, error: action.payload}
+
+        default:
+            return state;
+    }
+}
 
 export const jobDetailReducer = (state = {job: []}, action) => {
     switch (action.type) {
@@ -486,8 +569,6 @@ export const jobDetailReducer = (state = {job: []}, action) => {
             return state;
     }
 }
-
-
 
 export const jobCreateReducer = (state = {}, action) => {
     switch (action.type) {
@@ -512,7 +593,6 @@ export const jobCreateReducer = (state = {}, action) => {
     }
 }
 
-
 export const jobUpdateReducer = (state = {}, action) => {
     switch (action.type) {
         case JOBS_UPDATE_REQUEST:
@@ -535,7 +615,6 @@ export const jobUpdateReducer = (state = {}, action) => {
             return state;
     }
 }
-
 
 export const jobDeleteReducer = (state = {}, action) => {
     switch (action.type) {

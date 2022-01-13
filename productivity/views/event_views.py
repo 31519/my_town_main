@@ -13,10 +13,10 @@ def EventList(request):
     keyword = request.query_params.get("keyword")
     if keyword == None:
         keyword = ""
-    event = Event.objects.filter(title__icontains=keyword)
+    event = Event.objects.filter(title__icontains=keyword, isApproved=True)
 
     page = request.query_params.get("page")
-    paginator = Paginator(event, 5)
+    paginator = Paginator(event, 8)
     try:
         event = paginator.page(page)
     except PageNotAnInteger:
@@ -45,14 +45,14 @@ def EventCreate(request):
     current_user = request.user
     event = Event.objects.create(
         user =current_user,
-        category="Event Category",
-        country="Event Country",
-        state= "Event State",
-        address="Event Address",
-        contact="Event Contact",
-        image="Event Image",
-        title="Event Title",
-        content="Event Content"
+        category="",
+        country="",
+        state=  "",
+        address="",
+        contact='',
+        image=  "",
+        title=  "Event",
+        content=""
     )
     serializer = EventSerializers(event, many=False)
     return Response(serializer.data)
@@ -123,4 +123,13 @@ def EventImage(request):
 
     serializer = EventSerializers(event, many=False)
     
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def UserEventList(request):
+    current_user = request.user
+    event = Event.objects.filter(user=current_user)
+    serializer = EventSerializers(event, many=True)
     return Response(serializer.data)

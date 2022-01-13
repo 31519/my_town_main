@@ -417,7 +417,6 @@ export const profileUpdateActions = (profile) => async ( dispatch, getState) => 
             }
         }
 
-       
         const { data } = await axios.put(
             `${process.env.REACT_APP_PORT}/api/users/profile-update/${profile.id}/`,
             profile,

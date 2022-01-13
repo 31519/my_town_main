@@ -72,30 +72,23 @@ const AboutUs = () => {
 
         <Grid spacing={2} className={classes.gridContent} container>
           <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-            This is the ads section
+            {/* This is the ads section */}
           </Grid>
 
           <Grid spacing={1} item xs={12} sm={6} lg={6} md={6}>
             <Grid style={{ margin: "10px" }} item>
               <h1>About Us</h1>
               <h2>
-                Welcome to In my Town, your number one source for all things
-                [product]. We're dedicated to providing you the very best of
-                [product], with an emphasis on [store characteristic 1], [store
-                characteristic 2], [store characteristic 3]. Founded in [year]
-                by [founder name], In my Town has come a long way from its
-                beginnings in [starting location]. When [founder name] first
-                started out, [his/her/their] passion for [brand message - e.g.
-                "eco-friendly cleaning products"] drove them to start their own
-                business. We hope you enjoy our products as much as we enjoy
-                offering them to you. If you have any questions or comments,
-                please don't hesitate to contact us. Sincerely, [founder name]
+                We help people put their content in the web whether it be local shop,
+               youtube channel, video content ..etc . We help to advertise their content
+               for easy eccessibility let people know their business
+
               </h2>
             </Grid>
           </Grid>
 
           <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-            This is the ads section
+            {/* This is the ads section */}
           </Grid>
         </Grid>
 

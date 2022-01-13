@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "../css_styles/UserDashboard.css";
-import AdminSidebar from "../components/AdminSidebar";
+// import AdminSidebar from "../components/AdminSidebar";
 import Footers from "../components/Footers";
 // import AdminTable from "../components/Table";
 import PostTable from "../components/PostTable";
@@ -25,8 +25,8 @@ import {
   HOTEL_DELETE_RESET,
   JOBS_CREATE_RESET,
   JOBS_DELETE_RESET,
-  RESELLER_CREATE_RESET,
-  RESELLER_DELETE_RESET,
+  // RESELLER_CREATE_RESET,
+  // RESELLER_DELETE_RESET,
   SHOP_CREATE_RESET,
   SHOP_DELETE_RESET,
   MEME_CREATE_RESET,
@@ -40,16 +40,17 @@ import {
 
 // ACTION IMPORT
 import {
-  hotelListAction,
+  hotelUserListAction,
   hotelCreateAction,
   hotelDeleteAction,
-  jobListAction,
+
+  jobUserListAction,
   jobCreateAction,
   jobDeleteAction,
-  resellerListAction,
-  resellerCreateAction,
-  resellerDeleteAction,
-  tourismsListAction,
+  // resellerListAction,
+  // resellerCreateAction,
+  // resellerDeleteAction,
+  tourismsUserListAction,
   tourismsCreateAction,
   tourismsDeleteAction,
 } from "../actions/advertiseActions2";
@@ -57,24 +58,31 @@ import {
 // ACTION IMPORT
 
 import {
-  advertiseListAction,
+  
+  advertiseUserListAction,
   advertiseCreateAction,
   advertiseDeleteAction,
-  celebrityListAction,
+
+  celebrityUserListAction,
   celebrityCreateAction,
   celebrityDeleteAction,
-  eventListAction,
+
+  eventUserListAction,
   eventCreateAction,
   eventDeleteAction,
-  shopListAction,
+
+  shopUserListAction,
   shopCreateAction,
   shopDeleteAction,
-  memeListAction,
+
+  memeUserListAction,
   memeCreateAction,
   memeDeleteAction,
-  localListAction,
+
+  localUserListAction,
   localCreateAction,
   localDeleteAction,
+
   formCreateAction
 } from "../actions/advertiseActions";
 
@@ -108,12 +116,12 @@ const UserDashboard = () => {
   } = shopCreate;
 
   // SHOP LIST
-  const shopList = useSelector((state) => state.shopList);
+  const shopUserList = useSelector((state) => state.shopUserList);
   const {
     error: listShopError,
     loading: listShopLoading,
     shops: listShop,
-  } = shopList;
+  } = shopUserList;
 
   // SHOP DELETE
   const shopDelete = useSelector((state) => state.shopDelete);
@@ -135,12 +143,12 @@ const UserDashboard = () => {
   } = advertiseCreate;
 
   // ADVERTISE LIST
-  const advertiseList = useSelector((state) => state.advertiseList);
+  const advertiseUserList = useSelector((state) => state.advertiseUserList);
   const {
     error: listAdvertiseError,
     loading: listAdvertiseLoading,
     advertises: listAdvertise,
-  } = advertiseList;
+  } = advertiseUserList;
 
   // ADVERTISE DELETE
   const advertiseDelete = useSelector((state) => state.advertiseDelete);
@@ -162,12 +170,12 @@ const UserDashboard = () => {
   } = eventCreate;
 
   // EVENT LIST
-  const eventList = useSelector((state) => state.eventList);
+  const eventUserList = useSelector((state) => state.eventUserList);
   const {
     error: listEventError,
     loading: listEventLoading,
     events: listEvent,
-  } = eventList;
+  } = eventUserList;
 
   // EVENT DELETE
   const eventDelete = useSelector((state) => state.eventDelete);
@@ -177,8 +185,6 @@ const UserDashboard = () => {
     event: deleteEvent,
     success: deleteEventSuccess,
   } = eventDelete;
-
-
 
   // JOB CREATE
 
@@ -191,12 +197,12 @@ const UserDashboard = () => {
   } = jobCreate;
 
   // JOB LIST
-  const jobList = useSelector((state) => state.jobList);
+  const jobUserList = useSelector((state) => state.jobUserList);
   const {
     error:      listJobError,
     loading:    listJobLoading,
     jobs   :    listJob,
-  } = jobList;
+  } = jobUserList;
 
   // JOB DELETE
   const jobDelete = useSelector((state) => state.jobDelete);
@@ -220,12 +226,12 @@ const UserDashboard = () => {
   } = hotelCreate;
 
   // HOTEL LIST
-  const hotelList = useSelector((state) => state.hotelList);
+  const hotelUserList = useSelector((state) => state.hotelUserList);
   const {
     error: listHotelError,
     loading: listHotelLoading,
     hotels: listHotel,
-  } = hotelList;
+  } = hotelUserList;
 
   // HOTEL DELETE
   const hotelDelete = useSelector((state) => state.hotelDelete);
@@ -247,12 +253,12 @@ const UserDashboard = () => {
   } = memeCreate;
 
   // MEME LIST
-  const memeList = useSelector((state) => state.memeList);
+  const memeUserList = useSelector((state) => state.memeUserList);
   const {
     error: listMemeError,
     loading: listMemeLoading,
     memes: listMeme,
-  } = memeList;
+  } = memeUserList;
 
   // MEME DELETE
   const memeDelete = useSelector((state) => state.memeDelete);
@@ -276,12 +282,12 @@ const UserDashboard = () => {
   } = celebrityCreate;
 
   // CELEBRITIES LIST
-  const celebrityList = useSelector((state) => state.celebrityList);
+  const celebrityUserList = useSelector((state) => state.celebrityUserList);
   const {
     error: listCelebrityError,
     loading: listCelebrityLoading,
     celebrities: listCelebrity,
-  } = celebrityList;
+  } = celebrityUserList;
 
   // CELEBRITIES DELETE
   const celebrityDelete = useSelector((state) => state.celebrityDelete);
@@ -304,12 +310,12 @@ const UserDashboard = () => {
   } = tourismsCreate;
 
   // TOURISMS LIST
-  const tourismsList = useSelector((state) => state.tourismsList);
+  const tourismsUserList = useSelector((state) => state.tourismsUserList);
   const {
     error:      listTourismsError,
     loading:    listTourismsLoading,
     tourismss:  listTourisms,
-  } = tourismsList;
+  } = tourismsUserList;
 
   // TOURISMS DELETE
   const tourismsDelete = useSelector((state) => state.tourismsDelete);
@@ -331,12 +337,12 @@ const UserDashboard = () => {
   } = localCreate;
 
   // local new LIST
-  const localList = useSelector((state) => state.localList);
+  const localUserList = useSelector((state) => state.localUserList);
   const {
     error:      listLocalError,
     loading:    listLocalLoading,
     locals:  listLocal,
-  } = localList;
+  } = localUserList;
 
   // local new DELETE
   const localDelete = useSelector((state) => state.localDelete);
@@ -359,7 +365,7 @@ const UserDashboard = () => {
     if (!userInfo) {
       navigate("/");
     }
-    dispatch(shopListAction());
+    dispatch(shopUserListAction());
     dispatch({ type: SHOP_CREATE_RESET });
     dispatch({ type: SHOP_DELETE_RESET });
 
@@ -377,7 +383,7 @@ const UserDashboard = () => {
     if (!userInfo) {
       navigate("/");
     }
-    dispatch(advertiseListAction());
+    dispatch(advertiseUserListAction());
     dispatch({ type: ADVERTISE_CREATE_RESET });
     dispatch({ type: ADVERTISE_DELETE_RESET });
 
@@ -392,7 +398,7 @@ const UserDashboard = () => {
     if (!userInfo) {
       navigate("/");
     }
-    dispatch(eventListAction());
+    dispatch(eventUserListAction());
     dispatch({ type: EVENT_CREATE_RESET });
     dispatch({ type: EVENT_DELETE_RESET });
 
@@ -407,7 +413,7 @@ const UserDashboard = () => {
   if (!userInfo) {
     navigate("/");
   }
-  dispatch(jobListAction());
+  dispatch(jobUserListAction());
   dispatch({ type: JOBS_CREATE_RESET });
   dispatch({ type: JOBS_DELETE_RESET });
 
@@ -421,7 +427,7 @@ useEffect(() => {
   if (!userInfo) {
     navigate("/");
   }
-  dispatch(hotelListAction());
+  dispatch(hotelUserListAction());
   dispatch({ type: HOTEL_CREATE_RESET });
   dispatch({ type: HOTEL_DELETE_RESET });
 
@@ -435,7 +441,7 @@ useEffect(() => {
     if (!userInfo) {
       navigate("/");
     }
-    dispatch(memeListAction());
+    dispatch(memeUserListAction());
     dispatch({ type: MEME_CREATE_RESET });
     dispatch({ type: MEME_DELETE_RESET });
   
@@ -451,7 +457,7 @@ useEffect(() => {
     if (!userInfo) {
       navigate("/");
     }
-    dispatch(celebrityListAction());
+    dispatch(celebrityUserListAction());
     dispatch({ type: CELEBRITY_CREATE_RESET });
     dispatch({ type: CELEBRITY_DELETE_RESET });
   
@@ -466,7 +472,7 @@ useEffect(() => {
     if (!userInfo) {
       navigate("/");
     }
-    dispatch(tourismsListAction());
+    dispatch(tourismsUserListAction());
     dispatch({ type: TOURISMS_CREATE_RESET });
     dispatch({ type: TOURISMS_DELETE_RESET });
   
@@ -481,7 +487,7 @@ useEffect(() => {
     if (!userInfo) {
       navigate("/");
     }
-    dispatch(localListAction());
+    dispatch(localUserListAction());
     dispatch({ type: LOCAL_CREATE_RESET });
     dispatch({ type: LOCAL_DELETE_RESET });
   
@@ -667,7 +673,7 @@ useEffect(() => {
           <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
             <label>Phone</label>
             <Grid item>
-              <span className="profile-full-name">{profile.phone}</span>
+              <span className="profile-full-name">{profile.phoneNumber}</span>
             </Grid>
           </Grid>
           <Grid item className="profile-full-detail"  md={12} sm={12} xs={12} lg={12}>
@@ -808,14 +814,22 @@ useEffect(() => {
             </Grid>)
             }
           </Grid>
-          <Grid item className="profile-request"  md={12} sm={12} xs={12} lg={12}>
+
+          {
+          profile.isRequested
+          ?(<Grid item style={{paddingTop:'10px', color:'green', fontSize:'20px'}}>
+              <span>Requested ...You will be approved after sometime...</span>
+            </Grid>
+          )
+          :(<Grid item className="profile-request"  md={12} sm={12} xs={12} lg={12}>
             <label className='request-label'>Request To Upload</label>
             <Grid item>
               <Link to='/requestform-create'>
                 <Button variant='contained' className="profile-request-button">Request</Button>
               </Link>
             </Grid>
-          </Grid>
+          </Grid>)
+          }
           <Grid md={12} sm={12} xs={12} lg={12}>
 
             {/* {createFormLoading && <Loaders/>}

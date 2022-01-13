@@ -33,6 +33,7 @@ import {
 
 import {
     advertiseListReducer,
+    advertiseUserListReducer,
     advertiseDetailReducer,
     advertiseCreateReducer,
     advertiseUpdateReducer,
@@ -40,6 +41,7 @@ import {
 
     // CELEBRITY PORTION
     celebrityListReducer,
+    celebrityUserListReducer,
     celebrityDetailReducer,
     celebrityCreateReducer,
     celebrityUpdateReducer,
@@ -47,6 +49,7 @@ import {
 
     // EVENT PORTION
     eventListReducer,
+    eventUserListReducer,
     eventDetailReducer,
     eventCreateReducer,
     eventUpdateReducer,
@@ -55,6 +58,7 @@ import {
     
     // SHOP PORTION
     shopListReducer,
+    shopUserListReducer,
     shopDetailReducer,
     shopCreateReducer,
     shopUpdateReducer,
@@ -63,6 +67,7 @@ import {
 
     // MEME PORTION
     memeListReducer,
+    memeUserListReducer,
     memeDetailReducer,
     memeCreateReducer,
     memeUpdateReducer,
@@ -70,6 +75,7 @@ import {
 
     // MEME PORTION
     localListReducer,
+    localUserListReducer,
     localDetailReducer,
     localCreateReducer,
     localUpdateReducer,
@@ -92,6 +98,7 @@ import {
 
     // HOTEL PORTION
     hotelListReducer,
+    hotelUserListReducer,
     hotelDetailReducer,
     hotelCreateReducer,
     hotelUpdateReducer,
@@ -99,6 +106,7 @@ import {
 
     // RESELLER PORTION
     resellerListReducer,
+    resellerUserListReducer,
     resellerDetailReducer,
     resellerCreateReducer,
     resellerUpdateReducer,
@@ -106,27 +114,22 @@ import {
 
     // TOURISMS PORTION
     tourismsListReducer,
+    tourismsUserListReducer,
     tourismsDetailReducer,
     tourismsCreateReducer,
     tourismsUpdateReducer,
     tourismsDeleteReducer,
 
-
     // JOBS PORTION
     jobListReducer,
+    jobUserListReducer,
     jobDetailReducer,
     jobCreateReducer,
     jobUpdateReducer,
     jobDeleteReducer,
 
 
-    
-
-
 } from '../src/reducers/productivityReducers2'
-
-
-
 
 
 const reducer = combineReducers({
@@ -158,8 +161,8 @@ const reducer = combineReducers({
     profileDetail: profileDetailReducer,
     profileUpdate: profileUpdateReducer,
 
-
     advertiseList:advertiseListReducer,
+    advertiseUserList:advertiseUserListReducer,
     advertiseDetail:advertiseDetailReducer,
     advertiseCreate:advertiseCreateReducer,
     advertiseUpdate: advertiseUpdateReducer,
@@ -167,6 +170,7 @@ const reducer = combineReducers({
 
     // CELEBRITY PORTION
     celebrityList: celebrityListReducer,
+    celebrityUserList: celebrityUserListReducer,
     celebrityDetail: celebrityDetailReducer,
     celebrityCreate:celebrityCreateReducer,
     celebrityUpdate: celebrityUpdateReducer,
@@ -174,14 +178,15 @@ const reducer = combineReducers({
 
     // EVENT PORTION
     eventList: eventListReducer,
+    eventUserList: eventUserListReducer,
     eventDetail: eventDetailReducer,
     eventUpdate: eventUpdateReducer,
     eventDelete: eventDeleteReducer,
     eventCreate:eventCreateReducer,
 
-
     // HOTEL PORTION
     hotelList:   hotelListReducer,
+    hotelUserList:   hotelUserListReducer,
     hotelDetail: hotelDetailReducer,
     hotelUpdate: hotelUpdateReducer,
     hotelDelete: hotelDeleteReducer,
@@ -189,14 +194,15 @@ const reducer = combineReducers({
 
     // SHOP PORTION
     shopList:   shopListReducer,
+    shopUserList:   shopUserListReducer,
     shopDetail: shopDetailReducer,
     shopUpdate: shopUpdateReducer,
     shopDelete: shopDeleteReducer,
     shopCreate: shopCreateReducer,
 
-    
     // LOCAL PORTION
     localList:   localListReducer,
+    localUserList:   localUserListReducer,
     localDetail: localDetailReducer,
     localUpdate: localUpdateReducer,
     localDelete: localDeleteReducer,
@@ -204,6 +210,7 @@ const reducer = combineReducers({
 
     // SHOP PORTION
     memeList:   memeListReducer,
+    memeUserList:   memeUserListReducer,
     memeDetail: memeDetailReducer,
     memeUpdate: memeUpdateReducer,
     memeDelete: memeDeleteReducer,
@@ -220,6 +227,7 @@ const reducer = combineReducers({
 
     // RESELLER PORTION
     resellerList:   resellerListReducer,
+    resellerUserList:   resellerUserListReducer,
     resellerDetail: resellerDetailReducer,
     resellerUpdate: resellerUpdateReducer,
     resellerDelete: resellerDeleteReducer,
@@ -227,6 +235,7 @@ const reducer = combineReducers({
 
     // TOURISMS PORTION
     tourismsList:   tourismsListReducer,
+    tourismsUserList:   tourismsUserListReducer,
     tourismsDetail: tourismsDetailReducer,
     tourismsUpdate: tourismsUpdateReducer,
     tourismsDelete: tourismsDeleteReducer,
@@ -235,6 +244,7 @@ const reducer = combineReducers({
 
     // JOB PORTION
     jobList:   jobListReducer,
+    jobUserList:   jobUserListReducer,
     jobDetail: jobDetailReducer,
     jobUpdate: jobUpdateReducer,
     jobDelete: jobDeleteReducer,

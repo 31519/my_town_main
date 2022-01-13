@@ -1,9 +1,10 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from news_api_app.models import RequestForm
+from news_api_app.models import RequestForm, Profile
 from news_api_app.serializers import RequestFormSerializers
 from rest_framework import status
+
 
 
 @api_view(['GET'])
@@ -33,6 +34,9 @@ def RequestFormCreate(request):
         content= data['content']
 
     )
+    profile = Profile.objects.get(user=current_user)
+    profile.isRequested = True
+    profile.save()
     serializer = RequestFormSerializers(form, many=False)
     return Response(serializer.data)
 

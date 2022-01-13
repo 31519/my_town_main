@@ -9,5 +9,5 @@ urlpatterns = [
     path('update/<int:pk>/<str:slug>/', views.ShopsUpdate, name='update'),
     path('adminUpdate/<int:pk>/<str:slug>/', views.ShopsAdminUpdate, name='adminUpdate'),
     path('delete/<int:pk>/<str:slug>/', views.ShopsDelete, name='delete'),
-    
+    path('user-list/', views.UserShopsList, name='user-list'),
 ]

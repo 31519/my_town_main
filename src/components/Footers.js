@@ -42,6 +42,7 @@ const useStyles = makeStyles({
     opacity: 0.6,
     fontSize: "14px",
     display: "flex",
+
     alignItem: "center",
     textAlign: "center",
   },
@@ -54,7 +55,8 @@ const useStyles = makeStyles({
     color: "black",
     borderRadius: "5px",
     fontWeight: "bold",
-    textAlign: "center",
+    textAlign: "start",
+    textDecoration:"none",
 
   }
 });
@@ -66,12 +68,15 @@ const Footers = () => {
       <Grid   spacing={1} item xs={12} sm={4} lg={4} md={4}>
       <h2 className={classes.inTouch} variant="h2">GET IN TOUCH</h2>
       <h2 className={classes.inTouch} variant="h2">Caroline Colony, Jowai, West Jaintia Hill</h2>
-      <h2 className={classes.inTouch} variant="h2">@mystardust000</h2>
-      <Link to="/privacy-policy">
+      <h2>
+
+      <a style={{textDecoration:'none', color:'black', fontSize:'16px', marginLeft:"10px", textAlign:'center'}} href="mailto:inmatown@gmail.com">inmatown@gmail.com</a>
+      </h2>
+      <Link className="text-link" to="/privacy-policy">
         <h2 className={classes.inTouch} variant="h2">Privacy Policy</h2>
       </Link>
-      <Link  to="/about-us">
-        <h2 className={classes.inTouch} variant="h2">About Us</h2>
+      <Link className="text-link" to="/about-us">
+        <h2  className={classes.inTouch} variant="h2">About Us</h2>
       </Link>
       </Grid>
       <Grid   spacing={1} item xs={12} sm={4} lg={4} md={4}>
@@ -92,7 +97,7 @@ const Footers = () => {
           </div>
 
           <div>
-            <Link className="text-link" to="/">
+            <Link className="text-link" to="/technology">
               <h2 className={classes.title} variant="h3">
                 Technology
               </h2>
@@ -181,7 +186,7 @@ const Footers = () => {
       </Grid>
       <Grid   spacing={1} item xs={12} sm={4} lg={4} md={4}>
         
-      <Link to='/'><h2 className={classes.inTouch}>www.inmatown.com</h2></Link>
+      <Link  className="text-link" to='/'><h2 className={classes.inTouch}>www.inmatown.com</h2></Link>
         <h2 className={classes.inTouch} variant="h2">All Right Reserved</h2>
         <h2 className={classes.inTouch} variant="h2">Created by: Stardust</h2>
 

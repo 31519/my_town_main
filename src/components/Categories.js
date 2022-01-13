@@ -2,7 +2,7 @@ import React from "react";
 import "../css_styles/Categories.css";
 import { Link } from "react-router-dom";
 
-import { Grid, Typography } from "@mui/material";
+// import { Grid, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
@@ -60,7 +60,7 @@ const Categories = () => {
         </div>
         <div className="techlist_footer_category_item">
           <div>
-            <Link className="text-link" to="/local">
+            <Link className="text-link" to="/">
               <h2 className={classes.title} variant="h3">
                 News
               </h2>
@@ -83,7 +83,7 @@ const Categories = () => {
           </div>
 
           <div>
-            <Link className="text-link" to="/">
+            <Link className="text-link" to="/technology">
               <h2 className={classes.title} variant="h3">
                 Technology
               </h2>

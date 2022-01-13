@@ -95,7 +95,7 @@ const LocalScreen = () => {
 
       <Grid className={classes.gridHeader} container item>
         <Typography className={classes.header} color="green" variant="h3">
-          New
+          News
         </Typography>
       </Grid>
 

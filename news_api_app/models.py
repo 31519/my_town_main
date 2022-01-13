@@ -133,8 +133,9 @@ class Profile(models.Model):
     town = models.CharField(max_length=300, null=True, blank=True, default='town')
     country = models.CharField(max_length=300, null=True, blank=True, default="country")
     pincode = models.IntegerField(null=True, blank=True)
-    phoneNumber = models.IntegerField(null=True, blank=True)
+    phoneNumber =models.CharField(max_length=100, blank=True, null=True)
     profession = models.CharField(max_length=300, null=True, blank=True, default="Profession")
+    isRequested = models.BooleanField(default=False)
     isApproved = models.BooleanField(default=False)
     isApprovedJob = models.BooleanField(default=False)
     isApprovedResseller = models.BooleanField(default=False)
@@ -153,6 +154,7 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.username)
         super(Profile, self).save(*args, **kwargs)
+
 
 
     def __str__(self):

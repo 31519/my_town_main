@@ -10,6 +10,6 @@ urlpatterns = [
     path('update/<int:pk>/<str:slug>/', views.MemeUpdate, name='update'),
     # path('adminUpdate/<int:pk>/', views.JobsAdminUpdate, name='adminUpdate'),
     path('delete/<int:pk>/<str:slug>/', views.MemeDelete, name='delete'),
-    
+    path('user-list/', views.UserMemeList, name='user-list'),
 ]
 

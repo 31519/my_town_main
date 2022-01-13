@@ -108,3 +108,6 @@ def OwnBusinessImage(request):
     serializer = OwnBusinessSerializers(ownbusiness, many=False)
     
     return Response(serializer.data)
+
+
+

@@ -115,29 +115,29 @@ const AdminSidebar = ({ tech }) => {
             <hr />
             <div className="dashboard_pages_items">
               <h3 className="text_header">News</h3>
-              <Link  className="text-link"  to="/">
+              <Link  className="text-link"  to="/technology">
                 <div className="dashboard_pages_items1">
                   <h3>Technology</h3>
                 </div>
               </Link>
 
-              <Link  className="text-link"  to="/">
+              <Link  className="text-link"  to="/health-screen">
                 <div className="dashboard_pages_items1">
-                  <h3>Educations</h3>
+                  <h3>Health</h3>
                 </div>
               </Link>
 
-              <Link  className="text-link"  to="/">
+              <Link  className="text-link"  to="/science-screen">
                 <div className="dashboard_pages_items1">
                   <h3>Science</h3>
                 </div>
               </Link>
 
-              <Link  className="text-link"  to="/">
+              {/* <Link  className="text-link"  to="/">
                 <div className="dashboard_pages_items1">
                   <h3>Business</h3>
                 </div>
-              </Link>
+              </Link> */}
 
               <Link  className="text-link"  to="/">
                 <div className="dashboard_pages_items1">
@@ -179,7 +179,7 @@ const AdminSidebar = ({ tech }) => {
                 </div>
               </Link>
 
-              <Link  className="text-link"  to="/tourist">
+              <Link  className="text-link"  to="/tourisms">
                 <div className="dashboard_pages_items1">
                   <h3>Tourisms</h3>
                 </div>

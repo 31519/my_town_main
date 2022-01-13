@@ -20,7 +20,7 @@ def LocalNewsList(request):
     local = LocalNews.objects.filter(title__icontains=query)
 
     page = request.query_params.get('page')
-    paginator = Paginator(local, 5)
+    paginator = Paginator(local, 8)
     try:
         local = paginator.page(page)
     except EmptyPage:
@@ -115,13 +115,19 @@ def LocalNewsDelete(request, pk, slug):
 @api_view(['POST'])
 def LocalNewsImage(request):
     data = request.data
-
     product_id = data['product_id']
     local = LocalNews.objects.get(id=product_id)
-
     local.image = request.FILES.get('image')
     local.save()
-
     serializer = LocalNewsSerializers(local, many=False)
-    
+    return Response(serializer.data)
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def UserLocalNewsList(request):
+    current_user = request.user
+    local = LocalNews.objects.filter(user=current_user)
+    serializer = LocalNewsSerializers(local, many=True)
     return Response(serializer.data)
