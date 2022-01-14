@@ -218,15 +218,15 @@ def ProfileUpdate(request, pk):
     profile.save()
 
 
-    # try: 
-    #     send_mail(
-    #         subject="Update profile ",
-    #         message= profile.username + " your profile has been updated ",
-    #         from_email=settings.EMAIL_HOST_USER,
-    #         recipient_list=[profile.email, settings.EMAIL_HOST_RECIPIENT],
-    #     )
-    # except:
-    #     pass
+    try: 
+        send_mail(
+            subject="Update profile ",
+            message= profile.username + " your profile has been updated ",
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[profile.email, settings.EMAIL_HOST_RECIPIENT],
+        )
+    except:
+        pass
     serializer = ProfileSerializers(profile, many=False)
     return Response(serializer.data)
 
