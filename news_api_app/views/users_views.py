@@ -8,6 +8,9 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from rest_framework import status
 
+from django.core.mail import send_mail
+from django.conf import settings
+
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -104,6 +107,17 @@ def UserRegistration(request):
         profile.save()
 
 
+        try: 
+            send_mail(
+                subject="Register by " + account.username,
+                message="Thank you for registering. Your account is live",
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[account.email, settings.EMAIL_HOST_RECIPIENT],
+            )
+        except:
+            pass
+
+
         
             
 
@@ -133,6 +147,15 @@ def UserUpdate(request, pk):
     user.password = data['password']
     user.email = data['email']
     user.save()
+    try: 
+        send_mail(
+            subject="Update profile ",
+            message= user.username + " your profile has been updated ",
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[user.email, settings.EMAIL_HOST_RECIPIENT],
+        )
+    except:
+        pass
     serializer = ProfileSerializers(user, many=False)
     return Response(serializer.data)
 
@@ -193,6 +216,17 @@ def ProfileUpdate(request, pk):
     current_user.email = profile.email
     current_user.save()
     profile.save()
+
+
+    # try: 
+    #     send_mail(
+    #         subject="Update profile ",
+    #         message= profile.username + " your profile has been updated ",
+    #         from_email=settings.EMAIL_HOST_USER,
+    #         recipient_list=[profile.email, settings.EMAIL_HOST_RECIPIENT],
+    #     )
+    # except:
+    #     pass
     serializer = ProfileSerializers(profile, many=False)
     return Response(serializer.data)
 

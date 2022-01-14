@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     }
   },
   media: {
-    paddingTop: "56.25%"
+    paddingTop: "100%"
   },
   content: {
     textAlign: "left",

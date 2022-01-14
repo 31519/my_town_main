@@ -5,6 +5,8 @@ from news_api_app.models import RequestForm, Profile
 from news_api_app.serializers import RequestFormSerializers
 from rest_framework import status
 
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 @api_view(['GET'])
@@ -34,6 +36,17 @@ def RequestFormCreate(request):
         content= data['content']
 
     )
+
+    try: 
+        send_mail(
+            subject="Request Form Submitted by " + current_user.username,
+            message="Your Request for " + form.category + " will be approved after sometime. Thank you",
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[current_user.email, settings.EMAIL_HOST_RECIPIENT],
+        )
+    except:
+        pass
+
     profile = Profile.objects.get(user=current_user)
     profile.isRequested = True
     profile.save()
