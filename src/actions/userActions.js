@@ -62,7 +62,7 @@ export const userLoginActions = (username, password) => async (dispatch) => {
             }
         }
         const {data} = await axios.post(
-            `${process.env.REACT_APP_PORT}/api/users/login/`,
+            `api/users/login/`,
             {username, password},
             config
         )
@@ -107,7 +107,7 @@ export const userRegisterActions = (
             }
         }
         const {data} = await axios.post(
-            `${process.env.REACT_APP_PORT}/api/users/user-register/`,
+            `api/users/user-register/`,
             ({
                 username, 
                 email, 
@@ -176,7 +176,7 @@ export const userListActions = () => async ( dispatch, getState) => {
 
 
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/users/users-list/`,
+            `api/users/users-list/`,
             config
         );
 
@@ -216,7 +216,7 @@ export const userDetailActions = (id) => async ( dispatch, getState) => {
 
        
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/users/users-detail/${id}/`,
+            `api/users/users-detail/${id}/`,
             config
         );
 
@@ -255,7 +255,7 @@ export const userDeleteActions = (id) => async ( dispatch, getState) => {
 
        
         const { data } = await axios.delete(
-            `${process.env.REACT_APP_PORT}/api/users/users-delete/${id}/`,
+            `api/users/users-delete/${id}/`,
             config
         );
 
@@ -295,7 +295,7 @@ export const userUpdateActions = (user) => async ( dispatch, getState) => {
 
        
         const { data } = await axios.put(
-            `${process.env.REACT_APP_PORT}/api/users/users-update/${user.id}/`,
+            `api/users/users-update/${user.id}/`,
             user,
             config
         );
@@ -339,7 +339,7 @@ export const profileListActions = () => async ( dispatch, getState) => {
         }
 
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/users/profile-list/`,
+            `api/users/profile-list/`,
             config
         );
 
@@ -379,7 +379,7 @@ export const profileDetailActions = () => async ( dispatch, getState) => {
 
        
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/users/profile-detail/`,
+            `api/users/profile-detail/`,
             config
         );
 
@@ -418,7 +418,7 @@ export const profileUpdateActions = (profile) => async ( dispatch, getState) => 
         }
 
         const { data } = await axios.put(
-            `${process.env.REACT_APP_PORT}/api/users/profile-update/${profile.id}/`,
+            `api/users/profile-update/${profile.id}/`,
             profile,
             config
         );

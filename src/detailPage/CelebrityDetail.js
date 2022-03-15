@@ -1,28 +1,23 @@
-
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Footers from "../components/Footers";
 import "../css_styles/DetailProductivity.css";
 import { useParams, useLocation } from "react-router-dom";
+import ImageSlider from "../components/ImageSlider";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import { Link } from "react-router-dom";
+import PopupComponent from "../components/PopupComponent"
 
 import { celebrityDetailAction } from "../actions/advertiseActions";
 import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import Categories from "../components/Categories";
-import DetailCard from "../components/DetailCard";
+// import DetailCard from "../components/DetailCard";
 
-import { Grid, Typography } from "@mui/material";
+import SocialShare from "../components/SocialShare";
+import { Typography, Grid, Card, CardContent, Divider } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Banners from "../components/Banners";
-
-const celeb = {
-  title: "title",
-  urlToImage:
-    "https://staticg.sportskeeda.com/editor/2021/11/caca5-16370851386444-1920.jpg",
-  description: "description",
-  author: "author",
-  content: "content",
-};
 
 const useStyles = makeStyles({
   root: {
@@ -50,7 +45,7 @@ const useStyles = makeStyles({
     marginBottom: "10px",
     backgrounColor: "white",
     color: "green",
-    paddingTop: "20px"
+    paddingTop: "20px",
   },
   date: {
     opacity: 0.6,
@@ -65,13 +60,12 @@ const useStyles = makeStyles({
 });
 
 const CelebrityDetail = () => {
+  const socialmedia = window.location.href;
   const params = useParams();
-  const {id, slug} = params;
-
+  const { id, slug } = params;
 
   const classes = useStyles();
   const dispatch = useDispatch();
-
 
   const celebrityDetail = useSelector((state) => state.celebrityDetail);
 
@@ -84,53 +78,117 @@ const CelebrityDetail = () => {
   useEffect(() => {
     dispatch(celebrityDetailAction(id, slug));
   }, [dispatch, id, slug]);
-    return (
+  return (
+    <>
+      <div className="techlist">
+        {/* <CelebCarousel celeb={celeb} /> */}
+        <Banners />
+        <Categories />
 
-          <>
-          <div className="techlist">
-            {/* <CelebCarousel celeb={celeb} /> */}
-            <Banners />
-            <Categories />
-      
-            {/* <SearchBox /> */}
-            {/* Content */}
-      
-            <Grid className={classes.gridHeader} container item>
-              <Typography className={classes.header} color="green" variant="h3">
-                CELEB
-              </Typography>
+        {/* <SearchBox /> */}
+        {/* Content */}
+
+        <Grid className={classes.gridHeader} container item>
+          <Typography className={classes.header} color="green" variant="h3">
+            CELEB
+          </Typography>
+        </Grid>
+
+        <Grid spacing={2} className={classes.gridContent} container>
+          <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
+            {/* This is the add section */}
+          </Grid>
+          {detailCelebrityLoading ? (
+            <Loaders />
+          ) : detailCelebrityError ? (
+            <ErrorMessage type="error" error={detailCelebrityError} />
+          ) : (
+            <Grid spacing={1} item xs={12} sm={6} lg={6} md={6}>
+              {/* <DetailCard key={detailCelebrity.id} item={detailCelebrity}/> */}
+              <div className="App" style={{ backgrounColor: "#e0e7e9ee" }}>
+                <Card className={classes.card}>
+                  {/* <Link className="text-link" to={`/${model}-detail/${item.id}/${item.slug}`}> */}
+                  {detailCelebrity.manyImages && (
+                    <PopupComponent image={detailCelebrity.manyImages[0].image} title={detailCelebrity.title}/>
+                  )}
+
+                  {/* </Link> */}
+                  <CardContent className={classes.content}>
+                    <Typography variant={"caption"} gutterBottom>
+                      <CalendarTodayIcon
+                        style={{
+                          fill: "green",
+                          fontSize: "12px",
+                          fontWeight: "700",
+                        }}
+                      />
+                      {detailCelebrity.createdAt &&
+                        detailCelebrity.createdAt.split("T", 1)}{" "}
+                      {detailCelebrity.createdAt &&
+                        detailCelebrity.createdAt.substr(11, 8)}
+                    </Typography>
+                    <br />
+                    <Typography variant={"caption"} gutterBottom>
+                      {detailCelebrity.state}
+                    </Typography>
+                    <br />
+
+                    <Typography variant={"h6"} gutterBottom>
+                      {detailCelebrity.title}
+                    </Typography>
+
+                    <h2
+                      style={{
+                        fontSize: "16px",
+                        fontFamily: "sans-serif",
+                        fontWeight: "500",
+                        letterSpacing: "1px",
+                      }}
+                    >
+                      {detailCelebrity.content}
+                    </h2>
+                      {detailCelebrity.url && (
+                        <a href={detailCelebrity.url} target="_blank" style={{
+                          marginBottom:'20px'
+                        }}>{detailCelebrity.url}</a>
+                      )}
+
+                    <br />
+                    <Typography gutterBottom color="blue">
+                      {detailCelebrity.country}
+                    </Typography>
+                    <Typography gutterBottom color="blue">
+                      {detailCelebrity.state}
+                    </Typography>
+                    <Typography gutterBottom color="blue">
+                      {detailCelebrity.address}
+                    </Typography>
+                    <Typography gutterBottom color="blue">
+                      {detailCelebrity.contact}
+                    </Typography>
+
+                    <Divider className={classes.divider} />
+                    <Typography variant={"h6"} gutterBottom>
+                      share
+                    </Typography>
+                    <SocialShare url={socialmedia} />
+                    <ImageSlider images={detailCelebrity.manyImages} />
+                    
+                  </CardContent>
+                </Card>
+              </div>
             </Grid>
-      
-            <Grid spacing={2} className={classes.gridContent} container>
-              <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-                {/* This is the add section */}
+          )}
 
-              </Grid>
-              {detailCelebrityLoading ? (
-                <Loaders />
-              ) : detailCelebrityError ? (
-                <ErrorMessage type="error" error={detailCelebrityError} />
-              ) : (
-                <Grid spacing={1} item xs={12} sm={6} lg={6} md={6}>
-                  
-                    <DetailCard key={detailCelebrity.id} item={detailCelebrity}/>
+          <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
+            {/* This is the add section */}
+          </Grid>
+        </Grid>
 
-                </Grid>
-              )}
-      
-              <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-                {/* This is the add section */}
-
-              </Grid>
-            </Grid>
-            {/* <Paginate keyword={keyword} page={page} pages={pages}/> */}
-      
-            {/* <CategoryCarousel celeb={techss} /> */}
-      
-            <Footers />
-          </div>
-          </>
-    );
-  };
+        <Footers />
+      </div>
+    </>
+  );
+};
 
 export default CelebrityDetail;

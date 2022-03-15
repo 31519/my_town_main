@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from news_api_app.models import Technology, Science, Health, Business, LocalNews, Profile, RequestForm
+from news_api_app.models import Technology, Science, Health, Business, LocalNews,LocalNewsGallary, Profile, RequestForm
 
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -24,11 +24,24 @@ class BusinessSerializers(serializers.ModelSerializer):
         model = Business
         fields = '__all__'
 
+class LocalNewsGallarySerializers(serializers.ModelSerializer):
+    class Meta:
+        model = LocalNewsGallary
+        fields= "__all__"
+
+
 
 class LocalNewsSerializers(serializers.ModelSerializer):
+    manyImages = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = LocalNews
         fields = '__all__'
+
+
+    def get_manyImages(self, obj):
+        localnews = obj.localnewsgallary_set.all()
+        serializer = LocalNewsGallarySerializers(localnews, many=True)
+        return serializer.data
 
 
 class RequestFormSerializers(serializers.ModelSerializer):

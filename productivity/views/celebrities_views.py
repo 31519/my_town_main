@@ -1,9 +1,9 @@
 # from rest_framework.serializers import Serializer
-from productivity.models import Celebrities
+from productivity.models import Celebrities, CelebritiesGallary
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from productivity.serializers import CelebritiesSerializers
+from productivity.serializers import CelebritiesSerializers, CelebritiesGallarySerializers
 from rest_framework import status
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -71,7 +71,7 @@ def CelebritiesUpdate(request, pk, slug):
     celebrities.state = data['state']
     celebrities.address = data['address']
     celebrities.contact = data['contact']
-    # celebrities.image=data['image']
+    celebrities.url=data['url']
     celebrities.title = data['title']
     celebrities.content = data['content']
     celebrities.save()
@@ -127,6 +127,20 @@ def CelebritiesImage(request):
 
     serializer = CelebritiesSerializers(celebrity, many=False)
     
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def CelebritiesManyImage(request):
+    data = request.data
+
+    product_id = data['product_id']
+    celebrity = Celebrities.objects.get(id=product_id)
+    celebrityGallary = CelebritiesGallary.objects.create(
+        celebrity = celebrity,
+        image = request.FILES.get('image')
+    )
+
+    serializer = CelebritiesGallarySerializers(celebrityGallary, many=False)
     return Response(serializer.data)
 
 

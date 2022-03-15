@@ -1,13 +1,21 @@
+import _ from 'lodash'
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-
 // IMPORT COMPONENT
 
 import axios from "axios";
-import { Grid} from "@mui/material";
 import Loaders from "../components/Loader";
 
+
+
+import {
+  Grid,
+  Paper,
+  FormLabel,
+  TextField,
+  TextareaAutosize
+} from "@mui/material";
 // import TechCreateNewsApi from "../admin-screen/TechCreateNewsApi";
 import {
   tourismsDetailAction,
@@ -16,19 +24,23 @@ import {
 
 import { TOURISMS_UPDATE_RESET } from "../constants/productivityConstants";
 
-import "../css_styles/TechCreate.css";
+
 
 const TourismsUpdate = () => {
   const params = useParams();
   const {id, slug} = params;
   const navigate = useNavigate();
 
+  const paperStyle = { padding: '0px' , width:'80%', margin: "20px auto"}
+  const gridStyle = { backgroundColor: 'rgb(223, 232, 229)'}
+
   const [category, setCategory] = useState("");
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
   const [address, setAddress] = useState("");
   const [contact, setContact] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState([]);
+  const [oneImage, setOneImage] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false)
@@ -73,7 +85,7 @@ const TourismsUpdate = () => {
         setState(detailTourisms.state);
         setAddress(detailTourisms.address);
         setContact(detailTourisms.contact);
-        setImage(detailTourisms.image);
+        setImage(detailTourisms.manyImages);
         setTitle(detailTourisms.title);
         setContent(detailTourisms.content);
       }
@@ -81,6 +93,7 @@ const TourismsUpdate = () => {
   }, [dispatch, id, detailTourisms, updateTourismsSuccess, updateTourisms]);
 
   const uploadFileHandler = async (e) => {
+    // const files = e.target.files
     const file = e.target.files[0]
     const formData = new FormData()
 
@@ -88,7 +101,6 @@ const TourismsUpdate = () => {
     formData.append('product_id', id)
 
     setLoading(true)
-
     try {
       const config = {
         headers: {
@@ -96,14 +108,16 @@ const TourismsUpdate = () => {
         }
       }
 
-      const { data } = await axios.post(`${process.env.REACT_APP_PORT}/api/tourisms/image/`,
+      const { data } = await axios.post(`${process.env.REACT_APP_PORT}/api/tourisms/many-image/`,
       formData, config)
 
-      setImage(data.image)
+      setOneImage(data.image)
       setLoading(false)
     } catch (error){
       setLoading(false)
     }
+
+
   }
 
   const submitHandler = (e) => {
@@ -117,7 +131,6 @@ const TourismsUpdate = () => {
         state,
         address,
         contact,
-        image,
         title,
         content,
       })
@@ -125,97 +138,95 @@ const TourismsUpdate = () => {
   };
 
   return (
-    <>
-      <div className="techcreate">
-        <div className="form">
-          <form onSubmit={submitHandler}>
-            <div className="text">
-              <div className="subtitle">Let's Update Models</div>
-            </div>
-            <div className="input-container">
-              <label>Category</label>
-              <input
-                id="category"
-                className="input"
-                type="text"
-                placeholder="categorygfhfg"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              />
-            </div>
-            <div className="input-container">
-              <label>Country</label>
-              <input
+      <Grid style={gridStyle}>
+        <Paper elevate={20} style={paperStyle}>
+          {detailTourismsLoading && <Loaders/>}
+          <form onSubmit={submitHandler} style={{margin:'10px', padding:0}}>
+           
+            <FormLabel component='legend'>Category</FormLabel>
+            <TextField
+              fullWidth 
+              placeholder="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            />
+              <FormLabel>Country</FormLabel>
+              <TextField
+                fullWidth 
                 id="country"
-                className="input"
                 type="text"
                 placeholder="country"
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
               />
-            </div>
-            <div className="input-container">
-              <label>State</label>
-              <input
+              <FormLabel>State</FormLabel>
+              <TextField
                 id="state"
+                fullWidth 
                 className="input"
                 type="state"
                 placeholder="state"
                 value={state}
                 onChange={(e) => setState(e.target.value)}
               />
-            </div>
-            <div className="input-container ic2">
-              <label>Address</label>
-              <input
+              <FormLabel>Address</FormLabel>
+              <TextField
                 id="address"
+                fullWidth 
                 className="input"
                 type="address"
                 placeholder="Url"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
-            </div>
-            <div className="input-container ic2">
-              <label>Contact</label>
-              <input
+              <FormLabel>Contact</FormLabel>
+              <TextField
                 id="contact"
+                fullWidth 
                 className="input"
                 type="text"
                 placeholder="contact"
                 value={contact}
                 onChange={(e) => setContact(e.target.value)}
               />
-            </div>
-            <div className="input-container ic2">
-              <label>Title</label>
-              <input
+              <FormLabel>Title</FormLabel>
+              <TextField
                 id="title"
-                className="input"
+                fullWidth 
+                required
                 type="text"
                 placeholder="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
-            </div>
 
-            <div className="input-container ic2">
-              <label>Content</label>
-              <textarea
+              <FormLabel>Content</FormLabel>
+              <TextareaAutosize
                 id="content"
-                className="input"
+                fullWidth 
+                style={{width: '100%'}}
+                minRows={10}
                 type="textfield"
                 placeholder="Content"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
               />
-            </div>
 
 
-            <Grid className="input-container ic2">
-                <label>Images</label>
-                <img src={image} style={{widht:'80px', height:'50px'}} />
+            <Grid>
+              {image && image.length > 1 && (
+                image.map((images) => (
+                  <img src={images.image} alt="images" style={{width:'200px', height:'150px', margin:'5px'}} />
+                ))
+               )}
+                
             </Grid>
+            {
+              oneImage && (
+
+                <img src={oneImage} alt="images" style={{width:'200px', height:'150px', margin:'0px'}} />
+              )
+            }
             <input
               className="input"
               type="file"
@@ -224,7 +235,7 @@ const TourismsUpdate = () => {
             {loading && <Loaders/>}
             <div className="input-container ic2">
               <button className="button_input" type="submit">
-                Submit
+                {updateTourismsLoading ? <Loaders/>: <>Submit</>}
               </button>
             </div>
           </form>
@@ -232,9 +243,8 @@ const TourismsUpdate = () => {
             {<TechCreateNewsApi/>}
             
           </div> */}
-        </div>
-      </div>
-    </>
+        </Paper>
+      </Grid>
   );
 };
 

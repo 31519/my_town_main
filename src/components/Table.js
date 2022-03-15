@@ -24,17 +24,18 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   table: {
-    minWidth: 650,
+    minWidth: '100%',
   },
   tableContainer: {
-    borderRadius: 15,
-    margin: "10px 10px",
+    // borderRadius: 15,
+    margin: "20px 10px",
+    // padding:'10px',
     maxWidth: 950,
   },
   tableHeaderCell: {
-    fontWeight: "bold",
-    backgroundColor: "black",
-    color: "blue",
+    // fontWeight: "bold",
+    backgroundColor: "#e1cece",
+    color: "black",
     // backgroundColor: theme.palette.primary.dark,
     // color: theme.palette.getContrastText(theme.palette.primary.dark)
   },
@@ -49,13 +50,18 @@ const useStyles = makeStyles((theme) => ({
   },
   status: {
     fontWeight: "bold",
-    fontSize: "1rem",
+    fontSize: "14px",
     color: "black",
-    backgroundColor: "red",
-    borderRadius: '10px',
-    padding: "10px",
+    backgroundColor: "#f7dc06",
+    // borderRadius: '10px',
+    marginLeft: "10px",
     display: "inline-block",
   },
+  tableRow:{
+    margin:"0px",
+    padding:"0px"
+  },
+  width: '50px'
 }));
 
 
@@ -92,7 +98,7 @@ const AdminTable = ({
         <ErrorMessage type="error" error={listModelError} />
       ) : (
 
-      
+      <Paper>
       <TableContainer component={Paper} className={classes.tableContainer}>
         {createModelError ? (
           <ErrorMessage type="error" error={createModelError} />
@@ -110,7 +116,7 @@ const AdminTable = ({
         <Grid>{listModel.length} Items</Grid>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
-            <TableRow>
+            <TableRow className={classes.tableRow}>
               <TableCell className={classes.tableHeaderCell}>Title</TableCell>
               <TableCell className={classes.tableHeaderCell}>
                 Created At
@@ -140,26 +146,36 @@ const AdminTable = ({
                   </Grid>
                 </TableCell>
                 <TableCell>
-                  <Typography color="primary" variant="subtitle2">
-                    {model.createdAt}
-                  </Typography>
-                  {/* <Typography color="textSecondary" variant="body2">{row.company}</Typography> */}
-                </TableCell>
-                <TableCell>
                   <Typography
                     className={classes.status}
                     style={{
                       backgroundColor:
                         (model.isApproved === true && "green") ||
                         (model.isApproved === false && "red"),
+                      color:"white",
+                      padding:'5px'
                     }}
                   >
                     {model.isApproved ? "Approved" : "Not yet"}
                   </Typography>
                 </TableCell>
                 <TableCell>
+                  <Typography color="primary" variant="subtitle2">
+                    {model.createdAt}
+                  </Typography>
+                  {/* <Typography color="textSecondary" variant="body2">{row.company}</Typography> */}
+                </TableCell>
+                
+                <TableCell>
                   <Link to={`/${redirect}-update/${model.id}/${model.slug}`}>
-                    <Typography className={classes.status}>Edit</Typography>
+                    <Typography 
+                    className={classes.status}
+                    style={{
+                      backgroundColor:"blue",
+                      color:"white",
+                      padding:'5px'
+                    }}
+                    >Edit</Typography>
                   </Link>
                 </TableCell>
                 <TableCell>
@@ -179,73 +195,13 @@ const AdminTable = ({
             ))}
 
           </TableBody>
-          <TableFooter>
-            <TablePagination
-            rowsPerPageOptions={[5, 10, 15]}
-            component="div"
-            count={listModel.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
-          </TableFooter>
+
         </Table>
       </TableContainer>
+      </Paper>
 
   )}
 
-      {/* <div>
-        {createModelError ? (
-          <ErrorMessage type="error" error={createModelError} />
-        ) : createModelError ? (
-          <Loaders />
-        ) : (
-          <button onClick={modelCreateHandler}>Create {redirect} Post</button>
-        )}
-      </div>
-
-      {listModelLoading ? (
-        <Loaders />
-      ) : listModelError ? (
-        <ErrorMessage type="error" error={listModelError} />
-      ) : (
-        <div className="post_table">
-          {deleteModelError && (
-            <ErrorMessage type="error" error={deleteModelError} />
-          )}
-          <table className="post_scroll">
-            <thead>
-              <tr className="post_header">
-                <th>id</th>
-                <th>title</th>
-                <th>isApproved</th>
-                <th>edit</th>
-                <th>delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {listModel.map((model) => (
-                <tr>
-                  <td>{model.id}</td>
-                  <td>{model.title}</td>
-                  <td>{model.isApproved ? "Yes" : "No"}</td>
-                  <Link to={`/${redirect}-update/${model.id}`}>
-                    <td>edit</td>
-                  </Link>
-                  {deleteModelLoading ? (
-                    <Loaders />
-                  ) : (
-                    <td onClick={() => modelDeleteHandler(model.id)}>
-                      Delete
-                    </td>
-                  )}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )} */}
       
     </div>
   );
@@ -253,113 +209,3 @@ const AdminTable = ({
 
 export default AdminTable;
 
-
-// <div>
-//       {listModelLoading ? (
-//         <Loaders />
-//       ) : listModelError ? (
-//         <ErrorMessage type="error" error={listModelError} />
-//       ) : (
-
-      
-//       <TableContainer component={Paper} className={classes.tableContainer}>
-//         {createModelError ? (
-//           <ErrorMessage type="error" error={createModelError} />
-//         ) : createModelError ? (
-//           <Loaders />
-//         ) : (
-//           <Button variant='contained' color='success' className={classes.status} onClick={modelCreateHandler}>
-//             Create {redirect} Post
-//           </Button>
-//         )}
-
-//         {deleteModelError && (
-//           <ErrorMessage type="error" error={deleteModelError} />
-//         )}
-//         <Grid>{listModel.length} Items</Grid>
-//         <Table className={classes.table} aria-label="simple table">
-//           <TableHead>
-//             <TableRow>
-//               <TableCell className={classes.tableHeaderCell}>Title</TableCell>
-//               <TableCell className={classes.tableHeaderCell}>
-//                 Created At
-//               </TableCell>
-//               <TableCell className={classes.tableHeaderCell}>
-//                 Approved
-//               </TableCell>
-//               <TableCell className={classes.tableHeaderCell}>Edit</TableCell>
-//               <TableCell className={classes.tableHeaderCell}>Delete</TableCell>
-//             </TableRow>
-//           </TableHead>
-//           <TableBody>
-//             {listModel.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((model) => (
-//               <TableRow key={model.id}>
-//                 <TableCell>
-//                   <Grid container>
-//                     {/* <Grid item lg={2}>
-//                           <Avatar alt={model.id} src='.' className={classes.avatar}/>
-//                       </Grid> */}
-//                     <Grid item lg={12}>
-//                       <Typography className={classes.name}>
-//                         {model.title}
-//                       </Typography>
-//                       {/* <Typography color="textSecondary" variant="body2">{row.email}</Typography>
-//                           <Typography color="textSecondary" variant="body2">{row.phone}</Typography> */}
-//                     </Grid>
-//                   </Grid>
-//                 </TableCell>
-//                 <TableCell>
-//                   <Typography color="primary" variant="subtitle2">
-//                     {model.createdAt}
-//                   </Typography>
-//                   {/* <Typography color="textSecondary" variant="body2">{row.company}</Typography> */}
-//                 </TableCell>
-//                 <TableCell>
-//                   <Typography
-//                     className={classes.status}
-//                     style={{
-//                       backgroundColor:
-//                         (model.isApproved === true && "green") ||
-//                         (model.isApproved === false && "red"),
-//                     }}
-//                   >
-//                     {model.isApproved ? "Approved" : "Not yet"}
-//                   </Typography>
-//                 </TableCell>
-//                 <TableCell>
-//                   <Link to={`/${redirect}-update/${model.id}/${model.slug}`}>
-//                     <Typography className={classes.status}>Edit</Typography>
-//                   </Link>
-//                 </TableCell>
-//                 <TableCell>
-//                   {deleteModelLoading ? (
-//                     <Loaders />
-//                   ) : (
-//                     <Button
-//                       className={classes.status}
-//                       onClick={() => modelDeleteHandler(model.id, model.slug)}
-//                     >
-//                       Delete
-//                     </Button>
-//                   )}
-//                 </TableCell>
-//               </TableRow>
-              
-//             ))}
-
-//           </TableBody>
-//           <TableFooter>
-//             <TablePagination
-//             rowsPerPageOptions={[5, 10, 15]}
-//             component="div"
-//             count={listModel.length}
-//             rowsPerPage={rowsPerPage}
-//             page={page}
-//             onChangePage={handleChangePage}
-//             onChangeRowsPerPage={handleChangeRowsPerPage}
-//         />
-//           </TableFooter>
-//         </Table>
-//       </TableContainer>
-
-//   )}

@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 
+
 import {
   Grid,
-
+  Paper,
+  FormLabel,
+  TextField,
+  TextareaAutosize
 } from "@mui/material";
 // IMPORT COMPONENT
 
@@ -30,10 +34,11 @@ const LocalnewsUpdate = () => {
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false)
+  const [oneImage, setOneImage] = useState("");
 
 
 
@@ -55,6 +60,9 @@ const LocalnewsUpdate = () => {
     success: updateLocalnewsSuccess,
     local: updateLocalnews,
   } = localUpdate;
+
+  const paperStyle = { padding: '0px' , width:'80%', margin: "20px auto"}
+  const gridStyle = { backgroundColor: 'rgb(223, 232, 229)'}
 
   useEffect(() => {
     if (!userInfo) {
@@ -78,7 +86,7 @@ const LocalnewsUpdate = () => {
         setAuthor(detailLocalnews.author);
         setDescription(detailLocalnews.description);
         setUrl(detailLocalnews.url);
-        setImage(detailLocalnews.image);
+        setImage(detailLocalnews.manyImages);
         setTitle(detailLocalnews.title);
         setContent(detailLocalnews.content);
       }
@@ -108,10 +116,10 @@ const LocalnewsUpdate = () => {
         }
       }
 
-      const { data } = await axios.post(`${process.env.REACT_APP_PORT}/api/localnews/image/`,
+      const { data } = await axios.post(`${process.env.REACT_APP_PORT}/api/localnews/many-image/`,
       formData, config)
 
-      setImage(data.image)
+      setOneImage(data.image)
       setLoading(false)
     } catch (error){
       setLoading(false)
@@ -135,35 +143,26 @@ const LocalnewsUpdate = () => {
   };
 
   return (
-    <>
-      <div className="techcreate">
-        <div className="form">
-          <form onSubmit={submitHandler}>
-            <div className="text">
-              <div className="subtitle">Let's Update Models</div>
-            </div>
-            <div className="input-container">
-              <label>Category</label>
-              <input
-                id="category"
-                className="input"
+      <Grid style={gridStyle}>
+        <Paper elevate={20} style={paperStyle}>
+          <form onSubmit={submitHandler} style={{margin:'10px', padding:0}}>
+              <FormLabel>Category</FormLabel>
+              <TextField
+                fullWidth 
                 type="text"
-                placeholder="categorygfhfg"
+                placeholder="category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               />
-            </div>
-            <div className="input-container">
-              <label>Author</label>
-              <input
-                id="country"
-                className="input"
+              <FormLabel>Author</FormLabel>
+              <TextField
+                fullWidth 
                 type="text"
                 placeholder="Author"
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
               />
-            </div>
+
             {/* <div className="input-container">
               <label>Description</label>
               <input
@@ -175,51 +174,53 @@ const LocalnewsUpdate = () => {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div> */}
-            <div className="input-container ic2">
-              <label>Url</label>
-              <input
-                id="address"
-                className="input"
+              <FormLabel>Url</FormLabel>
+              <TextField
+                fullWidth 
                 type="address"
                 placeholder="Url"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
               />
-            </div>
-            <div className="input-container ic2">
-              <label>Title</label>
-              <input
-                id="title"
-                className="input"
+              <FormLabel>Title</FormLabel>
+              <TextField
+                required
+                fullWidth 
                 type="text"
                 placeholder="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
-            </div>
-
-            <div className="input-container ic2">
-              <label>Content</label>
-              <textarea
-                id="content"
-                className="input"
+              <FormLabel>Content</FormLabel>
+              <TextareaAutosize
+                fullWidth 
+                style={{width: '100%'}}
+                minRows={10}
                 type="textfield"
                 placeholder="Content"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
               />
-            </div>
 
-            <Grid className="input-container ic2">
-                <label>Images</label>
-                <img src={image} style={{widht:'80px', height:'50px'}} />
-              </Grid>
-                <input
-                  className="input"
-                  type="file"
-                  onChange={uploadFileHandler}
-                />
-                {loading && <Loaders/>}
+            <Grid>
+              {image && image.length > 1 && (
+                image.map((images) => (
+                  <img src={images.image} alt="images" style={{width:'200px', height:'200px', margin:'20px'}} />
+                ))
+               )}
+            </Grid>
+            {
+              oneImage && (
+
+                <img src={oneImage} alt="images" style={{width:'200px', height:'200px', margin:'20px'}} />
+              )
+            }
+            <input
+              className="input"
+              type="file"
+              onChange={uploadFileHandler}
+            />
+            {loading && <Loaders/>}
             
             <div className="input-container ic2">
               <button className="button_input" type="submit">
@@ -236,9 +237,8 @@ const LocalnewsUpdate = () => {
             {<TechCreateNewsApi/>}
             
           </div> */}
-        </div>
-      </div>
-    </>
+        </Paper>
+      </Grid>
   );
 };
 

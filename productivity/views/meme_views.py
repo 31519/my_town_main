@@ -50,7 +50,7 @@ def MemeCreate(request):
     meme = Meme.objects.create(
         user =current_user,
         image='',
-        title='',
+        title='meme',
     )
     serializer = MemeSerializers(meme, many=False)
     return Response(serializer.data)

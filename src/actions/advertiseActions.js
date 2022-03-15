@@ -206,7 +206,7 @@ export const advertiseListAction = (keyword = '') => async (dispatch) => {
     try{
         dispatch({ type: ADVERTISE_LIST_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/advertisement/list${keyword}`
+            `api/advertisement/list${keyword}`
         );
         dispatch({
             type: ADVERTISE_LIST_SUCCESS,
@@ -238,7 +238,7 @@ export const advertiseUserListAction = () => async (dispatch, getState) => {
             }
         }
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/advertisement/user-list/`,
+            `api/advertisement/user-list/`,
             config
         );
         dispatch({
@@ -261,7 +261,7 @@ export const advertiseDetailAction = (id, slug) => async (dispatch) => {
     try{
         dispatch({ type: ADVERTISE_DETAIL_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/advertisement/list/${id}/${slug}`
+            `api/advertisement/list/${id}/${slug}`
         );
         dispatch({
             type: ADVERTISE_DETAIL_SUCCESS,
@@ -295,7 +295,7 @@ export const advertiseCreateAction = () => async (dispatch, getState) => {
 
 
         const { data } = await axios.post(
-            `${process.env.REACT_APP_PORT}/api/advertisement/create/`,
+            `api/advertisement/create/`,
             {},
             config
         );
@@ -334,7 +334,7 @@ export const advertiseUpdateAction = (advertise) => async (dispatch, getState) =
 
 
         const { data } = await axios.put(
-            `${process.env.REACT_APP_PORT}/api/advertisement/update/${advertise.id}/${advertise.slug}/`,
+            `api/advertisement/update/${advertise.id}/${advertise.slug}/`,
             advertise,
             config
         );
@@ -373,7 +373,7 @@ export const advertiseDeleteAction = (id, slug) => async (dispatch, getState) =>
 
 
         const { data } = await axios.delete(
-            `${process.env.REACT_APP_PORT}/api/advertisement/delete/${id}/${slug}/`,
+            `api/advertisement/delete/${id}/${slug}/`,
             
             config
         );
@@ -401,7 +401,7 @@ export const celebrityListAction = (keyword='') => async (dispatch) => {
     try{
         dispatch({ type: CELEBRITY_LIST_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/celebrities/list${keyword}`
+            `api/celebrities/list${keyword}`
         );
         dispatch({
             type: CELEBRITY_LIST_SUCCESS,
@@ -434,7 +434,7 @@ export const celebrityUserListAction = () => async (dispatch, getState) => {
         }
     
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/celebrities/user-list/`,
+            `api/celebrities/user-list/`,
             config
         );
         dispatch({
@@ -457,7 +457,7 @@ export const celebrityDetailAction = (id, slug) => async (dispatch) => {
     try{
         dispatch({ type: CELEBRITY_DETAIL_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/celebrities/list/${id}/${slug}`
+            `api/celebrities/list/${id}/${slug}`
         );
         dispatch({
             type: CELEBRITY_DETAIL_SUCCESS,
@@ -493,7 +493,7 @@ export const celebrityCreateAction = () => async (dispatch, getState) => {
 
 
         const { data } = await axios.post(
-            `${process.env.REACT_APP_PORT}/api/celebrities/create/`,
+            `api/celebrities/create/`,
             {},
             config
         );
@@ -532,7 +532,7 @@ export const celebrityUpdateAction = (celebrity) => async (dispatch, getState) =
 
 
         const { data } = await axios.put(
-            `${process.env.REACT_APP_PORT}/api/celebrities/update/${celebrity.id}/${celebrity.slug}/`,
+            `api/celebrities/update/${celebrity.id}/${celebrity.slug}/`,
             celebrity,
             config
         );
@@ -572,7 +572,7 @@ export const celebrityDeleteAction = (id,slug) => async (dispatch, getState) => 
 
 
         const { data } = await axios.delete(
-            `${process.env.REACT_APP_PORT}/api/celebrities/delete/${id}/${slug}`,
+            `api/celebrities/delete/${id}/${slug}`,
             
             config
         );
@@ -600,7 +600,7 @@ export const eventListAction = (keyword="") => async (dispatch) => {
     try{
         dispatch({ type: EVENT_LIST_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/event/list${keyword}`
+            `api/event/list${keyword}`
         );
         dispatch({
             type: EVENT_LIST_SUCCESS,
@@ -633,7 +633,7 @@ export const eventUserListAction = () => async (dispatch, getState) => {
         }
     
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/event/user-list/`,
+            `api/event/user-list/`,
             config
         );
         dispatch({
@@ -656,7 +656,7 @@ export const eventDetailAction = (id, slug) => async (dispatch) => {
     try{
         dispatch({ type: EVENT_DETAIL_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/event/list/${id}/${slug}/`
+            `api/event/list/${id}/${slug}/`
         );
         dispatch({
             type: EVENT_DETAIL_SUCCESS,
@@ -691,7 +691,7 @@ export const eventCreateAction = () => async (dispatch, getState) => {
 
 
         const { data } = await axios.post(
-            `${process.env.REACT_APP_PORT}/api/event/create/`,
+            `api/event/create/`,
             {},
             config
         );
@@ -729,7 +729,7 @@ export const eventUpdateAction = (event) => async (dispatch, getState) => {
 
 
         const { data } = await axios.put(
-            `${process.env.REACT_APP_PORT}/api/event/update/${event.id}/${event.slug}/`,
+            `api/event/update/${event.id}/${event.slug}/`,
             event,
             config
         );
@@ -768,7 +768,7 @@ export const eventDeleteAction = (id, slug) => async (dispatch, getState) => {
 
 
         const { data } = await axios.delete(
-            `${process.env.REACT_APP_PORT}/api/event/delete/${id}/${slug}/`,
+            `api/event/delete/${id}/${slug}/`,
             
             config
         );
@@ -796,7 +796,7 @@ export const shopListAction = (keyword="") => async (dispatch, getState) => {
     try{
         dispatch({ type: SHOP_LIST_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/shops/list${keyword}`
+            `api/shops/list${keyword}`
         );
         dispatch({
             type: SHOP_LIST_SUCCESS,
@@ -828,7 +828,7 @@ export const shopUserListAction = () => async (dispatch, getState) => {
         }
     
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/shops/user-list/`,
+            `api/shops/user-list/`,
             config
         );
         dispatch({
@@ -852,7 +852,7 @@ export const shopDetailAction = (id, slug) => async (dispatch) => {
     try{
         dispatch({ type: SHOP_DETAIL_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/shops/list/${id}/${slug}`
+            `api/shops/list/${id}/${slug}`
         );
         dispatch({
             type: SHOP_DETAIL_SUCCESS,
@@ -886,7 +886,7 @@ export const shopCreateAction = () => async (dispatch, getState) => {
 
 
         const { data } = await axios.post(
-            `${process.env.REACT_APP_PORT}/api/shops/create/`,
+            `api/shops/create/`,
             {},
             config
         );
@@ -924,7 +924,7 @@ export const shopUpdateAction = (shop) => async (dispatch, getState) => {
 
 
         const { data } = await axios.put(
-            `${process.env.REACT_APP_PORT}/api/shops/update/${shop.id}/${shop.slug}/`,
+            `api/shops/update/${shop.id}/${shop.slug}/`,
             shop,
             config
         );
@@ -962,7 +962,7 @@ export const shopDeleteAction = (id, slug) => async (dispatch, getState) => {
 
 
         const { data } = await axios.delete(
-            `${process.env.REACT_APP_PORT}/api/shops/delete/${id}/${slug}/`,
+            `api/shops/delete/${id}/${slug}/`,
             
             config
         );
@@ -989,7 +989,7 @@ export const memeListAction = (keyword="") => async (dispatch, getState) => {
     try{
         dispatch({ type: MEME_LIST_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/meme/list${keyword}`
+            `api/meme/list${keyword}`
         );
         dispatch({
             type: MEME_LIST_SUCCESS,
@@ -1021,7 +1021,7 @@ export const memeUserListAction = () => async (dispatch, getState) => {
         }
     
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/meme/user-list/`,
+            `api/meme/user-list/`,
             config
         );
         dispatch({
@@ -1045,7 +1045,7 @@ export const memeDetailAction = (id, slug) => async (dispatch) => {
     try{
         dispatch({ type: MEME_DETAIL_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/meme/list/${id}/${slug}`
+            `api/meme/list/${id}/${slug}`
         );
         dispatch({
             type: MEME_DETAIL_SUCCESS,
@@ -1079,7 +1079,7 @@ export const memeCreateAction = () => async (dispatch, getState) => {
 
 
         const { data } = await axios.post(
-            `${process.env.REACT_APP_PORT}/api/meme/create/`,
+            `api/meme/create/`,
             {},
             config
         );
@@ -1117,7 +1117,7 @@ export const memeUpdateAction = (meme) => async (dispatch, getState) => {
 
 
         const { data } = await axios.put(
-            `${process.env.REACT_APP_PORT}/api/meme/update/${meme.id}/${meme.slug}/`,
+            `api/meme/update/${meme.id}/${meme.slug}/`,
             meme,
             config
         );
@@ -1155,7 +1155,7 @@ export const memeDeleteAction = (id, slug) => async (dispatch, getState) => {
 
 
         const { data } = await axios.delete(
-            `${process.env.REACT_APP_PORT}/api/meme/delete/${id}/${slug}/`,
+            `api/meme/delete/${id}/${slug}/`,
             
             config
         );
@@ -1182,7 +1182,7 @@ export const localListAction = (keyword="") => async (dispatch, getState) => {
     try{
         dispatch({ type: LOCAL_LIST_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/localnews/list${keyword}`
+            `api/localnews/list${keyword}`
         );
         dispatch({
             type: LOCAL_LIST_SUCCESS,
@@ -1214,7 +1214,7 @@ export const localUserListAction = () => async (dispatch, getState) => {
         }
     
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/localnews/user-list/`,
+            `api/localnews/user-list/`,
             config
         );
         dispatch({
@@ -1237,7 +1237,7 @@ export const localDetailAction = (id, slug) => async (dispatch) => {
     try{
         dispatch({ type: LOCAL_DETAIL_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/localnews/list/${id}/${slug}`
+            `api/localnews/list/${id}/${slug}`
         );
         dispatch({
             type: LOCAL_DETAIL_SUCCESS,
@@ -1271,7 +1271,7 @@ export const localCreateAction = () => async (dispatch, getState) => {
 
 
         const { data } = await axios.post(
-            `${process.env.REACT_APP_PORT}/api/localnews/create/`,
+            `api/localnews/create/`,
             {},
             config
         );
@@ -1309,7 +1309,7 @@ export const localUpdateAction = (local) => async (dispatch, getState) => {
 
 
         const { data } = await axios.put(
-            `${process.env.REACT_APP_PORT}/api/localnews/update/${local.id}/${local.slug}/`,
+            `api/localnews/update/${local.id}/${local.slug}/`,
             local,
             config
         );
@@ -1347,7 +1347,7 @@ export const localDeleteAction = (id, slug) => async (dispatch, getState) => {
 
 
         const { data } = await axios.delete(
-            `${process.env.REACT_APP_PORT}/api/localnews/delete/${id}/${slug}/`,
+            `api/localnews/delete/${id}/${slug}/`,
             
             config
         );
@@ -1374,7 +1374,7 @@ export const formListAction = (keyword="") => async (dispatch, getState) => {
     try{
         dispatch({ type: FORM_LIST_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/form/list${keyword}`
+            `api/form/list${keyword}`
         );
         dispatch({
             type: FORM_LIST_SUCCESS,
@@ -1395,7 +1395,7 @@ export const formDetailAction = (id, slug) => async (dispatch) => {
     try{
         dispatch({ type: FORM_DETAIL_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/form/list/${id}/${slug}`
+            `api/form/list/${id}/${slug}`
         );
         dispatch({
             type: FORM_DETAIL_SUCCESS,
@@ -1429,7 +1429,7 @@ export const formCreateAction = (form) => async (dispatch, getState) => {
 
 
         const { data } = await axios.post(
-            `${process.env.REACT_APP_PORT}/api/form/create/`,
+            `api/form/create/`,
             form,
             config
         );
@@ -1467,7 +1467,7 @@ export const formUpdateAction = (form) => async (dispatch, getState) => {
 
 
         const { data } = await axios.put(
-            `${process.env.REACT_APP_PORT}/api/form/update/${form.id}/${form.slug}/`,
+            `api/form/update/${form.id}/${form.slug}/`,
             form,
             config
         );
@@ -1494,7 +1494,7 @@ export const bannerListAction = (keyword="") => async (dispatch, getState) => {
     try{
         dispatch({ type: BANNER_LIST_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/meme/banner/list${keyword}`
+            `api/meme/banner/list${keyword}`
         );
         dispatch({
             type: BANNER_LIST_SUCCESS,

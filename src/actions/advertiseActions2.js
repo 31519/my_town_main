@@ -128,7 +128,7 @@ export const hotelListAction = (keyword='') => async (dispatch) => {
     try{
         dispatch({ type: HOTEL_LIST_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/hotels/list${keyword}`
+            `api/hotels/list${keyword}`
         );
         dispatch({
             type: HOTEL_LIST_SUCCESS,
@@ -160,7 +160,7 @@ export const hotelUserListAction = () => async (dispatch, getState) => {
             }
         }
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/hotels/user-list/`,
+            `api/hotels/user-list/`,
             config
         );
         dispatch({
@@ -183,7 +183,7 @@ export const hotelDetailAction = (id,slug) => async (dispatch) => {
     try{
         dispatch({ type: HOTEL_DETAIL_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/hotels/list/${id}/${slug}`
+            `api/hotels/list/${id}/${slug}`
         );
         dispatch({
             type: HOTEL_DETAIL_SUCCESS,
@@ -217,7 +217,7 @@ export const hotelCreateAction = () => async (dispatch, getState) => {
 
 
         const { data } = await axios.post(
-            `${process.env.REACT_APP_PORT}/api/hotels/create/`,
+            `api/hotels/create/`,
             {},
             config
         );
@@ -255,7 +255,7 @@ export const hotelUpdateAction = (shop) => async (dispatch, getState) => {
 
 
         const { data } = await axios.put(
-            `${process.env.REACT_APP_PORT}/api/hotels/update/${shop.id}/${shop.slug}/`,
+            `api/hotels/update/${shop.id}/${shop.slug}/`,
             shop,
             config
         );
@@ -293,7 +293,7 @@ export const hotelDeleteAction = (id, slug) => async (dispatch, getState) => {
 
 
         const { data } = await axios.delete(
-            `${process.env.REACT_APP_PORT}/api/hotels/delete/${id}/${slug}/`,
+            `api/hotels/delete/${id}/${slug}/`,
             
             config
         );
@@ -320,7 +320,7 @@ export const resellerListAction = (keyword="") => async (dispatch) => {
     try{
         dispatch({ type: RESELLER_LIST_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/resell/list${keyword}`
+            `api/resell/list${keyword}`
         );
         dispatch({
             type: RESELLER_LIST_SUCCESS,
@@ -352,7 +352,7 @@ export const resellerUserListAction = () => async (dispatch, getState) => {
             }
         }
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/resell/user-list/`,
+            `api/resell/user-list/`,
             config
         );
         dispatch({
@@ -375,7 +375,7 @@ export const resellerDetailAction = (id, slug) => async (dispatch) => {
     try{
         dispatch({ type: RESELLER_DETAIL_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/resell/list/${id}/${slug}`
+            `api/resell/list/${id}/${slug}`
         );
         dispatch({
             type: RESELLER_DETAIL_SUCCESS,
@@ -409,7 +409,7 @@ export const resellerCreateAction = () => async (dispatch, getState) => {
 
 
         const { data } = await axios.post(
-            `${process.env.REACT_APP_PORT}/api/resell/create/`,
+            `api/resell/create/`,
             {},
             config
         );
@@ -447,7 +447,7 @@ export const resellerUpdateAction = (reseller) => async (dispatch, getState) => 
 
 
         const { data } = await axios.put(
-            `${process.env.REACT_APP_PORT}/api/resell/update/${reseller.id}/${reseller.slug}/`,
+            `api/resell/update/${reseller.id}/${reseller.slug}/`,
             reseller,
             config
         );
@@ -485,7 +485,7 @@ export const resellerDeleteAction = (id, slug) => async (dispatch, getState) => 
 
 
         const { data } = await axios.delete(
-            `${process.env.REACT_APP_PORT}/api/resell/delete/${id}/${slug}/`,
+            `api/resell/delete/${id}/${slug}/`,
             
             config
         );
@@ -512,7 +512,7 @@ export const tourismsListAction = (keyword="") => async (dispatch) => {
     try{
         dispatch({ type: TOURISMS_LIST_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/tourisms/list${keyword}`
+            `api/tourisms/list${keyword}`
         );
         dispatch({
             type: TOURISMS_LIST_SUCCESS,
@@ -544,7 +544,7 @@ export const tourismsUserListAction = () => async (dispatch, getState) => {
             }
         }
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/tourisms/user-list/`,
+            `api/tourisms/user-list/`,
             config
         );
         dispatch({
@@ -567,7 +567,7 @@ export const tourismsDetailAction = (id, slug) => async (dispatch) => {
     try{
         dispatch({ type: TOURISMS_DETAIL_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/tourisms/list/${id}/${slug}`
+            `api/tourisms/list/${id}/${slug}`
         );
         dispatch({
             type: TOURISMS_DETAIL_SUCCESS,
@@ -601,7 +601,7 @@ export const tourismsCreateAction = () => async (dispatch, getState) => {
 
 
         const { data } = await axios.post(
-            `${process.env.REACT_APP_PORT}/api/tourisms/create/`,
+            `api/tourisms/create/`,
             {},
             config
         );
@@ -639,7 +639,7 @@ export const tourismsUpdateAction = (tourisms) => async (dispatch, getState) => 
 
 
         const { data } = await axios.put(
-            `${process.env.REACT_APP_PORT}/api/tourisms/update/${tourisms.id}/${tourisms.slug}/`,
+            `api/tourisms/update/${tourisms.id}/${tourisms.slug}/`,
             tourisms,
             config
         );
@@ -677,7 +677,7 @@ export const tourismsDeleteAction = (id,slug) => async (dispatch, getState) => {
 
 
         const { data } = await axios.delete(
-            `${process.env.REACT_APP_PORT}/api/tourisms/delete/${id}/${slug}/`,
+            `api/tourisms/delete/${id}/${slug}/`,
             
             config
         );
@@ -704,7 +704,7 @@ export const jobListAction = (keyword='') => async (dispatch) => {
     try{
         dispatch({ type: JOBS_LIST_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/jobs/list${keyword}`
+            `api/jobs/list${keyword}`
         );
         dispatch({
             type: JOBS_LIST_SUCCESS,
@@ -737,7 +737,7 @@ export const jobUserListAction = () => async (dispatch, getState) => {
             }
         }
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/jobs/user-list/`,
+            `api/jobs/user-list/`,
             config
         );
         dispatch({
@@ -760,7 +760,7 @@ export const jobDetailAction = (id,slug) => async (dispatch) => {
     try{
         dispatch({ type: JOBS_DETAIL_REQUEST });
         const { data } = await axios.get(
-            `${process.env.REACT_APP_PORT}/api/jobs/list/${id}/${slug}`
+            `api/jobs/list/${id}/${slug}`
         );
         dispatch({
             type: JOBS_DETAIL_SUCCESS,
@@ -794,7 +794,7 @@ export const jobCreateAction = () => async (dispatch, getState) => {
 
 
         const { data } = await axios.post(
-            `${process.env.REACT_APP_PORT}/api/jobs/create/`,
+            `api/jobs/create/`,
             {},
             config
         );
@@ -832,7 +832,7 @@ export const jobUpdateAction = (job) => async (dispatch, getState) => {
 
 
         const { data } = await axios.put(
-            `${process.env.REACT_APP_PORT}/api/jobs/update/${job.id}/${job.slug}/`,
+            `api/jobs/update/${job.id}/${job.slug}/`,
             job,
             config
         );
@@ -870,7 +870,7 @@ export const jobDeleteAction = (id,slug) => async (dispatch, getState) => {
 
 
         const { data } = await axios.delete(
-            `${process.env.REACT_APP_PORT}/api/jobs/delete/${id}/${slug}/`,
+            `api/jobs/delete/${id}/${slug}/`,
             
             config
         );

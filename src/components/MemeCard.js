@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     padding: '0 30px',
   },
   title:{
-    fontSize: '16px',
+    fontSize: '14px',
   },
   date:{
     opacity:0.6,

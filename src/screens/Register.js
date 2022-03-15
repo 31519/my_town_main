@@ -15,6 +15,7 @@ import {
   Avatar,
   TextField,
   Button,
+  CircularProgress
 } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -74,7 +75,7 @@ const Register = () => {
       state,
       town,
       Number(pincode),
-      Number(phoneNumber),
+      phoneNumber,
       profession
 
       ));
@@ -94,17 +95,15 @@ const Register = () => {
         <Paper className="paperHeader" elevation={20}>
           <Grid  className="gridHeader">
             <Grid item sm={12} xs={12} lg={12} md={12} className="gridIcon" align="center">
-              {registerUserLoading && <Loaders />}
-              {registerUserError && (
-                <ErrorMessage type="error" error={registerUserError} />
-              )}
+              
               <Avatar style={avatarStyle}>
                 <LockOpenIcon />
               </Avatar>
-              <h2>sign Up</h2>
-              <Typography className="text">
+              <Typography></Typography>
+              
+              {/* <Typography className="text">
                 Please fill this form to create an account.
-              </Typography>
+              </Typography> */}
             </Grid>
             <form className="form" onSubmit={submitHandler}>
               <Grid container>
@@ -153,7 +152,7 @@ const Register = () => {
                 fullWidth
                 required
               />
-              <Grid item  sm={12} xs={12} lg={12} md={12}>
+              {/* <Grid item  sm={12} xs={12} lg={12} md={12}>
               <FormControl aria-label="gender" name="gender" style={marginTop}>
                 <FormLabel conmponent="legend" name="gender">
                   Gender
@@ -173,8 +172,8 @@ const Register = () => {
                     />
                   </RadioGroup>
               </FormControl>
-              </Grid>
-
+              </Grid> */}
+{/* 
               <Grid spacing={2} item  sm={6} xs={6} lg={6} md={6}>
                 <TextField
                   id="password"
@@ -185,9 +184,9 @@ const Register = () => {
                   onChange={(e) => setCountry(e.target.value)}
                   fullWidth
                 />
-              </Grid>
+              </Grid> */}
 
-              <Grid spacing={2} item  sm={6} xs={6} lg={6} md={6}>
+              {/* <Grid spacing={2} item  sm={6} xs={6} lg={6} md={6}>
                 <TextField
                   id="username"
                   className="input"
@@ -197,9 +196,9 @@ const Register = () => {
                   onChange={(e) => setState(e.target.value)}
                   fullWidth
                 />
-              </Grid>
+              </Grid> */}
 
-              <Grid spacing={2} item  sm={6} xs={6} lg={6} md={6}>
+              {/* <Grid spacing={2} item  sm={6} xs={6} lg={6} md={6}>
               <TextField
                 id="password"
                 className="input"
@@ -209,8 +208,8 @@ const Register = () => {
                 onChange={(e) => setTown(e.target.value)}
                 fullWidth
               />
-              </Grid>
-              <Grid spacing={2} item  sm={6} xs={6} lg={6} md={6}>
+              </Grid> */}
+              {/* <Grid spacing={2} item  sm={6} xs={6} lg={6} md={6}>
               <TextField
                 id="password"
                 className="input"
@@ -220,8 +219,8 @@ const Register = () => {
                 onChange={(e) => setPincode(e.target.value)}
                 fullWidth
               />
-              </Grid>
-              <TextField
+              </Grid> */}
+              {/* <TextField
                 id="password"
                 className="input"
                 type="number"
@@ -229,8 +228,8 @@ const Register = () => {
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 fullWidth
-              />
-              <TextField
+              /> */}
+              {/* <TextField
                 id="password"
                 className="input"
                 type="text"
@@ -238,7 +237,7 @@ const Register = () => {
                 value={profession}
                 onChange={(e) => setProfession(e.target.value)}
                 fullWidth
-              />
+              /> */}
 
               <Grid spacing={2} item sm={6} xs={6} lg={6} md={6}>
 
@@ -278,10 +277,19 @@ const Register = () => {
                 type="submit"
                 color="success"
                 variant="contained"
+                label="Register"
                 fullWidth
               >
-                Sign Up
+                {
+                  registerUserLoading
+                  ?<Loaders/>
+                  :<>Register</>
+                }
               </Button>
+                
+              {registerUserError && (
+                <ErrorMessage type="error" error={registerUserError} />
+              )}
             </Grid>
               
             </form>

@@ -54,57 +54,52 @@ def UserRegistration(request):
 
         data ={}
         if serializers.is_valid():
-            account = serializers.save()
-            # profile = Profile.objects.create(
-            #     user=account,
-            #     username=account.username,
-            #     email=account.email,
-            #     # email=profileData['email'],
-            #     flag=True,
-            #     firstName=profileData['firstName'],
-            #     lastName=profileData['lastName'],
-            #     gender=profileData['gender'],
-            #     country=profileData['country'],
-            #     state=profileData['state'],
-            #     town=profileData['town'],
-            #     pincode=profileData['pincode'],
-            #     phoneNumber=profileData['phoneNumber'],
-            #     profession=profileData['profession']
+            try:
 
-            # )
-            # profile.save()
+                account = serializers.save()
 
-            data['username'] = account.username
-            data['email'] = account.email
-            data['password'] = account.password
-            # token = Token.objects.get(user=account).key
-            # data['token'] = token
-            refresh = RefreshToken.for_user(account)
-            data['token'] = {
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
-            }
+                data['email'] = account.email
+                data['username'] = account.username
+                data['password'] = account.password
+                
+                # token = Token.objects.get(user=account).key
+                # data['token'] = token
+                refresh = RefreshToken.for_user(account)
+                data['token'] = {
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                }
+
+
+
+            except:
+                message = {'detail': "User with this email already exit"}
+                return Response(message, status.HTTP_400_BAD_REQUEST)
+            profile = Profile.objects.create(
+                user=account,
+                # username=account.username,
+                email=account.email,
+                # email=profileData['email'],
+                flag=True,
+                firstName=profileData['firstName'],
+                lastName=profileData['lastName'],
+                gender=profileData['gender'],
+                country=profileData['country'],
+                state=profileData['state'],
+                town=profileData['town'],
+                pincode=profileData['pincode'],
+                phoneNumber=profileData['phoneNumber'],
+                profession=profileData['profession']
+
+            )
+            profile.save()
+
         else:
             data = serializers.errors
-        
-        profile = Profile.objects.create(
-            user=account,
-            username=account.username,
-            email=account.email,
-            # email=profileData['email'],
-            flag=True,
-            firstName=profileData['firstName'],
-            lastName=profileData['lastName'],
-            gender=profileData['gender'],
-            country=profileData['country'],
-            state=profileData['state'],
-            town=profileData['town'],
-            pincode=profileData['pincode'],
-            phoneNumber=profileData['phoneNumber'],
-            profession=profileData['profession']
 
-        )
-        profile.save()
+
+        
+
 
 
         try: 

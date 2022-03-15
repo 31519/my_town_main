@@ -108,7 +108,7 @@ class LocalNews(models.Model):
     image = models.ImageField(blank=True, default='/placeholder.png')
     content = models.TextField(null=True, blank=True, default='content')
     # createdAt = models.DateTimeField(auto_now_add =True)
-    createAt = models.DateTimeField(auto_now_add=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=500, blank=True, null=True)
     publishedAt = models.CharField(max_length=300, null=True,blank=True, default='PublishedAt')
 
@@ -118,6 +118,13 @@ class LocalNews(models.Model):
 
     def __str__(self):
         return str(self.title)
+
+class LocalNewsGallary(models.Model):
+    local= models.ForeignKey(LocalNews, on_delete=models.CASCADE)
+    image = models.ImageField(blank=True, default='/placeholder.png', upload_to='localnewsImage')
+
+    def __str__(self):
+        return str(self.local.title)
 
 
 class Profile(models.Model):

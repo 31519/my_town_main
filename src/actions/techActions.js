@@ -55,7 +55,7 @@ export const listTechs = (keyword) => async (dispatch) => {
   try {
     dispatch({ type: TECH_LIST_REQUEST });
     const { data } = await axios.get(
-      `${process.env.REACT_APP_PORT}/api/technology/list${keyword}`
+      `api/technology/list${keyword}`
     );
 
     dispatch({
@@ -79,7 +79,7 @@ export const listHealth = (keyword) => async (dispatch) => {
   try {
     dispatch({ type: HEALTH_LIST_REQUEST });
     const { data } = await axios.get(
-      `${process.env.REACT_APP_PORT}/api/health/list${keyword}`
+      `api/health/list${keyword}`
     );
 
     dispatch({
@@ -102,7 +102,7 @@ export const listScience = (keyword) => async (dispatch) => {
   try {
     dispatch({ type: SCIENCE_LIST_REQUEST });
     const { data } = await axios.get(
-      `${process.env.REACT_APP_PORT}/api/science/list${keyword}`
+      `api/science/list${keyword}`
     );
 
     dispatch({
@@ -125,7 +125,7 @@ export const listBusiness = (keyword) => async (dispatch) => {
   try {
     dispatch({ type: BUSINESS_LIST_REQUEST });
     const { data } = await axios.get(
-      `${process.env.REACT_APP_PORT}/api/business/list${keyword}`
+      `api/business/list${keyword}`
     );
 
     dispatch({
@@ -148,7 +148,7 @@ export const techDetailAction = (id, slug) => async (dispatch) => {
   try {
     dispatch({ type: TECH_DETAIL_REQUEST });
     const { data } = await axios.get(
-      `${process.env.REACT_APP_PORT}/api/technology/list/${id}/${slug}/`
+      `api/technology/list/${id}/${slug}/`
     );
 
     dispatch({
@@ -193,7 +193,7 @@ export const createTechs= (
 
 
     const { data } = await axios.post(
-      `${process.env.REACT_APP_PORT}/api/${category}/create/`,
+      `api/${category}/create/`,
       {
         'author':author,
         'title':title,
@@ -246,7 +246,7 @@ export const createHealth= (
     console.log('category health', category)
 
     const { data } = await axios.post(
-      `${process.env.REACT_APP_PORT}/api/health/create/`,
+      `api/health/create/`,
       {
         'author':author,
         'title':title,
@@ -300,7 +300,7 @@ export const createScience= (
     };
 
     const { data } = await axios.post(
-      `${process.env.REACT_APP_PORT}/api/science/create/`,
+      `api/science/create/`,
       {
         'author':author,
         'title':title,
@@ -354,7 +354,7 @@ export const createBusiness= (
     };
 
     const { data } = await axios.post(
-      `${process.env.REACT_APP_PORT}/api/business/create/`,
+      `api/business/create/`,
       {
         'author':author,
         'title':title,

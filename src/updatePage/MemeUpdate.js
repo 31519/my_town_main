@@ -4,8 +4,15 @@ import { useParams, useNavigate } from "react-router-dom";
 
 // IMPORT COMPONENT
 import axios from "axios";
-import { Grid} from "@mui/material";
 import Loaders from "../components/Loader";
+
+import {
+  Grid,
+  Paper,
+  FormLabel,
+  TextField,
+  TextareaAutosize
+} from "@mui/material";
 // import TechCreateNewsApi from "../admin-screen/TechCreateNewsApi";
 import {
   memeDetailAction,
@@ -20,6 +27,10 @@ const MemeUpdate = () => {
   const params = useParams();
   const {id, slug} = params;
   const navigate = useNavigate();
+
+  
+  const paperStyle = { padding: '0px' , width:'80%', margin: "20px auto"}
+  const gridStyle = { backgroundColor: 'rgb(223, 232, 229)'}
 
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
@@ -105,17 +116,16 @@ const MemeUpdate = () => {
   };
 
   return (
-    <>
-      <div className="techcreate">
-        <div className="form">
-          <form onSubmit={submitHandler}>
-            <div className="text">
-              <div className="subtitle">Let's Update Meme</div>
+    <Grid style={gridStyle}>
+    <Paper elevate={20} style={paperStyle}>
+      {detailMemeLoading && <Loaders/>}
+      <form onSubmit={submitHandler} style={{margin:'10px', padding:0}}>
+            <div >
+              <div style={{marginBottom:'10px', color:'blue'}}>Let's Update Meme</div>
             </div>
            
-            <Grid className="input-container ic2">
-                <label>Images</label>
-                <img src={image} style={{widht:'80px', height:'50px'}} />
+            <Grid>
+              <img src={image} alt="images" style={{width:'200px', height:'150px', margin:'0px'}} />
             </Grid>
             <input
               className="input"
@@ -123,21 +133,19 @@ const MemeUpdate = () => {
               onChange={uploadFileHandler}
             />
 
-            <div className="input-container ic2">
-              <label>Title</label>
-              <input
-                id="title"
-                className="input"
+            <FormLabel>Title</FormLabel>
+              <TextField
+                required
+                fullWidth 
                 type="text"
                 placeholder="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
-            </div>
             {loading && <Loaders/>}
             <div className="input-container ic2">
               <button className="button_input" type="submit">
-                Submit
+                {updateMemeLoading ? <Loaders/>: <>Submit</>}
               </button>
             </div>
           </form>
@@ -145,9 +153,8 @@ const MemeUpdate = () => {
             {<TechCreateNewsApi/>}
             
           </div> */}
-        </div>
-      </div>
-    </>
+        </Paper>
+      </Grid>
   );
 };
 

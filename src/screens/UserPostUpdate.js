@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Grid, Typography } from "@mui/material";
+import {
+  Grid,
+  Paper,
+  FormLabel,
+  TextField,
+  TextareaAutosize
+} from "@mui/material";
+
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { createTechs } from "../actions/techActions";
@@ -11,12 +18,13 @@ import { advertiseUpdateAction } from "../actions/advertiseActions";
 import { ADVERTISE_UPDATE_RESET } from "../constants/productivityConstants";
 
 
-import "../css_styles/TechCreate.css";
 
 const UserPostUpdate = () => {
   const params = useParams();
   const {id, slug} = params;
   const navigate =  useNavigate()
+  const paperStyle = { padding: '0px' , width:'80%', margin: "20px auto"}
+  const gridStyle = { backgroundColor: 'rgb(223, 232, 229)'}
 
 
   const [category, setCategory] = useState("");
@@ -79,7 +87,6 @@ const UserPostUpdate = () => {
 
     formData.append('image', file)
     formData.append('product_id', id)
-    console.log("file upload")
 
     setLoading(true)
 
@@ -119,106 +126,91 @@ const UserPostUpdate = () => {
   };
 
   return (
-    <>
-      <div className="techcreate">
-        <div className="form">
-          <form onSubmit={submitHandler}>
-            <div className="text">
-              <div className="subtitle">Let's Update Advertise</div>
-            </div>
-            <div className="input-container">
-              <label>Category</label>
-              <input
+    <Grid style={gridStyle}>
+      <Paper elevate={20} style={paperStyle}>
+          <form onSubmit={submitHandler} style={{margin:'10px', padding:0}}>
+            
+              <div style={{color:'blue', paddingBottom:'10px'}}>Let's Update Advertise</div>
+            
+              <FormLabel>Category</FormLabel>
+              <TextField
                 id="category"
-                className="input"
+                fullWidth
                 type="text"
-                placeholder="categorygfhfg"
+                placeholder="category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               />
-            </div>
-            <div className="input-container">
-              <label>Country</label>
-              <input
+              <FormLabel>Country</FormLabel>
+              <TextField
                 id="country"
-                className="input"
+                fullWidth
                 type="text"
                 placeholder="country"
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
               />
-            </div>
-            <div className="input-container">
-              <label>State</label>
-              <input
+              <FormLabel>State</FormLabel>
+              <TextField
                 id="state"
-                className="input"
+                fullWidth
                 type="state"
                 placeholder="state"
                 value={state}
                 onChange={(e) => setState(e.target.value)}
               />
-            </div>
-            <div className="input-container ic2">
-              <label>Address</label>
-              <input
+              <FormLabel>Address</FormLabel>
+              <TextField
                 id="address"
-                className="input"
+                fullWidth
                 type="address"
                 placeholder="Url"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
-            </div>
-            <div className="input-container ic2">
-              <label>Contact</label>
-              <input
+              <FormLabel>Contact</FormLabel>
+              <TextField
                 id="contact"
-                className="input"
+                fullWidth
                 type="text"
                 placeholder="contact"
                 value={contact}
                 onChange={(e) => setContact(e.target.value)}
               />
-            </div>
-            <div className="input-container ic2">
-              <label>Title</label>
-              <input
+              <FormLabel>Title</FormLabel>
+              <TextField
                 id="title"
-                className="input"
+                fullWidth
                 type="text"
                 placeholder="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
-            </div>
-
-            <div className="input-container ic2">
-              <label>Content</label>
-              <textarea
+              <FormLabel>Content</FormLabel>
+              <TextareaAutosize
                 id="content"
-                className="input"
+                fullWidth 
+                style={{width: '100%'}}
+                minRows={10}
                 type="textfield"
                 placeholder="Content"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
               />
-            </div>
 
             <Grid className="input-container ic2">
-              <label>Images</label>
-              <img src={image} style={{widht:'80px', height:'50px'}} />
+              <img src={image}  alt="images" style={{width:'200px', height:'150px', margin:'0px'}} />
+            </Grid>
               <input
                 className="input"
                 type="file"
                 onChange={uploadFileHandler}
               />
               {loading && <Loaders/>}
-            </Grid>
             
             <div className="input-container ic2">
-              <button className="button_input" type="submit">
-                Submit
+            <button className="button_input" type="submit">
+              {updateAdvertiseLoading ? <Loaders/>: <>Submit</>}
               </button>
             </div>
           </form>
@@ -226,9 +218,8 @@ const UserPostUpdate = () => {
             {<TechCreateNewsApi/>}
             
           </div> */}
-        </div>
-      </div>
-    </>
+        </Paper>
+      </Grid>
   );
 };
 

@@ -1,7 +1,6 @@
 import "./App.css";
-import { HashRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Navbars from "./navbars/Navbars";
-import {useEffect} from "react";
 // import RouteChangeTracker from "./components/RouteChangeTracker";
 
 
@@ -50,15 +49,7 @@ import UserDetail from "./detailPage/UserDetail";
 import MemeDetail from "./detailPage/MemeDetail";
 import LocalDetail from "./detailPage/LocalDetail";
 
-// CREATE SCREEN
-import AdvertiseCreate from "./createPage/AdvertiseCreate";
-import CelebrityCreate from "./createPage/CelebrityCreate";
-import EventCreate from "./createPage/EventCreate";
-import ResellerCreate from "./createPage/ResellerCreate";
-import JobCreate from "./createPage/JobCreate";
-import HotelCreate from "./createPage/HotelCreate";
-import ShopCreate from "./createPage/ShopCreate";
-import TourismsCreate from "./createPage/TourismsCreate"
+
 import RequestFormCreate from "./updatePage/RequestFormCreate"
 
 // UPDATE SCREEN
@@ -150,14 +141,6 @@ function App() {
           <Route path="/meme-detail/:id/:slug" element={<MemeDetail/>} />
           <Route path="/local-detail/:id/:slug" element={<LocalDetail/>} />
 
-          <Route path="/advertise-create" element={<AdvertiseCreate/>} />
-          <Route path="/celebrity-create" element={<CelebrityCreate/>} />
-          <Route path="/event-create" element={<EventCreate/>} />
-          <Route path="/reseller-create" element={<ResellerCreate/>} />
-          <Route path="/job-create" element={<JobCreate/>} />
-          <Route path="/hotel-create" element={<HotelCreate/>} />
-          <Route path="/shop-create" element={<ShopCreate/>} />
-          <Route path="/tourisms-create" element={<TourismsCreate/>} />
           <Route path="/requestform-update/:id/:slug" element={<RequestFormUpdate/>} />
 
           <Route path="/advertise-update/:id/:slug" element={<UserPostUpdate/>} />

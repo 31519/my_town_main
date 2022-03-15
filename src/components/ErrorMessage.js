@@ -7,12 +7,16 @@ import Alert from '@mui/material/Alert';
 const ErrorMessage = ({ type , error}) => {
   return (
     
-      <div className="error" style={{margin:"10px"}}>
+      <div className="error" style={{margin:"10px", color:'red'}}>
         <Alert 
         severity={type}
-        variant="outlined"
+        variant="contained"
+        color='secondary'
         >
-            {error}
+            <p style={{color:'red', padding:'0px', margin:'0px'}}>
+              {error}
+            
+            </p>
         </Alert>
       </div>
     

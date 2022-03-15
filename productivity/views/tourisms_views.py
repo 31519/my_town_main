@@ -1,9 +1,9 @@
 # from rest_framework.serializers import Serializer
-from productivity.models import Tourisms
+from productivity.models import Tourisms, TourismsGallary
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from productivity.serializers import TourismsSerializers
+from productivity.serializers import TourismsSerializers, TourismsGallarySerializers
 from rest_framework import status
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -42,7 +42,7 @@ def TourismsDetailList(request, pk, slug):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def TourismsCreate(request):
-    data = request.data
+    # data = request.data
     current_user = request.user
     tourisms = Tourisms.objects.create(
         user =current_user,
@@ -54,6 +54,9 @@ def TourismsCreate(request):
         image=   "",
         title=   "Tourisms",
         content= ""
+    )
+    tourismsGallary = TourismsGallary.objects.create(
+        tourisms = tourisms
     )
     serializer = TourismsSerializers(tourisms, many=False)
     return Response(serializer.data)
@@ -127,6 +130,25 @@ def TourismsImage(request):
     serializer = TourismsSerializers(tourisms, many=False)
     
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def TourismsManyImage(request):
+    data = request.data
+
+    product_id = data['product_id']
+    
+    maintourisms = Tourisms.objects.get(id=product_id)
+
+    images = request.FILES.get('image')
+    tourismsGallary = TourismsGallary.objects.create(
+        tourisms = maintourisms,
+        image = images
+    )
+    serializer = TourismsGallarySerializers(tourismsGallary, many=False)
+    
+    return Response(serializer.data)
+
 
 
 @api_view(['GET'])

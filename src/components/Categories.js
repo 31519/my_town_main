@@ -66,29 +66,28 @@ const Categories = () => {
               </h2>
             </Link>
           </div>
-          <div className="hover-item">
+          {/* <div className="hover-item">
             <Link className="text-link" to="/science-screen">
-              {/* <h2 className="techlist_footer_category_item1">Science</h2> */}
               <h2 className={classes.title} variant="h3">
                 Science
               </h2>
             </Link>
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <Link className="text-link" to="/health-screen">
               <h2 className={classes.title} variant="h3">
                 Health
               </h2>
             </Link>
-          </div>
+          </div> */}
 
-          <div>
+          {/* <div>
             <Link className="text-link" to="/technology">
               <h2 className={classes.title} variant="h3">
                 Technology
               </h2>
             </Link>
-          </div>
+          </div> */}
 
           {/* <div>
             <Link className="text-link" to="/business-screen">

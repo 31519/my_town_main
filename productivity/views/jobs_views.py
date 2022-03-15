@@ -73,7 +73,8 @@ def JobsUpdate(request, pk, slug):
     jobs.state = data['state']
     jobs.address = data['address']
     jobs.contact = data['contact']
-    # jobs.image=data['image']
+    jobs.startDate=data['startDate']
+    jobs.endDate=data['endDate']
     jobs.title = data['title']
     jobs.content = data['content']
     jobs.save()

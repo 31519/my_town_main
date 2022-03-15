@@ -45,7 +45,7 @@ const MemeDetailCards = ({ item }) => {
           <Typography className={classes.date} variant="h3"><CalendarTodayIcon style={{fill:'green', fontSize: '12px', fontWeight: '700'}}/>{item.createdAt}</Typography>
           </div>
 
-        <h2 className={classes.title} variant="h3">{item.title}</h2>      
+        {/* <h2 className={classes.title} variant="h3">{item.title}</h2>       */}
         </div>
       </div>
 

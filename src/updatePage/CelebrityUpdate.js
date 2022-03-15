@@ -3,7 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 
 import axios from "axios";
-import { Grid, Typography } from "@mui/material";
+import {
+  Grid,
+  Paper,
+  FormLabel,
+  TextField,
+  TextareaAutosize
+} from "@mui/material";
+
 import Loaders from "../components/Loader";
 
 // IMPORT COMPONENT
@@ -14,13 +21,15 @@ import { celebrityDetailAction } from "../actions/advertiseActions";
 import { celebrityUpdateAction } from "../actions/advertiseActions";
 import { CELEBRITY_UPDATE_RESET , CELEBRITY_DETAIL_RESET} from "../constants/productivityConstants";
 
-import "../css_styles/TechCreate.css";
+// import "../css_styles/TechCreate.css";
 
 const CelebrityUpdate = () => {
   const params = useParams();
   const {id, slug} = params;
   // console.log("params celeb", params)
   const navigate = useNavigate();
+  const paperStyle = { padding: '0px' , width:'80%', margin: "20px auto"}
+  const gridStyle = { backgroundColor: 'rgb(223, 232, 229)'}
 
 
 
@@ -31,6 +40,8 @@ const CelebrityUpdate = () => {
   const [contact, setContact] = useState("");
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
+  const [url, setUrl] = useState("");
+  const [oneImage, setOneImage] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false)
 
@@ -79,9 +90,10 @@ const CelebrityUpdate = () => {
         setState(detailCelebrity.state);
         setAddress(detailCelebrity.address);
         setContact(detailCelebrity.contact);
-        setImage(detailCelebrity.image);
+        setImage(detailCelebrity.manyImages);
         setTitle(detailCelebrity.title);
         setContent(detailCelebrity.content);
+        setUrl(detailCelebrity.url);
       }
     }
   }, [dispatch, id, detailCelebrity,updateCelebritySuccess, updateCelebrity]);
@@ -93,7 +105,6 @@ const CelebrityUpdate = () => {
 
     formData.append('image', file)
     formData.append('product_id', id)
-    console.log("file upload")
 
     setLoading(true)
 
@@ -104,10 +115,10 @@ const CelebrityUpdate = () => {
         }
       }
 
-      const { data } = await axios.post(`${process.env.REACT_APP_PORT}/api/celebrities/image/`,
+      const { data } = await axios.post(`${process.env.REACT_APP_PORT}/api/celebrities/many-image/`,
       formData, config)
 
-      setImage(data.image)
+      setOneImage(data.image)
       setLoading(false)
     } catch (error){
       setLoading(false)
@@ -128,102 +139,107 @@ const CelebrityUpdate = () => {
         image,
         title,
         content,
+        url
       })
     );
   };
 
   return (
-    <>
-     
-        <div className="techcreate">
-          <div className="form">
-            <form onSubmit={submitHandler}>
-              <div className="text">
-                <div className="subtitle">Let's Update Models</div>
-              </div>
-              <div className="input-container">
-                <label>Category</label>
-                <input
-                  id="category"
-                  className="input"
-                  type="text"
-                  placeholder="categorygfhfg"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
+    <Grid style={gridStyle}>
+      <Paper elevate={20} style={paperStyle}>
+        {detailCelebrityLoading && <Loaders/>}
+            <form onSubmit={submitHandler} style={{margin:'10px', padding:0}}>
+            <div style={{color:'blue', paddingBottom:'10px'}}>Let's Update Celebrity</div>
+              
+              <FormLabel>Category</FormLabel>
+              <TextField
+                id="category"
+                fullWidth
+                type="text"
+                placeholder="category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
                 />
-              </div>
-              <div className="input-container">
-                <label>Country</label>
-                <input
-                  id="country"
-                  className="input"
-                  type="text"
-                  placeholder="country"
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
+              <FormLabel>Country</FormLabel>
+              <TextField
+                id="country"
+                fullWidth
+                type="text"
+                placeholder="country"
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
                 />
-              </div>
-              <div className="input-container">
-                <label>State</label>
-                <input
-                  id="state"
-                  className="input"
-                  type="state"
-                  placeholder="state"
-                  value={state}
-                  onChange={(e) => setState(e.target.value)}
+              <FormLabel>State</FormLabel>
+              <TextField
+                id="state"
+                fullWidth
+                type="state"
+                placeholder="state"
+                value={state}
+                onChange={(e) => setState(e.target.value)}
                 />
-              </div>
-              <div className="input-container ic2">
-                <label>Address</label>
-                <input
-                  id="address"
-                  className="input"
-                  type="address"
-                  placeholder="Url"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
+              <FormLabel>Address</FormLabel>
+              <TextField
+                id="address"
+                fullWidth
+                type="address"
+                placeholder="Address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
                 />
-              </div>
-              <div className="input-container ic2">
-                <label>Contact</label>
-                <input
-                  id="contact"
-                  className="input"
-                  type="text"
-                  placeholder="contact"
-                  value={contact}
-                  onChange={(e) => setContact(e.target.value)}
+              <FormLabel>Content Link</FormLabel>
+              <TextField
+                id="address"
+                fullWidth
+                type="url"
+                placeholder="Enter your content url (link)"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
                 />
-              </div>
-              <div className="input-container ic2">
-                <label>Title</label>
-                <input
-                  id="title"
-                  className="input"
-                  type="text"
-                  placeholder="title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+              <FormLabel>Contact</FormLabel>
+              <TextField
+                id="contact"
+                fullWidth
+                type="text"
+                placeholder="contact"
+                value={contact}
+                onChange={(e) => setContact(e.target.value)}
                 />
-              </div>
+              <FormLabel>Title</FormLabel>
+              <TextField
+                id="title"
+                fullWidth
+                type="text"
+                placeholder="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                />
+              <FormLabel>Content</FormLabel>
+              <TextareaAutosize
+                id="content"
+                fullWidth 
+                style={{width: '100%'}}
+                minRows={10}
+                type="textfield"
+                placeholder="Content"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                />
 
-              <div className="input-container ic2">
-                <label>Content</label>
-                <textarea
-                  id="content"
-                  className="input"
-                  type="textfield"
-                  placeholder="Content"
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                />
-              </div>
-
-              <Grid className="input-container ic2">
-                <label>Images</label>
-                <img src={image} style={{widht:'80px', height:'50px'}} />
+              <Grid >
+              {image && image.length > 1 && (
+                image.map((images) => (
+                  <img src={images.image} alt="images" style={{width:'200px', height:'150px', margin:'5px'}} />
+                ))
+               )}
+               
               </Grid>
+              {
+              oneImage && (
+
+                <img src={oneImage} alt="images" style={{width:'200px', height:'150px', margin:'0px'}} />
+              )
+              }
                 <input
                   className="input"
                   type="file"
@@ -234,7 +250,7 @@ const CelebrityUpdate = () => {
 
               <div className="input-container ic2">
                 <button className="button_input" type="submit">
-                  Submit
+                {updateCelebrityLoading ? <Loaders/>: <>Submit</>}
                 </button>
               </div>
             </form>
@@ -242,10 +258,8 @@ const CelebrityUpdate = () => {
             {<TechCreateNewsApi/>}
             
           </div> */}
-          </div>
-        </div>
-      
-    </>
+      </Paper>
+    </Grid>
   );
 };
 

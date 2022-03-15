@@ -3,7 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 
 import axios from "axios";
-import { Grid} from "@mui/material";
+
+import {
+  Grid,
+  Paper,
+  FormLabel,
+  TextField,
+  TextareaAutosize
+} from "@mui/material";
 import Loaders from "../components/Loader";
 
 // import TechCreateNewsApi from "../admin-screen/TechCreateNewsApi";
@@ -14,12 +21,15 @@ import {
 
 import { RESELLER_UPDATE_RESET } from "../constants/productivityConstants";
 
-import "../css_styles/TechCreate.css";
+// import "../css_styles/TechCreate.css";                          
 
 const ResellerUpdate = () => {
   const params = useParams();
   const {id, slug} = params;
   const navigate = useNavigate();
+
+  const paperStyle = { padding: '0px' , width:'80%', margin: "20px auto"}
+  const gridStyle = { backgroundColor: 'rgb(223, 232, 229)'}
 
   const [category, setCategory] = useState("");
   const [country, setCountry] = useState("");
@@ -123,95 +133,82 @@ const ResellerUpdate = () => {
   };
 
   return (
-    <>
-      <div className="techcreate">
-        <div className="form">
-          <form onSubmit={submitHandler}>
+
+    <Grid style={gridStyle}>
+      <Paper elevate={20} style={paperStyle}>
+          <form onSubmit={submitHandler} style={{margin:'10px', padding:0}}>
             <div className="text">
-              <div className="subtitle">Let's Update Models</div>
+              <div className="subtitle">Let's Update Reseller Models</div>
             </div>
-            <div className="input-container">
-              <label>Category</label>
-              <input
+              <FormLabel>Category</FormLabel>
+              <TextField                  
                 id="category"
-                className="input"
+                fullWidth 
                 type="text"
                 placeholder="categorygfhfg"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-              />
-            </div>
-            <div className="input-container">
-              <label>Country</label>
-              <input
+              />                                                       
+              <FormLabel>Country</FormLabel>
+              <TextField
                 id="country"
-                className="input"
+                fullWidth 
                 type="text"
                 placeholder="country"
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
               />
-            </div>
-            <div className="input-container">
-              <label>State</label>
-              <input
+              <FormLabel>State</FormLabel>
+              <TextField
                 id="state"
-                className="input"
+                fullWidth 
                 type="state"
                 placeholder="state"
                 value={state}
                 onChange={(e) => setState(e.target.value)}
               />
-            </div>
-            <div className="input-container ic2">
-              <label>Address</label>
-              <input
+              <FormLabel>Address</FormLabel>
+              <TextField
                 id="address"
-                className="input"
+                fullWidth 
                 type="address"
                 placeholder="Url"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
-            </div>
-            <div className="input-container ic2">
-              <label>Contact</label>
-              <input
+              <FormLabel>Contact</FormLabel>
+              <TextField
                 id="contact"
-                className="input"
+                fullWidth 
                 type="text"
                 placeholder="contact"
                 value={contact}
                 onChange={(e) => setContact(e.target.value)}
               />
-            </div>
-            <div className="input-container ic2">
-              <label>Title</label>
-              <input
+              <FormLabel>Title</FormLabel>
+              <TextField
                 id="title"
-                className="input"
+                fullWidth 
                 type="text"
                 placeholder="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
-            </div>
-
-            <div className="input-container ic2">
-              <label>Content</label>
-              <textarea
+              <FormLabel>Content</FormLabel>
+              <TextareaAutosize
                 id="content"
-                className="input"
+                fullWidth 
+                style={{width: '100%'}}
+                minRows={10}
                 type="textfield"
                 placeholder="Content"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
               />
-            </div>
 
             <Grid className="input-container ic2">
                 <label>Images</label>
-                <img src={image} style={{widht:'80px', height:'50px'}} />
+                <img src={image} alt="images" style={{width:'200px', height:'200px', margin:'20px'}} />
             </Grid>
             <input
               className="input"
@@ -221,7 +218,7 @@ const ResellerUpdate = () => {
             {loading && <Loaders/>}
             <div className="input-container ic2">
               <button className="button_input" type="submit">
-                Submit
+              {updateResellerLoading ? <Loaders/>: <>Submit</>}
               </button>
             </div>
           </form>
@@ -229,9 +226,8 @@ const ResellerUpdate = () => {
             {<TechCreateNewsApi/>}
             
           </div> */}
-        </div>
-      </div>
-    </>
+        </Paper>
+      </Grid>
   );
 };
 

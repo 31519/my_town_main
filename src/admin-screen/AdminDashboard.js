@@ -1,6 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
+import { Grid } from "@mui/material";
+
+import { makeStyles } from "@mui/styles";
+
+import CssBaseline from "@mui/material/CssBaseline";
+import PageHeader from "../components/PageHeader";
+import PeopleIcon from "@mui/icons-material/People";
 
 // COMPONENT IMPORT
 import AdminSidebar from "../components/AdminSidebar";
@@ -17,6 +24,8 @@ import "../css_styles/UserTable.css";
 import "../css_styles/Advertise.css";
 
 import { userListActions } from "../actions/userActions";
+import SideBar from "../components/SideBar";
+import Navbar from "../components/Navbar";
 
 // CONSTANT IMPORT
 import {
@@ -71,7 +80,17 @@ import {
   tourismsDeleteAction,
 } from "../actions/advertiseActions2";
 
+const useStyles = makeStyles({
+  navbar: {
+    paddingLeft: "320px",
+    width: "100%",
+    paddingBottom: "50px",
+    // opacity:'0.2%'
+  },
+});
+
 const AdminDashboard = ({ tech }) => {
+  const classes = useStyles();
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -193,37 +212,35 @@ const AdminDashboard = ({ tech }) => {
 
   const jobCreate = useSelector((state) => state.jobCreate);
   const {
-    error:     createJobError,
-    loading:   createJobLoading,
-    job     :  createJob,
-    success:   createJobSuccess,
+    error: createJobError,
+    loading: createJobLoading,
+    job: createJob,
+    success: createJobSuccess,
   } = jobCreate;
 
   // JOB LIST
   const jobList = useSelector((state) => state.jobList);
   const {
-    error:      listJobError,
-    loading:    listJobLoading,
-    jobs   :    listJob,
+    error: listJobError,
+    loading: listJobLoading,
+    jobs: listJob,
   } = jobList;
 
   // JOB DELETE
   const jobDelete = useSelector((state) => state.jobDelete);
   const {
-    error:     deleteJobError,
-    loading:   deleteJobLoading,
-    job :      deleteJob,
-    success:   deleteJobSuccess,
+    error: deleteJobError,
+    loading: deleteJobLoading,
+    job: deleteJob,
+    success: deleteJobSuccess,
   } = jobDelete;
-
-
 
   // RESELLER CREATE
 
   const resellerCreate = useSelector((state) => state.resellerCreate);
   const {
-    error:     createResellerError,
-    loading:   createResellerLoading,
+    error: createResellerError,
+    loading: createResellerLoading,
     reseller: createReseller,
     success: createResellerSuccess,
   } = resellerCreate;
@@ -231,80 +248,73 @@ const AdminDashboard = ({ tech }) => {
   // RESELLER LIST
   const resellerList = useSelector((state) => state.resellerList);
   const {
-    error:      listResellerError,
-    loading:    listResellerLoading,
-    resellers:  listReseller,
+    error: listResellerError,
+    loading: listResellerLoading,
+    resellers: listReseller,
   } = resellerList;
 
   // RESELLER DELETE
   const resellerDelete = useSelector((state) => state.resellerDelete);
   const {
-    error:     deleteResellerError,
-    loading:   deleteResellerLoading,
-    reseller:  deleteReseller,
-    success:   deleteResellerSuccess,
+    error: deleteResellerError,
+    loading: deleteResellerLoading,
+    reseller: deleteReseller,
+    success: deleteResellerSuccess,
   } = resellerDelete;
-
-
 
   // SHOP CREATE
 
   const shopCreate = useSelector((state) => state.shopCreate);
   const {
-    error:     createShopError,
-    loading:   createShopLoading,
-    shop    :  createShop,
-    success:   createShopSuccess,
+    error: createShopError,
+    loading: createShopLoading,
+    shop: createShop,
+    success: createShopSuccess,
   } = shopCreate;
 
   // SHOP LIST
   const shopList = useSelector((state) => state.shopList);
   const {
-    error:      listShopError,
-    loading:    listShopLoading,
-    shops   :   listShop,
+    error: listShopError,
+    loading: listShopLoading,
+    shops: listShop,
   } = shopList;
 
   // SHOP DELETE
   const shopDelete = useSelector((state) => state.shopDelete);
   const {
-    error:     deleteShopError,
-    loading:   deleteShopLoading,
-    shop :     deleteShop,
-    success:   deleteShopSuccess,
+    error: deleteShopError,
+    loading: deleteShopLoading,
+    shop: deleteShop,
+    success: deleteShopSuccess,
   } = shopDelete;
-
 
   // TOURISMS CREATE
 
   const tourismsCreate = useSelector((state) => state.tourismsCreate);
   const {
-    error:     createTourismsError,
-    loading:   createTourismsLoading,
-    tourisms : createTourisms,
-    success:   createTourismsSuccess,
+    error: createTourismsError,
+    loading: createTourismsLoading,
+    tourisms: createTourisms,
+    success: createTourismsSuccess,
   } = tourismsCreate;
 
   // TOURISMS LIST
   const tourismsList = useSelector((state) => state.tourismsList);
   const {
-    error:      listTourismsError,
-    loading:    listTourismsLoading,
-    tourismss:  listTourisms,
+    error: listTourismsError,
+    loading: listTourismsLoading,
+    tourismss: listTourisms,
   } = tourismsList;
 
   // TOURISMS DELETE
   const tourismsDelete = useSelector((state) => state.tourismsDelete);
   const {
-    error:     deleteTourismsError,
-    loading:   deleteTourismsLoading,
-    tourisms : deleteTourisms,
-    success:   deleteTourismsSuccess,
+    error: deleteTourismsError,
+    loading: deleteTourismsLoading,
+    tourisms: deleteTourisms,
+    success: deleteTourismsSuccess,
   } = tourismsDelete;
-
-
-
-  
 
   useEffect(() => {
     if (!userInfo) {
@@ -329,16 +339,18 @@ const AdminDashboard = ({ tech }) => {
       navigate(`/advertise-update/${advertise.id}/${advertise.slug}`);
     }
     // CELEBRITY PORTION
-    
+
     dispatch({ type: CELEBRITY_CREATE_RESET });
     dispatch({ type: CELEBRITY_DELETE_RESET });
 
     if (createCelebritySuccess) {
-      navigate(`/celebrity-update/${createCelebrity.id}/${createCelebrity.slug}`);
+      navigate(
+        `/celebrity-update/${createCelebrity.id}/${createCelebrity.slug}`
+      );
     }
 
     // EVENT PORTIONS
-    
+
     dispatch({ type: EVENT_CREATE_RESET });
     dispatch({ type: EVENT_DELETE_RESET });
 
@@ -348,7 +360,6 @@ const AdminDashboard = ({ tech }) => {
 
     // Hotel PORTION
 
-    
     dispatch({ type: HOTEL_CREATE_RESET });
     dispatch({ type: HOTEL_DELETE_RESET });
 
@@ -367,7 +378,7 @@ const AdminDashboard = ({ tech }) => {
     }
 
     // RESELLER PORTION
-    
+
     dispatch({ type: RESELLER_CREATE_RESET });
     dispatch({ type: RESELLER_DELETE_RESET });
     if (createResellerSuccess) {
@@ -375,7 +386,7 @@ const AdminDashboard = ({ tech }) => {
     }
 
     // SHOP PORTIONS
-    
+
     dispatch({ type: SHOP_CREATE_RESET });
     dispatch({ type: SHOP_DELETE_RESET });
 
@@ -385,16 +396,12 @@ const AdminDashboard = ({ tech }) => {
 
     // TOURISMS PORTIONS
 
-    
     dispatch({ type: TOURISMS_CREATE_RESET });
     dispatch({ type: TOURISMS_DELETE_RESET });
 
     if (createTourismsSuccess) {
       navigate(`/tourisms-update/${createTourisms.id}/${createTourisms.slug}`);
     }
-
-
-
   }, [
     dispatch,
     userInfo,
@@ -422,9 +429,9 @@ const AdminDashboard = ({ tech }) => {
   };
 
   // DELETE ADVERTISE HANDLER
-  const advertiseDeleteHandler = (id,slug) => {
+  const advertiseDeleteHandler = (id, slug) => {
     if (window.confirm("Are You Sure You Want To Delete This Items")) {
-      dispatch(advertiseDeleteAction(id,slug));
+      dispatch(advertiseDeleteAction(id, slug));
     }
   };
 
@@ -434,9 +441,9 @@ const AdminDashboard = ({ tech }) => {
   };
 
   // DELETE CELEBRITY HANDLER
-  const celebrityDeleteHandler = (id,slug) => {
+  const celebrityDeleteHandler = (id, slug) => {
     if (window.confirm("Are You Sure You Want To Delete This Items")) {
-      dispatch(celebrityDeleteAction(id,slug));
+      dispatch(celebrityDeleteAction(id, slug));
     }
   };
 
@@ -500,7 +507,6 @@ const AdminDashboard = ({ tech }) => {
     }
   };
 
-
   // CREATE TOURISMS HANDLER
   const tourismsCreateHandler = () => {
     dispatch(tourismsCreateAction());
@@ -515,70 +521,54 @@ const AdminDashboard = ({ tech }) => {
 
 
 
-{/* <Link to=`${process.env.REACT_APP_PORT}/admin`> */}
-
   return (
     <div className="admin">
       <div className="admin_top">
-        
+        {/* <SideBar /> */}
+        {/* <Grid className={classes.navbar}>
+          <CssBaseline />
+
+          <Navbar />
+          <PageHeader
+            title="PageHeader"
+            subtitle="description"
+            icon={<PeopleIcon />}
+          />
+        </Grid> */}
+
         <a href={`${process.env.REACT_APP_PORT}/admin`} target="_blank">
-
-        Admin Headers
+          Admin Headers
         </a>
-        </div>
+      </div>
 
-      <div className="admin_main">
-        <div className="admin_sidebar">
-          <AdminSidebar />
-        </div>
-        <div className="admin_body">
-          <PerformanceChart />
-          <div className="admin_status">
-            <div className="admin_status1">
-              <div className="admin_status1_items">Icon</div>
-              <div className="admin_status1_items">
-                Visitors
-                <br />
-                1235
-              </div>
-            </div>
-            <div className="admin_status1">
-              <div className="admin_status1_items">Icon</div>
-              <div className="admin_status1_items">
-                Page Views
-                <br />
-                1235
-              </div>
-            </div>
-          </div>
-          <div className="users_post">
+
             {/* ************************BIG CONTENT FOR ADMIN USER ************************** */}
-            {/* ADVERTISEMENT */}
-            <AdminTable 
-                  listModelLoading=  {listAdvertiseLoading}
-                  listModelError=    {listAdvertiseError}
-                  listModel=         {listAdvertise}
-                  createModelError=  {createAdvertiseError}
-                  deleteModelError=  {deleteAdvertiseError}
-                  deleteModelLoading={deleteAdvertiseLoading}
-                  modelCreateHandler={advertiseCreateHandler}
-                  modelDeleteHandler={advertiseDeleteHandler}
-                  redirect ="advertise"
-              />
-            {/* CELEBRITY */}
-            <AdminTable 
-                  listModelLoading=  {listCelebrityLoading}
-                  listModelError=    {listCelebrityError}
-                  listModel=         {listCelebrities}
-                  createModelError=  {createCelebrityError}
-                  deleteModelError=  {deleteCelebrityError}
-                  deleteModelLoading={deleteCelebrityLoading}
-                  modelCreateHandler={celebrityCreateHandler}
-                  modelDeleteHandler={celebrityDeleteHandler}
-                  redirect ="celebrity"
-              />
-            {/* EVENT PORTION */}
-            <AdminTable 
+      {/* ADVERTISEMENT */}
+      <AdminTable
+        listModelLoading={listAdvertiseLoading}
+        listModelError={listAdvertiseError}
+        listModel={listAdvertise}
+        createModelError={createAdvertiseError}
+        deleteModelError={deleteAdvertiseError}
+        deleteModelLoading={deleteAdvertiseLoading}
+        modelCreateHandler={advertiseCreateHandler}
+        modelDeleteHandler={advertiseDeleteHandler}
+        redirect="advertise"
+      />
+      {/* CELEBRITY */}
+      <AdminTable
+        listModelLoading={listCelebrityLoading}
+        listModelError={listCelebrityError}
+        listModel={listCelebrities}
+        createModelError={createCelebrityError}
+        deleteModelError={deleteCelebrityError}
+        deleteModelLoading={deleteCelebrityLoading}
+        modelCreateHandler={celebrityCreateHandler}
+        modelDeleteHandler={celebrityDeleteHandler}
+        redirect="celebrity"
+      />
+      {/* EVENT PORTION */}
+      <AdminTable 
                   listModelLoading=  {listEventLoading}
                   listModelError=    {listEventError}
                   listModel=         {listEvent}
@@ -589,10 +579,9 @@ const AdminDashboard = ({ tech }) => {
                   modelDeleteHandler={eventDeleteHandler}
                   redirect ="event"
               />
-            
-            
-            {/* HOTEL PORTION */}
-            <AdminTable createModelError={createHotelError}
+
+      {/* HOTEL PORTION */}
+      <AdminTable createModelError={createHotelError}
                   modelCreateHandler={hotelCreateHandler}
                   listModelLoading={listHotelLoading}
                   listModelError={listHotelError}
@@ -603,8 +592,8 @@ const AdminDashboard = ({ tech }) => {
                   redirect ="hotel"
               />
 
-            {/* JOB PORTIOn */}
-            <AdminTable 
+      {/* JOB PORTIOn */}
+      <AdminTable 
                   listModelLoading=  {listJobLoading}
                   listModelError=    {listJobError}
                   listModel=         {listJob}
@@ -616,8 +605,8 @@ const AdminDashboard = ({ tech }) => {
                   redirect ="job"
               />
 
-            {/* RESELLER PORTIOn */}
-            <AdminTable 
+      {/* RESELLER PORTIOn */}
+      <AdminTable 
                   listModelLoading=  {listResellerLoading}
                   listModelError=    {listResellerError}
                   listModel=         {listReseller}
@@ -629,9 +618,8 @@ const AdminDashboard = ({ tech }) => {
                   redirect ="reseller"
               />
 
-
-          {/*  SHOP PORTIOn */}
-          {/* <AdminTable 
+      {/*  SHOP PORTIOn */}
+      <AdminTable 
                 listModelLoading=  {listShopLoading}
                 listModelError=    {listShopError}
                 listModel=         {listShop}
@@ -641,10 +629,10 @@ const AdminDashboard = ({ tech }) => {
                 modelCreateHandler={shopCreateHandler}
                 modelDeleteHandler={shopDeleteHandler}
                 redirect ="shop"
-            /> */}
+            />
 
-          {/*  TOURISMS PORTIOn */}
-          <AdminTable 
+      {/*  TOURISMS PORTIOn */}
+      <AdminTable 
                 listModelLoading=  {listTourismsLoading}
                 listModelError=    {listTourismsError}
                 listModel=         {listTourisms}
@@ -656,11 +644,8 @@ const AdminDashboard = ({ tech }) => {
                 redirect ="tourisms"
             />
 
-
-          <TechCreateNewsApi/>
-            {/* ************************BIG CONTENT FOR ADMIN USER ************************** */}
-          </div>
-        </div>
+      {/* <TechCreateNewsApi/> */}
+      {/* ************************BIG CONTENT FOR ADMIN USER ************************** */}
 
         {listUserError && <ErrorMessage type="error" error={listUserError} />}
         {listUserLoading && <Loaders />}
@@ -688,7 +673,6 @@ const AdminDashboard = ({ tech }) => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

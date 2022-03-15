@@ -58,7 +58,7 @@ const LoginScreens = () => {
         <Paper className="paperHeader" elevation={10}>
           <Grid className="gridHeader">
             <Grid className="gridIcon" align="center">
-              {loginUserLoading && <Loaders />}
+              
               {loginUserError && (
                 <ErrorMessage type="error" error={loginUserError} />
               )}
@@ -71,7 +71,7 @@ const LoginScreens = () => {
               id="username"
               className="input"
               type="text"
-              placeholder="username"
+              placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
@@ -104,17 +104,21 @@ const LoginScreens = () => {
               variant="contained"
               fullWidth
             >
-              Sign IN
+              {
+                  loginUserLoading
+                  ?<Loaders/>
+                  :<>Sign In</>
+                }
             </Button>
 
             {/* <Link className="linkText" to="/forgotPassword">
               <Typography>Forgot password ?</Typography>
             </Link> */}
-            <Typography className="text">No Account ?</Typography>
+            {/* <Typography className="text">No Account ?</Typography>
             <Link className="linkText" to="/register">
-              <Typography className="text">sign up</Typography>
+              <Typography className="text">Create Account</Typography>
 
-            </Link>
+            </Link> */}
           </Grid>
         </Paper>
       </Grid>

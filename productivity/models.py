@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
-from django.utils.timezone import now 
+from django.utils import timezone
 
 # Create your models here.
 
@@ -17,11 +17,14 @@ class Jobs(models.Model):
     content = models.TextField(blank=True, null=True, default='content')
     isApproved = models.BooleanField(default=False, null=True)
     createdAt = models.DateTimeField(auto_now_add=True)
+    startDate = models.DateTimeField(auto_now_add=False, null=True)
+    endDate = models.DateTimeField(auto_now_add=False, null=True)
 
     slug = models.SlugField(max_length=500, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
+        self.startDate = timezone.now()
         super(Jobs,self).save(*args, **kwargs)
 
 
@@ -144,6 +147,7 @@ class Celebrities(models.Model):
     country = models.CharField(max_length=300, blank=True, null=True, default='India')
     state = models.CharField(max_length=300, blank=True, null=True, default='Meghalaya')
     address = models.CharField(max_length=300, blank=True, null=True, default='Jowai')
+    url = models.CharField(max_length=300, blank=True, null=True,)
     contact = models.CharField(max_length=100, blank=True, null=True)
     image = models.ImageField(blank=True, default='/placeholder.png')
     title = models.TextField(blank=True, null=True, default='title')
@@ -159,6 +163,14 @@ class Celebrities(models.Model):
 
     def __str__(self):
         return str(self.title)
+
+
+class CelebritiesGallary(models.Model):
+    celebrity= models.ForeignKey(Celebrities, on_delete=models.CASCADE)
+    image = models.ImageField(blank=True, default='/placeholder.png', upload_to='celebritiesImage')
+
+    def __str__(self):
+        return str(self.celebrity.title)
 
 
 class Hotels(models.Model):
@@ -195,6 +207,7 @@ class Tourisms(models.Model):
     image = models.ImageField(blank=True, default='/placeholder.png')
     title = models.TextField(blank=True, null=True, default='title')
     content = models.TextField(blank=True, null=True, default='content')
+    distance = models.IntegerField(null=True, blank=True, default=0)
     isApproved = models.BooleanField(default=False, null=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=500, blank=True, null=True)
@@ -206,6 +219,13 @@ class Tourisms(models.Model):
 
     def __str__(self):
         return str(self.title)
+
+class TourismsGallary(models.Model):
+    tourisms= models.ForeignKey(Tourisms, on_delete=models.CASCADE)
+    image = models.ImageField(blank=True, default='/placeholder.png', upload_to='tourismsImage')
+
+    def __str__(self):
+        return str(self.tourisms.title)
 
 
 class Resell(models.Model):

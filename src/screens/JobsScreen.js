@@ -9,11 +9,21 @@ import CelebCarousel from "../components/CelebCarousel";
 import Paginate from "../components/Pagination";
 import SearchBox from "../components/SearchBox";
 import AllCards from "../components/AllCards";
+import { Link } from "react-router-dom";
 import {jobListAction} from "../actions/advertiseActions2";
 import { Grid, Typography } from "@mui/material";
 import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import { makeStyles } from "@mui/styles";
+import SocialShare from "../components/SocialShare";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  Divider,
+} from "@mui/material";
 
 const celeb = {
   title: "title",
@@ -68,7 +78,7 @@ const CelebrityScreen = () => {
 
   const location = useLocation();
   let keyword = location.search;
-  const pathname = location.pathname;
+  const socialmedia = window.location.href;
 
   // const pathname = window.location.pathname
 
@@ -110,7 +120,66 @@ const CelebrityScreen = () => {
         ) : (
           <Grid spacing={1} item xs={12} sm={6} lg={6} md={6}>
             {listJob.map((job) => (
-              <AllCards key={job.id} item={job} model="job" socialmedia="jobs" />
+              // <AllCards key={job.id} item={job} model="job" socialmedia="jobs" />
+            
+              <div className="App" style={{ backgrounColor: "#e0e7e9ee" }}>
+                <Card className={classes.card}>
+                  <Link
+                    className="text-link"
+                    to={`/job-detail/${job.id}/${job.slug}`}
+                  >
+                    {/* {job.manyImages ? (
+                      <img src={job.manyImages[0].image} alt={job.title} />
+                    ) : (
+                      <CardMedia className={classes.media} image={job.image} />
+                    )} */}
+                    <img src={job.image} className={classes.media} alt={job.title} />
+                  </Link>
+                  <CardContent className={classes.content}>
+                    <Typography variant={"caption"} gutterBottom>
+                      <CalendarTodayIcon
+                        style={{ fill: "green", fontSize: "12px", fontWeight: "700" }}
+                      />
+                      {job.createdAt.split('T', 1)}  {job.createdAt.substr(11, 8)}
+                      
+                      
+                    </Typography>
+                    <h2
+                      style={{
+                        fontSize: "12px",
+                        paddingBottom: "10px",
+                        margin: "0px",
+                        fontFamily: "monospace",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Start Date: {job.startDate.split('T', 1)}
+                    </h2>
+                    <h2
+                      style={{
+                        fontSize: "12px",
+                        paddingBottom: "10px",
+                        margin: "0px",
+                        fontFamily: "monospace",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      End Date: {job.endDate.split('T', 1)}
+                    </h2>
+                    <Typography variant={"caption"} color='primary' gutterBottom>
+                      {job.state}
+                    </Typography>
+                    <Typography variant={"h6"} gutterBottom>
+                      {job.title}
+                    </Typography>
+                    <Divider className={classes.divider} />
+                    <Typography variant={"h6"} gutterBottom>
+                      share
+                    </Typography>
+                    <SocialShare url={socialmedia} />
+                  </CardContent>
+                </Card>
+              </div>
             ))}
           </Grid>
         )}

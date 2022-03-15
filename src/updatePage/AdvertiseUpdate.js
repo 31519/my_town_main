@@ -5,13 +5,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import {
   Grid,
   Paper,
-  Typography,
-  Avatar,
+  FormLabel,
   TextField,
+  TextareaAutosize,
   Button,
-  Card,
-  Input,
-  FormControl
 } from "@mui/material";
 // IMPORT COMPONENT
 import Loaders from "../components/Loader";
@@ -22,10 +19,11 @@ import { advertiseDetailAction } from "../actions/advertiseActions";
 import { advertiseUpdateAction } from "../actions/advertiseActions";
 import { ADVERTISE_UPDATE_RESET } from "../constants/productivityConstants";
 
-import "../css_styles/TechCreate.css";
+// import "../css_styles/TechCreate.css";
 
 const AdvertiseUpdate = () => {
-  const gridStyle = { margin: 0, paddingBottom: "20px" };
+  const paperStyle = { padding: "0px", width: "80%", margin: "20px auto" };
+  const gridStyle = { backgroundColor: "rgb(223, 232, 229)" };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
   const marginTop = { marginTop: 5 };
   const params = useParams();
@@ -116,165 +114,94 @@ const AdvertiseUpdate = () => {
   };
 
   return (
-    <>
-      <Grid container className="techcreate">
-        <Grid container style={{border: "1px solid white"}}>
-          <form className="form" onSubmit={submitHandler}>
-            <Grid item sm={12} xs={12} lg={12} md={12} className="text">
-              <div className="subtitle">Let's Update Advertise</div>
-            </Grid>
-            {/* <Grid style={gridStyle} container> */}
-              <Grid
-                item
-                sm={12}
-                xs={12}
-                lg={12}
-                md={12}
-                className="input-container"
-              >
-                <TextField
-                  id="category"
-                  className="input"
-                  type="text"
-                  placeholder="categorygfhfg"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                />
-              </Grid>
-              <Grid style={gridStyle} container>
-              <Grid
-                item
-                sm={6}
-                xs={6}
-                lg={6}
-                md={6}
-                // className="input-container"
-              >
-                <label>Country</label>
-                <TextField
-                  id="country"
-                  className="input"
-                  type="text"
-                  placeholder="country"
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                />
-              </Grid>
+    <Grid style={gridStyle}>
+      <Paper elevate={20} style={paperStyle}>
+        <form
+          className="form"
+          onSubmit={submitHandler}
+          style={{ margin: "10px", padding: 0 }}
+        >
+          <Grid item sm={12} xs={12} lg={12} md={12} className="text">
+            <div className="subtitle">Let's Update My Advertise</div>
+          </Grid>
+          <FormLabel component="legend">Category</FormLabel>
+          <TextField
+            id="category"
+            fullWidth
+            type="text"
+            placeholder="category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          />
 
-              <Grid
-                item
-                sm={6}
-                xs={6}
-                lg={6}
-                md={6}
-                // className="input-container"
-              >
-                <label>State</label>
-                <TextField
-                  id="state"
-                  className="input"
-                  type="state"
-                  placeholder="state"
-                  value={state}
-                  onChange={(e) => setState(e.target.value)}
-                />
-              </Grid>
-              </Grid>
+          <FormLabel>Country</FormLabel>
+          <TextField
+            id="country"
+            fullWidth
+            type="text"
+            placeholder="country"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+          />
+          <FormLabel>State</FormLabel>
+          <TextField
+            id="state"
+            fullWidth
+            type="state"
+            placeholder="state"
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+          />
+          <FormLabel>Address</FormLabel>
+          <TextField
+            id="address"
+            fullWidth
+            type="address"
+            placeholder="Url"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+          <FormLabel>Contact</FormLabel>
+          <TextField
+            id="contact"
+            fullWidth
+            type="text"
+            placeholder="contact"
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
+          />
+          <FormLabel>Title</FormLabel>
+          <TextField
+            id="title"
+            fullWidth
+            type="text"
+            placeholder="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <FormLabel>Content</FormLabel>
+          <TextareaAutosize
+            id="content"
+            fullWidth
+            style={{ width: "100%" }}
+            minRows={10}
+            type="textfield"
+            placeholder="Content"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
 
-              <Grid
-                item
-                sm={12}
-                xs={12}
-                lg={12}
-                md={12}
-                className="input-container ic2"
-              >
-                <label>Address</label>
-                <TextField
-                  id="address"
-                  className="input"
-                  type="address"
-                  placeholder="Url"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-              </Grid>
-              <Grid
-                item
-                sm={12}
-                xs={12}
-                lg={12}
-                md={12}
-                className="input-container ic2"
-              >
-                <label>Contact</label>
-                <TextField
-                  id="contact"
-                  className="input"
-                  type="text"
-                  placeholder="contact"
-                  value={contact}
-                  onChange={(e) => setContact(e.target.value)}
-                />
-              </Grid>
-              <Grid
-                item
-                sm={12}
-                xs={12}
-                lg={12}
-                md={12}
-                className="input-container ic2"
-              >
-                <label>Title</label>
-                <TextField
-                  id="title"
-                  className="input"
-                  type="text"
-                  placeholder="title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                />
-              </Grid>
-
-              <Grid
-                item
-                sm={12}
-                xs={12}
-                lg={12}
-                md={12}
-                className="input-container ic2"
-              >
-                <label>Content</label>
-                <textarea
-                  id="content"
-                  className="input"
-                  type="textfield"
-                  placeholder="Content"
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                />
-              </Grid>
-
-              <Grid
-                item
-                sm={12}
-                xs={12}
-                lg={12}
-                md={12}
-                className="input-container ic2"
-              >
-                <label>Imagess</label>
-                <img src={image} />
-                <Input
-                  id="image"
-                  className="input"
-                  type="file"
-                  placeholder="image"
-                  value={image}
-                  onChange={(e) => setImage(e.target.value)}
-                />
-              </Grid>
-              {/* {userInfo.isAdmin && (
+          <label>Imagess</label>
+          <img src={image} />
+          <input
+            id="image"
+            className="input"
+            type="file"
+            placeholder="image"
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+          />
+          {/* {userInfo.isAdmin && (
               <Grid item sm={12} xs={12} lg={12} md={12}  className="input-container ic2">
               <label>Approved</label>
               <input
@@ -287,27 +214,25 @@ const AdvertiseUpdate = () => {
               />
             </Grid>
             )} */}
-              <Grid
-              item
-              sm={12}
-              xs={12}
-              lg={12}
-              md={12}
-              // className="input-container ic2"
-            > 
-            
+          <Grid
+            item
+            sm={12}
+            xs={12}
+            lg={12}
+            md={12}
+            // className="input-container ic2"
+          >
             <Button className="button_input" type="submit">
               Submit
             </Button>
-            </Grid>
-          </form>
-          {/* <div className="techcreate">
+          </Grid>
+        </form>
+        {/* <div className="techcreate">
             {<TechCreateNewsApi/>}
             
           </div> */}
-        </Grid>
-      </Grid>
-    </>
+      </Paper>
+    </Grid>
   );
 };
 

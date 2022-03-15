@@ -81,28 +81,28 @@ const Footers = () => {
       </Grid>
       <Grid   spacing={1} item xs={12} sm={4} lg={4} md={4}>
       <div className="footer_div">
-          <div className="hover-item">
+          {/* <div className="hover-item">
             <Link className="text-link" to="/science-screen">
               <h2 className={classes.title} variant="h3">
                 Science
               </h2>
             </Link>
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <Link className="text-link" to="/health-screen">
               <h2 className={classes.title} variant="h3">
                 Health
               </h2>
             </Link>
-          </div>
+          </div> */}
 
-          <div>
+          {/* <div>
             <Link className="text-link" to="/technology">
               <h2 className={classes.title} variant="h3">
                 Technology
               </h2>
             </Link>
-          </div>
+          </div> */}
 
           {/* <div>
             <Link className="text-link" to="/business-screen">
@@ -111,6 +111,14 @@ const Footers = () => {
               </h2>
             </Link>
           </div> */}
+
+          <div>
+            <Link className="text-link" to="/">
+              <h2 className={classes.title} variant="h3">
+                News
+              </h2>
+            </Link>
+          </div>
 
           <div>
             <Link className="text-link" to="/jobs">

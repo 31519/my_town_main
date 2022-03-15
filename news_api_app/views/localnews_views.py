@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from news_api_app.models import LocalNews
-from news_api_app.serializers import LocalNewsSerializers
+from news_api_app.models import LocalNews, LocalNewsGallary
+from news_api_app.serializers import LocalNewsSerializers, LocalNewsGallarySerializers
 from  rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework import status
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -130,4 +130,23 @@ def UserLocalNewsList(request):
     current_user = request.user
     local = LocalNews.objects.filter(user=current_user)
     serializer = LocalNewsSerializers(local, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def LocalManyImage(request):
+    data = request.data
+
+    product_id = data['product_id']
+    
+    mainlocal = LocalNews.objects.get(id=product_id)
+
+    images = request.FILES.get('image')
+    localGallary = LocalNewsGallary.objects.create(
+        local = mainlocal,
+        image = images
+    )
+    serializer = LocalNewsGallarySerializers(localGallary, many=False)
+
+    
     return Response(serializer.data)

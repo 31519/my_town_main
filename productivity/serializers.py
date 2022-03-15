@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from productivity.models import Jobs, Advertisement, Shops, OwnBusiness, Celebrities, Hotels, Tourisms, Resell, Event, Meme, Banner
+from productivity.models import Jobs, Advertisement, Shops, OwnBusiness, Celebrities, Hotels, Tourisms, Resell, Event, Meme, Banner, CelebritiesGallary, TourismsGallary
 
 class UserSerializers(serializers.ModelSerializer):
     class Meta:
@@ -43,20 +43,46 @@ class OwnBusinessSerializers(serializers.ModelSerializer):
         fields ='__all__'
 
 
+class CelebritiesGallarySerializers(serializers.ModelSerializer):
+    class Meta:
+        model = CelebritiesGallary
+        fields ='__all__'
+
 class CelebritiesSerializers(serializers.ModelSerializer):
+    manyImages = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Celebrities
         fields ='__all__'
+
+    def get_manyImages(self, obj):
+        celebrity = obj.celebritiesgallary_set.all()
+        serializer = CelebritiesGallarySerializers(celebrity, many=True)
+        return serializer.data
+
+
 
 class HotelsSerializers(serializers.ModelSerializer):
     class Meta:
         model = Hotels
         fields ='__all__'
 
+
+class TourismsGallarySerializers(serializers.ModelSerializer):
+    class Meta:
+        model = TourismsGallary
+        fields='__all__'
+
 class TourismsSerializers(serializers.ModelSerializer):
+    manyImages= serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Tourisms
         fields ='__all__'
+
+    def get_manyImages(self, obj):
+        tourisms = obj.tourismsgallary_set.all()
+        serializer = TourismsGallarySerializers(tourisms, many=True)
+        return serializer.data
+
 
 class ResellSerializers(serializers.ModelSerializer):
     class Meta:
