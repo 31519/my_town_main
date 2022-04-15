@@ -69,7 +69,7 @@ const AllCards = ({ item, model }) => {
             className="text-link"
             to={`/${model}-detail/${item.id}/${item.slug}`}
           >
-            {item.manyImages ? (
+            {item.manyImage && item.manyImages ? (
               <img src={item.manyImages[0].image} alt={item.title} />
             ) : (
               // <CardMedia className={classes.media} image={item.image} />
