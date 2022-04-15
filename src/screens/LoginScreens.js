@@ -17,7 +17,6 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 
-import "../css_styles/LoginScreen.css";
 
 const LoginScreens = () => {
   const avatarStyle = {backgroundColor:'green'}

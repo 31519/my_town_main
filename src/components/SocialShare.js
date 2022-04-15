@@ -1,6 +1,13 @@
 import React from "react";
 
 import {
+  Typography,
+  Button
+} from "@mui/material";
+
+import ShareIcon from '@mui/icons-material/Share';
+
+import {
   FacebookShareButton,
   WhatsappShareButton,
   TelegramShareButton,
@@ -17,20 +24,50 @@ import { makeStyles } from '@mui/styles';
 
 
 const useStyles = makeStyles({
+  socialMediaButton:{
+    // borderRadius: "50px",
+    width: "30px",
+    height: "30px",
+    margin: "0 5px"
 
+  },
+  share :{
+    fontSize: "5px"
+  },
+  container: {
+    display: "flex",
+
+  },
+  // socialContainer7
   });
 const SocialShare = ({url}) => {
     const classes = useStyles();
-    console.log(url, 'share window url')
     return(
-        <>
+        <div className={classes.container}>
+        <Button size="medium" startIcon={ <ShareIcon color="danger"/>}  >Share</Button>
+       
+        <TwitterShareButton 
+            url={url}
+            quote={"CampersTribe - World is yours to explore"}
+            hashtag="#camperstribe"
+            className={classes.socialContainer}
+            >
+              <TwitterIcon className={classes.socialMediaButton} />
+          </TwitterShareButton>
+          <TelegramShareButton 
+            url={url}
+            quote={"CampersTribe - World is yours to explore"}
+            hashtag="#camperstribe"
+            >
+              <TelegramIcon className={classes.socialMediaButton} />
+          </TelegramShareButton>
         <FacebookShareButton 
             // url={`${process.env.REACT_APP_PORT}/#/${item.redirect}/${item.id}/${item.slug}`}
             url={url}
             quote={"CampersTribe - World is yours to explore"}
             hashtag="#camperstribe"
-            className={classes.socialMediaButton}>
-              <FacebookIcon size={30}  style={{ paddingLeft:"5px", paddingRight:"5px"}}/>
+            >
+              <FacebookIcon className={classes.socialMediaButton}/>
           </FacebookShareButton>
           
 
@@ -38,26 +75,14 @@ const SocialShare = ({url}) => {
             url={url}
             quote={"CampersTribe - World is yours to explore"}
             hashtag="#camperstribe"
-            className={classes.socialMediaButton}>
-              <WhatsappIcon size={30} style={{ paddingLeft:"5px", paddingRight:"5px"}}/>
+            >
+              <WhatsappIcon className={classes.socialMediaButton}/>
           </WhatsappShareButton>
 
-          <TelegramShareButton 
-            url={url}
-            quote={"CampersTribe - World is yours to explore"}
-            hashtag="#camperstribe"
-            className={classes.socialMediaButton}>
-              <TelegramIcon size={30} style={{ paddingLeft:"5px", paddingRight:"5px"}} />
-          </TelegramShareButton>
+          
 
-          <TwitterShareButton 
-            url={url}
-            quote={"CampersTribe - World is yours to explore"}
-            hashtag="#camperstribe"
-            className={classes.socialMediaButton}>
-              <TwitterIcon size={30} style={{ paddingLeft:"5px", paddingRight:"5px"}} />
-          </TwitterShareButton>
-        </>
+          
+        </div>
     )
 }
 

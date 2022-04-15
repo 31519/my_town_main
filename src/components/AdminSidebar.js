@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-import "../css_styles/AdminSidebar.css";
 import { Link } from "react-router-dom";
 import CloseIcon from '@mui/icons-material/Close';
 import { profileDetailActions } from "../actions/userActions";
@@ -39,7 +38,7 @@ const AdminSidebar = ({ tech }) => {
     <>
       <div className="dashboard">
       
-        <div className="dashboard_header">
+        {/* <div className="dashboard_header">
           <Link className="text-link" to={`/user-detail`}>
             <div className="profile-img">
               {profile 
@@ -78,11 +77,11 @@ const AdminSidebar = ({ tech }) => {
               </div>
               </Link>
             )}
-        </div>
+        </div> */}
         <div className="Scroll">
           <div className="dashboard_performance">
-            <h3 className="text_header">PERFORMANCE</h3>
-            <div className="dashboard_performance_items">
+            {/* <h3 className="text_header">PERFORMANCE</h3> */}
+            {/* <div className="dashboard_performance_items">
               <div className="dashboard_performance_items1">
               {userInfo && userInfo.isAdmin && (
               <Link  className="text-link" to="/admin-dashboard">
@@ -107,31 +106,31 @@ const AdminSidebar = ({ tech }) => {
             }
               </div>
               
-            </div>
+            </div> */}
           </div>
           <hr />
           <div className="dashboard_pages">
-            <h3>PAGES</h3>
-            <hr />
+            {/* <h3>PAGES</h3> */}
+            {/* <hr /> */}
             <div className="dashboard_pages_items">
-              <h3 className="text_header">News</h3>
-              <Link  className="text-link"  to="/technology">
+              {/* <h3 className="text_header">News</h3> */}
+              {/* <Link  className="text-link"  to="/technology">
                 <div className="dashboard_pages_items1">
                   <h3>Technology</h3>
                 </div>
-              </Link>
+              </Link> */}
 
-              <Link  className="text-link"  to="/health-screen">
+              {/* <Link  className="text-link"  to="/health-screen">
                 <div className="dashboard_pages_items1">
                   <h3>Health</h3>
                 </div>
-              </Link>
+              </Link> */}
 
-              <Link  className="text-link"  to="/science-screen">
+              {/* <Link  className="text-link"  to="/science-screen">
                 <div className="dashboard_pages_items1">
                   <h3>Science</h3>
                 </div>
-              </Link>
+              </Link> */}
 
               {/* <Link  className="text-link"  to="/">
                 <div className="dashboard_pages_items1">
@@ -145,7 +144,7 @@ const AdminSidebar = ({ tech }) => {
                 </div>
               </Link>
 
-              <h3 className="text_header">Productivity</h3>
+              {/* <h3 className="text_header">Productivity</h3> */}
 
               <Link  className="text-link"  to="/jobs">
                 <div className="dashboard_pages_items1">
@@ -153,17 +152,17 @@ const AdminSidebar = ({ tech }) => {
                 </div>
               </Link>
 
-              <Link  className="text-link"  to="/reseller">
+              {/* <Link  className="text-link"  to="/reseller">
                 <div className="dashboard_pages_items1">
                   <h3>Reseller</h3>
                 </div>
-              </Link>
+              </Link> */}
 
-              <Link  className="text-link"  to="/shops">
+              {/* <Link  className="text-link"  to="/shops">
                 <div className="dashboard_pages_items1">
                   <h3>Shops</h3>
                 </div>
-              </Link>
+              </Link> */}
 
               <Link  className="text-link"  to="/advertise">
                 <div className="dashboard_pages_items1">
@@ -171,7 +170,7 @@ const AdminSidebar = ({ tech }) => {
                 </div>
               </Link>
 
-              <h3 className="text_header">Luxiery</h3>
+              {/* <h3 className="text_header">Luxiery</h3> */}
 
               <Link  className="text-link"  to="/celebrity">
                 <div className="dashboard_pages_items1">
@@ -185,22 +184,22 @@ const AdminSidebar = ({ tech }) => {
                 </div>
               </Link>
 
-              <Link   className="text-link" to="/hotels">
+              {/* <Link   className="text-link" to="/hotels">
                 <div className="dashboard_pages_items1">
                   <h3>Hotels</h3>
                 </div>
-              </Link>
+              </Link> */}
 
-              <Link  className="text-link"  to="/event">
+              {/* <Link  className="text-link"  to="/event">
                 <div className="dashboard_pages_items1">
                   <h3>Event</h3>
                 </div>
-              </Link>
+              </Link> */}
             </div>
           </div>
-          <div className="dashboard_info">
+          {/* <div className="dashboard_info">
             <h3>INFO</h3>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

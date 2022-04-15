@@ -23,7 +23,6 @@ import Checkbox from "@mui/material/Checkbox";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import FormLabel from "@mui/material/FormLabel";
 
-import "../css_styles/Signup.css";
 
 const Register = () => {
   // const avatarStyle = { backgroundColor: "green" };

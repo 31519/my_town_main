@@ -17,16 +17,18 @@ def LocalNewsList(request):
         query = ""
 
 
-    local = LocalNews.objects.filter(title__icontains=query)
+    local = LocalNews.objects.filter(title__icontains=query).order_by('-flag', '-createdAt')
 
     page = request.query_params.get('page')
     paginator = Paginator(local, 8)
     try:
         local = paginator.page(page)
     except EmptyPage:
-        local = paginator.page(1)
-    except PageNotAnInteger:
         local = paginator.page(paginator.num_pages)
+        
+    except PageNotAnInteger:
+        
+        local = paginator.page(1)
 
     if page == None:
         page = 1

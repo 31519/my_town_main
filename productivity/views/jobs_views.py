@@ -17,16 +17,17 @@ def JobsList(request):
         query = ""
 
 
-    jobs = Jobs.objects.filter(title__icontains=query, isApproved=True)
+    jobs = Jobs.objects.filter(title__icontains=query, isApproved=True).order_by('-flag', '-createdAt')
 
     page = request.query_params.get('page')
     paginator = Paginator(jobs, 8)
     try:
         jobs = paginator.page(page)
     except EmptyPage:
-        jobs = paginator.page(1)
-    except PageNotAnInteger:
         jobs = paginator.page(paginator.num_pages)
+    except PageNotAnInteger:
+        jobs = paginator.page(1)
+        
 
     if page == None:
         page = 1

@@ -17,6 +17,7 @@ class Jobs(models.Model):
     content = models.TextField(blank=True, null=True, default='content')
     isApproved = models.BooleanField(default=False, null=True)
     createdAt = models.DateTimeField(auto_now_add=True)
+    flag = models.IntegerField(default=0, blank=True, null=True)
     startDate = models.DateTimeField(auto_now_add=False, null=True)
     endDate = models.DateTimeField(auto_now_add=False, null=True)
 
@@ -67,6 +68,7 @@ class Advertisement(models.Model):
     content = models.TextField(blank=True, null=True, default='content')
     isApproved = models.BooleanField(default=False, null=True)
     createdAt = models.DateTimeField(auto_now_add=True)
+    flag = models.IntegerField(default=0, blank=True, null=True)
     slug = models.SlugField(max_length=500, blank=True, null=True)
 
     def save(self, *args, **kwargs):
@@ -154,6 +156,7 @@ class Celebrities(models.Model):
     content = models.TextField(blank=True, null=True, default='content')
     isApproved = models.BooleanField(default=False, null=True)
     createdAt = models.DateTimeField(auto_now_add=True)
+    flag = models.IntegerField(default=0, blank=True, null=True)
     slug = models.SlugField(max_length=500, blank=True, null=True)
 
     def save(self, *args, **kwargs):
@@ -210,6 +213,7 @@ class Tourisms(models.Model):
     distance = models.IntegerField(null=True, blank=True, default=0)
     isApproved = models.BooleanField(default=False, null=True)
     createdAt = models.DateTimeField(auto_now_add=True)
+    flag = models.IntegerField(default=0, blank=True, null=True)
     slug = models.SlugField(max_length=500, blank=True, null=True)
 
     def save(self, *args, **kwargs):
@@ -271,6 +275,7 @@ class Banner(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(blank=True, default='/placeholder.png')
     createdAt = models.DateTimeField(auto_now_add=True)
+    flag = models.IntegerField(default=0, blank=True, null=True)
 
 
     def __str__(self):

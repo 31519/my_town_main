@@ -1,5 +1,4 @@
 import React from "react";
-import "../css_styles/UserTable.css";
 const UserTable = ({user}) => {
   return (
     <div className="user_table">

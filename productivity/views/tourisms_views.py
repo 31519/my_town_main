@@ -14,16 +14,17 @@ def TourismsList(request):
     query = request.query_params.get('keyword')
     if query ==None:
         query = ""
-    tourisms = Tourisms.objects.filter(title__icontains=query, isApproved=True)
+    tourisms = Tourisms.objects.filter(title__icontains=query, isApproved=True).order_by('-flag', '-createdAt')
 
     page = request.query_params.get('page')
     paginator = Paginator(tourisms, 8)
     try:
         tourisms = paginator.page(page)
     except EmptyPage:
-        tourisms = paginator.page(1)
+        t
+        local = paginator.page(paginator.num_pages)
     except PageNotAnInteger:
-        tourisms = paginator.page(paginator.num_pages)
+        ourisms = paginator.page(1)
 
     if page == None:
         page = 1

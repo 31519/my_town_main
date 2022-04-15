@@ -1,5 +1,4 @@
 import React from "react";
-import "../css_styles/Table.css";
 import { Link } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
 import Loaders from "../components/Loader";

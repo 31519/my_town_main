@@ -2,7 +2,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Footers from "../components/Footers";
-import "../css_styles/DetailProductivity.css";
 import { useParams, useLocation } from "react-router-dom";
 
 import { hotelDetailAction } from "../actions/advertiseActions2";

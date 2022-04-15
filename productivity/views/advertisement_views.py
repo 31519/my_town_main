@@ -14,15 +14,16 @@ def AdvertisementList(request):
     query = request.query_params.get('keyword')
     if query ==None:
         query = ""
-    advertisement = Advertisement.objects.filter(title__icontains=query, isApproved=True)
+    advertisement = Advertisement.objects.filter(title__icontains=query, isApproved=True).order_by('-flag', '-createdAt')
     page = request.query_params.get('page')
     paginator = Paginator(advertisement, 8)
     try:
         advertisement = paginator.page(page)
     except EmptyPage:
-        advertisement = paginator.page(1)
+        
+        celebrities = paginator.page(paginator.num_pages)
     except PageNotAnInteger:
-        advertisement = paginator.page(paginator.num_pages)
+        advertisement = paginator.page(1)
 
     if page == None:
         page = 1

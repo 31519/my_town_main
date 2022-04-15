@@ -60,8 +60,6 @@ const Paginate = ({pages, page, keyword=''}) => {
   }
 
 
-  console.log(pathname, "pathname")
-
 
   const classes = useStyles();
 

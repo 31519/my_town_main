@@ -21,7 +21,6 @@ import {
 
 import { MEME_UPDATE_RESET } from "../constants/productivityConstants";
 
-import "../css_styles/TechCreate.css";
 
 const MemeUpdate = () => {
   const params = useParams();

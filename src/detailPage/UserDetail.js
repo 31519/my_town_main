@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-import "../css_styles/AdminSidebar.css";
 import { Link, useNavigate } from "react-router-dom";
 
 import { profileDetailActions } from "../actions/userActions";

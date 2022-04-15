@@ -23,7 +23,7 @@ import {
 
 import { JOBS_UPDATE_RESET } from "../constants/productivityConstants";
 
-import "../css_styles/TechCreate.css";
+
 
 const JobUpdate = () => {
   const params = useParams();

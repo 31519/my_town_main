@@ -14,8 +14,6 @@ import {
   profileUpdateActions,
 } from "../actions/userActions";
 
-import "../css_styles/ProfileEdit.css";
-
 import { Grid, Card, FormControl, Input, InputLabel } from "@mui/material";
 
 const UserUpdate = () => {

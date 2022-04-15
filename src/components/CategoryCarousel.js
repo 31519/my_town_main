@@ -1,95 +1,419 @@
-import React from "react";
-import "../css_styles/CelebCarousel.css";
-import { Link } from "react-router-dom";
-import { Carousel } from 'react-responsive-carousel';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-
+import React, { useEffect } from "react";
+import { makeStyles } from "@mui/styles";
 import { Grid, Typography } from "@mui/material";
-import { makeStyles } from '@mui/styles';
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
+import Loaders from "../components/Loader";
+import ErrorMessage from "../components/ErrorMessage";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+import Slider from "react-slick";
+
+import { localListAction } from "../actions/advertiseActions";
+import {tourismsListAction} from "../actions/advertiseActions2";
+import {jobListAction} from "../actions/advertiseActions2";
+import { advertiseListAction } from "../actions/advertiseActions";
+import {celebrityListAction} from "../actions/advertiseActions";
+
+import axios from "axios";
+const useStyles = makeStyles((theme) => ({
+  // image: {
+  //   [theme.breakpoints.up("xs")]: {
+  //     height: "250px",
+  //   },
+  //   [theme.breakpoints.up("sm")]: {
+  //     height: "250px",
+  //   },
+  //   [theme.breakpoints.up("md")]: {
+  //     height: "450px",
+  //   },
+  //   [theme.breakpoints.up("ls")]: {
+  //     height: "450px",
+  //   },
+  // },
+  containerMain: {
+    display: "flex",
+    width: "90%",
+    justifyContent: "center",
+    margin: "0px auto",
+    [theme.breakpoints.down("md")]: {
+      overflowX: "scroll",
+    },
+    [theme.breakpoints.down("sm")]: {
+      overflowX: "scroll",
+    },
+    [theme.breakpoints.down("xs")]: {
+      overflowX: "scroll",
+    },
+  },
+  container: {
+    widht: "180px",
+    height: "320px",
+    backgroundColor: "#52cbc5",
+
+    margin: "5px 10px",
+    overflowY: "scroll",
+    scrollbarWidth: "none",
+  },
+  containerItem: {
+    display: "flex",
+    flexDirection: "row",
+    paddingTop: "3px",
+    alignItem: "center",
+    textDecoration: "none",
+  },
+  containerImage: {
+    width: "100px",
+    height: "60px",
+    borderRadius: 0,
+
+    paddingTop: "0px",
+    // [theme.breakpoints.down("md")]: {
+    //   width: "30px",
+    // height: "15px",
+    // },
+    // [theme.breakpoints.down("sm")]: {
+    //   width: "50px",
+    //   height: "20px",
+    // },
+    // [theme.breakpoints.down("xs")]: {
+    //   width: "50px",
+    // height: "20px",
+    // },
+  },
+  containerTitle: {
+    margin: 0,
+    padding: "0px 5px 0px 5px",
+    fontSize: "16px",
+    fontWeight: 500,
+    fontFamily: "Helvetica",
+    color: "black",
+
+    // [theme.breakpoints.down("md")]: {
+    //   fontSize: "10px",
+    //   fontWeight: 500,
+    // },
+    // [theme.breakpoints.down("sm")]: {
+    //   fontSize: "10px",
+    //   fontWeight: 500,
+    // },
+    // [theme.breakpoints.down("xs")]: {
+    //   fontSize: "10px",
+    //   fontWeight: 500,
+    // },
+  },
+
+  textTypography: {
+    fontFamily: "Helvetica",
+    marginLeft: "10px"
+  }
+}));
 
 
-const useStyles = makeStyles({
-    root: {
-      background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-      border: 0,
-      borderRadius: 3,
-      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-      color: 'white',
-      height: 48,
-      padding: '0 30px',
-    },
-    title:{
-      fontSize: '16px',
-      padding: '5px 5px 0px 5px',
-      color: 'white',
-      backgroundColor: 'green',
-      borderRadius: '5px',
-      '&:hover': {
-        background: 'white',
-        color: 'green',
-        fontWeight: '900'
-     },
-    },
-    gridHeader: {
-      justifyContent: 'center',
-      marginTop: '10px', 
-      marginBottom: '10px',
-      backgrounColor: 'white',
-      color:'green',
-      '&:hover': {
-        background: 'white',
-     },
-      
-    },
-  
-    date:{
-      opacity:0.6,
-      fontSize: '14px',
-      display:'flex',
-      alignItem:'center',
-      textAlign:'center'
-  
-    },
-    header : {
-      fontSize: '20px'
-    }
-  });
+
+const List = ({ classes, data, link }) => {
+  return (
+    <Grid
+      container
+      component={Link}
+      to={`/${link}/${data.id}/${data.slug}`}
+      item
+      class={classes.containerItem}
+    >
+      <Grid item>
+        <img class={classes.containerImage} src={data.image} alt="" />
+      </Grid>
+      <Grid item>
+        <h4 class={classes.containerTitle}>{data.title}</h4>
+      </Grid>
+    </Grid>
+  );
+};
 
 const CategoryCarousel = () => {
+  const location = useLocation();
+  let keyword = location.search;
+  const dispatch = useDispatch();
 
-  const shops = {
-    title: "title",
-    urlToImage:
-      "https://staticg.sportskeeda.com/editor/2021/11/caca5-16370851386444-1920.jpg",
-    description: "description",
-    author: "author",
-    content: "content",
-  };
-  return (
-    <div className="slideshow-container fade">
-      <Carousel infiniteLoop useKeyboardArrows autoPlay centerMode>
-      {shops && (
-        shops.map((shop) => (
 
-        <Link to="/celebrity-detail" state={{ models: 'CELEB'}}>
-        <div className="Containers">
-          <div className="MessageInfo">
-            <img src={shop.urlToImage} alt="" />
+  const FileHandler = async (e) => {
+    const { data } = await axios.get(
+      `api/localnews/list${keyword}`)
+      }
 
-            <div className="Info">
-              <h2 className="carousel__title">{shop.title}</h2>
+
+  useEffect(() => {
+    FileHandler()
+
+  }, [
+    dispatch,
+  ]);
+
+  const localList = useSelector((state) => state.localList);
+  const {
+    error: listLocalError,
+    loading: listLocalLoading,
+    locals: listLocal,
+  } = localList;
+
+    // const data = useSelector((state) => state.localList);
+  // const {
+  //   error: listLocalError,
+  //   loading: listLocalLoading,
+  //   locals: listLocal,
+  // } = data;
+
+
+  const tourismsList = useSelector((state) => state.tourismsList);
+
+  const { error: listTourismsError, loading: listTourismsLoading , tourismss: listTourisms } = tourismsList;
+
+  const jobList = useSelector((state) => state.jobList);
+  const { error: listJobError, loading: listJobLoading , jobs: listJob, } = jobList;
+
+  const advertiseList = useSelector((state) => state.advertiseList);
+
+  const {
+    error: listAdvertiseError,
+    loading: listAdvertiseLoading,
+    advertises: listAdvertise,
+  } = advertiseList;
+
+
+  const celebrityList = useSelector((state) => state.celebrityList);
+
+  const { error: listCelebrityError, loading: listCelebrityLoading , celebrities: listCelebrity, pages, page } = celebrityList;
+
+
+  useEffect(() => {
+    dispatch(localListAction());
+    dispatch(tourismsListAction());
+    dispatch(jobListAction());
+    dispatch(advertiseListAction());
+    dispatch(celebrityListAction());
+  }, [dispatch,]);
+
+  const classes = useStyles();
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    swipeToSlide: true,
+    className: "center",
+    centerMode: true,
+    centerPadding: "30px",
+    appendDots: (dots) => (
+      <div
+        style={{
+          backgroundColor: "transparent",
+          borderRadius: "50%",
+          margin: "20px auto",
+        }}
+      >
+        <ul style={{ margin: "10px 0px" }}> {dots} </ul>
+      </div>
+    ),
+    customPaging: (i) => (
+      <div
+        style={{
+          width: "20px",
+          height: "20px",
+          color: "green",
+          border: "1px blue solid",
+          borderRadius: "50%",
+          backgroundColor: "white",
+        }}
+      >
+        {i + 1}
+      </div>
+    ),
+
+    responsive: [
+      {
+        breakpoint: 300,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          customPaging: (i) => (
+            <div
+              style={{
+                width: "10px",
+                height: "10px",
+                color: "black",
+                border: "none",
+                borderRadius: "50%",
+                backgroundColor: "transparent",
+              }}
+            >
+              {i + 1}
             </div>
-          </div>
-        </div>
-      </Link>
-        ))
-        )}
+          ),
+
+        }
+      },
+      {
+        breakpoint: 400,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          customPaging: (i) => (
+            <div
+              style={{
+                width: "10px",
+                height: "10px",
+                color: "black",
+                border: "none",
+                borderRadius: "50%",
+                backgroundColor: "transparent",
+              }}
+            >
+              {i + 1}
+            </div>
+          ),
+
+        }
+      },
+      {
+        breakpoint: 500,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          customPaging: (i) => (
+            <div
+              style={{
+                width: "10px",
+                height: "10px",
+                color: "black",
+                border: "none",
+                borderRadius: "50%",
+                backgroundColor: "transparent",
+              }}
+            >
+              {i + 1}
+            </div>
+          ),
+
+        }
+      },
+      
+    ],
+    
+
+  };
 
 
 
-      </Carousel>
+  return (
+    <div>
+      <Slider {...settings}>
+        
+            <div container class={classes.containerMain}>
+              <Grid item md={12} sm={12} lg={3} class={classes.container}>
+                <Typography className={classes.textTypography} variant="h6" gutterBottom="false">
+                  Recent News
+                </Typography>
+                <hr />
+                {listLocalLoading ? (
+                  <Loaders />
+                ) : listLocalError ? (
+                  <ErrorMessage type="error" error={listLocalError} />
+                ) : (
+                  <>
+                  {listLocal.map((item) => (
+                    <List classes={classes} data={item} link="local-detail" />
+                  ))}
+                  </>
+                )}
+              </Grid>
+            </div>
+            <div container class={classes.containerMain}>
+              <Grid item md={12} sm={12} lg={3} class={classes.container}>
+                <Typography className={classes.textTypography} variant="h6" gutterBottom="false">
+                  Recent Advertise
+                </Typography>
+                <hr />
+                {listAdvertiseLoading ? (
+                    <Loaders />
+                  ) : listAdvertiseError ? (
+                    <ErrorMessage type="error" error={listAdvertiseError} />
+                  ) : (
+                    <>
+                  {listAdvertise.map((item) => (
+                    <List classes={classes} data={item} link="advertise-detail" />
+                  ))}
+                  </>
+                  )}
+              </Grid>
+            </div>
+            <div container class={classes.containerMain}>
+              <Grid item md={12} sm={12} lg={3} class={classes.container}>
+                <Typography className={classes.textTypography} variant="h6" gutterBottom="false">
+                  Top Tourisms
+                </Typography>
+                <hr />
+                {listTourismsLoading ? (
+                  <Loaders />
+                ) : listTourismsError ? (
+                  <ErrorMessage type="error" error={listTourismsError} />
+                ) : (
+                  <>
+                  {listTourisms.map((item) => (
+                    <List classes={classes} data={item} link="tourisms-detail" />
+                  ))}
+                  </>
+                )}
+              </Grid>
+            </div>
+            <div container class={classes.containerMain}>
+              <Grid item md={12} sm={12} lg={3} class={classes.container}>
+                <Typography className={classes.textTypography} variant="h6" gutterBottom="false">
+                  Recent Job
+                </Typography>
+                <hr />
+                {listJobLoading ? (
+                <Loaders />
+              ) : listJobError ? (
+                <ErrorMessage type="error" error={listJobError} />
+              ) : (
+                <>
+                  {listJob.map((item) => (
+                    <List classes={classes} data={item} link="job-detail" />
+                  ))}
+                  </>
+              )}
+              </Grid>
+            </div>
+            <div container class={classes.containerMain}>
+              <Grid item md={12} sm={12} lg={3} class={classes.container}>
+                <Typography className={classes.textTypography} variant="h6" gutterBottom="false">
+                  Trend
+                </Typography>
+                <hr />
+                {listCelebrityLoading ? (
+                <Loaders />
+              ) : listJobError ? (
+                <ErrorMessage type="error" error={listCelebrityError} />
+              ) : (
+                <>
+                  {listCelebrity.map((item) => (
+                    <List classes={classes} data={item} link="celebrity-detail" />
+                  ))}
+                  </>
+              )}
+              </Grid>
+            </div>
 
+         
+      </Slider>
     </div>
+
   );
 };
 

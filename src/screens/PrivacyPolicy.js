@@ -3,7 +3,6 @@ import Footers from "../components/Footers";
 import Banners from "../components/Banners";
 import { useNavigate, Link } from "react-router-dom";
 
-import "../css_styles/TechList.css";
 // IMPORT FROM ACTIONS
 
 

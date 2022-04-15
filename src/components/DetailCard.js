@@ -1,5 +1,4 @@
 import React from "react";
-import "../css_styles/DetailCard.css";
 import SocialShare from "../components/SocialShare";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import { makeStyles } from "@mui/styles";

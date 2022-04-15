@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
 import Loaders from "../components/Loader";
-import "../css_styles/UserTable.css";
 import { Button, Grid,} from "@mui/material";
 
 

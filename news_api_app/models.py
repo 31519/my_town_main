@@ -109,6 +109,7 @@ class LocalNews(models.Model):
     content = models.TextField(null=True, blank=True, default='content')
     # createdAt = models.DateTimeField(auto_now_add =True)
     createdAt = models.DateTimeField(auto_now_add=True)
+    flag = models.IntegerField(default=0, blank=True, null=True)
     slug = models.SlugField(max_length=500, blank=True, null=True)
     publishedAt = models.CharField(max_length=300, null=True,blank=True, default='PublishedAt')
 

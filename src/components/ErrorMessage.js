@@ -1,5 +1,4 @@
 import React from "react";
-import "../css_styles/cards.css";
 
 import Alert from '@mui/material/Alert';
 

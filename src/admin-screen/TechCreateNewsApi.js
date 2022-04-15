@@ -5,7 +5,6 @@ import { createTechs, createHealth, createBusiness, createScience } from "../act
 import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 
-import "../css_styles/TechCreate.css";
 
 import { Grid, Button } from "@mui/material";
 

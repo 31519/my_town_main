@@ -19,9 +19,7 @@ import AdminTable from "../components/Table";
 import TechCreateNewsApi from "./TechCreateNewsApi";
 
 // CSS IMPORT
-import "../css_styles/AdminDashboard.css";
-import "../css_styles/UserTable.css";
-import "../css_styles/Advertise.css";
+
 
 import { userListActions } from "../actions/userActions";
 import SideBar from "../components/SideBar";

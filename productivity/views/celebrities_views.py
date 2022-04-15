@@ -15,16 +15,17 @@ def CelebritiesList(request):
     if query ==None:
         query = ""
 
-    celebrities = Celebrities.objects.filter(title__icontains=query, isApproved=True)
+    celebrities = Celebrities.objects.filter(title__icontains=query, isApproved=True).order_by('-flag', '-createdAt')
 
     page = request.query_params.get('page')
     paginator = Paginator(celebrities, 8)
     try:
         celebrities = paginator.page(page)
     except EmptyPage:
-        celebrities = paginator.page(1)
-    except PageNotAnInteger:
         celebrities = paginator.page(paginator.num_pages)
+    except PageNotAnInteger:
+        
+        ourisms = paginator.page(1)
 
     if page == None:
         page = 1

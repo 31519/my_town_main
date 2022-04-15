@@ -18,7 +18,6 @@ import { formDetailAction } from "../actions/advertiseActions";
 import { formUpdateAction } from "../actions/advertiseActions";
 import { FORM_UPDATE_RESET } from "../constants/productivityConstants";
 
-import "../css_styles/TechCreate.css";
 
 const RequestFormUpdate = () => {
   const params = useParams();

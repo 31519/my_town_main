@@ -16,7 +16,6 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import "../css_styles/Navbars.css";
 
 export default function Navbars() {
   const userLogin = useSelector((state) => state.userLogin);
@@ -71,7 +70,7 @@ export default function Navbars() {
                 spacing={2}
               >
 
-                {userInfo ? (
+                {/* {userInfo ? (
                   <Grid style={{ dispaly: "flex", flexDirection: "row" }}>
                     <span>
                       <AccountCircle />
@@ -84,7 +83,7 @@ export default function Navbars() {
                   <Link className="text-link" to="/login">
                     <AccountCircle />
                   </Link>
-                )}
+                )} */}
                 {/* </IconButton> */}
                 
               </Grid>

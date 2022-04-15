@@ -18,7 +18,6 @@ import {
 
 import { HOTEL_UPDATE_RESET } from "../constants/productivityConstants";
 
-import "../css_styles/TechCreate.css";
 
 const HotelUpdate = () => {
   const params = useParams();

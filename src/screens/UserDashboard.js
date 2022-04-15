@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import "../css_styles/UserDashboard.css";
 // import AdminSidebar from "../components/AdminSidebar";
 import Footers from "../components/Footers";
 // import AdminTable from "../components/Table";

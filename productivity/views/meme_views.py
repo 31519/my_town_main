@@ -103,7 +103,7 @@ def MemeImage(request):
 # Banner
 @api_view(['GET'])
 def BannerList(request):
-    banner = Banner.objects.all()
+    banner = Banner.objects.all().order_by('-flag', '-createdAt')
     serializer = BannerSerializers(banner, many=True)
     return Response(serializer.data)
 

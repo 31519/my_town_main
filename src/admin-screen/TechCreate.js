@@ -5,7 +5,6 @@ import {createTechs} from '../actions/techActions'
 
 import TechCreateNewsApi from '../admin-screen/TechCreateNewsApi'
 
-import "../css_styles/TechCreate.css";
 
 const TechCreate = () => {
   const [techs, setTechs] =  useState([])
