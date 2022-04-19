@@ -25,9 +25,17 @@ const Header = () => {
     <>
     <div className="techlist">
       <Banners />
+      {/* <!-- Ezoic - under_page_title - under_page_title --> */}
+      <div id="ezoic-pub-ad-placeholder-105"> </div>
+      {/* <!-- End Ezoic - under_page_title - under_page_title --> */}
+
       <CategoryCarousel  />
       <Categories />
       <AdvertiseBanner/>
+
+      {/* <!-- Ezoic - under_first_paragraph - under_first_paragraph --> */}
+      <div id="ezoic-pub-ad-placeholder-108"> </div>
+      {/* <!-- End Ezoic - under_first_paragraph - under_first_paragraph --> */}
       
 
     </div>

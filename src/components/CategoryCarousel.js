@@ -90,6 +90,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
     fontFamily: "Helvetica",
     color: "black",
+    opacity: "0.8"
 
     // [theme.breakpoints.down("md")]: {
     //   fontSize: "10px",
@@ -314,6 +315,8 @@ const CategoryCarousel = () => {
     <div>
       <Slider {...settings}>
         
+        {listLocal.length && (
+
             <div container class={classes.containerMain}>
               <Grid item md={12} sm={12} lg={3} class={classes.container}>
                 <Typography className={classes.textTypography} variant="h6" gutterBottom="false">
@@ -333,6 +336,11 @@ const CategoryCarousel = () => {
                 )}
               </Grid>
             </div>
+                      
+        )}
+
+            {listAdvertise.length && (
+
             <div container class={classes.containerMain}>
               <Grid item md={12} sm={12} lg={3} class={classes.container}>
                 <Typography className={classes.textTypography} variant="h6" gutterBottom="false">
@@ -352,6 +360,12 @@ const CategoryCarousel = () => {
                   )}
               </Grid>
             </div>
+                          
+            )}
+
+
+            {listTourisms.length && (
+
             <div container class={classes.containerMain}>
               <Grid item md={12} sm={12} lg={3} class={classes.container}>
                 <Typography className={classes.textTypography} variant="h6" gutterBottom="false">
@@ -371,6 +385,11 @@ const CategoryCarousel = () => {
                 )}
               </Grid>
             </div>
+            )}
+
+            {listJob.length && (
+
+            
             <div container class={classes.containerMain}>
               <Grid item md={12} sm={12} lg={3} class={classes.container}>
                 <Typography className={classes.textTypography} variant="h6" gutterBottom="false">
@@ -390,6 +409,12 @@ const CategoryCarousel = () => {
               )}
               </Grid>
             </div>
+            )}
+
+
+            { listCelebrity.length && (
+
+            
             <div container class={classes.containerMain}>
               <Grid item md={12} sm={12} lg={3} class={classes.container}>
                 <Typography className={classes.textTypography} variant="h6" gutterBottom="false">
@@ -398,7 +423,7 @@ const CategoryCarousel = () => {
                 <hr />
                 {listCelebrityLoading ? (
                 <Loaders />
-              ) : listJobError ? (
+              ) : listCelebrityError ? (
                 <ErrorMessage type="error" error={listCelebrityError} />
               ) : (
                 <>
@@ -409,6 +434,7 @@ const CategoryCarousel = () => {
               )}
               </Grid>
             </div>
+            )}
 
          
       </Slider>

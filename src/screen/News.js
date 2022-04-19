@@ -92,6 +92,9 @@ const useStyles = makeStyles((theme) => ({
     color: "green",
     padding: 0,
   },
+  title: {
+    fontFamily: "sans-serif"
+  }
 }));
 
 const News = () => {
@@ -174,7 +177,7 @@ const News = () => {
                         {data.state}
                       </Typography>
                       <CardContent>
-                        <Typography variant="h3" color="secondary" gutterBottom>
+                        <Typography className={classes.title} variant="h3" color="secondary" gutterBottom>
                           {data.title}
                         </Typography>
                         <Typography

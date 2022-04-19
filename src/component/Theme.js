@@ -23,7 +23,7 @@ export default createTheme({
     },
     
     typography:{
-        fontFamily: "Pacifico",
+        // fontFamily: "Pacifico",
         // fontSize: 20,
 
         h6: {

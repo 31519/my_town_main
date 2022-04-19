@@ -6,7 +6,7 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
   container:{
-    backgroundColor: "black",
+    backgroundColor: "#0d1e26",
     marginTop: "50px"
   },
   inTouch: {

@@ -50,9 +50,10 @@ export default function Navbars() {
             {/* <AccountCircle /> */}
             <MenuIcon />
           </IconButton>
-          <Link className="text-link" to="/">
-            {/* <h2 className="navbar-logo">inmatown</h2> */}
-            <img style={{width:'100px', height:'40px', margin:'0px', padding:'0px'}} src="images/mylogo.png" alt="inmatown"/>
+          <Link style={{textDecoration: "none", color: "white"}} to="/">
+            <h2 className="navbar-logo">INMATOWN</h2>
+            {/* <img style={{width:'100px', height:'40px', margin:'0px', padding:'0px'}} src="images/mylogo.png" alt="inmatown"/> */}
+
 
           </Link>
           {auth && (

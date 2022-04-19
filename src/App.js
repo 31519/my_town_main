@@ -66,6 +66,9 @@ function App() {
       <ThemeProvider theme={Theme}>
       <Router>
       <Navbars />
+      {/* <!-- Ezoic - top_of_page - top_of_page --> */}
+      <div id="ezoic-pub-ad-placeholder-104"> </div>
+      {/* <!-- End Ezoic - top_of_page - top_of_page --> */}
       <Header/>
         <Routes>
 
@@ -109,6 +112,9 @@ function App() {
 
         </Routes>
         <>
+        {/* <!-- Ezoic - bottom_of_page - bottom_of_page --> */}
+        <div id="ezoic-pub-ad-placeholder-107"> </div>
+        {/* <!-- End Ezoic - bottom_of_page - bottom_of_page --> */}
         <Footers/>
         </>
       </Router>
