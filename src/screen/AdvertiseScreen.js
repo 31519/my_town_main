@@ -6,32 +6,93 @@ import SocialShare from "../components/SocialShare";
 import SearchBox from "../components/SearchBox";
 import { advertiseListAction } from "../actions/advertiseActions";
 import Loaders from "../components/Loader";
+import { localListAction } from "../actions/advertiseActions";
 import ErrorMessage from "../components/ErrorMessage";
 import { makeStyles } from "@mui/styles";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import { Link } from "react-router-dom";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
-
+import ListCategory from "../components/ListCategory";
 
 import {
   Typography,
-  Container,
-  Paper,
-  Card,
-  CardMedia,
-  CardContent,
   Button,
 } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
-  [theme.breakpoints.up("md")]: {
-    container: {
-      width: 700,
-      margin: "auto",
+  [theme.breakpoints.up("md")]: {},
+  container: {
+    display: "flex",
+    flexDirection: "row",
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: "column",
+    },
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "column",
+    },
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "column",
     },
   },
   card: {
     width: "100%",
+  },
+  containerParent: {
+    display: "flex",
+    flexDirection: "row",
+    margin: "10px",
+  },
+  containerOne: {
+    height: "150px",
+    width: "250px",
+    margin: "5px",
+    [theme.breakpoints.down("xs")]: {
+      height: "100px",
+      width: "120px",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "100px",
+      width: "120px",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "100px",
+      width: "120px",
+    },
+  },
+  image: {
+    objectFit: "cover",
+    height: "150px",
+    width: "250px",
+    [theme.breakpoints.down("xs")]: {
+      height: "100px",
+      width: "120px",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "100px",
+      width: "120px",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "100px",
+      width: "120px",
+    },
+  },
+  containerTwo: {
+    overflowWrap: "break-word",
+    margin: "5px",
+    // inlineSize: "150px",
+    // height: "200px",
+    width: "500px",
+    [theme.breakpoints.down("xs")]: {
+      // height: "100px",
+      width: "130px",
+    },
+    [theme.breakpoints.down("md")]: {
+      // height: "100px",
+      width: "100%",
+    },
+    [theme.breakpoints.up("md")]: {
+      // height: "200px",
+      width: "500px",
+    },
   },
 
   cardMedia: {
@@ -73,10 +134,20 @@ const useStyles = makeStyles((theme) => ({
   },
   stateBox: {
     color: "white",
-    backgroundColor: "#158f89",
+    backgroundColor: "rgb(193 79 201 / 74%);",
     padding: "4px",
     display: "flex",
     width: "100px",
+    position: "absolute",
+    [theme.breakpoints.down("xs")]: {
+      width: "90px",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "90px",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "90px",
+    },
   },
   button: {
     color: "white",
@@ -84,30 +155,118 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 4px 0 4px",
     margin: 0,
     borderRadius: 0,
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "10px",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "10px",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "10px",
+    },
+  },
+  socialShare: {
+    [theme.breakpoints.down("xs")]: {
+      display: "none",
+    },
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
   },
   date: {
-    fontWeight: 500,
-    marginLeft: "5px",
+    fontWeight: 600,
+    margin: "0px ",
     fontFamily: "Monospace",
     color: "green",
     padding: 0,
+    opacity: "0.7",
+    [theme.breakpoints.down("xs")]: {
+      opacity: "1",
+      fontSize: "10px",
+    },
+    [theme.breakpoints.down("md")]: {
+      opacity: "1",
+      fontSize: "10px",
+    },
+    [theme.breakpoints.down("md")]: {
+      opacity: "1",
+      fontSize: "10px",
+    },
   },
-  startDate: {
-    fontSize: "12px",
-    paddingBottom: "10px",
-    margin: "0px",
-    fontFamily: "Monospace",
-    fontWeight: "bold",
-    color: "blue"
+  title: {
+    fontFamily: "Helvetica",
+    overflowWrap: "break-word",
+    wordBreak: "break-word",
+    fontSize: "20px",
+    letterSpacing: "1px",
+    fontWeight: 500,
+    color: "black",
+    margin: "5px",
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "16px",
+      letterSpacing: "0.6px",
+      fontWeight: 600,
+      color: "black",
+      margin: "3px",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "100px",
+      width: "100%",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "16px",
+      letterSpacing: "0.6px",
+      fontWeight: 500,
+      color: "black",
+      margin: "3px",
+    },
   },
-  endDate: {
-    fontSize: "12px",
-    paddingBottom: "10px",
-    margin: "0px",
-    fontFamily: "Monospace",
-    fontWeight: "bold",
-    color: "red"
-  }
+  Buttom: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-evently",
+    margin: "5px",
+  },
+  aside: {
+    // border: "1px solid red",
+    // width: "100%",
+    margin: "10px",
+    [theme.breakpoints.down("xs")]: {
+      margin: "0px",
+    },
+    [theme.breakpoints.down("md")]: {
+      margin: "0px",
+    },
+    [theme.breakpoints.down("md")]: {
+      margin: "0px",
+    },
+  },
+  content: {
+    fontFamily: "Helvetica",
+    fontSize: "16px",
+    fontWeight: 500,
+    color: "blue",
+    margin: "5px",
+    [theme.breakpoints.down("xs")]: {
+      display: "none",
+      
+      overflowWrap: "break-word",
+    wordBreak: "break-word",
+    },
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+      overflowWrap: "break-word",
+    wordBreak: "break-word",
+    },
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+      overflowWrap: "break-word",
+    wordBreak: "break-word",
+    },
+  },
 }));
 
 const AdvertiseScreen = () => {
@@ -128,92 +287,116 @@ const AdvertiseScreen = () => {
     page,
   } = advertiseList;
 
+  const localList = useSelector((state) => state.localList);
+
+  const {
+    error: listLocalError,
+    loading: listLocalLoading,
+    locals: listLocal,
+  } = localList;
+
   useEffect(() => {
+    dispatch(localListAction(keyword));
     dispatch(advertiseListAction(keyword));
   }, [dispatch, keyword]);
   return (
     <>
       <SearchBox />
-      <div className={classes.container}>
-        <Container disableGutters>
+      {listAdvertise && (
 
-          {listAdvertiseLoading ? (
-            <Loaders />
-          ) : listAdvertiseError ? (
+      
+        <div>
+          {listAdvertiseError ? (
             <ErrorMessage type="error" error={listAdvertiseError} />
           ) : (
-            <div item>
-              {listAdvertise.map((data) => (
-                <Paper elevation={20} square={true} className={classes.paper}>
+            <div className={classes.container}>
+              <div>
+                {listAdvertise.map((data) => (
                   <Link
                     className={classes.textLink}
                     to={`/advertise-detail/${data.id}/${data.slug}`}
                   >
-                  <Card className={classes.card} key={data.id}>
-                  <h2
-                    variant="h6"
-                    gutterBottom
-                    color="primary"
-                    className={classes.date}
-                  >
-                    UPDATED ON{" "}
-                    {data.createdAt && data.createdAt.split("T", 1)}{" "}
-                    {"Time"}{" "}
-                    {data.createdAt && data.createdAt.substr(11, 8)}
-                  </h2>
+                    <div className={classes.containerParent}>
+                      <div className={classes.containerOne}>
+                        <div className={classes.stateBox}>
+                          <Typography variant="p">MEGHALAYA</Typography>
+                        </div>
+                        <div className={classes.ImageContainer}>
+                          <img
+                            className={classes.image}
+                            key={data.id}
+                            src={data.image}
+                            alt={data.title}
+                          />
+                        </div>
+                      </div>
+                      <div className={classes.containerTwo}>
+                        <h3
+                          variant="h6"
+                          color="primary"
+                          className={classes.date}
+                        >
+                          UPDATED ON{" "}
+                          {data.createdAt && data.createdAt.split("T", 1)}{" "}
+                          {"Time"}{" "}
+                          {data.createdAt && data.createdAt.substr(11, 8)}
+                        </h3>
 
-                  <div className={classes.stateBox}>
-                    <Typography variant="title">{data.state}</Typography>
-                  </div>
-                      <CardMedia
-                        class={classes.cardMedia}
-                        component="img"
-                        image={data.image}
-                        alt={"img"}
-                      />
-
-
-                      <Typography variant="h5" gutterBottom>
-                        <CalendarTodayIcon
-                          style={{
-                            fill: "green",
-                            fontSize: "20px",
-                            fontWeight: "800",
-                          }}
-                        />
-                        {data.createdAt && data.createdAt.split("T", 1)}{" "}
-                        {"Time"}{" "}
-                        {data.createdAt && data.createdAt.substr(11, 8)}
-                      </Typography>
-
-
-                      <CardContent>
-                        <Typography variant="h3" color="secondary" gutterBottom>
+                        
+                        <h3
+                          className={classes.title}
+                          variant="h3"
+                          color="secondary"
+                          gutterBottom
+                        >
                           {data.title}
-                        </Typography>
+                        </h3>
                         <Typography
-                          variant="h5"
+                          className={classes.content}
+                          variant="h6"
                           color="secondary"
                           noWrap
                           gutterBottom
+                          paragraph
                         >
                           {data.content}
                         </Typography>
-                        <Button className={classes.button} variant="contained">
-                      Read More ..
-                    </Button>
-                      </CardContent>
-                      <SocialShare url={socialmedia} />
-                    </Card>
+
+                        <div className={classes.Buttom}>
+                          <div>
+                            <Button
+                              className={classes.button}
+                              variant="contained"
+                            >
+                              Read More
+                            </Button>
+                          </div>
+                          <div className={classes.socialShare}>
+                            <SocialShare url={socialmedia} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </Link>
-                </Paper>
-              ))}
+                ))}
+                <IndexAdvertiseBanner index={3} />
+              </div>
+              <div className={classes.aside}>
+                <ListCategory
+                  error={listLocalError}
+                  list={listLocal}
+                  loading={listLocalLoading}
+                  link="local-detail"
+                  name="News"
+                />
+              </div>
             </div>
           )}
-          <Paginate keyword={keyword} page={page} pages={pages} />
-          <IndexAdvertiseBanner index={2}/>
-        </Container>
-      </div>
+          
+        </div>
+        )}
+
+      <Paginate keyword={keyword} page={page} pages={pages} />
     </>
   );
 };

@@ -208,7 +208,7 @@ const LocalDetail = () => {
             </div>
           )}
 
-          <ListCategory error={listLocalError} list={listLocal} loading={listLocalLoading} link="local-detail" />
+          <ListCategory error={listLocalError} list={listLocal} loading={listLocalLoading} link="local-detail" name="News" />
           <IndexAdvertiseBanner index={3}/>
         </Container>
       </div>

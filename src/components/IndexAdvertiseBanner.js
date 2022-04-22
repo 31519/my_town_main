@@ -10,11 +10,9 @@ import "slick-carousel/slick/slick-theme.css";
 import { advertiseListAction } from "../actions/advertiseActions";
 import { Link } from "react-router-dom";
 
-
-
 const useStyles = makeStyles((theme) => ({
   container: {
-      width: "100%",
+    width: "100%",
     [theme.breakpoints.up("md")]: {
       height: "320px",
     },
@@ -28,10 +26,14 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       height: "280px",
       width: "100%",
+
+      objectFit: "cover",
     },
     [theme.breakpoints.down("md")]: {
       height: "180px",
       width: "100%",
+
+      objectFit: "cover",
     },
   },
   title: {
@@ -66,10 +68,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const IndexAdvertiseBanner = ({index=0, link="advertise-detail"}) => {
+const IndexAdvertiseBanner = ({ index = 0, link = "advertise-detail" }) => {
   const location = useLocation();
   const dispatch = useDispatch();
-
 
   const classes = useStyles();
 
@@ -81,52 +82,46 @@ const IndexAdvertiseBanner = ({index=0, link="advertise-detail"}) => {
     advertises: listAdvertise,
   } = advertiseList;
 
-  const indexData = listAdvertise[index]
+  const indexData = listAdvertise[index];
 
   useEffect(() => {
     dispatch(advertiseListAction());
   }, [dispatch]);
   return (
     <>
-    {indexData && (
-
-    
-    <div >
-      {indexData && indexData.length !== 0 ? (
-      <h2 className={classes.heading}>Advertisement</h2>
-      ): null }
-      {indexData && listAdvertiseLoading ? (
-        <Loaders />
-      ) : listAdvertiseError ? (
-        <ErrorMessage type="error" error={listAdvertiseError} />
-      ) : (
-
-          
-          <div className={classes.container} container>
-          {indexData && (
-              <Link
-              className={classes.textLink}
-              to={`/${link}/${indexData.id}/${indexData.slug}`}
-            >
-              
-              <>
-              <img
-                className={classes.image}
-                key={indexData.id}
-                src={indexData.image}
-                alt={indexData.title}
-              />
-              <h2 className={classes.title}>{indexData.title}</h2>
-              </>
-              </Link>
+      {indexData && (
+        <div>
+          {indexData && indexData.length !== 0 ? (
+            <h2 className={classes.heading}>Advertisement</h2>
+          ) : null}
+          {indexData && listAdvertiseLoading ? (
+            <Loaders />
+          ) : listAdvertiseError ? (
+            <ErrorMessage type="error" error={listAdvertiseError} />
+          ) : (
+            <div className={classes.container} container>
+              {indexData && (
+                <Link
+                  className={classes.textLink}
+                  to={`/${link}/${indexData.id}/${indexData.slug}`}
+                >
+                  <>
+                    <img
+                      className={classes.image}
+                      key={indexData.id}
+                      src={indexData.image}
+                      alt={indexData.title}
+                    />
+                    <h2 className={classes.title}>{indexData.title}</h2>
+                  </>
+                </Link>
               )}
               <hr />
-            </div> )}
-         
-      
-    </div>
-    )}
-  </>
+            </div>
+          )}
+        </div>
+      )}
+    </>
   );
 };
 

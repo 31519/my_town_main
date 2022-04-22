@@ -237,7 +237,7 @@ const JobDetail = () => {
               <IndexAdvertiseBanner index={2}/>
             </div>
           )}
-          <ListCategory error={listAdvertiseError} list={listAdvertise} loading={listAdvertiseLoading} link="advertise-detail" />
+          <ListCategory error={listAdvertiseError} list={listAdvertise} loading={listAdvertiseLoading} link="advertise-detail" name="Advertise"/>
           <IndexAdvertiseBanner index={3}/>
         </Container>
 

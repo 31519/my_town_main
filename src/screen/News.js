@@ -8,30 +8,91 @@ import SocialShare from "../components/SocialShare";
 import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import { makeStyles } from "@mui/styles";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import ListCategory from "../components/ListCategory";
 import { Link } from "react-router-dom";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
-
+import { advertiseListAction } from "../actions/advertiseActions";
 
 import {
   Typography,
-  Container,
   Button,
-  Paper,
-  Card,
-  CardMedia,
-  CardContent,
 } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
-  [theme.breakpoints.up("md")]: {
-    container: {
-      width: 700,
-      margin: "auto",
+  [theme.breakpoints.up("md")]: {},
+  container: {
+    display: "flex",
+    flexDirection: "row",
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: "column",
+    },
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "column",
+    },
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "column",
     },
   },
   card: {
     width: "100%",
+  },
+  containerParent: {
+    display: "flex",
+    flexDirection: "row",
+    margin: "10px",
+  },
+  containerOne: {
+    height: "150px",
+    width: "250px",
+    margin: "5px",
+    [theme.breakpoints.down("xs")]: {
+      height: "100px",
+      width: "120px",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "100px",
+      width: "120px",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "100px",
+      width: "120px",
+    },
+  },
+  image: {
+    objectFit: "cover",
+    height: "150px",
+    width: "250px",
+    [theme.breakpoints.down("xs")]: {
+      height: "100px",
+      width: "120px",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "100px",
+      width: "120px",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "100px",
+      width: "120px",
+    },
+  },
+  containerTwo: {
+    overflowWrap: "break-word",
+    margin: "5px",
+    // inlineSize: "150px",
+    // height: "200px",
+    width: "500px",
+    [theme.breakpoints.down("xs")]: {
+      // height: "100px",
+      width: "130px",
+    },
+    [theme.breakpoints.down("md")]: {
+      // height: "100px",
+      width: "100%",
+    },
+    [theme.breakpoints.up("md")]: {
+      // height: "200px",
+      width: "500px",
+    },
   },
 
   cardMedia: {
@@ -73,10 +134,20 @@ const useStyles = makeStyles((theme) => ({
   },
   stateBox: {
     color: "white",
-    backgroundColor: "#158f89",
+    backgroundColor: "rgb(193 79 201 / 74%);",
     padding: "4px",
     display: "flex",
     width: "100px",
+    position: "absolute",
+    [theme.breakpoints.down("xs")]: {
+      width: "90px",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "90px",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "90px",
+    },
   },
   button: {
     color: "white",
@@ -84,17 +155,118 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 4px 0 4px",
     margin: 0,
     borderRadius: 0,
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "10px",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "10px",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "10px",
+    },
+  },
+  socialShare: {
+    [theme.breakpoints.down("xs")]: {
+      display: "none",
+    },
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
   },
   date: {
-    fontWeight: 500,
-    marginLeft: "5px",
+    fontWeight: 600,
+    margin: "0px ",
     fontFamily: "Monospace",
     color: "green",
     padding: 0,
+    opacity: "0.7",
+    [theme.breakpoints.down("xs")]: {
+      opacity: "1",
+      fontSize: "10px",
+    },
+    [theme.breakpoints.down("md")]: {
+      opacity: "1",
+      fontSize: "10px",
+    },
+    [theme.breakpoints.down("md")]: {
+      opacity: "1",
+      fontSize: "10px",
+    },
   },
   title: {
-    fontFamily: "sans-serif"
-  }
+    fontFamily: "Helvetica",
+    overflowWrap: "break-word",
+    wordBreak: "break-word",
+    fontSize: "20px",
+    letterSpacing: "1px",
+    fontWeight: 500,
+    color: "black",
+    margin: "5px",
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "16px",
+      letterSpacing: "0.6px",
+      fontWeight: 600,
+      color: "black",
+      margin: "3px",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "100px",
+      width: "100%",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "16px",
+      letterSpacing: "0.6px",
+      fontWeight: 500,
+      color: "black",
+      margin: "3px",
+    },
+  },
+  Buttom: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-evently",
+    margin: "5px",
+  },
+  aside: {
+    // border: "1px solid red",
+    // width: "100%",
+    margin: "10px",
+    [theme.breakpoints.down("xs")]: {
+      margin: "0px",
+    },
+    [theme.breakpoints.down("md")]: {
+      margin: "0px",
+    },
+    [theme.breakpoints.down("md")]: {
+      margin: "0px",
+    },
+  },
+  content: {
+    fontFamily: "Helvetica",
+    fontSize: "16px",
+    fontWeight: 500,
+    color: "blue",
+    margin: "5px",
+    [theme.breakpoints.down("xs")]: {
+      display: "none",
+      
+      overflowWrap: "break-word",
+    wordBreak: "break-word",
+    },
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+      overflowWrap: "break-word",
+    wordBreak: "break-word",
+    },
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+      overflowWrap: "break-word",
+    wordBreak: "break-word",
+    },
+  },
 }));
 
 const News = () => {
@@ -117,71 +289,73 @@ const News = () => {
     page,
   } = localList;
 
+  const advertiseList = useSelector((state) => state.advertiseList);
+
+  const {
+    error: listAdvertiseError,
+    loading: listAdvertiseLoading,
+    advertises: listAdvertise,
+  } = advertiseList;
+
   useEffect(() => {
     dispatch(localListAction(keyword));
+    dispatch(advertiseListAction(keyword));
   }, [dispatch, keyword]);
   return (
     <>
       <SearchBox />
-    {listLocal && (
-      <div className={classes.container}>
-        <Container disableGutters>
+      {listLocal && (
+        <div>
           {listLocalLoading ? (
             <Loaders />
           ) : listLocalError ? (
             <ErrorMessage type="error" error={listLocalError} />
           ) : (
-            <div item>
-              {listLocal.map((data) => (
-                <Paper elevation={20} square={true} className={classes.paper}>
+            <div className={classes.container}>
+              <div>
+                {listLocal.map((data) => (
                   <Link
                     className={classes.textLink}
                     to={`/local-detail/${data.id}/${data.slug}`}
                   >
-                    <Card className={classes.card} key={data.id}>
-                      <h2
-                        variant="h6"
-                        gutterBottom
-                        color="primary"
-                        className={classes.date}
-                      >
-                        UPDATED ON{" "}
-                        {data.createdAt && data.createdAt.split("T", 1)}{" "}
-                        {"Time"}{" "}
-                        {data.createdAt && data.createdAt.substr(11, 8)}
-                      </h2>
-
-                      <div className={classes.stateBox}>
-                        <Typography variant="title">MEGHALAYA</Typography>
+                    <div className={classes.containerParent}>
+                      <div className={classes.containerOne}>
+                        <div className={classes.stateBox}>
+                          <Typography variant="p">MEGHALAYA</Typography>
+                        </div>
+                        <div className={classes.ImageContainer}>
+                          <img
+                            className={classes.image}
+                            key={data.id}
+                            src={data.image}
+                            alt={data.title}
+                          />
+                        </div>
                       </div>
-                      <CardMedia
-                        class={classes.cardMedia}
-                        component="img"
-                        image={data.image}
-                        alt={"img"}
-                      />
-                      <Typography variant="h5" gutterBottom>
-                        <CalendarTodayIcon
-                          style={{
-                            fill: "green",
-                            fontSize: "20px",
-                            fontWeight: "800",
-                          }}
-                        />
-                        {data.createdAt && data.createdAt.split("T", 1)}{" "}
-                        {"Time"}{" "}
-                        {data.createdAt && data.createdAt.substr(11, 8)}
-                      </Typography>
+                      <div className={classes.containerTwo}>
+                        <h3
+                          variant="h6"
+                          color="primary"
+                          className={classes.date}
+                        >
+                          UPDATED ON{" "}
+                          {data.createdAt && data.createdAt.split("T", 1)}{" "}
+                          {"Time"}{" "}
+                          {data.createdAt && data.createdAt.substr(11, 8)}
+                        </h3>
 
-                      <Typography variant="h5" gutterBottom>
-                        {data.state}
-                      </Typography>
-                      <CardContent>
-                        <Typography className={classes.title} variant="h3" color="secondary" gutterBottom>
+                        
+                        <h3
+                          className={classes.title}
+                          variant="h3"
+                          color="secondary"
+                          gutterBottom
+                        >
                           {data.title}
-                        </Typography>
+                        </h3>
                         <Typography
-                          variant="h5"
+                          className={classes.content}
+                          variant="h6"
                           color="secondary"
                           noWrap
                           gutterBottom
@@ -189,22 +363,40 @@ const News = () => {
                         >
                           {data.content}
                         </Typography>
-                        <Button className={classes.button} variant="contained">
-                          Read More ..
-                        </Button>
-                      </CardContent>
-                      <SocialShare url={socialmedia} />
-                    </Card>
+
+                        <div className={classes.Buttom}>
+                          <div>
+                            <Button
+                              className={classes.button}
+                              variant="contained"
+                            >
+                              Read More
+                            </Button>
+                          </div>
+                          <div className={classes.socialShare}>
+                            <SocialShare url={socialmedia} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </Link>
-                </Paper>
-              ))}
+                ))}
+                <IndexAdvertiseBanner index={1} />
+              </div>
+              <div className={classes.aside}>
+                <ListCategory
+                  error={listAdvertiseError}
+                  list={listAdvertise}
+                  loading={listAdvertiseLoading}
+                  link="advertise-detail"
+                  name="Advertise"
+                />
+              </div>
             </div>
           )}
-        </Container>
-        <IndexAdvertiseBanner index={1}/>
-      </div>
-
-      ) }
+          
+        </div>
+      )}
 
       <Paginate keyword={keyword} page={page} pages={pages} />
     </>

@@ -12,10 +12,10 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
 import { localListAction } from "../actions/advertiseActions";
-import {tourismsListAction} from "../actions/advertiseActions2";
-import {jobListAction} from "../actions/advertiseActions2";
+import { tourismsListAction } from "../actions/advertiseActions2";
+import { jobListAction } from "../actions/advertiseActions2";
 import { advertiseListAction } from "../actions/advertiseActions";
-import {celebrityListAction} from "../actions/advertiseActions";
+import { celebrityListAction } from "../actions/advertiseActions";
 
 import axios from "axios";
 const useStyles = makeStyles((theme) => ({
@@ -47,11 +47,13 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("xs")]: {
       overflowX: "scroll",
     },
+
+    // borderShadow: "0px 5px 10px 0px rgba(0,0,0,0.5"
   },
   container: {
     widht: "180px",
     height: "320px",
-    backgroundColor: "#52cbc5",
+    backgroundColor: "#e8f1f0",
 
     margin: "5px 10px",
     overflowY: "scroll",
@@ -60,16 +62,17 @@ const useStyles = makeStyles((theme) => ({
   containerItem: {
     display: "flex",
     flexDirection: "row",
-    paddingTop: "3px",
+    padding: "5px",
     alignItem: "center",
     textDecoration: "none",
   },
   containerImage: {
     width: "100px",
     height: "60px",
-    borderRadius: 0,
+    objectFit: "cover",
 
     paddingTop: "0px",
+    borderRadius: "5px",
     // [theme.breakpoints.down("md")]: {
     //   width: "30px",
     // height: "15px",
@@ -86,11 +89,13 @@ const useStyles = makeStyles((theme) => ({
   containerTitle: {
     margin: 0,
     padding: "0px 5px 0px 5px",
-    fontSize: "16px",
-    fontWeight: 500,
+    fontSize: "14px",
+    fontWeight: 600,
     fontFamily: "Helvetica",
     color: "black",
-    opacity: "0.8"
+    opacity: "0.8",
+    overflowWrap: "break-word",
+    wordBreak: "break-word",
 
     // [theme.breakpoints.down("md")]: {
     //   fontSize: "10px",
@@ -108,11 +113,9 @@ const useStyles = makeStyles((theme) => ({
 
   textTypography: {
     fontFamily: "Helvetica",
-    marginLeft: "10px"
-  }
+    marginLeft: "10px",
+  },
 }));
-
-
 
 const List = ({ classes, data, link }) => {
   return (
@@ -138,19 +141,13 @@ const CategoryCarousel = () => {
   let keyword = location.search;
   const dispatch = useDispatch();
 
-
   const FileHandler = async (e) => {
-    const { data } = await axios.get(
-      `api/localnews/list${keyword}`)
-      }
-
+    const { data } = await axios.get(`api/localnews/list${keyword}`);
+  };
 
   useEffect(() => {
-    FileHandler()
-
-  }, [
-    dispatch,
-  ]);
+    FileHandler();
+  }, [dispatch]);
 
   const localList = useSelector((state) => state.localList);
   const {
@@ -159,20 +156,27 @@ const CategoryCarousel = () => {
     locals: listLocal,
   } = localList;
 
-    // const data = useSelector((state) => state.localList);
+  // const data = useSelector((state) => state.localList);
   // const {
   //   error: listLocalError,
   //   loading: listLocalLoading,
   //   locals: listLocal,
   // } = data;
 
-
   const tourismsList = useSelector((state) => state.tourismsList);
 
-  const { error: listTourismsError, loading: listTourismsLoading , tourismss: listTourisms } = tourismsList;
+  const {
+    error: listTourismsError,
+    loading: listTourismsLoading,
+    tourismss: listTourisms,
+  } = tourismsList;
 
   const jobList = useSelector((state) => state.jobList);
-  const { error: listJobError, loading: listJobLoading , jobs: listJob, } = jobList;
+  const {
+    error: listJobError,
+    loading: listJobLoading,
+    jobs: listJob,
+  } = jobList;
 
   const advertiseList = useSelector((state) => state.advertiseList);
 
@@ -182,11 +186,15 @@ const CategoryCarousel = () => {
     advertises: listAdvertise,
   } = advertiseList;
 
-
   const celebrityList = useSelector((state) => state.celebrityList);
 
-  const { error: listCelebrityError, loading: listCelebrityLoading , celebrities: listCelebrity, pages, page } = celebrityList;
-
+  const {
+    error: listCelebrityError,
+    loading: listCelebrityLoading,
+    celebrities: listCelebrity,
+    pages,
+    page,
+  } = celebrityList;
 
   useEffect(() => {
     dispatch(localListAction());
@@ -194,7 +202,7 @@ const CategoryCarousel = () => {
     dispatch(jobListAction());
     dispatch(advertiseListAction());
     dispatch(celebrityListAction());
-  }, [dispatch,]);
+  }, [dispatch]);
 
   const classes = useStyles();
 
@@ -209,7 +217,8 @@ const CategoryCarousel = () => {
     swipeToSlide: true,
     className: "center",
     centerMode: true,
-    centerPadding: "30px",
+    centerPadding: "60px",
+
     appendDots: (dots) => (
       <div
         style={{
@@ -256,8 +265,7 @@ const CategoryCarousel = () => {
               {i + 1}
             </div>
           ),
-
-        }
+        },
       },
       {
         breakpoint: 400,
@@ -278,8 +286,7 @@ const CategoryCarousel = () => {
               {i + 1}
             </div>
           ),
-
-        }
+        },
       },
       {
         breakpoint: 500,
@@ -300,103 +307,112 @@ const CategoryCarousel = () => {
               {i + 1}
             </div>
           ),
-
-        }
+        },
       },
-      
     ],
-    
-
   };
-
-
 
   return (
     <div>
       <Slider {...settings}>
-        
         {listLocal.length && (
-
-            <div container class={classes.containerMain}>
-              <Grid item md={12} sm={12} lg={3} class={classes.container}>
-                <Typography className={classes.textTypography} variant="h6" gutterBottom="false">
-                  Recent News
-                </Typography>
-                <hr />
-                {listLocalLoading ? (
-                  <Loaders />
-                ) : listLocalError ? (
-                  <ErrorMessage type="error" error={listLocalError} />
-                ) : (
-                  <>
+          <div container class={classes.containerMain}>
+            <Grid item md={12} sm={12} lg={3} class={classes.container}>
+              <Typography
+                className={classes.textTypography}
+                variant="h6"
+                gutterBottom="false"
+              >
+                Recent News
+              </Typography>
+              <hr />
+              {listLocalLoading ? (
+                <Loaders />
+              ) : listLocalError ? (
+                <ErrorMessage type="error" error={listLocalError} />
+              ) : (
+                <>
                   {listLocal.map((item) => (
                     <List classes={classes} data={item} link="local-detail" />
                   ))}
-                  </>
-                )}
-              </Grid>
-            </div>
-                      
+                </>
+              )}
+            </Grid>
+          </div>
         )}
 
-            {listAdvertise.length && (
-
-            <div container class={classes.containerMain}>
-              <Grid item md={12} sm={12} lg={3} class={classes.container}>
-                <Typography className={classes.textTypography} variant="h6" gutterBottom="false">
-                  Recent Advertise
-                </Typography>
-                <hr />
-                {listAdvertiseLoading ? (
-                    <Loaders />
-                  ) : listAdvertiseError ? (
-                    <ErrorMessage type="error" error={listAdvertiseError} />
-                  ) : (
-                    <>
+        {listAdvertise.length && (
+          <div container class={classes.containerMain}>
+            <Grid item md={12} sm={12} lg={3} class={classes.container}>
+              <Typography
+                className={classes.textTypography}
+                variant="h6"
+                gutterBottom="false"
+              >
+                Recent Advertise
+              </Typography>
+              <hr />
+              {listAdvertiseLoading ? (
+                <Loaders />
+              ) : listAdvertiseError ? (
+                <ErrorMessage type="error" error={listAdvertiseError} />
+              ) : (
+                <>
                   {listAdvertise.map((item) => (
-                    <List classes={classes} data={item} link="advertise-detail" />
+                    <List
+                      classes={classes}
+                      data={item}
+                      link="advertise-detail"
+                    />
                   ))}
-                  </>
-                  )}
-              </Grid>
-            </div>
-                          
-            )}
+                </>
+              )}
+            </Grid>
+          </div>
+        )}
 
-
-            {listTourisms.length && (
-
-            <div container class={classes.containerMain}>
-              <Grid item md={12} sm={12} lg={3} class={classes.container}>
-                <Typography className={classes.textTypography} variant="h6" gutterBottom="false">
-                  Top Tourisms
-                </Typography>
-                <hr />
-                {listTourismsLoading ? (
-                  <Loaders />
-                ) : listTourismsError ? (
-                  <ErrorMessage type="error" error={listTourismsError} />
-                ) : (
-                  <>
+        {listTourisms.length && (
+          <div container class={classes.containerMain}>
+            <Grid item md={12} sm={12} lg={3} class={classes.container}>
+              <Typography
+                className={classes.textTypography}
+                variant="h6"
+                gutterBottom="false"
+              >
+                Top Tourisms
+              </Typography>
+              <hr />
+              {listTourismsLoading ? (
+                <Loaders />
+              ) : listTourismsError ? (
+                <ErrorMessage type="error" error={listTourismsError} />
+              ) : (
+                <>
                   {listTourisms.map((item) => (
-                    <List classes={classes} data={item} link="tourisms-detail" />
+                    <List
+                      classes={classes}
+                      data={item}
+                      link="tourisms-detail"
+                    />
                   ))}
-                  </>
-                )}
-              </Grid>
-            </div>
-            )}
+                </>
+              )}
+            </Grid>
+          </div>
+        )}
 
-            {listJob.length && (
-
-            
-            <div container class={classes.containerMain}>
-              <Grid item md={12} sm={12} lg={3} class={classes.container}>
-                <Typography className={classes.textTypography} variant="h6" gutterBottom="false">
-                  Recent Job
-                </Typography>
-                <hr />
-                {listJobLoading ? (
+        {listJob.length && (
+          <div container class={classes.containerMain}>
+            <Grid item md={12} sm={12} lg={3} class={classes.container}>
+              <Typography
+                className={classes.textTypography}
+                variant="h6"
+                gutterBottom="false"
+              >
+                Recent Job
+              </Typography>
+              <hr />
+              {listJobLoading ? (
                 <Loaders />
               ) : listJobError ? (
                 <ErrorMessage type="error" error={listJobError} />
@@ -405,41 +421,43 @@ const CategoryCarousel = () => {
                   {listJob.map((item) => (
                     <List classes={classes} data={item} link="job-detail" />
                   ))}
-                  </>
+                </>
               )}
-              </Grid>
-            </div>
-            )}
+            </Grid>
+          </div>
+        )}
 
-
-            { listCelebrity.length && (
-
-            
-            <div container class={classes.containerMain}>
-              <Grid item md={12} sm={12} lg={3} class={classes.container}>
-                <Typography className={classes.textTypography} variant="h6" gutterBottom="false">
-                  Trend
-                </Typography>
-                <hr />
-                {listCelebrityLoading ? (
+        {listCelebrity.length && (
+          <div container class={classes.containerMain}>
+            <Grid item md={12} sm={12} lg={3} class={classes.container}>
+              <Typography
+                className={classes.textTypography}
+                variant="h6"
+                gutterBottom="false"
+              >
+                Trend
+              </Typography>
+              <hr />
+              {listCelebrityLoading ? (
                 <Loaders />
               ) : listCelebrityError ? (
                 <ErrorMessage type="error" error={listCelebrityError} />
               ) : (
                 <>
                   {listCelebrity.map((item) => (
-                    <List classes={classes} data={item} link="celebrity-detail" />
+                    <List
+                      classes={classes}
+                      data={item}
+                      link="celebrity-detail"
+                    />
                   ))}
-                  </>
+                </>
               )}
-              </Grid>
-            </div>
-            )}
-
-         
+            </Grid>
+          </div>
+        )}
       </Slider>
     </div>
-
   );
 };
 

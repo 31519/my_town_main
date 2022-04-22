@@ -51,7 +51,7 @@ export default function Navbars() {
             <MenuIcon />
           </IconButton>
           <Link style={{textDecoration: "none", color: "white"}} to="/">
-            <h2 className="navbar-logo">INMATOWN</h2>
+            <h2 className="navbar-logo"  style={{padding: "0px", margin:"0px"}}>INMATOWN</h2>
             {/* <img style={{width:'100px', height:'40px', margin:'0px', padding:'0px'}} src="images/mylogo.png" alt="inmatown"/> */}
 
 

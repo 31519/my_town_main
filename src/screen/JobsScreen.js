@@ -1,16 +1,17 @@
-import React, {useEffect} from "react";
-import {useSelector, useDispatch} from "react-redux"
-import {useLocation} from "react-router-dom"
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import Paginate from "../components/Pagination";
 import SearchBox from "../components/SearchBox";
 import { Link } from "react-router-dom";
-import {jobListAction} from "../actions/advertiseActions2";
+import { jobListAction } from "../actions/advertiseActions2";
 import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import { makeStyles } from "@mui/styles";
 import SocialShare from "../components/SocialShare";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import { advertiseListAction } from "../actions/advertiseActions";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
+import ListCategory from "../components/ListCategory";
 
 import {
   Typography,
@@ -22,17 +23,81 @@ import {
   CardContent,
 } from "@mui/material";
 
-
-
 const useStyles = makeStyles((theme) => ({
-  [theme.breakpoints.up("md")]: {
-    container: {
-      width: 700,
-      margin: "auto",
+  [theme.breakpoints.up("md")]: {},
+  container: {
+    display: "flex",
+    flexDirection: "row",
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: "column",
+    },
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "column",
+    },
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "column",
     },
   },
   card: {
     width: "100%",
+  },
+  containerParent: {
+    display: "flex",
+    flexDirection: "row",
+    margin: "10px",
+  },
+  containerOne: {
+    height: "150px",
+    width: "250px",
+    margin: "5px",
+    [theme.breakpoints.down("xs")]: {
+      height: "100px",
+      width: "120px",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "100px",
+      width: "120px",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "100px",
+      width: "120px",
+    },
+  },
+  image: {
+    objectFit: "cover",
+    height: "150px",
+    width: "250px",
+    [theme.breakpoints.down("xs")]: {
+      height: "100px",
+      width: "120px",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "100px",
+      width: "120px",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "100px",
+      width: "120px",
+    },
+  },
+  containerTwo: {
+    overflowWrap: "break-word",
+    margin: "5px",
+    // inlineSize: "150px",
+    // height: "200px",
+    width: "500px",
+    [theme.breakpoints.down("xs")]: {
+      // height: "100px",
+      width: "130px",
+    },
+    [theme.breakpoints.down("md")]: {
+      // height: "100px",
+      width: "100%",
+    },
+    [theme.breakpoints.up("md")]: {
+      // height: "200px",
+      width: "500px",
+    },
   },
 
   cardMedia: {
@@ -74,10 +139,20 @@ const useStyles = makeStyles((theme) => ({
   },
   stateBox: {
     color: "white",
-    backgroundColor: "#158f89",
+    backgroundColor: "rgb(193 79 201 / 74%);",
     padding: "4px",
     display: "flex",
     width: "100px",
+    position: "absolute",
+    [theme.breakpoints.down("xs")]: {
+      width: "90px",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "90px",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "90px",
+    },
   },
   button: {
     color: "white",
@@ -85,13 +160,117 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 4px 0 4px",
     margin: 0,
     borderRadius: 0,
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "10px",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "10px",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "10px",
+    },
+  },
+  socialShare: {
+    [theme.breakpoints.down("xs")]: {
+      display: "none",
+    },
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
   },
   date: {
-    fontWeight: 500,
-    marginLeft: "5px",
+    fontWeight: 600,
+    margin: "0px ",
     fontFamily: "Monospace",
     color: "green",
     padding: 0,
+    opacity: "0.7",
+    [theme.breakpoints.down("xs")]: {
+      opacity: "1",
+      fontSize: "10px",
+    },
+    [theme.breakpoints.down("md")]: {
+      opacity: "1",
+      fontSize: "10px",
+    },
+    [theme.breakpoints.down("md")]: {
+      opacity: "1",
+      fontSize: "10px",
+    },
+  },
+  title: {
+    fontFamily: "Helvetica",
+    overflowWrap: "break-word",
+    wordBreak: "break-word",
+    fontSize: "20px",
+    letterSpacing: "1px",
+    fontWeight: 500,
+    color: "black",
+    margin: "5px",
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "16px",
+      letterSpacing: "0.6px",
+      fontWeight: 600,
+      color: "black",
+      margin: "3px",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "100px",
+      width: "100%",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "16px",
+      letterSpacing: "0.6px",
+      fontWeight: 500,
+      color: "black",
+      margin: "3px",
+    },
+  },
+  Buttom: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-evently",
+    margin: "5px",
+  },
+  aside: {
+    // border: "1px solid red",
+    // width: "100%",
+    margin: "10px",
+    [theme.breakpoints.down("xs")]: {
+      margin: "0px",
+    },
+    [theme.breakpoints.down("md")]: {
+      margin: "0px",
+    },
+    [theme.breakpoints.down("md")]: {
+      margin: "0px",
+    },
+  },
+  content: {
+    fontFamily: "Helvetica",
+    fontSize: "16px",
+    fontWeight: 500,
+    color: "blue",
+    margin: "5px",
+    [theme.breakpoints.down("xs")]: {
+      display: "none",
+
+      overflowWrap: "break-word",
+      wordBreak: "break-word",
+    },
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+      overflowWrap: "break-word",
+      wordBreak: "break-word",
+    },
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+      overflowWrap: "break-word",
+      wordBreak: "break-word",
+    },
   },
   startDate: {
     fontSize: "12px",
@@ -99,7 +278,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "0px",
     fontFamily: "Monospace",
     fontWeight: "bold",
-    color: "blue"
+    color: "purple",
   },
   endDate: {
     fontSize: "12px",
@@ -107,13 +286,11 @@ const useStyles = makeStyles((theme) => ({
     margin: "0px",
     fontFamily: "Monospace",
     fontWeight: "bold",
-    color: "red"
-  }
-  
+    color: "red",
+  },
 }));
 
 const JobScreen = () => {
-
   const location = useLocation();
   let keyword = location.search;
   const socialmedia = window.location.href;
@@ -125,114 +302,130 @@ const JobScreen = () => {
 
   const jobList = useSelector((state) => state.jobList);
 
-  const { error: listJobError, loading: listJobLoading , jobs: listJob, pages, page } = jobList;
+  const {
+    error: listJobError,
+    loading: listJobLoading,
+    jobs: listJob,
+    pages,
+    page,
+  } = jobList;
+
+  const advertiseList = useSelector((state) => state.advertiseList);
+
+  const {
+    error: listAdvertiseError,
+    loading: listAdvertiseLoading,
+    advertises: listAdvertise,
+  } = advertiseList;
 
   useEffect(() => {
     dispatch(jobListAction(keyword));
+    dispatch(advertiseListAction(keyword));
   }, [dispatch, keyword]);
   return (
-
     <>
       <SearchBox />
-      { listJob && (
-
-      
-      <div className={classes.container}>
-        <Container disableGutters>
-
-
-        {listJobLoading ? (
-          <Loaders />
-        ) : listJobError ? (
-          <ErrorMessage type="error" error={listJobError} />
-        ) : (
-          <div item>
-          {listJob.map((data) => (
-            <Paper elevation={20} square={true} className={classes.paper}>
-              <Link
-                className={classes.textLink}
-                to={`/job-detail/${data.id}/${data.slug}`}
-              >
-                <Card className={classes.card} key={data.id}>
-                  <h2
-                    variant="h6"
-                    gutterBottom
-                    color="primary"
-                    className={classes.date}
+      {listJob && (
+        <div>
+          {listJobLoading ? (
+            <Loaders />
+          ) : listJobError ? (
+            <ErrorMessage type="error" error={listJobError} />
+          ) : (
+            <div className={classes.container}>
+              <div>
+                {listJob.map((data) => (
+                  <Link
+                    className={classes.textLink}
+                    to={`/job-detail/${data.id}/${data.slug}`}
                   >
-                    UPDATED ON{" "}
-                    {data.createdAt && data.createdAt.split("T", 1)}{" "}
-                    {"Time"}{" "}
-                    {data.createdAt && data.createdAt.substr(11, 8)}
-                  </h2>
+                    <div className={classes.containerParent}>
+                      <div className={classes.containerOne}>
+                        <div className={classes.stateBox}>
+                          <Typography variant="p">MEGHALAYA</Typography>
+                        </div>
+                        <div className={classes.ImageContainer}>
+                          <img
+                            className={classes.image}
+                            key={data.id}
+                            src={data.image}
+                            alt={data.title}
+                          />
+                        </div>
+                      </div>
+                      <div className={classes.containerTwo}>
+                        <h3
+                          variant="h6"
+                          color="primary"
+                          className={classes.date}
+                        >
+                          UPDATED ON{" "}
+                          {data.createdAt && data.createdAt.split("T", 1)}{" "}
+                          {"Time"}{" "}
+                          {data.createdAt && data.createdAt.substr(11, 8)}
+                        </h3>
 
-                  <div className={classes.stateBox}>
-                    <Typography variant="title">{data.state}</Typography>
-                  </div>
-                  <CardMedia
-                    class={classes.cardMedia}
-                    component="img"
-                    image={data.image}
-                    alt={"img"}
-                  />
-                  <Typography variant="h5" gutterBottom>
-                    <CalendarTodayIcon
-                      style={{
-                        fill: "green",
-                        fontSize: "20px",
-                        fontWeight: "800",
-                      }}
-                    />
-                    {data.createdAt && data.createdAt.split("T", 1)}{" "}
-                    {"Time"}{" "}
-                    {data.createdAt && data.createdAt.substr(11, 8)}
-                  </Typography>
+                        
+                        <h3
+                          className={classes.title}
+                          variant="h3"
+                          color="secondary"
+                          gutterBottom
+                        >
+                          {data.title}
+                        </h3>
+                        <Typography
+                          className={classes.content}
+                          variant="h6"
+                          color="secondary"
+                          noWrap
+                          gutterBottom
+                          paragraph
+                        >
+                          {data.content}
+                        </Typography>
 
-                  <h2
-                    className={classes.startDate}
-                    >
-                      Start Date: {data.startDate.split('T', 1)}
-                    </h2>
-                    <h2
-                      className={classes.endDate}
-                    >
-                      End Date: {data.endDate.split('T', 1)}
-                    </h2>
+                        <h2 className={classes.startDate}>
+                          Start Date: {data.startDate.split("T", 1)}
+                        </h2>
+                        <h2 className={classes.endDate}>
+                          End Date: {data.endDate.split("T", 1)}
+                        </h2>
 
-
-                  <CardContent>
-                    <Typography variant="h3" color="secondary" gutterBottom>
-                      {data.title}
-                    </Typography>
-                    <Typography
-                      variant="h5"
-                      color="secondary"
-                      noWrap
-                      gutterBottom
-                      paragraph
-                    >
-                      {data.content}
-                    </Typography>
-                    <Button className={classes.button} variant="contained">
-                      Read More ..
-                    </Button>
-                  </CardContent>
-                  <SocialShare url={socialmedia} />
-                </Card>
-              </Link>
-            </Paper>
-            ))}
-          </div>
-        )}
-
-        <IndexAdvertiseBanner index={3}/>
-
-        </Container>
-      </div>
+                        <div className={classes.Buttom}>
+                          <div>
+                            <Button
+                              className={classes.button}
+                              variant="contained"
+                            >
+                              Read More
+                            </Button>
+                          </div>
+                          <div className={classes.socialShare}>
+                            <SocialShare url={socialmedia} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+                <IndexAdvertiseBanner index={2} />
+              </div>
+              <div className={classes.aside}>
+                <ListCategory
+                  error={listAdvertiseError}
+                  list={listAdvertise}
+                  loading={listAdvertiseLoading}
+                  link="advertise-detail"
+                  name="Advertise"
+                />
+              </div>
+            </div>
+          )}
+        </div>
       )}
-      <Paginate keyword={keyword} page={page} pages={pages}/>
 
-
+      <Paginate keyword={keyword} page={page} pages={pages} />
     </>
   );
 };

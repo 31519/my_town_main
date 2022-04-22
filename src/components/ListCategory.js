@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     widht: "180px",
     height: "320px",
-    backgroundColor: "#34f33a61",
+    backgroundColor: "#e8f1f0",
 
     margin: "5px 10px",
     overflowY: "scroll",
@@ -50,16 +50,17 @@ const useStyles = makeStyles((theme) => ({
   containerItem: {
     display: "flex",
     flexDirection: "row",
-    paddingTop: "3px",
+    padding: "5px",
     alignItem: "center",
     textDecoration: "none",
   },
   containerImage: {
     width: "100px",
     height: "60px",
-    borderRadius: 0,
+    objectFit: "cover",
 
     paddingTop: "0px",
+    borderRadius: "5px",
     // [theme.breakpoints.down("md")]: {
     //   width: "30px",
     // height: "15px",
@@ -100,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const ListCategory = ({ list, error, loading, link }) => {
+const ListCategory = ({ list, error, loading, link, name }) => {
   const classes = useStyles();
 
   return (
@@ -108,7 +109,7 @@ const ListCategory = ({ list, error, loading, link }) => {
       <div container class={classes.containerMain}>
         <Grid item md={12} sm={12} lg={3} class={classes.container}>
           <Typography class={classes.textTypography} variant="h3" gutterBottom="false">
-            Recent News
+            Recent {name}
           </Typography>
           <hr />
           {loading ? (

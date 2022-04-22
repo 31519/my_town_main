@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
       height: "180px",
       width: "100%",
     },
+    objectFit:"cover"
   },
   title: {
     fontSize: "20px",
@@ -75,7 +76,7 @@ const AdvertiseBanners = () => {
   const dispatch = useDispatch();
 
   const settings = {
-    dots: true,
+    // dots: true,
     infinite: true,
     speed: 1000,
     slidesToShow: 1,
