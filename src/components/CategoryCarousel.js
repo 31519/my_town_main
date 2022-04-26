@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     width: "90%",
     justifyContent: "center",
-    margin: "0px auto",
+    margin: "5px auto",
     [theme.breakpoints.down("md")]: {
       overflowX: "scroll",
     },
@@ -89,11 +89,12 @@ const useStyles = makeStyles((theme) => ({
   containerTitle: {
     margin: 0,
     padding: "0px 5px 0px 5px",
-    fontSize: "14px",
+    fontSize: "12px",
+    letterSpacing: "1.2px",
     fontWeight: 600,
     fontFamily: "Helvetica",
     color: "black",
-    opacity: "0.8",
+    opacity: "0.7",
     overflowWrap: "break-word",
     wordBreak: "break-word",
 
@@ -117,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const List = ({ classes, data, link }) => {
+const List = ({ classes, data, link, placeholder }) => {
   return (
     <Grid
       container
@@ -127,7 +128,12 @@ const List = ({ classes, data, link }) => {
       class={classes.containerItem}
     >
       <Grid item>
-        <img class={classes.containerImage} src={data.image} alt="" />
+        {data.image ?(
+          <img class={classes.containerImage} src={data.image} alt="" />
+        ):(
+          <img class={classes.containerImage} src={placeholder} alt="" />
+        )}
+        
       </Grid>
       <Grid item>
         <h4 class={classes.containerTitle}>{data.title}</h4>
@@ -224,7 +230,8 @@ const CategoryCarousel = () => {
         style={{
           backgroundColor: "transparent",
           borderRadius: "50%",
-          margin: "20px auto",
+          margin: " auto",
+
         }}
       >
         <ul style={{ margin: "10px 0px" }}> {dots} </ul>
@@ -233,12 +240,15 @@ const CategoryCarousel = () => {
     customPaging: (i) => (
       <div
         style={{
+          marginTop: "10px",
           width: "20px",
           height: "20px",
-          color: "green",
-          border: "1px blue solid",
-          borderRadius: "50%",
-          backgroundColor: "white",
+          color: "white",
+          backgroundColor: "#2b1b1b6e",
+          $hover:{
+            backgroundColor: "black"
+          }
+      
         }}
       >
         {i + 1}
@@ -254,12 +264,14 @@ const CategoryCarousel = () => {
           customPaging: (i) => (
             <div
               style={{
-                width: "10px",
-                height: "10px",
-                color: "black",
-                border: "none",
-                borderRadius: "50%",
-                backgroundColor: "transparent",
+                width: "20px",
+                height: "20px",
+                color: "white",
+                backgroundColor: "#2b1b1b6e",
+                $hover:{
+                  backgroundColor: "black"
+                }
+            
               }}
             >
               {i + 1}
@@ -275,12 +287,14 @@ const CategoryCarousel = () => {
           customPaging: (i) => (
             <div
               style={{
-                width: "10px",
-                height: "10px",
-                color: "black",
-                border: "none",
-                borderRadius: "50%",
-                backgroundColor: "transparent",
+                width: "20px",
+                height: "20px",
+                color: "white",
+                backgroundColor: "#2b1b1b6e",
+                $hover:{
+                  backgroundColor: "black"
+                }
+            
               }}
             >
               {i + 1}
@@ -296,12 +310,14 @@ const CategoryCarousel = () => {
           customPaging: (i) => (
             <div
               style={{
-                width: "10px",
-                height: "10px",
-                color: "black",
-                border: "none",
-                borderRadius: "50%",
-                backgroundColor: "transparent",
+                width: "20px",
+                height: "20px",
+                color: "white",
+                backgroundColor: "#2b1b1b6e",
+                $hover:{
+                  backgroundColor: "black"
+                }
+            
               }}
             >
               {i + 1}
@@ -333,7 +349,7 @@ const CategoryCarousel = () => {
               ) : (
                 <>
                   {listLocal.map((item) => (
-                    <List classes={classes} data={item} link="local-detail" />
+                    <List classes={classes} data={item} link="local-detail" placeholder="images/newsPlaceholder.jpg" />
                   ))}
                 </>
               )}
@@ -363,6 +379,7 @@ const CategoryCarousel = () => {
                       classes={classes}
                       data={item}
                       link="advertise-detail"
+                      placeholder="images/advertisePlaceholder.jpg"
                     />
                   ))}
                 </>
@@ -419,7 +436,7 @@ const CategoryCarousel = () => {
               ) : (
                 <>
                   {listJob.map((item) => (
-                    <List classes={classes} data={item} link="job-detail" />
+                    <List classes={classes} data={item} link="job-detail"  placeholder="images/jobPlaceholder.jpg"/>
                   ))}
                 </>
               )}

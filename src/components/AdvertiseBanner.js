@@ -13,30 +13,38 @@ import { Link } from "react-router-dom";
 
 import Slider from "react-slick";
 
-const image = "images/home_bg.jpg";
 
 const useStyles = makeStyles((theme) => ({
+
+  main:{
+    width: "500px",
+    margin: "auto",
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+    },
+  },
   container: {
     width: "100%",
-    [theme.breakpoints.up("md")]: {
-      height: "550px",
-    },
+    height: "200px",
+
     [theme.breakpoints.down("md")]: {
-      height: "180px",
+      height: "200px",
     },
     postion: "relative",
+    opacity: "0.7"
   },
 
   image: {
-    [theme.breakpoints.up("md")]: {
-      height: "550px",
-      width: "100%",
-    },
+    height: "200px",
+    width: "100%",
+
+
     [theme.breakpoints.down("md")]: {
       height: "180px",
       width: "100%",
     },
-    objectFit:"cover"
+    objectFit:"cover",
+    
   },
   title: {
     fontSize: "20px",
@@ -46,7 +54,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     padding: "0px 0px",
     margin: "0px",
-    // position: "absolute",
     zIndx: "222",
     [theme.breakpoints.down("md")]: {
       left: "15%",
@@ -61,13 +68,14 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "20px",
     fontWeight: 600,
     fontFamily: "Helvetica",
-    opacity: "0.9",
+    opacity: "0.7",
     textAlign: "center",
     padding: "0px 5px",
   },
   textLink: {
     textDecoration: "none",
   },
+
 }));
 
 const AdvertiseBanners = () => {
@@ -99,7 +107,7 @@ const AdvertiseBanners = () => {
     dispatch(advertiseListAction());
   }, [dispatch]);
   return (
-    <div >
+    <div className={classes.main}>
       {listAdvertise.length && listAdvertise.length !== 0 ? (
       <h2 className={classes.heading}>Advertisement</h2>
       ): null }
@@ -115,12 +123,21 @@ const AdvertiseBanners = () => {
               className={classes.textLink}
               to={`/advertise-detail/${banner.id}/${banner.slug}`}
             >
-              <img
+              {banner.image ?(
+                <img
                 className={classes.image}
                 key={banner.id}
                 src={banner.image}
                 alt={banner.title}
               />
+              ):(
+                <img
+                className={classes.image}
+                key={banner.id}
+                src="images/advertisePlaceholder.jpg"
+                alt={banner.title}
+              />
+              )}
             </Link>
               <h2 className={classes.title}>{banner.title}</h2>
               <hr />

@@ -17,9 +17,9 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: "border-box",
     width: "100%",
     height: "100%",
-    border: "7px solid #162534",
-    borderTopColor: " #4bc8eb",
-    borderBottomColor: " #f13a8f",
+    border: "7px solid white",
+    borderTopColor: " white",
+    borderBottomColor: " white",
     borderRadius: "50px",
     animation: "rotate 5s linear infinite"
   },
@@ -27,14 +27,14 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: "border-box",
     width: "100%",
     height: "100%",
-    border: "5px solid #162534",
-    // borderTopColor: " #4bc8eb",
-    // borderBottomColor: " #f13a8f",
+    border: "5px solid #abb8b7",
+    // borderTopColor: " white",
+    // borderBottomColor: " white",
     borderRadius: "50px",
     animation: "rotate 5s linear infinite",
 
-    borderTopColor: "#36f372",
-    borderBottomColor: "#fff",
+    borderTopColor: "white",
+    borderBottomColor:" #abb8b7",
     animationDuration: "2.5s"
 
   }

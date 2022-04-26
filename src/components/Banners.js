@@ -11,6 +11,7 @@ import Slider from "react-slick";
 
 const image = "images/home_bg.jpg";
 
+
 const useStyles = makeStyles((theme) => ({
   container: {
     [theme.breakpoints.up("md")]: {

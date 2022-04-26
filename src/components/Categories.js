@@ -6,7 +6,8 @@ const useStyles = makeStyles({
   container:{
     backgroundColor:"white",
     display:"flex",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    marginTop: "10px"
 
   },
  item: {

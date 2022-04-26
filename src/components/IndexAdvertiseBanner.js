@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   container: {
     width: "100%",
+    opacity: "0.6",
     [theme.breakpoints.up("md")]: {
       height: "320px",
     },
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
 
       objectFit: "cover",
+      
     },
   },
   title: {
@@ -90,7 +92,7 @@ const IndexAdvertiseBanner = ({ index = 0, link = "advertise-detail" }) => {
   return (
     <>
       {indexData && (
-        <div>
+        <div style={{margin: "30px"}}>
           {indexData && indexData.length !== 0 ? (
             <h2 className={classes.heading}>Advertisement</h2>
           ) : null}
@@ -106,12 +108,22 @@ const IndexAdvertiseBanner = ({ index = 0, link = "advertise-detail" }) => {
                   to={`/${link}/${indexData.id}/${indexData.slug}`}
                 >
                   <>
+                  {indexData.image ? (
                     <img
                       className={classes.image}
                       key={indexData.id}
                       src={indexData.image}
                       alt={indexData.title}
                     />
+                  ):(
+                    <img
+                      className={classes.image}
+                      key={indexData.id}
+                      src="images/advertisePlaceholder.jpg"
+                      alt={indexData.title}
+                    />
+                  )}
+                    
                     <h2 className={classes.title}>{indexData.title}</h2>
                   </>
                 </Link>

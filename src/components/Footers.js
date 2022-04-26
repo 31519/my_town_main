@@ -67,7 +67,7 @@ const Footers = () => {
               inmatown@gmail.com
             </a>
           </h2>
-          <Link className={classes.textLink} to="/privacy-policy">
+          <Link className={classes.textLink} to="/privacy-policy#content">
             <h2 className={classes.inTouch} variant="h2">
               Privacy Policy
             </h2>

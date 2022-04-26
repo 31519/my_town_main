@@ -16,6 +16,8 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+const logoImage = "images/inmatownLogo2.png"
+
 
 export default function Navbars() {
   const userLogin = useSelector((state) => state.userLogin);
@@ -51,8 +53,13 @@ export default function Navbars() {
             <MenuIcon />
           </IconButton>
           <Link style={{textDecoration: "none", color: "white"}} to="/">
-            <h2 className="navbar-logo"  style={{padding: "0px", margin:"0px"}}>INMATOWN</h2>
-            {/* <img style={{width:'100px', height:'40px', margin:'0px', padding:'0px'}} src="images/mylogo.png" alt="inmatown"/> */}
+            {logoImage?(
+
+              <img style={{width:'150px', height:'50px',objectFit: "cover", margin:'0px', padding:'0px', fontWeight: 600}} src={logoImage} alt="inmatown"/>
+            ):(
+
+              <h2 className="navbar-logo"  style={{padding: "0px", margin:"0px"}}>INMATOWN</h2>
+            )}
 
 
           </Link>

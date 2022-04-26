@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     width: "90%",
     justifyContent: "center",
-    margin: "0px auto",
+    margin: "15px auto",
     [theme.breakpoints.down("md")]: {
       overflowX: "scroll",
     },

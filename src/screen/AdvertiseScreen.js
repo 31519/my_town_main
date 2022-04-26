@@ -211,10 +211,7 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 600,
       color: "black",
       margin: "3px",
-    },
-    [theme.breakpoints.down("md")]: {
-      height: "100px",
-      width: "100%",
+      opacity:"0.8",
     },
     [theme.breakpoints.down("md")]: {
       fontSize: "16px",
@@ -222,6 +219,7 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 500,
       color: "black",
       margin: "3px",
+      opacity:"0.8",
     },
   },
   Buttom: {
@@ -322,12 +320,22 @@ const AdvertiseScreen = () => {
                           <Typography variant="p">MEGHALAYA</Typography>
                         </div>
                         <div className={classes.ImageContainer}>
-                          <img
+                        {data.image ? (
+                            <img
                             className={classes.image}
                             key={data.id}
                             src={data.image}
                             alt={data.title}
                           />
+                          ): (
+
+                          <img
+                            className={classes.image}
+                            key={data.id}
+                            src="images/advertisePlaceholder.jpg"
+                            alt={data.title}
+                          />
+                          )}
                         </div>
                       </div>
                       <div className={classes.containerTwo}>

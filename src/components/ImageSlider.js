@@ -41,7 +41,8 @@ const ImageSlider = ({ images }) => {
         style={{
           backgroundColor: "transparent",
           borderRadius: "50%",
-          margin: "20px auto"
+          margin: "auto",
+          paddingTop: "10px"
         }}
       >
         <ul style={{ margin: "10px 0px" }}> {dots} </ul>
@@ -50,12 +51,12 @@ const ImageSlider = ({ images }) => {
     customPaging: i => (
       <div
         style={{
+          marginTop: "10px",
+          
           width: "20px",
           height: "20px",
-          color: "green",
-          border: "1px blue solid",
-          borderRadius: "50%",
-          backgroundColor: "white"
+          color: "white",
+          backgroundColor: "#2b1b1b6e"
         }}
       >
         {i + 1}

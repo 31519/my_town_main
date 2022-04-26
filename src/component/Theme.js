@@ -2,7 +2,7 @@ import {  createTheme,
     useMediaQuery, 
     useTheme } from '@mui/material/styles'
 
-const green = "#16b859"
+const green = "#181818"
 const white = "#763A7A"
 const secondary = "#1a1917"
 

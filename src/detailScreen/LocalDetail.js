@@ -5,13 +5,12 @@ import { useLocation } from "react-router-dom";
 import { localDetailAction } from "../actions/advertiseActions";
 import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import SocialShare from "../components/SocialShare";
 import ListCategory from "../components/ListCategory";
 import { localListAction } from "../actions/advertiseActions";
 import { makeStyles } from "@mui/styles";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
-
+import { advertiseListAction } from "../actions/advertiseActions";
 import {
   Typography,
   Container,
@@ -22,29 +21,81 @@ import {
 } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
-  [theme.breakpoints.up("md")]: {
-    container: {
-      width: 700,
-      margin: "auto",
+  container: {
+    display: "flex",
+    flexDirection: "row",
+    margin: "10px",
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: "column",
+    },
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "column",
+    },
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "column",
     },
   },
-  card: {
-    width: "100%",
-  },
+  containerParent: {
+    display: "flex",
+    flexDirection: "column",
 
-  cardMedia: {
-    [theme.breakpoints.up("xs")]: {
-      height: 200,
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+    },
+    [theme.breakpoints.down("md")]: {
       width: "100%",
     },
     [theme.breakpoints.up("md")]: {
-      height: 200,
+      width: "700px",
+    },
+  },
+  containerOne: {
+    height: "150px",
+    width: "700px",
+    [theme.breakpoints.down("xs")]: {
+      height: "200px",
+      width: "100%",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "200px",
       width: "100%",
     },
     [theme.breakpoints.up("md")]: {
-      height: 300,
+      height: "400px",
+      width: "700px",
+    },
+  },
+  image: {
+    objectFit: "cover",
+    height: "400px",
+    width: "100%",
+    [theme.breakpoints.down("xs")]: {
+      height: "200px",
       width: "100%",
-      borderRadius: "0px",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "200px",
+      width: "100%",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "200px",
+      width: "100%",
+    },
+  },
+  containerTwo: {
+    margin: "5px",
+    overflowWrap: "break-word",
+    wordBreak: "break-word",
+    width: "100%",
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+      overflowWrap: "break-word",
+      wordBreak: "break-word",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+      overflowWrap: "break-word",
+      wordBreak: "break-word",
     },
   },
   cardHeader: {
@@ -71,10 +122,20 @@ const useStyles = makeStyles((theme) => ({
   },
   stateBox: {
     color: "white",
-    backgroundColor: "#158f89",
+    backgroundColor: "red",
     padding: "4px",
     display: "flex",
     width: "100px",
+    position: "absolute",
+    [theme.breakpoints.down("xs")]: {
+      width: "90px",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "90px",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "90px",
+    },
   },
   button: {
     color: "white",
@@ -82,14 +143,93 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 4px 0 4px",
     margin: 0,
     borderRadius: 0,
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "10px",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "10px",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "10px",
+    },
+  },
+  socialShare: {
+    [theme.breakpoints.down("xs")]: {
+      // display: "none",
+    },
+    [theme.breakpoints.down("md")]: {
+      // display: "none",
+    },
+    [theme.breakpoints.down("md")]: {
+      // display: "none",
+    },
   },
   date: {
-    fontWeight: 500,
-    marginLeft: "5px",
+    fontWeight: 600,
+    margin: "0px ",
     fontFamily: "Monospace",
     color: "green",
     padding: 0,
+    opacity: "0.6",
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "14px",
+      opacity: "0.7",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "14px",
+      opacity: "0.7",
+    },
   },
+
+  title: {
+    fontFamily: "Times New Roman",
+    lineHeight: "1.5",
+    overflowWrap: "break-word",
+    wordBreak: "break-word",
+    fontSize: "35px",
+    letterSpacing: "1px",
+    fontWeight: 500,
+    color: "blue",
+    margin: "5px",
+    width: "100%",
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "20px",
+      letterSpacing: "0.6px",
+      fontWeight: 600,
+      color: "blue",
+      margin: "3px",
+      lineHeight: "1.6",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "20px",
+      letterSpacing: "0.6px",
+      fontWeight: 600,
+      color: "blue",
+      margin: "3px",
+      lineHeight: "1.6",
+    },
+  },
+  Buttom: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-evently",
+    margin: "5px",
+  },
+  aside: {
+    // border: "1px solid red",
+    // width: "100%",
+    margin: "10px",
+    [theme.breakpoints.down("xs")]: {
+      margin: "0px",
+    },
+    [theme.breakpoints.down("md")]: {
+      margin: "0px",
+    },
+    [theme.breakpoints.down("md")]: {
+      margin: "0px",
+    },
+  },
+
   preTag: {
     // inlineSize:"150px",
     whiteSpace: "pre-wrap",
@@ -99,6 +239,36 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
     fontFamily: "Helvetica, San-sarif",
     fontSize: "20px",
+    letterSpacing: "1.5px",
+    opacity: "0.8",
+    margin: "5px",
+    lineHeight: "1.5",
+    [theme.breakpoints.down("xs")]: {
+      whiteSpace: "pre-wrap",
+
+      overflowX: "auto",
+      wordWrap: "break-word",
+      fontWeight: 500,
+      fontFamily: "Helvetica, San-sarif",
+      fontSize: "14px",
+      letterSpacing: "1.5px",
+      opacity: "0.8",
+    },
+    [theme.breakpoints.down("md")]: {
+      whiteSpace: "pre-wrap",
+
+      overflowX: "auto",
+      wordWrap: "break-word",
+      fontWeight: 500,
+      fontFamily: "Helvetica, San-sarif",
+      fontSize: "14px",
+      letterSpacing: "1.5px",
+      opacity: "0.8",
+    },
+  },
+  brand: {
+    margin: "0px 3px",
+    fontSize: "16px",
     letterSpacing: "1px",
   },
 }));
@@ -121,8 +291,6 @@ const LocalDetail = () => {
     local: detailLocal,
   } = localDetail;
 
-
-
   const localList = useSelector((state) => state.localList);
   const {
     error: listLocalError,
@@ -130,88 +298,116 @@ const LocalDetail = () => {
     locals: listLocal,
   } = localList;
 
+  const advertiseList = useSelector((state) => state.advertiseList);
+
+  const {
+    error: listAdvertiseError,
+    loading: listAdvertiseLoading,
+    advertises: listAdvertise,
+  } = advertiseList;
+
   useEffect(() => {
     dispatch(localDetailAction(id, slug));
     dispatch(localListAction());
+    dispatch(advertiseListAction(keyword));
   }, [dispatch, id, slug]);
   return (
     <>
-      <div className={classes.container}>
-        <Container disableGutters>
+      {listLocal && (
+        <div>
           {detailLocalLoading ? (
             <Loaders />
           ) : detailLocalError ? (
-            <ErrorMessage type="error" error={detailLocalError} />
+            <ErrorMessage type="error" error={listLocalError} />
           ) : (
-            <div item>
-              <Paper elevation={20} square={true} className={classes.paper}>
-                <Card className={classes.card} key={detailLocal.id}>
-                  <h2
-                    variant="h6"
-                    gutterBottom
-                    color="primary"
-                    className={classes.date}
-                  >
-                    Updated on{" "}
-                    {detailLocal.createdAt &&
-                      detailLocal.createdAt.split("T", 1)}{" "}
-                    {"Time"}{" "}
-                    {detailLocal.createdAt &&
-                      detailLocal.createdAt.substr(11, 8)}
-                  </h2>
-
+            <div className={classes.container}>
+              <div className={classes.containerParent}>
+                <div className={classes.containerOne}>
                   <div className={classes.stateBox}>
-                    <Typography variant="title">MEGHALAYA</Typography>
+                    <h2 className={classes.brand} variant="p">
+                      Inmatown
+                    </h2>
                   </div>
-                  <CardMedia
-                    class={classes.cardMedia}
-                    component="img"
-                    image={detailLocal.image}
-                    alt={"img"}
-                  />
-                  <Typography variant="h5" gutterBottom>
-                    <CalendarTodayIcon
-                      style={{
-                        fill: "green",
-                        fontSize: "20px",
-                        fontWeight: "800",
-                      }}
+                  <div className={classes.ImageContainer}>
+                    {
+                      detailLocal.image ? (
+                        <img
+                      className={classes.image}
+                      key={detailLocal.id}
+                      src={detailLocal.image}
+                      alt={detailLocal.title}
                     />
+                      ):(
+                    <img
+                      className={classes.image}
+                      key={detailLocal.id}
+                      src="images/newsPlaceholder.jpg"
+                      alt={detailLocal.title}
+                    />
+                      )
+                    }
+                    
+                  </div>
+                </div>
+                <div>
+                  <h2>MEGHALAYA</h2>
+                </div>
+                <div className={classes.containerTwo}>
+                  <h3 variant="h6" color="primary" className={classes.date}>
+                    UPDATED ON{" "}
                     {detailLocal.createdAt &&
                       detailLocal.createdAt.split("T", 1)}{" "}
                     {"Time"}{" "}
                     {detailLocal.createdAt &&
                       detailLocal.createdAt.substr(11, 8)}
-                  </Typography>
+                  </h3>
 
-                  <Typography variant="h5" gutterBottom>
-                    {detailLocal.state}
-                  </Typography>
+                  <h3
+                    className={classes.title}
+                    variant="h3"
+                    color="secondary"
+                    gutterBottom
+                  >
+                    {detailLocal.title}
+                  </h3>
                   <hr />
-                  <CardContent>
-                    <Typography variant="h3" color="secondary" gutterBottom>
-                      {detailLocal.title}
-                    </Typography>
-                    <hr />
+                  <pre className={classes.preTag}>{detailLocal.content}</pre>
+                  <hr />
 
+                  <div className={classes.Buttom}>
+                    <div className={classes.socialShare}>
+                      <SocialShare url={socialmedia} />
+                    </div>
+                  </div>
+                  <IndexAdvertiseBanner index={1} />
+                  <IndexAdvertiseBanner index={2} />
+                  <IndexAdvertiseBanner index={3} />
+                  <IndexAdvertiseBanner index={4} />
+                  <IndexAdvertiseBanner index={5} />
+                  <IndexAdvertiseBanner index={6} />
+                  <IndexAdvertiseBanner index={7} />
+                  <IndexAdvertiseBanner index={8} />
+                  <IndexAdvertiseBanner index={9} />
+                  <IndexAdvertiseBanner index={10} />
+                  <IndexAdvertiseBanner index={11} />
+                  <IndexAdvertiseBanner index={12} />
+                  <IndexAdvertiseBanner index={13} />
+                </div>
+              </div>
 
-                    <IndexAdvertiseBanner index={1}/>
-
-
-                    <pre class={classes.preTag}>{detailLocal.content}</pre>
-                    <hr />
-                  </CardContent>
-                  <SocialShare url={socialmedia} />
-                </Card>
-              </Paper>
-                <IndexAdvertiseBanner index={2}/>
+              <div className={classes.aside}>
+                <ListCategory
+                  error={listAdvertiseError}
+                  list={listAdvertise}
+                  loading={listAdvertiseLoading}
+                  link="advertise-detail"
+                  name="Advertise"
+                />
+              </div>
             </div>
           )}
-
-          <ListCategory error={listLocalError} list={listLocal} loading={listLocalLoading} link="local-detail" name="News" />
-          <IndexAdvertiseBanner index={3}/>
-        </Container>
-      </div>
+        </div>
+      )}
     </>
   );
 };

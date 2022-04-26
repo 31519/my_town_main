@@ -66,8 +66,8 @@ const PrivacyPolicy = () => {
 
   return (
     <>
-      <div className="techlist">
-        <Banners />
+      <div className="techlist" id="content">
+
 
         <Grid className={classes.gridHeader} container item>
             <Button onClick={navigateHandler} color='info' variant='contained'>Back</Button>
@@ -75,19 +75,17 @@ const PrivacyPolicy = () => {
 
         <Grid spacing={2} className={classes.gridContent} container>
           <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-            This is the ads section
           </Grid>
 
           <Grid spacing={1} item xs={12} sm={6} lg={6} md={6}>
             
             <Grid style={{margin: '10px'}} item>
-            <h1>Privacy Policy for Mytown</h1>
 
             <p>
-              At Mytown, accessible from www.mytown.com, one of our main
+              At inmatown, accessible from www.inmatown.com, one of our main
               priorities is the privacy of our visitors. This Privacy Policy
               document contains types of information that is collected and
-              recorded by Mytown and how we use it.
+              recorded by inmatown and how we use it.
             </p>
 
             <p>
@@ -98,7 +96,7 @@ const PrivacyPolicy = () => {
             <p>
               This Privacy Policy applies only to our online activities and is
               valid for visitors to our website with regards to the information
-              that they shared and/or collect in Mytown. This policy is not
+              that they shared and/or collect in inmatown. This policy is not
               applicable to any information collected offline or via channels
               other than this website.
             </p>
@@ -155,7 +153,7 @@ const PrivacyPolicy = () => {
             <h2>Log Files</h2>
 
             <p>
-              Mytown follows a standard procedure of using log files. These
+              inmatown follows a standard procedure of using log files. These
               files log visitors when they visit websites. All hosting companies
               do this and a part of hosting services' analytics. The information
               collected by log files include internet protocol (IP) addresses,
@@ -192,13 +190,13 @@ const PrivacyPolicy = () => {
 
             <p>
               You may consult this list to find the Privacy Policy for each of
-              the advertising partners of Mytown.
+              the advertising partners of inmatown.
             </p>
 
             <p>
               Third-party ad servers or ad networks uses technologies like
               cookies, JavaScript, or Web Beacons that are used in their
-              respective advertisements and links that appear on Mytown, which
+              respective advertisements and links that appear on inmatown, which
               are sent directly to users' browser. They automatically receive
               your IP address when this occurs. These technologies are used to
               measure the effectiveness of their advertising campaigns and/or to
@@ -207,14 +205,14 @@ const PrivacyPolicy = () => {
             </p>
 
             <p>
-              Note that Mytown has no access to or control over these cookies
+              Note that inmatown has no access to or control over these cookies
               that are used by third-party advertisers.
             </p>
 
             <h2>Third Party Privacy Policies</h2>
 
             <p>
-              Mytown's Privacy Policy does not apply to other advertisers or
+              inmatown's Privacy Policy does not apply to other advertisers or
               websites. Thus, we are advising you to consult the respective
               Privacy Policies of these third-party ad servers for more detailed
               information. It may include their practices and instructions about
@@ -301,7 +299,7 @@ const PrivacyPolicy = () => {
             </p>
 
             <p>
-              Mytown does not knowingly collect any Personal Identifiable
+              inmatown does not knowingly collect any Personal Identifiable
               Information from children under the age of 13. If you think that
               your child provided this kind of information on our website, we
               strongly encourage you to contact us immediately and we will do
@@ -312,11 +310,9 @@ const PrivacyPolicy = () => {
           </Grid>
 
           <Grid spacing={1} item xs={12} sm={3} lg={3} md={3}>
-            This is the ads section
+            
           </Grid>
         </Grid>
-
-        <Footers />
       </div>
     </>
   );

@@ -1,11 +1,11 @@
-import React, {useEffect} from "react";
-import {useSelector, useDispatch} from "react-redux"
-import {useLocation} from "react-router-dom"
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import Paginate from "../components/Pagination";
 import { Link } from "react-router-dom";
 import SocialShare from "../components/SocialShare";
 import SearchBox from "../components/SearchBox";
-import {tourismsListAction} from "../actions/advertiseActions2";
+import { tourismsListAction } from "../actions/advertiseActions2";
 import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import { makeStyles } from "@mui/styles";
@@ -20,40 +20,70 @@ import {
   Card,
   CardMedia,
   CardContent,
+  Grid,
 } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
-  [theme.breakpoints.up("md")]: {
-    container: {
-      width: 700,
-      margin: "auto",
+  container: {
+    // margin: "10px",
+    // [theme.breakpoints.down("xs")]: {
+    //   flexDirection: "column",
+    // },
+    // [theme.breakpoints.down("md")]: {
+    //   flexDirection: "column",
+    // },
+    // [theme.breakpoints.down("md")]: {
+    //   flexDirection: "column",
+    // },
+  },
+  containerParent: {
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
     },
   },
-  card: {
+  containerOne: {
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+    },
+  },
+  image: {
+    objectFit: "cover",
     width: "100%",
+    height: "300px",
+
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+    },
+  },
+  containerTwo: {
+    margin: "5px",
+    overflowWrap: "break-word",
+    wordBreak: "break-word",
+    width: "100%",
+    textAlign: "center",
+    alignItem: "center",
+    justifyContent: "center",
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+      overflowWrap: "break-word",
+      wordBreak: "break-word",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+      overflowWrap: "break-word",
+      wordBreak: "break-word",
+    },
   },
 
-  cardMedia: {
-    [theme.breakpoints.up("xs")]: {
-      height: 220,
-      width: "100%",
-    },
-    [theme.breakpoints.up("md")]: {
-      height: 220,
-      width: "100%",
-    },
-    [theme.breakpoints.up("md")]: {
-      height: 350,
-      width: "100%",
-      borderRadius: "0px",
-    },
-  },
-  cardHeader: {
-    margin: 0,
-    padding: 0,
-    color: "green",
-    fontWeight: 800,
-  },
   gridToday: {
     border: "2px solid #05eb4d",
     margin: "10px",
@@ -72,10 +102,20 @@ const useStyles = makeStyles((theme) => ({
   },
   stateBox: {
     color: "white",
-    backgroundColor: "#158f89",
+    backgroundColor: "red",
     padding: "4px",
     display: "flex",
     width: "100px",
+    position: "absolute",
+    [theme.breakpoints.down("xs")]: {
+      width: "90px",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "90px",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "90px",
+    },
   },
   button: {
     color: "white",
@@ -83,13 +123,94 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 4px 0 4px",
     margin: 0,
     borderRadius: 0,
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "10px",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "10px",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "10px",
+    },
   },
-  date: {
+  socialShare: {
+    [theme.breakpoints.down("xs")]: {
+      // display: "none",
+    },
+    [theme.breakpoints.down("md")]: {
+      // display: "none",
+    },
+    [theme.breakpoints.down("md")]: {
+      // display: "none",
+    },
+  },
+
+  title: {
+    fontFamily: "Helvetica",
+    lineHeight: "1.5",
+    overflowWrap: "break-word",
+    wordBreak: "break-word",
+    fontSize: "20px",
+    letterSpacing: "1px",
     fontWeight: 500,
-    marginLeft: "5px",
-    fontFamily: "Monospace",
-    color: "green",
-    padding: 0,
+    color: "black",
+    margin: "5px",
+    width: "100%",
+    opacity: "0.7",
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "16px",
+      letterSpacing: "0.6px",
+      fontWeight: 600,
+      margin: "3px",
+      lineHeight: "1.6",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "16px",
+      letterSpacing: "0.6px",
+      fontWeight: 600,
+      margin: "3px",
+      lineHeight: "1.6",
+    },
+  },
+  Buttom: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-evently",
+    margin: "5px",
+  },
+
+  brand: {
+    margin: "0px 3px",
+    fontSize: "16px",
+    letterSpacing: "1px",
+  },
+
+  gridParent: {
+    margin: "20px",
+    alignItem: "center",
+    justifyContent: "center",
+    textAlign: "center",
+  },
+  buttonRead: {
+    color: "white",
+    fontSize: "20px",
+    fontWeight: 600,
+    backgroundColor: "#16e1e6",
+  },
+  placeContainer: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    textAlign: "center",
+    backgroundColor: "black",
+  },
+  placeText: {
+    opacity: "0.7",
+    margin: "10px",
+    fontFamily: "Sans-serif",
+    fontSize: "14px",
+    color: "rgb(10 249 248)",
   },
 }));
 
@@ -104,95 +225,115 @@ const TourismsScreen = () => {
 
   const tourismsList = useSelector((state) => state.tourismsList);
 
-  const { error: listTourismsError, loading: listTourismsLoading , tourismss: listTourisms, pages, page } = tourismsList;
+  const {
+    error: listTourismsError,
+    loading: listTourismsLoading,
+    tourismss: listTourisms,
+    pages,
+    page,
+  } = tourismsList;
 
   useEffect(() => {
     dispatch(tourismsListAction(keyword));
   }, [dispatch, keyword]);
   return (
-
     <>
-      <SearchBox />
-
-      <div className={classes.container}>
-        <Container disableGutters>
+      {listTourisms && (
+        <div>
           {listTourismsLoading ? (
             <Loaders />
           ) : listTourismsError ? (
             <ErrorMessage type="error" error={listTourismsError} />
           ) : (
-            <div item>
+            <Grid container className={classes.container}>
               {listTourisms.map((data) => (
-                <Paper elevation={20} square={true} className={classes.paper}>
-                  <Link
-                    className={classes.textLink}
-                    to={`/tourisms-detail/${data.id}/${data.slug}`}
-                  >
-                    <Card className={classes.card} key={data.index}>
-                      <h2
-                        variant="h6"
-                        gutterBottom
-                        color="primary"
-                        className={classes.date}
-                      >
-                        UPDATED ON{" "}
-                        {data.createdAt && data.createdAt.split("T", 1)}{" "}
-                        {"Time"}{" "}
-                        {data.createdAt && data.createdAt.substr(11, 8)}
-                      </h2>
-
+                <Grid
+                  item
+                  xs={12}
+                  sm={12}
+                  md={12}
+                  lg={4}
+                  xl={4}
+                  className={classes.containerParent}
+                >
+                  <div className={classes.gridParent}>
+                    <Grid className={classes.containerOne}>
                       <div className={classes.stateBox}>
-                        <Typography variant="title">{data.state}</Typography>
+                        <h2 className={classes.brand} variant="p">
+                          Inmatown
+                        </h2>
                       </div>
-                      <CardMedia
-                        class={classes.cardMedia}
-                        component="img"
-                        image={data.image}
-                        alt={"img"}
-                      />
-                      <Typography variant="h5" gutterBottom>
-                        <CalendarTodayIcon
-                          style={{
-                            fill: "green",
-                            fontSize: "20px",
-                            fontWeight: "800",
-                          }}
-                        />
-                        {data.createdAt && data.createdAt.split("T", 1)}{" "}
-                        {"Time"}{" "}
-                        {data.createdAt && data.createdAt.substr(11, 8)}
-                      </Typography>
-
-
-                      <CardContent>
-                        <Typography variant="h3" color="secondary" gutterBottom>
-                          {data.title}
-                        </Typography>
-                        <Typography
-                          variant="h5"
-                          color="secondary"
-                          noWrap
-                          gutterBottom
-                          paragraph
+                      <div className={classes.ImageContainer}>
+                        <Link
+                          className={classes.textLink}
+                          to={`/tourisms-detail/${data.id}/${data.slug}#content`}
                         >
-                          {data.content}
-                        </Typography>
-                        <Button className={classes.button} variant="contained">
-                          Read More ..
-                        </Button>
-                      </CardContent>
-                      <SocialShare url={socialmedia} />
-                    </Card>
-                  </Link>
-                </Paper>
-              ))}
-            </div>
-          )}
-        </Container>
-        <IndexAdvertiseBanner index={3}/>
-      </div>
-      <Paginate keyword={keyword} page={page} pages={pages} />
+                          <img
+                            className={classes.image}
+                            key={data.id}
+                            src={data.image}
+                            alt={data.title}
+                          />
+                        </Link>
+                      </div>
+                    </Grid>
+                    <div className={classes.placeContainer}>
+                      <div>
+                        <h4 className={classes.placeText}>{data.country}</h4>
+                      </div>
+                      <div>
+                        <h4 className={classes.placeText}>
+                          Entrance : Rs <span>{data.fees}</span>{" "}
+                        </h4>
+                      </div>
+                      <div>
+                        <h4 className={classes.placeText}>{data.state}</h4>
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        margin: "auto",
+                        width: "100%",
+                        justifyContent: "center",
+                        textAlign: "center",
+                        color: "black",
+                      }}
+                    >
+                      <h3 style={{ opacity: "0.7" }}>{data.city}</h3>
+                      <Button
+                        variant="contained"
+                        className={classes.buttonRead}
+                        component={Link}
+                        to={`/tourisms-detail/${data.id}/${data.slug}#content`}
+                      >
+                        Read More
+                      </Button>
+                    </div>
+                    <div className={classes.containerTwo}>
+                      <hr />
 
+                      <h3
+                        className={classes.title}
+                        variant="h3"
+                        color="secondary"
+                        gutterBottom
+                      >
+                        {data.title}
+                      </h3>
+
+                      {/* <div className={classes.Buttom}>
+                    <div className={classes.socialShare}>
+                      <SocialShare url={socialmedia} />
+                    </div>
+                  </div> */}
+                    </div>
+                  </div>
+                </Grid>
+              ))}
+            </Grid>
+          )}
+        </div>
+      )}
     </>
   );
 };

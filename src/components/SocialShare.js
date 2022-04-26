@@ -38,13 +38,18 @@ const useStyles = makeStyles({
     display: "flex",
 
   },
+  button: {
+    color:"blue",
+    fontWeight:"600",
+    fontSize: "20px"
+  }
   // socialContainer7
   });
 const SocialShare = ({url}) => {
     const classes = useStyles();
     return(
         <div className={classes.container}>
-        <Button size="medium" startIcon={ <ShareIcon color="danger"/>}  >Share</Button>
+        <Button className={classes.button} size="medium" startIcon={ <ShareIcon color="blue"/>}  >Share</Button>
        
         <TwitterShareButton 
             url={url}
