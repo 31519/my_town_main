@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Grid, Typography } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
@@ -12,6 +12,8 @@ import { Link } from "react-router-dom";
 
 
 import Slider from "react-slick";
+const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -79,9 +81,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AdvertiseBanners = () => {
+  const location = useLocation();
   // const location = useLocation();
   // let keyword = location.search;
   const dispatch = useDispatch();
+
+  const myRef = useRef(null)
+  const executeScroll = () => scrollToRef(myRef)
 
   const settings = {
     // dots: true,
@@ -105,9 +111,10 @@ const AdvertiseBanners = () => {
 
   useEffect(() => {
     dispatch(advertiseListAction());
-  }, [dispatch]);
+    executeScroll()
+  }, [dispatch, location]);
   return (
-    <div className={classes.main}>
+    <div className={classes.main}   ref={myRef}>
       {listAdvertise.length && listAdvertise.length !== 0 ? (
       <h2 className={classes.heading}>Advertisement</h2>
       ): null }

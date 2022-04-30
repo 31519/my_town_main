@@ -33,7 +33,6 @@ const ImageSlider = ({ images }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    speed: 2000,
     autoplaySpeed: 2000,
     swipeToSlide: true,
     appendDots: dots => (
@@ -42,17 +41,15 @@ const ImageSlider = ({ images }) => {
           backgroundColor: "transparent",
           borderRadius: "50%",
           margin: "auto",
-          paddingTop: "10px"
         }}
       >
-        <ul style={{ margin: "10px 0px" }}> {dots} </ul>
+        <ul style={{ margin: "5px 0px" }}> {dots} </ul>
       </div>
     ),
     customPaging: i => (
       <div
         style={{
-          marginTop: "10px",
-          
+          marginTop: "20px",
           width: "20px",
           height: "20px",
           color: "white",

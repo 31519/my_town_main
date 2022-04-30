@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
@@ -11,6 +11,10 @@ import { localListAction } from "../actions/advertiseActions";
 import { makeStyles } from "@mui/styles";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import { advertiseListAction } from "../actions/advertiseActions";
+import ImageGallery from "../components/ImageGallery";
+import ImageSlider from "../components/ImageSlider";
+
+
 import {
   Typography,
   Container,
@@ -19,6 +23,8 @@ import {
   CardMedia,
   CardContent,
 } from "@mui/material";
+
+// const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -274,6 +280,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LocalDetail = () => {
+  // const myRef = useRef(null)
+  // const executeScroll = () => scrollToRef(myRef)
   const params = useParams();
   const { id, slug } = params;
   const location = useLocation();
@@ -310,6 +318,7 @@ const LocalDetail = () => {
     dispatch(localDetailAction(id, slug));
     dispatch(localListAction());
     dispatch(advertiseListAction(keyword));
+    // executeScroll()
   }, [dispatch, id, slug]);
   return (
     <>
@@ -329,24 +338,21 @@ const LocalDetail = () => {
                     </h2>
                   </div>
                   <div className={classes.ImageContainer}>
-                    {
-                      detailLocal.image ? (
-                        <img
-                      className={classes.image}
-                      key={detailLocal.id}
-                      src={detailLocal.image}
-                      alt={detailLocal.title}
-                    />
-                      ):(
-                    <img
-                      className={classes.image}
-                      key={detailLocal.id}
-                      src="images/newsPlaceholder.jpg"
-                      alt={detailLocal.title}
-                    />
-                      )
-                    }
-                    
+                    {detailLocal.image ? (
+                      <img
+                        className={classes.image}
+                        key={detailLocal.id}
+                        src={detailLocal.image}
+                        alt={detailLocal.title}
+                      />
+                    ) : (
+                      <img
+                        className={classes.image}
+                        key={detailLocal.id}
+                        src="images/newsPlaceholder.jpg"
+                        alt={detailLocal.title}
+                      />
+                    )}
                   </div>
                 </div>
                 <div>
@@ -379,6 +385,8 @@ const LocalDetail = () => {
                       <SocialShare url={socialmedia} />
                     </div>
                   </div>
+                  <ImageSlider images={detailLocal.manyImages} />
+                  <ImageGallery image={detailLocal.manyImages} />
                   <IndexAdvertiseBanner index={1} />
                   <IndexAdvertiseBanner index={2} />
                   <IndexAdvertiseBanner index={3} />
@@ -404,6 +412,7 @@ const LocalDetail = () => {
                   name="Advertise"
                 />
               </div>
+              {/* <button onClick={executeScroll} style={{color: 'black'}}>Click</button> */}
             </div>
           )}
         </div>

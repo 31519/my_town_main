@@ -29,9 +29,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("md")]: {
       flexDirection: "column",
     },
-    [theme.breakpoints.down("md")]: {
-      flexDirection: "column",
-    },
   },
   card: {
     width: "100%",
@@ -312,7 +309,7 @@ const News = () => {
           ) : (
             <div className={classes.container}>
               <div>
-                {/* <AdvertiseBanner/> */}
+                
                 {listLocal.map((data) => (
                   <Link
                     className={classes.textLink}

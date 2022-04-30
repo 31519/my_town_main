@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { tourismsDetailAction } from "../actions/advertiseActions2";
@@ -10,13 +10,12 @@ import { makeStyles } from "@mui/styles";
 
 import SocialShare from "../components/SocialShare";
 
-import ImageSlider from "../components/ImageSlider";
-
 import { advertiseListAction } from "../actions/advertiseActions";
 import ListCategory from "../components/ListCategory";
 import { useParams, useLocation } from "react-router-dom";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import ImageGallery from "../components/ImageGallery";
+import ImageSlider from "../components/ImageSlider";
 
 import {
   Typography,
@@ -26,6 +25,8 @@ import {
   CardMedia,
   CardContent,
 } from "@mui/material";
+
+// const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -299,7 +300,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     textAlign: "center",
     backgroundColor: "black",
-    marginTop: "5px"
+    marginTop: "5px",
   },
   placeText: {
     opacity: "0.7",
@@ -308,18 +309,17 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "14px",
     color: "rgb(10 249 248)",
   },
-  locationDiv:{
-    backgroundColor:"#eef8fa",
-    padding:"10px"
+  locationDiv: {
+    backgroundColor: "#eef8fa",
+    padding: "10px",
   },
-  locationText:{
+  locationText: {
     color: "#02676b",
     fontSize: "25px",
     fontFamily: "Helvetica",
     margin: "10px",
     letterSpacing: "1.5px",
     [theme.breakpoints.down("xs")]: {
-      
       fontFamily: "Helvetica, San-sarif",
       fontSize: "14px",
       letterSpacing: "1.3px",
@@ -329,11 +329,12 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "14px",
       letterSpacing: "1.3px",
     },
-
   },
 }));
 
 const TourismsDetail = () => {
+  const myRef = useRef(null);
+  // const executeScroll = () => scrollToRef(myRef)
   const params = useParams();
   const { id, slug } = params;
   const location = useLocation();
@@ -362,6 +363,7 @@ const TourismsDetail = () => {
   useEffect(() => {
     dispatch(tourismsDetailAction(id, slug));
     dispatch(advertiseListAction(keyword));
+    // executeScroll()
   }, [dispatch, id, slug]);
   const socialmedia = window.location.href;
   return (
@@ -407,7 +409,7 @@ const TourismsDetail = () => {
                     </h4>
                   </div>
                 </div>
-                
+
                 <div className={classes.containerTwo}>
                   <h3
                     className={classes.title}
@@ -419,15 +421,22 @@ const TourismsDetail = () => {
                   </h3>
                   <hr />
                   <div className={classes.locationDiv}>
-                  <h4 className={classes.locationText}>
-                    Distance of {detailTourisms.distance} km from Shillong
-                  </h4>
-                  <h4 className={classes.locationText}>Location: {detailTourisms.address}</h4>
-                  <h4 className={classes.locationText}>Contact: {detailTourisms.contact}</h4>
-                  <h4 className={classes.locationText}>Resort: {detailTourisms.resort}</h4>
-                  <h4 className={classes.locationText}>Hotel: {detailTourisms.hotel}</h4>
-
-                </div>
+                    <h4 className={classes.locationText}>
+                      Distance of {detailTourisms.distance} km from Shillong
+                    </h4>
+                    <h4 className={classes.locationText}>
+                      Location: {detailTourisms.address}
+                    </h4>
+                    <h4 className={classes.locationText}>
+                      Contact: {detailTourisms.contact}
+                    </h4>
+                    <h4 className={classes.locationText}>
+                      Resort: {detailTourisms.resort}
+                    </h4>
+                    <h4 className={classes.locationText}>
+                      Hotel: {detailTourisms.hotel}
+                    </h4>
+                  </div>
                   <pre className={classes.preTag}>{detailTourisms.content}</pre>
                   <hr />
 

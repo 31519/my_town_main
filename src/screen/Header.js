@@ -6,12 +6,18 @@ import Categories from "../components/Categories";
 import {localListAction} from "../actions/advertiseActions";
 import CategoryCarousel from "../components/CategoryCarousel";
 import AdvertiseBanner from "../components/AdvertiseBanner";
+import { makeStyles } from "@mui/styles";
 
-
+const useStyles = makeStyles((theme) => ({
+  container: {
+    width: '100%',
+    overflowX: 'hidden'
+  }
+}));
 
 
 const Header = () => {
-
+  const classes = useStyles();
   const location = useLocation();
   let keyword = location.search;
   const dispatch = useDispatch();
@@ -23,7 +29,7 @@ const Header = () => {
   return (
 
     <>
-    <div className="techlist">
+    <div className={classes.container}>
       <Banners />
       {/* <!-- Ezoic - under_page_title - under_page_title --> */}
       <div id="ezoic-pub-ad-placeholder-105"> </div>

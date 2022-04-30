@@ -42,14 +42,14 @@ const Footers = () => {
   const classes = useStyles();
   return (
     <Grid spacing={2} container className={classes.container}>
-      <Grid spacing={1} item xs={12} sm={4} lg={3.5} md={4} className={classes.item}>
+      <Grid spacing={1} item xs={12} sm={12} lg={3.5} md={12} className={classes.item}>
         <h2 className={classes.title} >
           GET IN TOUCH
         </h2>
         <hr/>
         <div  className={classes.itemList}>
           <h2 className={classes.inTouch} variant="h2">
-            Caroline Colony, Jowai, West Jaintia Hill
+            Shillong, Meghalaya , India
           </h2>
           <h2>
             <a
@@ -80,7 +80,7 @@ const Footers = () => {
         </div>
       </Grid>
 
-      <Grid spacing={1} item xs={12} sm={4} lg={3.5} md={4} className={classes.item}>
+      <Grid spacing={1} item xs={12} sm={12} lg={3.5} md={12} className={classes.item}>
         <h2 className={classes.title} >
           SPONSORED BY
         </h2>
@@ -97,7 +97,7 @@ const Footers = () => {
         </div>
       </Grid>
 
-      <Grid spacing={1} item xs={12} sm={4} lg={3.5} md={4} className={classes.item}>
+      <Grid spacing={1} item xs={12} sm={12} lg={3.5} md={12} className={classes.item}>
         <h2 className={classes.title} >
           LINKS
         </h2>

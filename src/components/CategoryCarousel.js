@@ -280,7 +280,7 @@ const CategoryCarousel = () => {
         },
       },
       {
-        breakpoint: 400,
+        breakpoint: 600,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -303,9 +303,9 @@ const CategoryCarousel = () => {
         },
       },
       {
-        breakpoint: 500,
+        breakpoint: 800,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
           customPaging: (i) => (
             <div

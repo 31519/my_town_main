@@ -7,7 +7,7 @@ const useStyles = makeStyles({
     backgroundColor:"white",
     display:"flex",
     flexWrap: "wrap",
-    marginTop: "10px"
+    marginTop: "20px"
 
   },
  item: {
@@ -15,12 +15,13 @@ const useStyles = makeStyles({
    border: "1px solid black",
    color: "black",
    flexWrap: "wrap",
-   cursor:"pointer"
+   cursor:"pointer",
+   backgroundColor:"#181818",
  }, 
  title:{
    margin: "5px 8px",
    fontFamily: "Monospace",
-   color: "black",
+   color: "white",
    fontWeight: 600
  },
  link :{
