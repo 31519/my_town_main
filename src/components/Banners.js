@@ -9,7 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import Slider from "react-slick";
 
-const image = "images/home_bg.jpg";
+const image = "images/banner.jpg";
 
 
 const useStyles = makeStyles((theme) => ({

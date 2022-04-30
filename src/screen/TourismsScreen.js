@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-// import Paginate from "../components/Pagination";
+import Paginate from "../components/Pagination";
 import { Link } from "react-router-dom";
-// import SocialShare from "../components/SocialShare";
-// import SearchBox from "../components/SearchBox";
+import SocialShare from "../components/SocialShare";
+import SearchBox from "../components/SearchBox";
 import { tourismsListAction } from "../actions/advertiseActions2";
 import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import { makeStyles } from "@mui/styles";
 // import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-// import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
+import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import {Helmet} from "react-helmet";
 
 
@@ -235,6 +235,7 @@ const TourismsScreen = () => {
     page,
   } = tourismsList;
 
+
   useEffect(() => {
     dispatch(tourismsListAction(keyword));
   }, [dispatch, keyword]);
@@ -288,9 +289,15 @@ const TourismsScreen = () => {
                         <h4 className={classes.placeText}>{data.country}</h4>
                       </div>
                       <div>
-                        <h4 className={classes.placeText}>
+                        {data.fees === 0 ? (
+                          <h4 className={classes.placeText}>
+                          Entrance : Free
+                        </h4>
+                        ):(
+                          <h4 className={classes.placeText}>
                           Entrance : Rs <span>{data.fees}</span>{" "}
                         </h4>
+                        )}
                       </div>
                       <div>
                         <h4 className={classes.placeText}>{data.state}</h4>
@@ -338,6 +345,7 @@ const TourismsScreen = () => {
               ))}
             </Grid>
           )}
+          <Paginate keyword={keyword} page={page} pages={pages} />
         </div>
       )}
     </>

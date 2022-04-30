@@ -16,7 +16,7 @@ import { useParams, useLocation } from "react-router-dom";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import ImageGallery from "../components/ImageGallery";
 import ImageSlider from "../components/ImageSlider";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 import {
   Typography,
@@ -404,9 +404,13 @@ const TourismsDetail = () => {
                     </h4>
                   </div>
                   <div>
-                    <h4 className={classes.placeText}>
-                      Entrance : Rs <span>{detailTourisms.fees}</span>{" "}
-                    </h4>
+                    {detailTourisms.fees === 0 ? (
+                      <h4 className={classes.placeText}>Entrance : Free</h4>
+                    ) : (
+                      <h4 className={classes.placeText}>
+                        Entrance : Rs <span>{detailTourisms.fees}</span>{" "}
+                      </h4>
+                    )}
                   </div>
                   <div>
                     <h4 className={classes.placeText}>

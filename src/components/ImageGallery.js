@@ -14,10 +14,19 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   imageContainer: {
-    margin: "20px",
+    margin: "10px 10px",
     alignItem: "center",
     justifyContent: "center",
     textAlign: "center",
+    [theme.breakpoints.down("md")]: {
+      margin: "10px 0px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      margin: "10px 0px",
+    },
+    [theme.breakpoints.down("xs")]: {
+      margin: "10px 0px",
+    },
   },
   image: {
     width: "100%",

@@ -120,22 +120,22 @@ class LocalNews(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        if self.image: 
-            if not self.id:
-                self.image = self.compressImage(self.image)
+        # if self.image: 
+        #     if not self.id:
+        #         self.image = self.compressImage(self.image)
         super(LocalNews,self).save(*args, **kwargs)
         
     def __str__(self):
         return str(self.title)
 
-    def compressImage(self, image):
-        imageTemproary = Image.open(image)
-        outputIoStream = BytesIO()
-        imageTemproaryResize = imageTemproary.resize((1020, 573))
-        imageTemproary.save(outputIoStream, format='JPEG', quality=10)
-        outputIoStream.seek(0)
-        image = InMemoryUploadedFile(outputIoStream, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
-        return image
+    # def compressImage(self, image):
+    #     imageTemproary = Image.open(image)
+    #     outputIoStream = BytesIO()
+    #     imageTemproaryResize = imageTemproary.resize((1020, 573))
+    #     imageTemproary.save(outputIoStream, format='JPEG', quality=10)
+    #     outputIoStream.seek(0)
+    #     image = InMemoryUploadedFile(outputIoStream, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
+    #     return image
 
 
 
@@ -144,21 +144,21 @@ class LocalNewsGallary(models.Model):
     image = models.ImageField(blank=True, default='/placeholder.png', upload_to='localnewsImage')
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.local.title)
-        if self.image: 
-            if not self.id:
-                self.image = self.compressImage(self.image)
+        # self.slug = slugify(self.local.title)
+        # if self.image: 
+        #     if not self.id:
+        #         self.image = self.compressImage(self.image)
         super(LocalNewsGallary,self).save(*args, **kwargs)
 
 
-    def compressImage(self, image):
-        imageTemproary = Image.open(image)
-        outputIoStream = BytesIO()
-        imageTemproaryResize = imageTemproary.resize((1020, 573))
-        imageTemproary.save(outputIoStream, format='JPEG', quality=10)
-        outputIoStream.seek(0)
-        image = InMemoryUploadedFile(outputIoStream, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
-        return image
+    # def compressImage(self, image):
+    #     imageTemproary = Image.open(image)
+    #     outputIoStream = BytesIO()
+    #     imageTemproaryResize = imageTemproary.resize((1020, 573))
+    #     imageTemproary.save(outputIoStream, format='JPEG', quality=10)
+    #     outputIoStream.seek(0)
+    #     image = InMemoryUploadedFile(outputIoStream, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
+    #     return image
 
     def __str__(self):
         return str(self.local.title)

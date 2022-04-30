@@ -30,25 +30,22 @@ class Jobs(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        if self.image:
-            if not self.id:
-                self.image = self.compressImage(self.image)
+        # if self.image:
+        #     if not self.id:
+        #         self.image = self.compressImage(self.image)
         super(Jobs,self).save(*args, **kwargs)
         
     def __str__(self):
         return str(self.title)
 
-    def compressImage(self, image):
-        # if self.image:
-        imageTemproary = Image.open(image)
-        outputIoStream = BytesIO()
-        imageTemproaryResize = imageTemproary.resize((1020, 573))
-        imageTemproary.save(outputIoStream, format='JPEG', quality=10)
-        outputIoStream.seek(0)
-        image = InMemoryUploadedFile(outputIoStream, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
-        return image
-        # else:
-        #     pass
+    # def compressImage(self, image):
+    #     imageTemproary = Image.open(image)
+    #     outputIoStream = BytesIO()
+    #     imageTemproaryResize = imageTemproary.resize((1020, 573))
+    #     imageTemproary.save(outputIoStream, format='JPEG', quality=10)
+    #     outputIoStream.seek(0)
+    #     image = InMemoryUploadedFile(outputIoStream, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
+    #     return image
 
 
 class Event(models.Model):
@@ -92,22 +89,22 @@ class Advertisement(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        if self.image:
-            if not self.id:
-                self.image = self.compressImage(self.image)
+        # if self.image:
+        #     if not self.id:
+        #         self.image = self.compressImage(self.image)
         super(Advertisement,self).save(*args, **kwargs)
         
     def __str__(self):
         return str(self.title)
 
-    def compressImage(self, image):
-        imageTemproary = Image.open(image)
-        outputIoStream = BytesIO()
-        imageTemproaryResize = imageTemproary.resize((1020, 573))
-        imageTemproary.save(outputIoStream, format='JPEG', quality=10)
-        outputIoStream.seek(0)
-        image = InMemoryUploadedFile(outputIoStream, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
-        return image
+    # def compressImage(self, image):
+    #     imageTemproary = Image.open(image)
+    #     outputIoStream = BytesIO()
+    #     imageTemproaryResize = imageTemproary.resize((1020, 573))
+    #     imageTemproary.save(outputIoStream, format='JPEG', quality=10)
+    #     outputIoStream.seek(0)
+    #     image = InMemoryUploadedFile(outputIoStream, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
+    #     return image
 
 
 class OwnBusiness(models.Model):
@@ -263,44 +260,44 @@ class Tourisms(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        if self.image:
+        # if self.image:
 
-            if not self.id:
-                self.image = self.compressImage(self.image)
+        #     if not self.id:
+        #         self.image = self.compressImage(self.image)
         super(Tourisms,self).save(*args, **kwargs)
         
     def __str__(self):
         return str(self.title)
 
-    def compressImage(self, image):
-        imageTemproary = Image.open(image)
-        outputIoStream = BytesIO()
-        imageTemproaryResize = imageTemproary.resize((1020, 573))
-        imageTemproary.save(outputIoStream, format='JPEG', quality=10)
-        outputIoStream.seek(0)
-        image = InMemoryUploadedFile(outputIoStream, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
-        return image
+    # def compressImage(self, image):
+    #     imageTemproary = Image.open(image)
+    #     outputIoStream = BytesIO()
+    #     imageTemproaryResize = imageTemproary.resize((1020, 573))
+    #     imageTemproary.save(outputIoStream, format='JPEG', quality=10)
+    #     outputIoStream.seek(0)
+    #     image = InMemoryUploadedFile(outputIoStream, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
+    #     return image
 
 class TourismsGallary(models.Model):
     tourisms= models.ForeignKey(Tourisms, on_delete=models.CASCADE)
     image = models.ImageField(blank=True, null=True, upload_to='tourismsImage')
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.tourisms.title)
-        if self.image:
-            if not self.id:
-                self.image = self.compressImage(self.image)
+        # self.slug = slugify(self.tourisms.title)
+        # if self.image:
+        #     if not self.id:
+        #         self.image = self.compressImage(self.image)
         super(TourismsGallary,self).save(*args, **kwargs)
     
 
-    def compressImage(self, image):
-        imageTemproary = Image.open(image)
-        outputIoStream = BytesIO()
-        imageTemproaryResize = imageTemproary.resize((1020, 573))
-        imageTemproary.save(outputIoStream, format='JPEG', quality=10)
-        outputIoStream.seek(0)
-        image = InMemoryUploadedFile(outputIoStream, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
-        return image
+    # def compressImage(self, image):
+    #     imageTemproary = Image.open(image)
+    #     outputIoStream = BytesIO()
+    #     imageTemproaryResize = imageTemproary.resize((1020, 573))
+    #     imageTemproary.save(outputIoStream, format='JPEG', quality=10)
+    #     outputIoStream.seek(0)
+    #     image = InMemoryUploadedFile(outputIoStream, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
+    #     return image
 
     def __str__(self):
         return str(self.tourisms.title)
