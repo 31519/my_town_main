@@ -13,7 +13,7 @@ import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import { advertiseListAction } from "../actions/advertiseActions";
 import ImageGallery from "../components/ImageGallery";
 import ImageSlider from "../components/ImageSlider";
-
+import {Helmet} from "react-helmet";
 
 import {
   Typography,
@@ -322,7 +322,11 @@ const LocalDetail = () => {
   }, [dispatch, id, slug]);
   return (
     <>
-      {listLocal && (
+      <Helmet>
+        <title>{detailLocal.title}</title>
+        <meta name="description" content={detailLocal.content} />
+      </Helmet>
+      {detailLocal && (
         <div>
           {detailLocalLoading ? (
             <Loaders />

@@ -12,6 +12,7 @@ import ListCategory from "../components/ListCategory";
 import { Link } from "react-router-dom";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import { advertiseListAction } from "../actions/advertiseActions";
+import {Helmet} from "react-helmet";
 
 import {
   Typography,
@@ -299,6 +300,10 @@ const News = () => {
   }, [dispatch, keyword]);
   return (
     <>
+      <Helmet>
+        <title>Inmatown - Latest news</title>
+        <meta name="description" content="latest news" />
+      </Helmet>
       <SearchBox />
       {listLocal && (
         <div>

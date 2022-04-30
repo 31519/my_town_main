@@ -11,10 +11,8 @@ import ErrorMessage from "../components/ErrorMessage";
 import SocialShare from "../components/SocialShare";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
-
 import { makeStyles } from "@mui/styles";
-
-import {} from "@mui/material";
+import {Helmet} from "react-helmet";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -316,6 +314,10 @@ const JobDetail = () => {
   }, [dispatch, id, slug]);
   return (
     <>
+      <Helmet>
+        <title>{detailJob.title}</title>
+        <meta name="description" content={detailJob.content} />
+      </Helmet>
       {detailJob && (
         <div>
           {detailJobLoading ? (

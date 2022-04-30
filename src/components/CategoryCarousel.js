@@ -47,9 +47,13 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("xs")]: {
       overflowX: "scroll",
     },
+    
 
     // borderShadow: "0px 5px 10px 0px rgba(0,0,0,0.5"
   },
+  // containerBackground:{
+  //   backgroundColor: "pink"
+  // },
   container: {
     widht: "180px",
     height: "320px",
@@ -127,7 +131,7 @@ const List = ({ classes, data, link, placeholder }) => {
       item
       class={classes.containerItem}
     >
-      <Grid item>
+      <Grid item className={classes.containerBackground}>
         {data.image ?(
           <img class={classes.containerImage} src={data.image} alt="" />
         ):(

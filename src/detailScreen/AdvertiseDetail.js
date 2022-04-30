@@ -9,10 +9,7 @@ import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import SocialShare from "../components/SocialShare";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
-
-import {
-} from "@mui/material";
-
+import {Helmet} from "react-helmet";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -302,6 +299,10 @@ const AdvertiseDetail = () => {
   }, [dispatch, id, slug]);
   return (
     <>
+      <Helmet>
+        <title>{detailAdvertise.title}</title>
+        <meta name="description" content={detailAdvertise.content} />
+      </Helmet>
       {detailAdvertise && (
         <div>
           {detailAdvertiseLoading ? (

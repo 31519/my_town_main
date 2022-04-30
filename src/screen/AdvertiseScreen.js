@@ -12,6 +12,7 @@ import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import ListCategory from "../components/ListCategory";
+import {Helmet} from "react-helmet";
 
 import {
   Typography,
@@ -299,6 +300,10 @@ const AdvertiseScreen = () => {
   }, [dispatch, keyword]);
   return (
     <>
+      <Helmet>
+        <title>Inmatown - Latest Advertisements</title>
+        <meta name="description" content="latest Advertisements" />
+      </Helmet>
       <SearchBox />
       {listAdvertise && (
 

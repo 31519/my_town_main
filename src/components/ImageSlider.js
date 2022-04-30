@@ -7,6 +7,10 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    width: "100%",
+    overflowX: "hidden"
+  },
   image: {
     [theme.breakpoints.up("xs")]: {
       height: "250px",
@@ -63,7 +67,7 @@ const ImageSlider = ({ images }) => {
   return (
     
     
-    <div>
+    <div className={classes.container}>
 
     
         <Slider {...settings}>

@@ -16,6 +16,7 @@ import { useParams, useLocation } from "react-router-dom";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import ImageGallery from "../components/ImageGallery";
 import ImageSlider from "../components/ImageSlider";
+import {Helmet} from "react-helmet";
 
 import {
   Typography,
@@ -368,6 +369,10 @@ const TourismsDetail = () => {
   const socialmedia = window.location.href;
   return (
     <>
+      <Helmet>
+        <title>{detailTourisms.title}</title>
+        <meta name="description" content={detailTourisms.content} />
+      </Helmet>
       {detailTourisms && (
         <div>
           {detailTourismsLoading ? (

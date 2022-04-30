@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import Paginate from "../components/Pagination";
+// import Paginate from "../components/Pagination";
 import { Link } from "react-router-dom";
-import SocialShare from "../components/SocialShare";
-import SearchBox from "../components/SearchBox";
+// import SocialShare from "../components/SocialShare";
+// import SearchBox from "../components/SearchBox";
 import { tourismsListAction } from "../actions/advertiseActions2";
 import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import { makeStyles } from "@mui/styles";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
+// import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+// import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
+import {Helmet} from "react-helmet";
+
 
 import {
   Typography,
@@ -238,6 +240,10 @@ const TourismsScreen = () => {
   }, [dispatch, keyword]);
   return (
     <>
+      <Helmet>
+        <title>Inmatown - Best Tourist Spot</title>
+        <meta name="description" content="Best Tourist Spot" />
+      </Helmet>
       {listTourisms && (
         <div>
           {listTourismsLoading ? (

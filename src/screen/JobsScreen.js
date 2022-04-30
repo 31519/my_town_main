@@ -12,6 +12,7 @@ import SocialShare from "../components/SocialShare";
 import { advertiseListAction } from "../actions/advertiseActions";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import ListCategory from "../components/ListCategory";
+import {Helmet} from "react-helmet";
 
 import {
   Typography,
@@ -322,6 +323,10 @@ const JobScreen = () => {
   }, [dispatch, keyword]);
   return (
     <>
+      <Helmet>
+        <title>Inmatown - Latest Jobs</title>
+        <meta name="description" content="latest Jobs" />
+      </Helmet>
       <SearchBox />
       {listJob && (
         <div>
