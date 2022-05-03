@@ -11,6 +11,7 @@ import SocialShare from "../components/SocialShare";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import {Helmet} from "react-helmet";
 import { makeStyles } from "@mui/styles";
+import parse from "html-react-parser";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -302,6 +303,12 @@ const AdvertiseDetail = () => {
       <Helmet>
         <title>{detailAdvertise.title}</title>
         <meta name="description" content={detailAdvertise.content} />
+        {/* <!-- Open Graph / Facebook --> */}
+        <meta property="og:type" content="website"/>
+        <meta property="og:url" content={socialmedia}/>
+        <meta property="og:title" content={detailAdvertise.title}/>
+        <meta property="og:description" content={detailAdvertise.content}/>
+        <meta property="og:image" content={detailAdvertise.image}/>
       </Helmet>
       {detailAdvertise && (
         <div>
@@ -360,7 +367,9 @@ const AdvertiseDetail = () => {
                     {detailAdvertise.title}
                   </h3>
                   <hr/>
-                  <pre className={classes.preTag}>{detailAdvertise.content}</pre>
+                  {detailAdvertise.content && ( 
+                    <pre className={classes.preTag}>{parse(detailAdvertise.content)}</pre>
+                  )}
                   <hr/>
 
                   <div className={classes.Buttom}>

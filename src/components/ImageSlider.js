@@ -12,6 +12,8 @@ const useStyles = makeStyles((theme) => ({
     overflowX: "hidden"
   },
   image: {
+    width: "100%",
+    objectFit: "cover",
     [theme.breakpoints.up("xs")]: {
       height: "250px",
     },

@@ -12,7 +12,8 @@ import SocialShare from "../components/SocialShare";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import { makeStyles } from "@mui/styles";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
+import parse from "html-react-parser";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -278,6 +279,49 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     color: "red",
   },
+  detailText:{
+    fontSize: "20px",
+    color: "#2dc26b",
+    margin: "0px",
+    fontFamily: "Times New Roman",
+    textDecoration: "underline",
+  },
+
+  preTagDetail: {
+    whiteSpace: "pre-wrap",
+
+    overflowX: "auto",
+    wordWrap: "break-word",
+    fontWeight: 500,
+    fontFamily: "Helvetica, San-sarif",
+    fontSize: "20px",
+    letterSpacing: "1.5px",
+    opacity: "0.8",
+    // margin: "5px",
+    lineHeight: "1",
+    [theme.breakpoints.down("xs")]: {
+      whiteSpace: "pre-wrap",
+
+      overflowX: "auto",
+      wordWrap: "break-word",
+      fontWeight: 500,
+      fontFamily: "Helvetica, San-sarif",
+      fontSize: "14px",
+      letterSpacing: "1.5px",
+      opacity: "0.8",
+    },
+    [theme.breakpoints.down("md")]: {
+      whiteSpace: "pre-wrap",
+
+      overflowX: "auto",
+      wordWrap: "break-word",
+      fontWeight: 500,
+      fontFamily: "Helvetica, San-sarif",
+      fontSize: "14px",
+      letterSpacing: "1.5px",
+      opacity: "0.8",
+    },
+  }
 }));
 
 const JobDetail = () => {
@@ -317,6 +361,12 @@ const JobDetail = () => {
       <Helmet>
         <title>{detailJob.title}</title>
         <meta name="description" content={detailJob.content} />
+        {/* <!-- Open Graph / Facebook --> */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={socialmedia} />
+        <meta property="og:title" content={detailJob.title} />
+        <meta property="og:description" content={detailJob.content} />
+        <meta property="og:image" content={detailJob.image} />
       </Helmet>
       {detailJob && (
         <div>
@@ -334,24 +384,21 @@ const JobDetail = () => {
                     </h2>
                   </div>
                   <div className={classes.ImageContainer}>
-                    {
-                      detailJob.image ? (
-                        <img
-                      className={classes.image}
-                      key={detailJob.id}
-                      src={detailJob.image}
-                      alt={detailJob.title}
-                    />
-                      ):(
-                        <img
+                    {detailJob.image ? (
+                      <img
+                        className={classes.image}
+                        key={detailJob.id}
+                        src={detailJob.image}
+                        alt={detailJob.title}
+                      />
+                    ) : (
+                      <img
                         className={classes.image}
                         key={detailJob.id}
                         src="images/jobPlaceholder.jpg"
                         alt={detailJob.title}
                       />
-                      )
-                    }
-                    
+                    )}
                   </div>
                 </div>
                 <div>
@@ -385,8 +432,48 @@ const JobDetail = () => {
                     {detailJob.title}
                   </h3>
                   <hr />
-                  <pre className={classes.preTag}>{detailJob.content}</pre>
-                  <hr />
+                  {detailJob.content && (
+                    <pre className={classes.preTag}>
+                      {parse(detailJob.content)}
+                    </pre>
+                  )}
+
+                  {detailJob.jobsDetail && (
+                    <div className={classes.detailJobContainer}>
+                      {detailJob.jobsDetail.map((detail) => (
+                        <>
+                        <h2 style={{color:"#119eef",fontSize: "25px", marginBottom: "10px",fontFamily: "Times New Roman",}}>
+                              Job Detail
+                            </h2>
+                          {detail.postName && (<>
+                          <h2 className={classes.detailText}>Post Name : </h2>
+                            <pre className={classes.preTagDetail}>
+                              {parse(detail.postName)}
+                            </pre>
+                          </>)}
+                           {detail.qualification && (<>
+                           <h2 className={classes.detailText}>Qualification : </h2>
+                            <pre className={classes.preTagDetail}>
+                              {parse(detail.qualification)}
+                            </pre>
+                          </>)}
+                           {detail.experience && (<>
+                           <h2 className={classes.detailText}>Experience : </h2>
+                            <pre className={classes.preTagDetail}>
+                              {parse(detail.experience)}
+                            </pre>
+                          </>)}
+                           {detail.howToApply && (<>
+                            <h2 className={classes.detailText}>How To Apply : </h2>
+                            <pre className={classes.preTagDetail}>
+                              {parse(detail.howToApply)}
+                            </pre>
+                            <hr/>
+                          </>)}
+                        </>
+                      ))}
+                    </div>
+                  )}
 
                   <div className={classes.Buttom}>
                     <div className={classes.socialShare}>

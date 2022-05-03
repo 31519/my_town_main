@@ -12,7 +12,8 @@ import SocialShare from "../components/SocialShare";
 import { advertiseListAction } from "../actions/advertiseActions";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import ListCategory from "../components/ListCategory";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
+import parse from "html-react-parser";
 
 import {
   Typography,
@@ -385,16 +386,18 @@ const JobScreen = () => {
                         >
                           {data.title}
                         </h3>
-                        <Typography
-                          className={classes.content}
-                          variant="h6"
-                          color="secondary"
-                          noWrap
-                          gutterBottom
-                          paragraph
-                        >
-                          {data.content}
-                        </Typography>
+                        {data.content && (
+                          <Typography
+                            className={classes.content}
+                            variant="h6"
+                            color="secondary"
+                            noWrap
+                            gutterBottom
+                            paragraph
+                          >
+                            {parse(data.content)}
+                          </Typography>
+                        )}
 
                         <h2 className={classes.startDate}>
                           Start Date: {data.startDate.split("T", 1)}

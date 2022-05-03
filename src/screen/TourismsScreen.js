@@ -11,8 +11,7 @@ import ErrorMessage from "../components/ErrorMessage";
 import { makeStyles } from "@mui/styles";
 // import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
-import {Helmet} from "react-helmet";
-
+import { Helmet } from "react-helmet";
 
 import {
   Typography,
@@ -47,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   containerOne: {
+    position: "relative",
     [theme.breakpoints.down("xs")]: {
       width: "100%",
     },
@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
     objectFit: "cover",
     width: "100%",
     height: "300px",
+    position: "relative",
 
     [theme.breakpoints.down("xs")]: {
       width: "100%",
@@ -65,6 +66,14 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("md")]: {
       width: "100%",
     },
+  },
+  absoluteTitle: {
+    width: "100%",
+    position: "absolute",
+    left: 0,
+    top: 0,
+    backgroundImage: "linear-gradient(rgba(0,0,0, 0.64), rgba(0,0,0,0.4+5))",
+    color:'white'
   },
   containerTwo: {
     margin: "5px",
@@ -107,16 +116,16 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "red",
     padding: "4px",
     display: "flex",
-    width: "100px",
+    width: "100%",
     position: "absolute",
     [theme.breakpoints.down("xs")]: {
-      width: "90px",
+      width: "100%",
     },
     [theme.breakpoints.down("md")]: {
-      width: "90px",
+      width: "100%",
     },
     [theme.breakpoints.down("md")]: {
-      width: "90px",
+      width: "100%",
     },
   },
   button: {
@@ -154,23 +163,24 @@ const useStyles = makeStyles((theme) => ({
     wordBreak: "break-word",
     fontSize: "20px",
     letterSpacing: "1px",
-    fontWeight: 500,
-    color: "black",
-    margin: "5px",
+    fontWeight: 700,
+    color: "white",
+    margin: "10px",
     width: "100%",
     opacity: "0.7",
+    zIndex:99,
     [theme.breakpoints.down("xs")]: {
-      fontSize: "16px",
+      fontSize: "30px",
       letterSpacing: "0.6px",
-      fontWeight: 600,
-      margin: "3px",
+      fontWeight: 700,
+      margin: "5px",
       lineHeight: "1.6",
     },
     [theme.breakpoints.down("md")]: {
-      fontSize: "16px",
+      fontSize: "30px",
       letterSpacing: "0.6px",
       fontWeight: 600,
-      margin: "3px",
+      margin: "5px",
       lineHeight: "1.6",
     },
   },
@@ -179,12 +189,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "space-evently",
     margin: "5px",
-  },
-
-  brand: {
-    margin: "0px 3px",
-    fontSize: "16px",
-    letterSpacing: "1px",
   },
 
   gridParent: {
@@ -235,7 +239,6 @@ const TourismsScreen = () => {
     page,
   } = tourismsList;
 
-
   useEffect(() => {
     dispatch(tourismsListAction(keyword));
   }, [dispatch, keyword]);
@@ -245,6 +248,7 @@ const TourismsScreen = () => {
         <title>Inmatown - Best Tourist Spot</title>
         <meta name="description" content="Best Tourist Spot" />
       </Helmet>
+      <SearchBox />
       {listTourisms && (
         <div>
           {listTourismsLoading ? (
@@ -265,22 +269,24 @@ const TourismsScreen = () => {
                 >
                   <div className={classes.gridParent}>
                     <Grid className={classes.containerOne}>
-                      <div className={classes.stateBox}>
-                        <h2 className={classes.brand} variant="p">
-                          Inmatown
-                        </h2>
-                      </div>
                       <div className={classes.ImageContainer}>
                         <Link
                           className={classes.textLink}
                           to={`/tourisms-detail/${data.id}/${data.slug}#content`}
                         >
-                          <img
-                            className={classes.image}
-                            key={data.id}
-                            src={data.image}
-                            alt={data.title}
-                          />
+                          <div>
+                            <img
+                              className={classes.image}
+                              key={data.id}
+                              src={data.image}
+                              alt={data.title}
+                            />
+                            <div  className={classes.absoluteTitle}>
+                              <h2 className={classes.title} variant="p">
+                                {data.title}
+                              </h2>
+                            </div>
+                          </div>
                         </Link>
                       </div>
                     </Grid>
@@ -290,13 +296,11 @@ const TourismsScreen = () => {
                       </div>
                       <div>
                         {data.fees === 0 ? (
+                          <h4 className={classes.placeText}>Entrance : Free</h4>
+                        ) : (
                           <h4 className={classes.placeText}>
-                          Entrance : Free
-                        </h4>
-                        ):(
-                          <h4 className={classes.placeText}>
-                          Entrance : Rs <span>{data.fees}</span>{" "}
-                        </h4>
+                            Entrance : Rs <span>{data.fees}</span>{" "}
+                          </h4>
                         )}
                       </div>
                       <div>
@@ -324,15 +328,6 @@ const TourismsScreen = () => {
                     </div>
                     <div className={classes.containerTwo}>
                       <hr />
-
-                      <h3
-                        className={classes.title}
-                        variant="h3"
-                        color="secondary"
-                        gutterBottom
-                      >
-                        {data.title}
-                      </h3>
 
                       {/* <div className={classes.Buttom}>
                     <div className={classes.socialShare}>

@@ -335,7 +335,7 @@ const CategoryCarousel = () => {
   return (
     <div>
       <Slider {...settings}>
-        {listLocal.length && (
+        {listLocal && listLocal.length && (
           <div container class={classes.containerMain}>
             <Grid item md={12} sm={12} lg={3} class={classes.container}>
               <Typography
@@ -361,7 +361,7 @@ const CategoryCarousel = () => {
           </div>
         )}
 
-        {listAdvertise.length && (
+        {listAdvertise && listAdvertise.length && (
           <div container class={classes.containerMain}>
             <Grid item md={12} sm={12} lg={3} class={classes.container}>
               <Typography
@@ -392,7 +392,7 @@ const CategoryCarousel = () => {
           </div>
         )}
 
-        {listTourisms.length && (
+        {listTourisms && listTourisms.length && (
           <div container class={classes.containerMain}>
             <Grid item md={12} sm={12} lg={3} class={classes.container}>
               <Typography
@@ -422,7 +422,7 @@ const CategoryCarousel = () => {
           </div>
         )}
 
-        {listJob.length && (
+        {listJob && listJob.length && (
           <div container class={classes.containerMain}>
             <Grid item md={12} sm={12} lg={3} class={classes.container}>
               <Typography
@@ -448,7 +448,7 @@ const CategoryCarousel = () => {
           </div>
         )}
 
-        {listCelebrity.length && (
+        {listCelebrity && listCelebrity.length && (
           <div container class={classes.containerMain}>
             <Grid item md={12} sm={12} lg={3} class={classes.container}>
               <Typography

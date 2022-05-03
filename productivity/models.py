@@ -6,6 +6,7 @@ from django.utils import timezone
 from PIL import Image
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from tinymce.models import HTMLField
 
 # Create your models here.
 
@@ -18,7 +19,7 @@ class Jobs(models.Model):
     contact = models.CharField(max_length=100, blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
     title = models.TextField(blank=True, null=True, default='title')
-    content = models.TextField(blank=True, null=True, default='content')
+    content = HTMLField(blank=True, null=True)
     isApproved = models.BooleanField(default=False, null=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     flag = models.IntegerField(default=0, blank=True, null=True)
@@ -48,6 +49,17 @@ class Jobs(models.Model):
     #     return image
 
 
+class JobsDetail(models.Model):
+    jobs=models.ForeignKey(Jobs, on_delete=models.CASCADE)
+    postName= HTMLField(blank=True, null=True)
+    qualification= HTMLField(blank=True, null=True)
+    experience= HTMLField(blank=True, null=True)
+    howToApply= HTMLField(blank=True, null=True)
+
+    def __str__(self):
+        return str(self.jobs.title)
+
+
 class Event(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.CharField(max_length=300, null=True, blank=True, default="Category")
@@ -57,7 +69,7 @@ class Event(models.Model):
     contact = models.CharField(max_length=100, blank=True, null=True)
     image = models.ImageField(blank=True, default='placeholder.png')
     title = models.TextField(blank=True, null=True, default='title')
-    content = models.TextField(blank=True, null=True, default='content')
+    content = HTMLField(blank=True, null=True)
     isApproved = models.BooleanField(default=False, null=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=500, blank=True, null=True)
@@ -80,7 +92,7 @@ class Advertisement(models.Model):
     contact = models.CharField(max_length=100, blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
     title = models.TextField(blank=True, null=True, default='title')
-    content = models.TextField(blank=True, null=True, default='content')
+    content = HTMLField(blank=True, null=True)
     isApproved = models.BooleanField(default=False, null=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     flag = models.IntegerField(default=0, blank=True, null=True)
@@ -180,7 +192,7 @@ class Celebrities(models.Model):
     contact = models.CharField(max_length=100, blank=True, null=True)
     image = models.ImageField(blank=True, default='celebrityPlaceholder.png')
     title = models.TextField(blank=True, null=True, default='title')
-    content = models.TextField(blank=True, null=True, default='content')
+    content = HTMLField(blank=True, null=True)
     isApproved = models.BooleanField(default=False, null=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     flag = models.IntegerField(default=0, blank=True, null=True)
@@ -247,7 +259,7 @@ class Tourisms(models.Model):
     contact = models.CharField(max_length=100, blank=True, null=True, default="91+ 000000xxxxx")
     image = models.ImageField(blank=True, null=True)
     title = models.TextField(blank=True, null=True, default='Best Tourisms Spot')
-    content = models.TextField(blank=True, null=True, default='Best Tourisms spot')
+    content = HTMLField(blank=True, null=True)
     distance = models.IntegerField(null=True, blank=True, default=0)
     hotel = models.IntegerField(null=True, blank=True, default=0)
     resort = models.IntegerField(null=True, blank=True, default=0)

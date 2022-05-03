@@ -5,6 +5,7 @@ from django.utils.text import slugify
 from PIL import Image
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from tinymce.models import HTMLField
 
 # Create your models here.
 
@@ -17,7 +18,7 @@ class Technology(models.Model):
     url= models.CharField(max_length=500, null=True, blank=True, default='Url')
     urlToImage= models.CharField(max_length=300, null=True, blank=True, default='UrlToImage')
     publishedAt = models.CharField(max_length=300, null=True,blank=True, default='PublishedAt')
-    content = models.TextField(null=True, blank=True, default='content')
+    content = HTMLField(blank=True, null=True)
     # createdAt = models.DateTimeField(auto_now_add =True)
     createAt = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=500, blank=True, null=True)
@@ -39,7 +40,7 @@ class Science(models.Model):
     url= models.CharField(max_length=500, null=True, blank=True, default='Url')
     urlToImage= models.CharField(max_length=300, null=True, blank=True, default='UrlToImage')
     publishedAt = models.CharField(max_length=300, null=True,blank=True, default='PublishedAt')
-    content = models.TextField(null=True, blank=True, default='content')
+    content = HTMLField(blank=True, null=True)
     # createdAt = models.DateTimeField(auto_now_add =True)
     createAt = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=500, blank=True, null=True)
@@ -62,7 +63,7 @@ class Business(models.Model):
     url= models.CharField(max_length=500, null=True, blank=True, default='Url')
     urlToImage= models.CharField(max_length=300, null=True, blank=True, default='UrlToImage')
     publishedAt = models.CharField(max_length=300, null=True,blank=True, default='PublishedAt')
-    content = models.TextField(null=True, blank=True, default='content')
+    content = HTMLField(blank=True, null=True)
     # createdAt = models.DateTimeField(auto_now_add =True)
     createAt = models.DateTimeField(auto_now_add=True)
 
@@ -85,7 +86,7 @@ class Health(models.Model):
     url= models.CharField(max_length=500, null=True, blank=True, default='Url')
     urlToImage= models.CharField(max_length=300, null=True, blank=True, default='UrlToImage')
     publishedAt = models.CharField(max_length=300, null=True,blank=True, default='PublishedAt')
-    content = models.TextField(null=True, blank=True, default='content')
+    content = HTMLField(blank=True, null=True)
     # createdAt = models.DateTimeField(auto_now_add =True)
     createAt = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=500, blank=True, null=True)
@@ -110,7 +111,7 @@ class LocalNews(models.Model):
     description = models.TextField(null=True, blank=True, default='Description')
     url= models.CharField(max_length=500, null=True, blank=True, default='Url')
     image = models.ImageField(blank=True, null=True)
-    content = models.TextField(null=True, blank=True, default='content')
+    content = HTMLField(blank=True, null=True)
     # createdAt = models.DateTimeField(auto_now_add =True)
     createdAt = models.DateTimeField(auto_now_add=True)
     flag = models.IntegerField(default=0, blank=True, null=True)

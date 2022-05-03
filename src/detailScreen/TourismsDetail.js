@@ -17,6 +17,7 @@ import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import ImageGallery from "../components/ImageGallery";
 import ImageSlider from "../components/ImageSlider";
 import { Helmet } from "react-helmet";
+import parse from "html-react-parser";
 
 import {
   Typography,
@@ -371,7 +372,14 @@ const TourismsDetail = () => {
     <>
       <Helmet>
         <title>{detailTourisms.title}</title>
+        <meta name="title" content={detailTourisms.title} />
         <meta name="description" content={detailTourisms.content} />
+        {/* <!-- Open Graph / Facebook --> */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={socialmedia} />
+        <meta property="og:title" content={detailTourisms.title} />
+        <meta property="og:description" content={detailTourisms.content} />
+        <meta property="og:image" content={detailTourisms.image} />
       </Helmet>
       {detailTourisms && (
         <div>
@@ -446,7 +454,11 @@ const TourismsDetail = () => {
                       Hotel: {detailTourisms.hotel}
                     </h4>
                   </div>
-                  <pre className={classes.preTag}>{detailTourisms.content}</pre>
+                  {detailTourisms.content && (
+                    <pre className={classes.preTag}>
+                      {parse(detailTourisms.content)}
+                    </pre>
+                  )}
                   <hr />
 
                   <div className={classes.Buttom}>

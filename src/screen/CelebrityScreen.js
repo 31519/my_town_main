@@ -1,16 +1,17 @@
-import React, {useEffect} from "react";
-import {useSelector, useDispatch} from "react-redux"
-import {useLocation} from "react-router-dom"
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import Paginate from "../components/Pagination";
 import { Link } from "react-router-dom";
 import SocialShare from "../components/SocialShare";
 import SearchBox from "../components/SearchBox";
-import {celebrityListAction} from "../actions/advertiseActions";
+import { celebrityListAction } from "../actions/advertiseActions";
 import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import { makeStyles } from "@mui/styles";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
+import parse from "html-react-parser";
 
 import {
   Typography,
@@ -104,13 +105,18 @@ const CelebrityScreen = () => {
 
   const celebrityList = useSelector((state) => state.celebrityList);
 
-  const { error: listCelebrityError, loading: listCelebrityLoading , celebrities: listCelebrity, pages, page } = celebrityList;
+  const {
+    error: listCelebrityError,
+    loading: listCelebrityLoading,
+    celebrities: listCelebrity,
+    pages,
+    page,
+  } = celebrityList;
 
   useEffect(() => {
     dispatch(celebrityListAction(keyword));
   }, [dispatch, keyword]);
   return (
-
     <>
       <SearchBox />
 
@@ -163,20 +169,22 @@ const CelebrityScreen = () => {
                         {data.createdAt && data.createdAt.substr(11, 8)}
                       </Typography>
 
-
                       <CardContent>
                         <Typography variant="h3" color="secondary" gutterBottom>
                           {data.title}
                         </Typography>
-                        <Typography
-                          variant="h5"
-                          color="secondary"
-                          noWrap
-                          gutterBottom
-                          paragraph
-                        >
-                          {data.content}
-                        </Typography>
+                        {data.content && (
+                          <Typography
+                            className={classes.content}
+                            variant="h6"
+                            color="secondary"
+                            noWrap
+                            gutterBottom
+                            paragraph
+                          >
+                            {parse(data.content)}
+                          </Typography>
+                        )}
                         <Button className={classes.button} variant="contained">
                           Read More ..
                         </Button>
@@ -189,10 +197,9 @@ const CelebrityScreen = () => {
             </div>
           )}
         </Container>
-        <IndexAdvertiseBanner index={3}/>
+        <IndexAdvertiseBanner index={3} />
       </div>
       <Paginate keyword={keyword} page={page} pages={pages} />
-
     </>
   );
 };

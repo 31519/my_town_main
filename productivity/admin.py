@@ -1,5 +1,5 @@
 from django.contrib import admin
-from productivity.models import Jobs, OwnBusiness, Shops,ShopProduct, Advertisement, Celebrities, CelebritiesGallary, Hotels, Tourisms, Resell, Event, Meme, Banner, TourismsGallary
+from productivity.models import Jobs,JobsDetail, OwnBusiness, Shops,ShopProduct, Advertisement, Celebrities, CelebritiesGallary, Hotels, Tourisms, Resell, Event, Meme, Banner, TourismsGallary
 # Register your models here.
 class TourismsGallaryInline(admin.TabularInline):
     model = TourismsGallary
@@ -8,7 +8,15 @@ class TourismsGallaryInline(admin.TabularInline):
 class TourismsAdmin(admin.ModelAdmin):
     inlines = [TourismsGallaryInline]
 
-admin.site.register(Jobs)
+
+class JobsDetailInline(admin.TabularInline):
+    model = JobsDetail
+    extra = 1
+
+class JobsAdmin(admin.ModelAdmin):
+    inlines = [JobsDetailInline]
+
+admin.site.register(Jobs, JobsAdmin)
 admin.site.register(OwnBusiness)
 
 admin.site.register(Shops)

@@ -12,12 +12,10 @@ import ListCategory from "../components/ListCategory";
 import { Link } from "react-router-dom";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import { advertiseListAction } from "../actions/advertiseActions";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
+import parse from "html-react-parser";
 
-import {
-  Typography,
-  Button,
-} from "@mui/material";
+import { Typography, Button } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.up("md")]: {},
@@ -209,7 +207,7 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 600,
       color: "black",
       margin: "3px",
-      opacity:"0.8",
+      opacity: "0.8",
     },
     [theme.breakpoints.down("md")]: {
       fontSize: "16px",
@@ -217,7 +215,7 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 500,
       color: "black",
       margin: "3px",
-      opacity:"0.8",
+      opacity: "0.8",
     },
   },
   Buttom: {
@@ -248,23 +246,22 @@ const useStyles = makeStyles((theme) => ({
     margin: "5px",
     [theme.breakpoints.down("xs")]: {
       display: "none",
-      
+
       overflowWrap: "break-word",
-    wordBreak: "break-word",
+      wordBreak: "break-word",
     },
     [theme.breakpoints.down("md")]: {
       display: "none",
       overflowWrap: "break-word",
-    wordBreak: "break-word",
+      wordBreak: "break-word",
     },
     [theme.breakpoints.down("md")]: {
       display: "none",
       overflowWrap: "break-word",
-    wordBreak: "break-word",
+      wordBreak: "break-word",
     },
   },
 }));
-
 
 const News = () => {
   const classes = useStyles();
@@ -302,7 +299,14 @@ const News = () => {
     <>
       <Helmet>
         <title>Inmatown - Latest news</title>
+        <meta name="title" content="Inmatown - Latest news" />
         <meta name="description" content="latest news" />
+        {/* <!-- Open Graph / Facebook --> */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={socialmedia} />
+        <meta property="og:title" content="{detailAdvertise.title}" />
+        <meta property="og:description" content="{detailAdvertise.content}" />
+        <meta property="og:image" content="{detailAdvertise.image}" />
       </Helmet>
       <SearchBox />
       {listLocal && (
@@ -314,7 +318,6 @@ const News = () => {
           ) : (
             <div className={classes.container}>
               <div>
-                
                 {listLocal.map((data) => (
                   <Link
                     className={classes.textLink}
@@ -328,19 +331,18 @@ const News = () => {
                         <div className={classes.ImageContainer}>
                           {data.image ? (
                             <img
-                            className={classes.image}
-                            key={data.id}
-                            src={data.image}
-                            alt={data.title}
-                          />
-                          ): (
-
-                          <img
-                            className={classes.image}
-                            key={data.id}
-                            src="images/newsPlaceholder.jpg"
-                            alt={data.title}
-                          />
+                              className={classes.image}
+                              key={data.id}
+                              src={data.image}
+                              alt={data.title}
+                            />
+                          ) : (
+                            <img
+                              className={classes.image}
+                              key={data.id}
+                              src="images/newsPlaceholder.jpg"
+                              alt={data.title}
+                            />
                           )}
                         </div>
                       </div>
@@ -356,7 +358,6 @@ const News = () => {
                           {data.createdAt && data.createdAt.substr(11, 8)}
                         </h3>
 
-                        
                         <h3
                           className={classes.title}
                           variant="h3"
@@ -365,16 +366,18 @@ const News = () => {
                         >
                           {data.title}
                         </h3>
-                        <Typography
-                          className={classes.content}
-                          variant="h6"
-                          color="secondary"
-                          noWrap
-                          gutterBottom
-                          paragraph
-                        >
-                          {data.content}
-                        </Typography>
+                        {data.content && (
+                          <Typography
+                            className={classes.content}
+                            variant="h6"
+                            color="secondary"
+                            noWrap
+                            gutterBottom
+                            paragraph
+                          >
+                            {parse(data.content)}
+                          </Typography>
+                        )}
 
                         <div className={classes.Buttom}>
                           <div>
@@ -406,7 +409,6 @@ const News = () => {
               </div>
             </div>
           )}
-          
         </div>
       )}
 

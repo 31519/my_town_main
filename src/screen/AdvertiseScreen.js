@@ -12,12 +12,11 @@ import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import ListCategory from "../components/ListCategory";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
-import {
-  Typography,
-  Button,
-} from "@mui/material";
+import parse from "html-react-parser";
+
+import { Typography, Button } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.up("md")]: {},
@@ -212,7 +211,7 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 600,
       color: "black",
       margin: "3px",
-      opacity:"0.8",
+      opacity: "0.8",
     },
     [theme.breakpoints.down("md")]: {
       fontSize: "16px",
@@ -220,7 +219,7 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 500,
       color: "black",
       margin: "3px",
-      opacity:"0.8",
+      opacity: "0.8",
     },
   },
   Buttom: {
@@ -251,19 +250,19 @@ const useStyles = makeStyles((theme) => ({
     margin: "5px",
     [theme.breakpoints.down("xs")]: {
       display: "none",
-      
+
       overflowWrap: "break-word",
-    wordBreak: "break-word",
+      wordBreak: "break-word",
     },
     [theme.breakpoints.down("md")]: {
       display: "none",
       overflowWrap: "break-word",
-    wordBreak: "break-word",
+      wordBreak: "break-word",
     },
     [theme.breakpoints.down("md")]: {
       display: "none",
       overflowWrap: "break-word",
-    wordBreak: "break-word",
+      wordBreak: "break-word",
     },
   },
 }));
@@ -306,8 +305,6 @@ const AdvertiseScreen = () => {
       </Helmet>
       <SearchBox />
       {listAdvertise && (
-
-      
         <div>
           {listAdvertiseError ? (
             <ErrorMessage type="error" error={listAdvertiseError} />
@@ -325,21 +322,20 @@ const AdvertiseScreen = () => {
                           <Typography variant="p">MEGHALAYA</Typography>
                         </div>
                         <div className={classes.ImageContainer}>
-                        {data.image ? (
+                          {data.image ? (
                             <img
-                            className={classes.image}
-                            key={data.id}
-                            src={data.image}
-                            alt={data.title}
-                          />
-                          ): (
-
-                          <img
-                            className={classes.image}
-                            key={data.id}
-                            src="images/advertisePlaceholder.jpg"
-                            alt={data.title}
-                          />
+                              className={classes.image}
+                              key={data.id}
+                              src={data.image}
+                              alt={data.title}
+                            />
+                          ) : (
+                            <img
+                              className={classes.image}
+                              key={data.id}
+                              src="images/advertisePlaceholder.jpg"
+                              alt={data.title}
+                            />
                           )}
                         </div>
                       </div>
@@ -355,7 +351,6 @@ const AdvertiseScreen = () => {
                           {data.createdAt && data.createdAt.substr(11, 8)}
                         </h3>
 
-                        
                         <h3
                           className={classes.title}
                           variant="h3"
@@ -364,16 +359,18 @@ const AdvertiseScreen = () => {
                         >
                           {data.title}
                         </h3>
-                        <Typography
-                          className={classes.content}
-                          variant="h6"
-                          color="secondary"
-                          noWrap
-                          gutterBottom
-                          paragraph
-                        >
-                          {data.content}
-                        </Typography>
+                        {data.content && (
+                          <Typography
+                            className={classes.content}
+                            variant="h6"
+                            color="secondary"
+                            noWrap
+                            gutterBottom
+                            paragraph
+                          >
+                            {parse(data.content)}
+                          </Typography>
+                        )}
 
                         <div className={classes.Buttom}>
                           <div>
@@ -405,9 +402,8 @@ const AdvertiseScreen = () => {
               </div>
             </div>
           )}
-          
         </div>
-        )}
+      )}
 
       <Paginate keyword={keyword} page={page} pages={pages} />
     </>

@@ -14,6 +14,7 @@ import { advertiseListAction } from "../actions/advertiseActions";
 import ImageGallery from "../components/ImageGallery";
 import ImageSlider from "../components/ImageSlider";
 import {Helmet} from "react-helmet";
+import parse from "html-react-parser";
 
 import {
   Typography,
@@ -325,6 +326,12 @@ const LocalDetail = () => {
       <Helmet>
         <title>{detailLocal.title}</title>
         <meta name="description" content={detailLocal.content} />
+        {/* <!-- Open Graph / Facebook --> */}
+        <meta property="og:type" content="website"/>
+        <meta property="og:url" content={socialmedia}/>
+        <meta property="og:title" content={detailLocal.title}/>
+        <meta property="og:description" content={detailLocal.content}/>
+        <meta property="og:image" content={detailLocal.image}/>
       </Helmet>
       {detailLocal && (
         <div>
@@ -381,7 +388,9 @@ const LocalDetail = () => {
                     {detailLocal.title}
                   </h3>
                   <hr />
-                  <pre className={classes.preTag}>{detailLocal.content}</pre>
+                  {detailLocal.content && ( 
+                    <pre className={classes.preTag}>{parse(detailLocal.content)}</pre>
+                  )}
                   <hr />
 
                   <div className={classes.Buttom}>

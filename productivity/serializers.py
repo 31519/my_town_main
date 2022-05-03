@@ -1,20 +1,13 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from productivity.models import Jobs, Advertisement, Shops, OwnBusiness, Celebrities, Hotels, Tourisms, Resell, Event, Meme, Banner, CelebritiesGallary, TourismsGallary
+from productivity.models import Jobs, JobsDetail, Advertisement, Shops, OwnBusiness, Celebrities, Hotels, Tourisms, Resell, Event, Meme, Banner, CelebritiesGallary, TourismsGallary
 
 class UserSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
         fields ='__all__'
 
-
-
-
-class JobsSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = Jobs
-        fields ='__all__'
 
 
 
@@ -65,6 +58,28 @@ class HotelsSerializers(serializers.ModelSerializer):
     class Meta:
         model = Hotels
         fields ='__all__'
+
+
+
+class JobsDetailSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = JobsDetail
+        fields ="__all__"
+    
+
+
+class JobsSerializers(serializers.ModelSerializer):
+    jobsDetail= serializers.SerializerMethodField(read_only=True)
+    class Meta:
+        model = Jobs
+        fields ='__all__'
+
+
+    def get_jobsDetail(self, obj):
+        jobsdetail = obj.jobsdetail_set.all()
+        serializer = JobsDetailSerializers(jobsdetail, many=True)
+        return serializer.data
+
 
 
 class TourismsGallarySerializers(serializers.ModelSerializer):

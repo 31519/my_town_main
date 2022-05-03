@@ -10,12 +10,9 @@ import ErrorMessage from "../components/ErrorMessage";
 import SocialShare from "../components/SocialShare";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
-
-
-
+import parse from "html-react-parser";
 
 import { makeStyles } from "@mui/styles";
-
 
 import {
   Typography,
@@ -25,8 +22,6 @@ import {
   CardMedia,
   CardContent,
 } from "@mui/material";
-
-
 
 const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.up("md")]: {
@@ -103,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "0px",
     fontFamily: "Monospace",
     fontWeight: "bold",
-    color: "blue"
+    color: "blue",
   },
   endDate: {
     fontSize: "12px",
@@ -111,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "0px",
     fontFamily: "Monospace",
     fontWeight: "bold",
-    color: "red"
+    color: "red",
   },
   preTag: {
     // inlineSize:"150px",
@@ -124,7 +119,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "20px",
     letterSpacing: "1px",
   },
-  
 }));
 
 const CelebrityDetail = () => {
@@ -162,7 +156,6 @@ const CelebrityDetail = () => {
     <>
       <div className={classes.container}>
         <Container disableGutters>
-
           {detailCelebrityLoading ? (
             <Loaders />
           ) : detailCelebrityError ? (
@@ -170,68 +163,77 @@ const CelebrityDetail = () => {
           ) : (
             <div item>
               <Paper elevation={20} square={true} className={classes.paper}>
+                <Card className={classes.card} key={detailCelebrity.id}>
+                  <h2
+                    variant="h6"
+                    gutterBottom
+                    color="primary"
+                    className={classes.date}
+                  >
+                    UPDATED ON{" "}
+                    {detailCelebrity.createdAt &&
+                      detailCelebrity.createdAt.split("T", 1)}{" "}
+                    {"Time"}{" "}
+                    {detailCelebrity.createdAt &&
+                      detailCelebrity.createdAt.substr(11, 8)}
+                  </h2>
 
-                  <Card className={classes.card} key={detailCelebrity.id}>
-                    <h2
-                      variant="h6"
-                      gutterBottom
-                      color="primary"
-                      className={classes.date}
-                    >
-                      UPDATED ON{" "}
-                      {detailCelebrity.createdAt && detailCelebrity.createdAt.split("T", 1)}{" "}
-                      {"Time"}{" "}
-                      {detailCelebrity.createdAt && detailCelebrity.createdAt.substr(11, 8)}
-                    </h2>
-  
-                    <div className={classes.stateBox}>
-                      <Typography variant="title">{detailCelebrity.state}</Typography>
-                    </div>
-                    <CardMedia
-                      class={classes.cardMedia}
-                      component="img"
-                      image={detailCelebrity.image}
-                      alt={"img"}
-                    />
-                    <Typography variant="h5" gutterBottom>
-                      <CalendarTodayIcon
-                        style={{
-                          fill: "green",
-                          fontSize: "20px",
-                          fontWeight: "800",
-                        }}
-                      />
-                      {detailCelebrity.createdAt && detailCelebrity.createdAt.split("T", 1)}{" "}
-                      {"Time"}{" "}
-                      {detailCelebrity.createdAt && detailCelebrity.createdAt.substr(11, 8)}
+                  <div className={classes.stateBox}>
+                    <Typography variant="title">
+                      {detailCelebrity.state}
                     </Typography>
-  
-                    
-  
-                      <hr />
-                    <CardContent>
-                      <Typography variant="h3" color="secondary" gutterBottom>
-                        {detailCelebrity.title}
-                      </Typography>
-                      <hr />
+                  </div>
+                  <CardMedia
+                    class={classes.cardMedia}
+                    component="img"
+                    image={detailCelebrity.image}
+                    alt={"img"}
+                  />
+                  <Typography variant="h5" gutterBottom>
+                    <CalendarTodayIcon
+                      style={{
+                        fill: "green",
+                        fontSize: "20px",
+                        fontWeight: "800",
+                      }}
+                    />
+                    {detailCelebrity.createdAt &&
+                      detailCelebrity.createdAt.split("T", 1)}{" "}
+                    {"Time"}{" "}
+                    {detailCelebrity.createdAt &&
+                      detailCelebrity.createdAt.substr(11, 8)}
+                  </Typography>
 
+                  <hr />
+                  <CardContent>
+                    <Typography variant="h3" color="secondary" gutterBottom>
+                      {detailCelebrity.title}
+                    </Typography>
+                    <hr />
 
-                    <IndexAdvertiseBanner index={1}/>
-
-
-                      <pre class={classes.preTag}>{detailCelebrity.content}</pre>
-                      <hr />
-                    </CardContent>
-                    <SocialShare url={socialmedia} />
-                  </Card>
+                    <IndexAdvertiseBanner index={1} />
+                    {detailCelebrity.content && (
+                      <pre className={classes.preTag}>
+                        {parse(detailCelebrity.content)}
+                      </pre>
+                    )}
+                    <hr />
+                  </CardContent>
+                  <SocialShare url={socialmedia} />
+                </Card>
               </Paper>
-              <IndexAdvertiseBanner index={2}/>
+              <IndexAdvertiseBanner index={2} />
             </div>
           )}
-          <ListCategory error={listAdvertiseError} list={listAdvertise} loading={listAdvertiseLoading} link="advertise-detail" name="Advertise" />
-          <IndexAdvertiseBanner index={3}/>
+          <ListCategory
+            error={listAdvertiseError}
+            list={listAdvertise}
+            loading={listAdvertiseLoading}
+            link="advertise-detail"
+            name="Advertise"
+          />
+          <IndexAdvertiseBanner index={3} />
         </Container>
-
       </div>
     </>
   );
