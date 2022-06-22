@@ -10,15 +10,11 @@ import "slick-carousel/slick/slick-theme.css";
 import { advertiseListAction } from "../actions/advertiseActions";
 import { Link } from "react-router-dom";
 
-
 import Slider from "react-slick";
-const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
-
-
+// const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
 
 const useStyles = makeStyles((theme) => ({
-
-  main:{
+  main: {
     width: "500px",
     margin: "auto",
     [theme.breakpoints.down("md")]: {
@@ -26,27 +22,26 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   container: {
-    width: "100%",
-    height: "200px",
+    width: "500px",
+    background: "#efb3b6",
+    // height: "200px",
 
     [theme.breakpoints.down("md")]: {
-      height: "200px",
+      // height: "200px",
     },
     postion: "relative",
-    opacity: "0.7"
+    opacity: "0.9",
   },
 
   image: {
-    height: "200px",
-    width: "100%",
-
+    height: "auto",
+    width: "500px",
+    objectFit: "cover",
 
     [theme.breakpoints.down("md")]: {
-      height: "180px",
+      height: "auto",
       width: "100%",
     },
-    objectFit:"cover",
-    
   },
   title: {
     fontSize: "20px",
@@ -77,7 +72,6 @@ const useStyles = makeStyles((theme) => ({
   textLink: {
     textDecoration: "none",
   },
-
 }));
 
 const AdvertiseBanners = () => {
@@ -86,8 +80,8 @@ const AdvertiseBanners = () => {
   // let keyword = location.search;
   const dispatch = useDispatch();
 
-  const myRef = useRef(null)
-  const executeScroll = () => scrollToRef(myRef)
+  // const myRef = useRef(null)
+  // const executeScroll = () => scrollToRef(myRef)
 
   const settings = {
     // dots: true,
@@ -111,13 +105,13 @@ const AdvertiseBanners = () => {
 
   useEffect(() => {
     dispatch(advertiseListAction());
-    executeScroll()
+    // executeScroll()
   }, [dispatch, location]);
   return (
-    <div className={classes.main}   ref={myRef}>
-      {listAdvertise.length && listAdvertise.length !== 0 ? (
-      <h2 className={classes.heading}>Advertisement</h2>
-      ): null }
+    <div className={classes.main}>
+      {listAdvertise && listAdvertise.length !== 0 ? (
+        <h2 className={classes.heading}>Advertisement</h2>
+      ) : null}
       {listAdvertise && listAdvertiseLoading ? (
         <Loaders />
       ) : listAdvertiseError ? (
@@ -127,32 +121,31 @@ const AdvertiseBanners = () => {
           {listAdvertise.map((banner) => (
             <div className={classes.container} container>
               <Link
-              className={classes.textLink}
-              to={`/advertise-detail/${banner.id}/${banner.slug}`}
-            >
-              {banner.image ?(
-                <img
-                className={classes.image}
-                key={banner.id}
-                src={banner.image}
-                alt={banner.title}
-              />
-              ):(
-                <img
-                className={classes.image}
-                key={banner.id}
-                src="images/advertisePlaceholder.jpg"
-                alt={banner.title}
-              />
-              )}
-            </Link>
+                className={classes.textLink}
+                to={`/advertise-detail/${banner.id}/${banner.slug}`}
+              >
+                {banner.image ? (
+                  <img
+                    className={classes.image}
+                    key={banner.id}
+                    src={banner.image}
+                    alt={banner.title}
+                  />
+                ) : (
+                  <img
+                    className={classes.image}
+                    key={banner.id}
+                    src="images/advertisePlaceholder.jpg"
+                    alt={banner.title}
+                  />
+                )}
+              </Link>
               <h2 className={classes.title}>{banner.title}</h2>
               <hr />
             </div>
           ))}
         </Slider>
       )}
-      
     </div>
   );
 };

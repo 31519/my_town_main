@@ -4,13 +4,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { advertiseListAction } from "../actions/advertiseActions";
 import ListCategory from "../components/ListCategory";
 import { useParams, useLocation } from "react-router-dom";
-
+import PageLoader from "../components/PageLoader";
 import { jobDetailAction } from "../actions/advertiseActions2";
 import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import SocialShare from "../components/SocialShare";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
+import SideBar from "../components/SideBar";
+import Header from "../screen/Header";
+import Footers from "../components/Footers";
+import CategoryCarousel from "../components/CategoryCarousel";
+import ContactUs from "../components/ContactUs";
 import { makeStyles } from "@mui/styles";
 import { Helmet } from "react-helmet";
 import parse from "html-react-parser";
@@ -321,6 +326,9 @@ const useStyles = makeStyles((theme) => ({
       letterSpacing: "1.5px",
       opacity: "0.8",
     },
+  },
+  ImageContainer:{
+    background: "#efb3b6",
   }
 }));
 
@@ -368,10 +376,13 @@ const JobDetail = () => {
         <meta property="og:description" content={detailJob.content} />
         <meta property="og:image" content={detailJob.image} />
       </Helmet>
+      <SideBar />
+      <Header />
       {detailJob && (
         <div>
+          <IndexAdvertiseBanner index={1} />
           {detailJobLoading ? (
-            <Loaders />
+            <PageLoader />
           ) : detailJobError ? (
             <ErrorMessage type="error" error={detailJobError} />
           ) : (
@@ -404,6 +415,7 @@ const JobDetail = () => {
                 <div>
                   <h2>MEGHALAYA</h2>
                 </div>
+                
                 <div className={classes.containerTwo}>
                   <h3 variant="h6" color="primary" className={classes.date}>
                     UPDATED ON{" "}
@@ -432,11 +444,14 @@ const JobDetail = () => {
                     {detailJob.title}
                   </h3>
                   <hr />
+                  <IndexAdvertiseBanner index={2} />
+                  <IndexAdvertiseBanner index={3} />
                   {detailJob.content && (
                     <pre className={classes.preTag}>
                       {parse(detailJob.content)}
                     </pre>
                   )}
+                  <IndexAdvertiseBanner index={4} />
 
                   {detailJob.jobsDetail && (
                     <div className={classes.detailJobContainer}>
@@ -480,10 +495,6 @@ const JobDetail = () => {
                       <SocialShare url={socialmedia} />
                     </div>
                   </div>
-                  <IndexAdvertiseBanner index={1} />
-                  <IndexAdvertiseBanner index={2} />
-                  <IndexAdvertiseBanner index={3} />
-                  <IndexAdvertiseBanner index={4} />
                   <IndexAdvertiseBanner index={5} />
                   <IndexAdvertiseBanner index={6} />
                   <IndexAdvertiseBanner index={7} />
@@ -509,6 +520,9 @@ const JobDetail = () => {
           )}
         </div>
       )}
+      <CategoryCarousel  />
+      <ContactUs/>
+      <Footers />
     </>
   );
 };

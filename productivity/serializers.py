@@ -1,20 +1,23 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from Dashboards.models import UserAccount
 from rest_framework import serializers
-from productivity.models import Jobs, JobsDetail, Advertisement, Shops, OwnBusiness, Celebrities, Hotels, Tourisms, Resell, Event, Meme, Banner, CelebritiesGallary, TourismsGallary
+from productivity.models import Jobs, JobsDetail, Advertisement, Shops, OwnBusiness, Celebrities, Hotels, Tourisms, Resell, ResellGallary, Event, Meme, Banner, CelebritiesGallary, TourismsGallary
 
 class UserSerializers(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = UserAccount
         fields ='__all__'
 
 
 
 
 class AdvertisementSerializers(serializers.ModelSerializer):
+    user = UserSerializers(read_only=True)
     class Meta:
         model = Advertisement
         fields ='__all__'
+
 
 
 
@@ -98,11 +101,21 @@ class TourismsSerializers(serializers.ModelSerializer):
         serializer = TourismsGallarySerializers(tourisms, many=True)
         return serializer.data
 
+class ResellGallarySerializers(serializers.ModelSerializer):
+    class Meta:
+        model = ResellGallary
+        fields = '__all__'
 
 class ResellSerializers(serializers.ModelSerializer):
+    manyImages= serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Resell
         fields ='__all__'
+
+    def get_manyImages(self, obj):
+        resellGallary = obj.resellgallary_set.all()
+        serializer = ResellGallarySerializers(resellGallary, many=True)
+        return serializer.data
 
 
 class EventSerializers(serializers.ModelSerializer):

@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
 
+    'Dashboards.apps.DashboardsConfig',
+
 
     'productivity.apps.ProductivityConfig',
 
@@ -103,8 +105,8 @@ WSGI_APPLICATION = 'news_all.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'main_data',                      # Or path to database file if using sqlite3.
-        'USER': 'cosrumut',                      # Not used with sqlite3.
+        'NAME': 'inmatowndata',                      # Or path to database file if using sqlite3.
+        'USER': 'cos_inmatown',                      # Not used with sqlite3.
         'PASSWORD': '31519',                  # Not used with sqlite3.
         'HOST': 'localhost',
         'PORT': '5432'
@@ -206,6 +208,8 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = BASE_DIR / 'images'
 STATIC_ROOT = BASE_DIR / 'static'
 
+AUTH_USER_MODEL  = 'Dashboards.UserAccount'
+swappable ='AUTH_USER_MODEL'
 
 CORS_ALLOW_ALL_ORIGINS=True
 

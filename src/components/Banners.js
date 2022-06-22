@@ -1,41 +1,42 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Grid, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { bannerListAction } from "../actions/advertiseActions";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import Loaders from "../components/Loader";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import Slider from "react-slick";
-
-const image = "images/banner.jpg";
-
+const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    [theme.breakpoints.up("md")]: {
-      minHeight: "70vh",
-    },
+    background: "#efb3b6",
+    width: "100%",
+    height: "500px",
+
     [theme.breakpoints.down("md")]: {
-      height: "180px",
+      height: "250px",
     },
   },
 
   image: {
-    height: "150px",
+    height: "100%",
     width: "100%",
-    objectFit:"cover",
-    [theme.breakpoints.up("md")]: {
-      minHeight: "80vh",
-    },
+    objectFit: "cover",
     [theme.breakpoints.down("md")]: {
-      height: "180px",
+      height: "250px",
     },
   },
 }));
 
 const Banners = () => {
+  const location = useLocation();
+  const myRef = useRef(null);
+  const executeScroll = () => scrollToRef(myRef);
+  const image = "images/default/banner.jpg";
   const settings = {
     dots: true,
     infinite: true,
@@ -45,7 +46,6 @@ const Banners = () => {
     autoplay: true,
     autoplaySpeed: 6000,
     swipeToSlide: true,
-
   };
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -60,37 +60,34 @@ const Banners = () => {
 
   useEffect(() => {
     dispatch(bannerListAction());
-  }, [dispatch]);
+    executeScroll();
+  }, [dispatch, location]);
   return (
-    <div>
-          {listBanner && listBanner.length === 0 && (
-            <>
-              <img className={classes.image} src={image} alt="banner" />
-            </>
-          )}
-      
-        
-          {listBannerLoading ? (
-            <Loaders />
-          ) : listBannerError ? (
-            <>
-              <img className={classes.image} src={image} alt="banner" />
-            </>
-          ) : (
-            <Slider {...settings}>
-              {listBanner.map((banner) => (
-                <div className={classes.container} container>
-                  <img
-                    className={classes.image}
-                    key={banner.id}
-                    src={banner.image}
-                    alt={banner.title}
-                  />
-                </div>
-              ))}
-            </Slider>
-          )}
-      
+    <div ref={myRef}>
+      {listBanner && listBanner.length === 0 && (
+        <div className={classes.container}>
+          <img className={classes.image} src={image} alt="banner" />
+        </div>
+      )}
+
+      {listBannerError ? (
+        <>
+          <img className={classes.image} src={image} alt="banner" />
+        </>
+      ) : (
+        <Slider {...settings}>
+          {listBanner.map((banner) => (
+            <div className={classes.container} >
+              <img
+                className={classes.image}
+                key={banner.id}
+                src={banner.image}
+                alt={banner.title}
+              />
+            </div>
+          ))}
+        </Slider>
+      )}
     </div>
   );
 };

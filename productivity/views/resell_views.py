@@ -6,15 +6,18 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from productivity.serializers import ResellSerializers
 from rest_framework import status
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from Dashboards.signals import object_viewed_signal, detail_object_viewed_signal
+from datetime import datetime, timedelta
 
 
 @api_view(['GET'])
 def ResellList(request):
+    current_date = datetime.now()
     query = request.query_params.get('keyword')
     if query ==None:
         query = ""
-    resell = Resell.objects.filter(title__icontains=query, isApproved=True)
+    resell = Resell.objects.filter(title__icontains=query, isApproved=True, expireDate__gte = current_date ).order_by('-flag', '-createdAt')
+    # print("datetime", datetime.now() < resell.createdAt)
 
     page = request.query_params.get('page')
     paginator = Paginator(resell, 8)
@@ -32,10 +35,18 @@ def ResellList(request):
     serializer = ResellSerializers(resell, many=True)
     return Response({"reseller":serializer.data, "page":page, "pages": paginator.num_pages})
 
+
+def ResellViewsUpdate(pk, slug):
+    resell = Resell.objects.get(pk=pk, slug=slug)
+    resell.views += 1
+    resell.save()
+
 @api_view(['GET'])
 def ResellDetailList(request, pk, slug):
     resell = Resell.objects.get(pk=pk, slug=slug)
+    ResellViewsUpdate(pk, slug)
     serializer = ResellSerializers(resell, many=False)
+    detail_object_viewed_signal.send(resell.__class__, instance=resell, request=request)
     return Response(serializer.data)
 
 
@@ -50,13 +61,13 @@ def ResellCreate(request):
         country= "",
         state=   "",
         address= "",
-        contact= '',
         image=   "",
         title=   "Resell",
         content= ""
     )
     serializer = ResellSerializers(resell, many=False)
     return Response(serializer.data)
+
 
 
 @api_view(['PUT'])
@@ -69,10 +80,12 @@ def ResellUpdate(request, pk, slug):
     resell.state = data['state']
     resell.address = data['address']
     resell.contact = data['contact']
-    # resell.image=data['image']
+    resell.day=data['days']
     resell.title = data['title']
     resell.content = data['content']
+    resell.price  = data['price']
     resell.save()
+    # print("days", resell.day)
     serializer = ResellSerializers(resell, many=False)
     return Response(serializer.data)
 
@@ -134,3 +147,29 @@ def UserResellList(request):
     resell = Resell.objects.filter(user=current_user)
     serializer = ResellSerializers(resell, many=True)
     return Response(serializer.data)
+
+
+
+@api_view(['PUT'])
+# @permission_classes([IsAdminUser])
+def ResellApproved(request, pk, slug):
+    data = request.data
+    print('data', data)
+    print("date", datetime.now() + timedelta(days = 2))
+    resell = Resell.objects.get(pk=pk, slug=slug)
+    day = int(resell.day)
+    resell.isApproved =data['isApprovedData']
+    resell.approvedDate = datetime.now()
+    resell.expireDate = datetime.now() + timedelta(days = day)
+    resell.save()
+    serializer = ResellSerializers(resell, many=False)
+    return Response(serializer.data)
+
+
+
+@api_view(['GET'])
+def AllResellList(request):
+    resell = Resell.objects.all()
+    serializer = ResellSerializers(resell, many=True)
+    return Response(serializer.data)
+

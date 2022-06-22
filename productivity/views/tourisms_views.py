@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from productivity.serializers import TourismsSerializers, TourismsGallarySerializers
 from rest_framework import status
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from Dashboards.signals import object_viewed_signal, detail_object_viewed_signal
 
 
 
@@ -33,10 +34,17 @@ def TourismsList(request):
     serializer = TourismsSerializers(tourisms, many=True)
     return Response({"tourisms":serializer.data, "page":page, "pages": paginator.num_pages})
 
+def TourismsViewsUpdate(pk, slug):
+    tourisms = Tourisms.objects.get(pk=pk, slug=slug)
+    tourisms.views += 1
+    tourisms.save()
+
 @api_view(['GET'])
 def TourismsDetailList(request, pk, slug):
     tourisms = Tourisms.objects.get(pk=pk, slug=slug)
+    TourismsViewsUpdate(pk, slug)
     serializer = TourismsSerializers(tourisms, many=False)
+    detail_object_viewed_signal.send(tourisms.__class__, instance=tourisms, request=request)
     return Response(serializer.data)
 
 

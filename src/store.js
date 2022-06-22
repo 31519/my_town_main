@@ -33,6 +33,7 @@ import {
 
 import {
     advertiseListReducer,
+    allAdvertiseListReducer,
     advertiseUserListReducer,
     advertiseDetailReducer,
     advertiseCreateReducer,
@@ -106,6 +107,7 @@ import {
 
     // RESELLER PORTION
     resellerListReducer,
+    allResellerListReducer,
     resellerUserListReducer,
     resellerDetailReducer,
     resellerCreateReducer,
@@ -132,7 +134,15 @@ import {
 } from '../src/reducers/productivityReducers2'
 
 
+import {
+    viewListReducer
+} from '../src/reducers/analyticsReducers'
+
+
 const reducer = combineReducers({
+    viewList: viewListReducer,
+
+    
     techList: techListReducer,
     healthList: healthListReducer,
     businessList: businessListReducer,
@@ -162,6 +172,7 @@ const reducer = combineReducers({
     profileUpdate: profileUpdateReducer,
 
     advertiseList:advertiseListReducer,
+    allAdvertiseList: allAdvertiseListReducer,
     advertiseUserList:advertiseUserListReducer,
     advertiseDetail:advertiseDetailReducer,
     advertiseCreate:advertiseCreateReducer,
@@ -227,6 +238,7 @@ const reducer = combineReducers({
 
     // RESELLER PORTION
     resellerList:   resellerListReducer,
+    allResellerList: allResellerListReducer,
     resellerUserList:   resellerUserListReducer,
     resellerDetail: resellerDetailReducer,
     resellerUpdate: resellerUpdateReducer,

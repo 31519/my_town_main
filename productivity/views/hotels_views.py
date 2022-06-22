@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from productivity.serializers import HotelsSerializers
 from rest_framework import status
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from Dashboards.signals import object_viewed_signal, detail_object_viewed_signal
 
 
 @api_view(['GET'])
@@ -33,10 +34,18 @@ def HotelsList(request):
     serializer = HotelsSerializers(hotels, many=True)
     return Response({"hotel":serializer.data, "page":page, "pages": paginator.num_pages})
 
+
+def HotelsViewsUpdate(pk, slug):
+    hotels = Hotels.objects.get(pk=pk, slug=slug)
+    hotels.views += 1
+    hotels.save()
+
 @api_view(['GET'])
 def HotelsDetailList(request, pk, slug):
     hotels = Hotels.objects.get(pk=pk, slug=slug)
+    HotelsViewsUpdate(pk, slug)
     serializer = HotelsSerializers(hotels, many=False)
+    detail_object_viewed_signal.send(hotels.__class__, instance=hotels, request=request)
     return Response(serializer.data)
 
 

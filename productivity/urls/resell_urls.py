@@ -10,4 +10,6 @@ urlpatterns = [
     path('adminUpdate/<int:pk>/<str:slug>/', views.ResellAdminUpdate, name='adminUpdate'),
     path('delete/<int:pk>/<str:slug>/', views.ResellDelete, name='delete'),
     path('user-list/', views.UserResellList, name='user-list'),
+    path('approve/<int:pk>/<str:slug>/', views.ResellApproved, name='approve'),
+    path('alllist/', views.AllResellList, name='alllist'),
 ]

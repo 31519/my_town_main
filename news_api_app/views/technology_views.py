@@ -4,6 +4,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from news_api_app.serializers import TechnologySerializers
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from Dashboards.signals import object_viewed_signal, detail_object_viewed_signal
+
 
 @api_view(['GET'])
 def TechnologyList(request):
@@ -11,10 +13,10 @@ def TechnologyList(request):
     if query ==None:
         query = ""
 
-    technology = Technology.objects.filter(title__icontains=query)
+    technology = Technology.objects.filter(title__icontains=query).order_by('-flag', '-createAt')
 
     page = request.query_params.get('page')
-    paginator = Paginator(technology, 5)
+    paginator = Paginator(technology, 8)
     try:
         technology = paginator.page(page)
     except PageNotAnInteger:
@@ -30,10 +32,17 @@ def TechnologyList(request):
     serializer = TechnologySerializers(technology, many=True)
     return Response({"technology":serializer.data, "page":page, "pages":paginator.num_pages})
 
+def TechnologyViewsUpdate(pk, slug):
+    technology = Technology.objects.get(pk=pk, slug=slug)
+    technology.views += 1
+    technology.save()
+
 @api_view(['GET'])
 def TechnologyDetailList(request, pk, slug):
     technology = Technology.objects.get(pk=pk, slug=slug)
+    TechnologyViewsUpdate(pk, slug)
     serializer = TechnologySerializers(technology, many=False)
+    detail_object_viewed_signal.send(technology.__class__, instance=technology, request=request)
     return Response(serializer.data)
 
 @api_view(['POST'])

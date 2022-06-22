@@ -3,6 +3,10 @@ import {
     ADVERTISE_LIST_SUCCESS,
     ADVERTISE_LIST_FAIL,
 
+    ALL_ADVERTISE_LIST_REQUEST,
+    ALL_ADVERTISE_LIST_SUCCESS,
+    ALL_ADVERTISE_LIST_FAIL,
+
     ADVERTISE_DETAIL_REQUEST,
     ADVERTISE_DETAIL_SUCCESS,
     ADVERTISE_DETAIL_FAIL,
@@ -215,6 +219,28 @@ export const advertiseListAction = (keyword = '') => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: ADVERTISE_LIST_FAIL,
+            payload:
+              error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+    })
+    }
+}
+
+
+export const allAdvertiseListAction = (keyword = '') => async (dispatch) => {
+    try{
+        dispatch({ type: ALL_ADVERTISE_LIST_REQUEST });
+        const { data } = await axios.get(
+            `api/advertisement/alllist`
+        );
+        dispatch({
+            type: ALL_ADVERTISE_LIST_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: ALL_ADVERTISE_LIST_FAIL,
             payload:
               error.response && error.response.data.detail
                 ? error.response.data.detail

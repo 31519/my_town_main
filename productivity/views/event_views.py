@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from productivity.serializers import EventSerializers
 from rest_framework import status
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from Dashboards.signals import object_viewed_signal, detail_object_viewed_signal
 
 
 @api_view(['GET'])
@@ -31,10 +32,17 @@ def EventList(request):
     serializer = EventSerializers(event, many=True)
     return Response({"events":serializer.data, "pages":paginator.num_pages, "page":page})
 
+def EventViewsUpdate(pk, slug):
+    event = Event.objects.get(pk=pk, slug=slug)
+    event.views += 1
+    event.save()
+
 @api_view(['GET'])
 def EventDetailList(request, pk, slug):
     event = Event.objects.get(pk=pk, slug=slug)
+    EventViewsUpdate(pk, slug)
     serializer = EventSerializers(event, many=False)
+    detail_object_viewed_signal.send(event.__class__, instance=event, request=request)
     return Response(serializer.data)
 
 

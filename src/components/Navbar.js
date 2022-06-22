@@ -1,88 +1,128 @@
-import React from 'react'
-import { Link } from "react-router-dom";
+import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import {
-    Grid,
-    Typography,
-    InputBase,
-    IconButton,
-    Badge
+import { Typography, Grid } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import AdminSidebar from "../components/AdminSidebar";
+import CancelIcon from "@mui/icons-material/Cancel";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
- } from "@mui/material";
- import SearchIcon from '@mui/icons-material/Search';
- import NotificationsIcon from '@mui/icons-material/Notifications';
- import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
-
-import { makeStyles } from '@mui/styles';
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-
-const theme = createTheme({
-    palette:{
-        primary:{
-            main:'#333996',
-            light:"#f8324526"
-        }
-    }
-})
-const useStyles = makeStyles(theme => ({
-    root:{
-        backgroundColor: '#FFF'
-    },
-    searchInput: {
-        padding:'0px 8px',
-        opacity:'0.6',
-        fontSize:'0.8rem',
-        '&:hover':{
-            backgroundColor: '#f2f2f2'
-        },
-        '& .MuiSvgIcon-root':{
-            // marginRight: theme.spacing(2)
-        }
-
-    }
-}))
+const logoImage = "images/inmatownLogo2.png"
 
 
-const Navbar = () => {
+export default function Navbars() {
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  const [auth, setAuth] = React.useState(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const classes = useStyles()
-    return (
-        <ThemeProvider theme={theme}>
-        <AppBar position='static' className={classes.root} >
-            <Toolbar>
-                <Grid container alignItems='center'>
-                    <Grid item>
-                        <InputBase 
-                        placeholder="Search Topics"
-                        className={classes.searchInput}
-                        startAdornment={<SearchIcon/>}
-                        />
-                    </Grid>
-                    <Grid item sm>
+  const handleChange = (event) => {
+    setAuth(event.target.checked);
+  };
 
-                    </Grid>
-                    <Grid item>
-                        <IconButton>
-                            <Badge badgeContent={4} color="primary">
-                                <NotificationsIcon/>
-                            </Badge>
-                            <Badge>
-                                <NotificationsIcon/>
-                            </Badge>
-                            <Badge>
-                                <PowerSettingsNewIcon/>
-                            </Badge>
-                        </IconButton>
-                    </Grid>
-                </Grid>
-            </Toolbar>
-        </AppBar>
-        </ThemeProvider>
-    )
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <Box sx={{ flexGrow: 1 }} style={{}}>
+      <AppBar position="static" className="AppBar">
+        <Toolbar>
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleMenu}
+            color="inherit"
+          >
+            {/* <AccountCircle /> */}
+            <MenuIcon />
+          </IconButton>
+          <Link style={{textDecoration: "none", color: "white"}} to="/">
+            {logoImage?(
+
+              <img style={{width:'150px', height:'50px',objectFit: "cover", margin:'0px', padding:'0px', fontWeight: 600}} src={logoImage} alt="inmatown"/>
+            ):(
+
+              <h2 className="navbar-logo"  style={{padding: "0px", margin:"0px"}}>INMATOWN</h2>
+            )}
+
+
+          </Link>
+          {auth && (
+            <Grid className="navbarGrid" container>
+
+              <Grid
+                item
+                style={{
+                  display: "flex",
+                  alignItem: "center",
+                  justifyContent: "center",
+                }}
+                xs={4}
+                sm={4}
+                spacing={2}
+              >
+
+                {/* {userInfo ? (
+                  <Grid style={{ dispaly: "flex", flexDirection: "row" }}>
+                    <span>
+                      <AccountCircle />
+                    </span>
+                    <h2 style={{ margin: 0, padding: "0px" }}>
+                      {userInfo.username.split("@", 1)}
+                    </h2>
+                  </Grid>
+                ) : (
+                  <Link className="text-link" to="/login">
+                    <AccountCircle />
+                  </Link>
+                )} */}
+                {/* </IconButton> */}
+                
+              </Grid>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                getContentAnchorEl={null}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+              >
+                <MenuItem onClick={handleClose}>
+                  <CancelIcon color="success" />
+                  Close
+                </MenuItem>
+                <MenuItem onClick={handleClose} style={{ paddingTop: "30px" }}>
+                  <AdminSidebar />
+                </MenuItem>
+              </Menu>
+            </Grid>
+          )}
+        </Toolbar>
+      </AppBar>
+    </Box>
+  );
 }
-
-
-export default Navbar;

@@ -12,21 +12,18 @@ import SocialShare from "../components/SocialShare";
 import { advertiseListAction } from "../actions/advertiseActions";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import ListCategory from "../components/ListCategory";
+import SideBar from "../components/SideBar";
+import Header from "../screen/Header";
+import Footers from "../components/Footers";
+import CategoryCarousel from "../components/CategoryCarousel";
+import ContactUs from "../components/ContactUs";
 import { Helmet } from "react-helmet";
 import parse from "html-react-parser";
-
-import {
-  Typography,
-  Container,
-  Button,
-  Paper,
-  Card,
-  CardMedia,
-  CardContent,
-} from "@mui/material";
+import axios from "axios";
+import PageLoader from "../components/PageLoader";
+import { Typography } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
-  [theme.breakpoints.up("md")]: {},
   container: {
     display: "flex",
     flexDirection: "row",
@@ -288,6 +285,13 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     color: "red",
   },
+  Readmore: {
+    backgroundColor: "#218aae",
+    borderRadius: "0px",
+  },
+  ImageContainer: {
+    background: "#5de8ee3d",
+  },
 }));
 
 const JobScreen = () => {
@@ -318,9 +322,21 @@ const JobScreen = () => {
     advertises: listAdvertise,
   } = advertiseList;
 
+  const JobsViews = async (e) => {
+    try {
+      const { data } = await axios.put(
+        `${process.env.REACT_APP_PORT}/api/users/createViews/`,
+        { VeiwPage: "Jobs" }
+      );
+    } catch (eror) {
+      return;
+    }
+  };
+
   useEffect(() => {
     dispatch(jobListAction(keyword));
     dispatch(advertiseListAction(keyword));
+    JobsViews();
   }, [dispatch, keyword]);
   return (
     <>
@@ -328,11 +344,13 @@ const JobScreen = () => {
         <title>Inmatown - Latest Jobs</title>
         <meta name="description" content="latest Jobs" />
       </Helmet>
+      <SideBar />
+      <Header />
       <SearchBox />
       {listJob && (
         <div>
           {listJobLoading ? (
-            <Loaders />
+            <PageLoader />
           ) : listJobError ? (
             <ErrorMessage type="error" error={listJobError} />
           ) : (
@@ -407,17 +425,22 @@ const JobScreen = () => {
                         </h2>
 
                         <div className={classes.Buttom}>
-                          <div>
-                            <Button
-                              className={classes.button}
-                              variant="contained"
+                          <div className={classes.Readmore}>
+                            <h2
+                              style={{
+                                fontFamily: "Helvetica",
+                                fontSize: "10px",
+                                marginLeft: "5px",
+                                marginRight: "5px",
+                                color: "white",
+                              }}
                             >
                               Read More
-                            </Button>
+                            </h2>
                           </div>
-                          <div className={classes.socialShare}>
+                          {/* <div className={classes.socialShare}>
                             <SocialShare url={socialmedia} />
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>
@@ -440,6 +463,9 @@ const JobScreen = () => {
       )}
 
       <Paginate keyword={keyword} page={page} pages={pages} />
+      <CategoryCarousel />
+      <ContactUs />
+      <Footers />
     </>
   );
 };

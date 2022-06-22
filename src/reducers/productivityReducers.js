@@ -3,6 +3,10 @@ import {
     ADVERTISE_LIST_SUCCESS,
     ADVERTISE_LIST_FAIL,
 
+    ALL_ADVERTISE_LIST_REQUEST,
+    ALL_ADVERTISE_LIST_SUCCESS,
+    ALL_ADVERTISE_LIST_FAIL,
+
     ADVERTISE_DETAIL_REQUEST,
     ADVERTISE_DETAIL_SUCCESS,
     ADVERTISE_DETAIL_FAIL,
@@ -217,6 +221,25 @@ export const advertiseListReducer = (state = {advertises: []}, action) => {
             };
 
         case ADVERTISE_LIST_FAIL:
+            return {loading:false, error: action.payload}
+
+        default:
+            return state;
+    }
+}
+
+export const allAdvertiseListReducer = (state = {advertises: []}, action) => {
+    switch (action.type) {
+        case ALL_ADVERTISE_LIST_REQUEST:
+            return { loading: true, advertises:[]};
+        
+        case ALL_ADVERTISE_LIST_SUCCESS:
+            return {
+                loading: false,
+                advertises: action.payload
+            };
+
+        case ALL_ADVERTISE_LIST_FAIL:
             return {loading:false, error: action.payload}
 
         default:

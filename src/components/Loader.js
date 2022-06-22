@@ -9,15 +9,15 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   loaderWrapper : {
-    width: "60px",
-    height: "60px",
+    width: "30px",
+    height: "30px",
     margin: "auto"
   },
   loader : {
     boxSizing: "border-box",
     width: "100%",
     height: "100%",
-    border: "7px solid white",
+    border: "2px solid white",
     borderTopColor: " white",
     borderBottomColor: " white",
     borderRadius: "50px",
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: "border-box",
     width: "100%",
     height: "100%",
-    border: "5px solid #abb8b7",
+    border: "1px solid #abb8b7",
     // borderTopColor: " white",
     // borderBottomColor: " white",
     borderRadius: "50px",

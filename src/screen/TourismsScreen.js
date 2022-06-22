@@ -11,18 +11,16 @@ import ErrorMessage from "../components/ErrorMessage";
 import { makeStyles } from "@mui/styles";
 // import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
+import SideBar from "../components/SideBar";
+import Header from "../screen/Header";
+import Footers from "../components/Footers";
+import CategoryCarousel from "../components/CategoryCarousel";
+import ContactUs from "../components/ContactUs";
+import axios from "axios";
+import PageLoader from "../components/PageLoader";
 import { Helmet } from "react-helmet";
 
-import {
-  Typography,
-  Container,
-  Button,
-  Paper,
-  Card,
-  CardMedia,
-  CardContent,
-  Grid,
-} from "@mui/material";
+import { Button, Grid } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -72,8 +70,8 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     left: 0,
     top: 0,
-    backgroundImage: "linear-gradient(rgba(0,0,0, 0.64), rgba(0,0,0,0.4+5))",
-    color:'white'
+    backgroundImage: "linear-gradient(rgba(0,0,0, 0.64), rgba(0,0,0,0.45))",
+    color: "white",
   },
   containerTwo: {
     margin: "5px",
@@ -164,11 +162,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "20px",
     letterSpacing: "1px",
     fontWeight: 700,
-    color: "white",
+    color: "#00ddff",
     margin: "10px",
     width: "100%",
     opacity: "0.7",
-    zIndex:99,
+    zIndex: 99,
     [theme.breakpoints.down("xs")]: {
       fontSize: "30px",
       letterSpacing: "0.6px",
@@ -218,6 +216,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "14px",
     color: "rgb(10 249 248)",
   },
+  Readmore: {
+    backgroundColor: "#218aae",
+    borderRadius: "0px",
+  },
+  ImageContainer: {
+    background: "#5de8ee3d",
+  },
 }));
 
 const TourismsScreen = () => {
@@ -239,8 +244,20 @@ const TourismsScreen = () => {
     page,
   } = tourismsList;
 
+  const TourismsViews = async (e) => {
+    try {
+      const { data } = await axios.put(
+        `${process.env.REACT_APP_PORT}/api/users/createViews/`,
+        { VeiwPage: "Tourisms" }
+      );
+    } catch (eror) {
+      return;
+    }
+  };
+
   useEffect(() => {
     dispatch(tourismsListAction(keyword));
+    TourismsViews();
   }, [dispatch, keyword]);
   return (
     <>
@@ -248,11 +265,13 @@ const TourismsScreen = () => {
         <title>Inmatown - Best Tourist Spot</title>
         <meta name="description" content="Best Tourist Spot" />
       </Helmet>
+      <SideBar />
+      <Header />
       <SearchBox />
       {listTourisms && (
         <div>
           {listTourismsLoading ? (
-            <Loaders />
+            <PageLoader />
           ) : listTourismsError ? (
             <ErrorMessage type="error" error={listTourismsError} />
           ) : (
@@ -281,7 +300,7 @@ const TourismsScreen = () => {
                               src={data.image}
                               alt={data.title}
                             />
-                            <div  className={classes.absoluteTitle}>
+                            <div className={classes.absoluteTitle}>
                               <h2 className={classes.title} variant="p">
                                 {data.title}
                               </h2>
@@ -325,6 +344,19 @@ const TourismsScreen = () => {
                       >
                         Read More
                       </Button>
+                      {/* <div className={classes.Readmore}>
+                            <h2
+                              style={{
+                                fontFamily: "Helvetica",
+                                fontSize: "10px",
+                                marginLeft: "5px",
+                                marginRight: "5px",
+                                color: "white",
+                              }}
+                            >
+                              Read More
+                            </h2>
+                          </div> */}
                     </div>
                     <div className={classes.containerTwo}>
                       <hr />
@@ -340,9 +372,12 @@ const TourismsScreen = () => {
               ))}
             </Grid>
           )}
-          <Paginate keyword={keyword} page={page} pages={pages} />
         </div>
       )}
+      <Paginate keyword={keyword} page={page} pages={pages} />
+      <CategoryCarousel />
+      <ContactUs />
+      <Footers />
     </>
   );
 };

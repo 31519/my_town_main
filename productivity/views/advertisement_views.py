@@ -6,22 +6,25 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from productivity.serializers import AdvertisementSerializers
 from rest_framework import status
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from Dashboards.signals import object_viewed_signal, detail_object_viewed_signal
+from datetime import datetime , timedelta
 
 
 
 @api_view(['GET'])
 def AdvertisementList(request):
+    current_date = datetime.now()
     query = request.query_params.get('keyword')
     if query ==None:
         query = ""
-    advertisement = Advertisement.objects.filter(title__icontains=query, isApproved=True).order_by('-flag', '-createdAt')
+    advertisement = Advertisement.objects.filter(title__icontains=query, isApproved=True, expireDate__gte = current_date ).order_by('-flag', '-createdAt')
     page = request.query_params.get('page')
     paginator = Paginator(advertisement, 8)
     try:
         advertisement = paginator.page(page)
     except EmptyPage:
         
-        celebrities = paginator.page(paginator.num_pages)
+        advertisement = paginator.page(paginator.num_pages)
     except PageNotAnInteger:
         advertisement = paginator.page(1)
 
@@ -32,10 +35,18 @@ def AdvertisementList(request):
     serializer = AdvertisementSerializers(advertisement, many=True)
     return Response({"advertise":serializer.data, "page":page, "pages": paginator.num_pages})
 
+
+def AdvertisementViewsUpdate(pk, slug):
+    advertisement = Advertisement.objects.get(pk=pk, slug=slug)
+    advertisement.views += 1
+    advertisement.save()
+
 @api_view(['GET'])
 def AdvertisementDetailList(request, pk, slug):
     advertisement = Advertisement.objects.get(pk=pk, slug=slug)
+    AdvertisementViewsUpdate(pk, slug)
     serializer = AdvertisementSerializers(advertisement, many=False)
+    detail_object_viewed_signal.send(advertisement.__class__, instance=advertisement, request=request)
     return Response(serializer.data)
 
 
@@ -50,7 +61,7 @@ def AdvertisementCreate(request):
         country='',
         state=  '',
         address='',
-        contact='',
+        contact=91,
         image=  '',
         title=  'advertise',
         content=''
@@ -71,14 +82,17 @@ def AdvertisementUpdate(request, pk, slug):
     advertisement.contact = data['contact']
     advertisement.title = data['title']
     advertisement.content = data['content']
+    advertisement.day     = data['days']
+
     advertisement.save()
+    print("day", advertisement.day)
     serializer = AdvertisementSerializers(advertisement, many=False)
     return Response(serializer.data)
 
 
 
 @api_view(['PUT'])
-@permission_classes([IsAdminUser])
+@permission_classes([IsAdminUser, IsAuthenticated])
 def AdvertisementAdminUpdate(request, pk):
     data = request.data
     advertisement = Advertisement.objects.get(pk=pk)
@@ -134,3 +148,25 @@ def UserAdvertisementList(request):
     advertisement = Advertisement.objects.filter(user=current_user)
     serializer = AdvertisementSerializers(advertisement, many=True)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def AllAdvertisementList(request):
+    advertisement = Advertisement.objects.all()
+    serializer = AdvertisementSerializers(advertisement, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['PUT'])
+# @permission_classes([IsAdminUser])
+def AdvertisementApproved(request, pk, slug):
+    data = request.data
+    advertisement = Advertisement.objects.get(pk=pk, slug=slug)
+    day = int(advertisement.day)
+    advertisement.isApproved =data['isApprovedData']
+    advertisement.approvedDate = datetime.now()
+    advertisement.expireDate = datetime.now() + timedelta(days = day)
+    advertisement.save()
+    serializer = AdvertisementSerializers(advertisement, many=False)
+    return Response(serializer.data)
+

@@ -51,12 +51,13 @@ import {
 
 import axios from "axios";
 
-export const listTechs = (keyword) => async (dispatch) => {
+export const listTechs = (keyword='') => async (dispatch) => {
   try {
     dispatch({ type: TECH_LIST_REQUEST });
     const { data } = await axios.get(
       `api/technology/list${keyword}`
     );
+
 
     dispatch({
       type: TECH_LIST_SUCCESS,

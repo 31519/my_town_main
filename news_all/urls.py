@@ -19,11 +19,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic.base import RedirectView
 
 admin.autodiscover()
 admin.site.enable_nav_sidebar = False
 
 urlpatterns = [
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('img/favicon.ico'))),
     path('admin/', admin.site.urls),
 
     path('', TemplateView.as_view(template_name='index.html'),),
@@ -33,8 +36,7 @@ urlpatterns = [
     path('api/health/', include('news_api_app.urls.health_urls')),
     path('api/science/', include('news_api_app.urls.science_urls')),
     path('api/localnews/', include('news_api_app.urls.localnews_urls')),
-    path('api/users/', include('news_api_app.urls.users_urls')),
-    path('api/form/', include('news_api_app.urls.form_urls')),
+    # path('api/form/', include('news_api_app.urls.form_urls')),
 
     # productivity apps
     path('api/jobs/', include('productivity.urls.jobs_urls')),
@@ -48,6 +50,11 @@ urlpatterns = [
     path('api/resell/', include('productivity.urls.resell_urls')),
     path('api/tourisms/', include('productivity.urls.tourisms_urls')),
     path('api/meme/', include('productivity.urls.meme_urls')),
+
+    # analytics apps
+    path('api/users/', include('Dashboards.urls')),
+    # path('api/views/', include('analytics.urls')),
+
     
     
 ]

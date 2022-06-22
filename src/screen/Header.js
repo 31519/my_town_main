@@ -1,14 +1,14 @@
 import React, {useEffect} from "react";
-import {useSelector, useDispatch} from "react-redux"
+import {useDispatch} from "react-redux"
 import {useLocation} from "react-router-dom"
 import Banners from "../components/Banners";
 import Categories from "../components/Categories";
 import {localListAction} from "../actions/advertiseActions";
-import CategoryCarousel from "../components/CategoryCarousel";
+// import CategoryCarousel from "../components/CategoryCarousel";
 import AdvertiseBanner from "../components/AdvertiseBanner";
 import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     width: '100%',
     overflowX: 'hidden'
@@ -35,7 +35,7 @@ const Header = () => {
       <div id="ezoic-pub-ad-placeholder-105"> </div>
       {/* <!-- End Ezoic - under_page_title - under_page_title --> */}
 
-      <CategoryCarousel  />
+      {/* <CategoryCarousel  /> */}
       <Categories />
       <AdvertiseBanner/>
 

@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from news_api_app.serializers import ScienceSerializers
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from Dashboards.signals import object_viewed_signal, detail_object_viewed_signal
 
 
 
@@ -40,6 +41,7 @@ def ScienceList(request):
 def ScienceDetailList(request, pk):
     science = Science.objects.get(pk=pk)
     serializer = ScienceSerializers(science, many=False)
+    detail_object_viewed_signal.send(science.__class__, instance=science, request=request)
     return Response(serializer.data)
 
 @api_view(['POST'])

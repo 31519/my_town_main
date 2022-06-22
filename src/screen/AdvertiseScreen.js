@@ -13,8 +13,15 @@ import { Link } from "react-router-dom";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import ListCategory from "../components/ListCategory";
 import { Helmet } from "react-helmet";
-
+import Header from "../screen/Header";
+import SideBar from "../components/SideBar";
+import Footers from "../components/Footers";
+import CategoryCarousel from "../components/CategoryCarousel";
+import axios from "axios";
+import ContactUs from "../components/ContactUs";
+import PageLoader from "../components/PageLoader";
 import parse from "html-react-parser";
+
 
 import { Typography, Button } from "@mui/material";
 
@@ -265,9 +272,26 @@ const useStyles = makeStyles((theme) => ({
       wordBreak: "break-word",
     },
   },
+  Readmore: {
+    backgroundColor: "#218aae",
+    borderRadius: "2px",
+    justifyContent: "center",
+  },
+  ImageContainer: {
+    background: "#5de8ee3d",
+  },
 }));
 
 const AdvertiseScreen = () => {
+  const init = () => {
+    const items = document.querySelectorAll(".ImageContainer");
+    const randomColor = "#" + Math.floor(Math.random() * 1677215).toString(16);
+    for (let i = 0; i < items.length; i++) {
+      items[i].style.background = randomColor({ luminosity: "light" });
+    }
+  };
+  init();
+
   const location = useLocation();
   let keyword = location.search;
   const socialmedia = window.location.href;
@@ -293,9 +317,20 @@ const AdvertiseScreen = () => {
     locals: listLocal,
   } = localList;
 
+  const AdvertiseViews = async (e) => {
+    try {
+      const { data } = await axios.put(`/api/users/createViews/`, {
+        VeiwPage: "Advertise",
+      });
+    } catch (eror) {
+      return;
+    }
+  };
+
   useEffect(() => {
     dispatch(localListAction(keyword));
     dispatch(advertiseListAction(keyword));
+    AdvertiseViews();
   }, [dispatch, keyword]);
   return (
     <>
@@ -303,6 +338,8 @@ const AdvertiseScreen = () => {
         <title>Inmatown - Latest Advertisements</title>
         <meta name="description" content="latest Advertisements" />
       </Helmet>
+      <SideBar />
+      <Header />
       <SearchBox />
       {listAdvertise && (
         <div>
@@ -327,14 +364,14 @@ const AdvertiseScreen = () => {
                               className={classes.image}
                               key={data.id}
                               src={data.image}
-                              alt={data.title}
+                              alt=""
                             />
                           ) : (
                             <img
                               className={classes.image}
                               key={data.id}
                               src="images/advertisePlaceholder.jpg"
-                              alt={data.title}
+                              alt=""
                             />
                           )}
                         </div>
@@ -368,22 +405,26 @@ const AdvertiseScreen = () => {
                             gutterBottom
                             paragraph
                           >
-                            {parse(data.content)}
+                            {data.content}
                           </Typography>
                         )}
 
                         <div className={classes.Buttom}>
-                          <div>
-                            <Button
-                              className={classes.button}
-                              variant="contained"
+                          <div className={classes.Readmore}>
+                            <h2
+                              style={{
+                                fontFamily: "Helvetica",
+                                fontSize: "10px",
+                                margin: "5px",
+                                color: "white",
+                              }}
                             >
                               Read More
-                            </Button>
+                            </h2>
                           </div>
-                          <div className={classes.socialShare}>
+                          {/* <div className={classes.socialShare}>
                             <SocialShare url={socialmedia} />
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>
@@ -406,6 +447,9 @@ const AdvertiseScreen = () => {
       )}
 
       <Paginate keyword={keyword} page={page} pages={pages} />
+      <CategoryCarousel />
+      <ContactUs />
+      <Footers />
     </>
   );
 };

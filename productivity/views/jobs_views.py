@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from productivity.serializers import JobsSerializers
 from rest_framework import status
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from Dashboards.signals import object_viewed_signal, detail_object_viewed_signal
 
 
 
@@ -37,10 +38,18 @@ def JobsList(request):
     serializer = JobsSerializers(jobs, many=True)
     return Response({"jobs":serializer.data, "page":page, "pages": paginator.num_pages})
 
+
+def JobsViewsUpdate(pk, slug):
+    jobs = Jobs.objects.get(pk=pk,slug=slug)
+    jobs.views += 1
+    jobs.save()
+
 @api_view(['GET'])
 def JobsDetailList(request, pk, slug):
     jobs = Jobs.objects.get(pk=pk,slug=slug)
+    JobsViewsUpdate(pk, slug)
     serializer = JobsSerializers(jobs, many=False)
+    detail_object_viewed_signal.send(jobs.__class__, instance=jobs, request=request)
     return Response(serializer.data)
 
 

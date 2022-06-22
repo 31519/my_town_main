@@ -9,24 +9,20 @@ import ErrorMessage from "../components/ErrorMessage";
 import { makeStyles } from "@mui/styles";
 
 import SocialShare from "../components/SocialShare";
-
+import PageLoader from "../components/PageLoader";
 import { advertiseListAction } from "../actions/advertiseActions";
 import ListCategory from "../components/ListCategory";
 import { useParams, useLocation } from "react-router-dom";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import ImageGallery from "../components/ImageGallery";
 import ImageSlider from "../components/ImageSlider";
+import SideBar from "../components/SideBar";
+import Header from "../screen/Header";
+import Footers from "../components/Footers";
+import CategoryCarousel from "../components/CategoryCarousel";
+import ContactUs from "../components/ContactUs";
 import { Helmet } from "react-helmet";
 import parse from "html-react-parser";
-
-import {
-  Typography,
-  Container,
-  Paper,
-  Card,
-  CardMedia,
-  CardContent,
-} from "@mui/material";
 
 // const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
 
@@ -332,6 +328,9 @@ const useStyles = makeStyles((theme) => ({
       letterSpacing: "1.3px",
     },
   },
+  ImageContainer: {
+    background: "#efb3b6",
+  },
 }));
 
 const TourismsDetail = () => {
@@ -381,10 +380,13 @@ const TourismsDetail = () => {
         <meta property="og:description" content={detailTourisms.content} />
         <meta property="og:image" content={detailTourisms.image} />
       </Helmet>
+      <SideBar />
+      <Header />
       {detailTourisms && (
         <div>
+          <IndexAdvertiseBanner index={1} />
           {detailTourismsLoading ? (
-            <Loaders />
+            <PageLoader />
           ) : detailTourismsError ? (
             <ErrorMessage type="error" error={detailTourismsError} />
           ) : (
@@ -411,6 +413,7 @@ const TourismsDetail = () => {
                       {detailTourisms.country}
                     </h4>
                   </div>
+                  
                   <div>
                     {detailTourisms.fees === 0 ? (
                       <h4 className={classes.placeText}>Entrance : Free</h4>
@@ -425,6 +428,7 @@ const TourismsDetail = () => {
                       {detailTourisms.state}
                     </h4>
                   </div>
+                  <IndexAdvertiseBanner index={2} />
                 </div>
 
                 <div className={classes.containerTwo}>
@@ -437,6 +441,7 @@ const TourismsDetail = () => {
                     {detailTourisms.title}
                   </h3>
                   <hr />
+                  <IndexAdvertiseBanner index={3} />
                   <div className={classes.locationDiv}>
                     <h4 className={classes.locationText}>
                       Distance of {detailTourisms.distance} km from Shillong
@@ -454,12 +459,14 @@ const TourismsDetail = () => {
                       Hotel: {detailTourisms.hotel}
                     </h4>
                   </div>
+                  <IndexAdvertiseBanner index={4} />
                   {detailTourisms.content && (
                     <pre className={classes.preTag}>
                       {parse(detailTourisms.content)}
                     </pre>
                   )}
                   <hr />
+                  <IndexAdvertiseBanner index={5} />
 
                   <div className={classes.Buttom}>
                     <div className={classes.socialShare}>
@@ -468,11 +475,7 @@ const TourismsDetail = () => {
                   </div>
                   <ImageSlider images={detailTourisms.manyImages} />
                   <ImageGallery image={detailTourisms.manyImages} />
-                  <IndexAdvertiseBanner index={1} />
-                  <IndexAdvertiseBanner index={2} />
-                  <IndexAdvertiseBanner index={3} />
-                  <IndexAdvertiseBanner index={4} />
-                  <IndexAdvertiseBanner index={5} />
+
                   <IndexAdvertiseBanner index={6} />
                   <IndexAdvertiseBanner index={7} />
                   <IndexAdvertiseBanner index={8} />
@@ -497,6 +500,9 @@ const TourismsDetail = () => {
           )}
         </div>
       )}
+      <CategoryCarousel />
+      <ContactUs />
+      <Footers />
     </>
   );
 };

@@ -6,22 +6,32 @@ import SearchBox from "../components/SearchBox";
 import { localListAction } from "../actions/advertiseActions";
 import SocialShare from "../components/SocialShare";
 import Loaders from "../components/Loader";
+import PageLoader from "../components/PageLoader";
 import ErrorMessage from "../components/ErrorMessage";
 import { makeStyles } from "@mui/styles";
 import ListCategory from "../components/ListCategory";
+import FilterData from "../components/FilterData";
 import { Link } from "react-router-dom";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import { advertiseListAction } from "../actions/advertiseActions";
+import SideBar from "../components/SideBar";
+import Header from "../screen/Header";
+import Footers from "../components/Footers";
+import ContactUs from "../components/ContactUs";
+import CategoryCarousel from "../components/CategoryCarousel";
+import axios from "axios";
+import Moment from "react-moment";
+import "moment-timezone";
 import { Helmet } from "react-helmet";
 import parse from "html-react-parser";
 
-import { Typography, Button } from "@mui/material";
+import { Typography } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
-  [theme.breakpoints.up("md")]: {},
   container: {
     display: "flex",
     flexDirection: "row",
+    minHeight: "90vh",
     [theme.breakpoints.down("xs")]: {
       flexDirection: "column",
     },
@@ -41,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
     height: "150px",
     width: "250px",
     margin: "5px",
+    background: "#00FFFF",
     [theme.breakpoints.down("xs")]: {
       height: "100px",
       width: "120px",
@@ -175,10 +186,11 @@ const useStyles = makeStyles((theme) => ({
   date: {
     fontWeight: 600,
     margin: "0px ",
-    fontFamily: "Monospace",
-    color: "green",
+    fontFamily: "Helvetica",
+    color: "#949393",
     padding: 0,
     opacity: "0.7",
+    fontSize: "14px",
     [theme.breakpoints.down("xs")]: {
       opacity: "1",
       fontSize: "10px",
@@ -261,9 +273,25 @@ const useStyles = makeStyles((theme) => ({
       wordBreak: "break-word",
     },
   },
+  Readmore: {
+    backgroundColor: "#218aae",
+    borderRadius: "2px",
+    justifyContent: "center",
+  },
 }));
 
 const News = () => {
+
+  const init = () => {
+    const items = document.querySelectorAll('.ImageContainer');
+    const randomColor = '#' +Math.floor(Math.random()*1677215).toString(16);
+    for (let i = 0; i < items.length; i++){
+      items[i].style.background = randomColor({luminosity: 'light'})
+    }
+    
+  }
+  init()
+
   const classes = useStyles();
   const location = useLocation();
   let keyword = location.search;
@@ -291,9 +319,21 @@ const News = () => {
     advertises: listAdvertise,
   } = advertiseList;
 
+  const LocalNewsViews = async (e) => {
+    try {
+      const { data } = await axios.put(
+        `${process.env.REACT_APP_PORT}/api/users/createViews/`,
+        { VeiwPage: "LocalNews" }
+      );
+    } catch (eror) {
+      return;
+    }
+  };
+
   useEffect(() => {
     dispatch(localListAction(keyword));
     dispatch(advertiseListAction(keyword));
+    LocalNewsViews();
   }, [dispatch, keyword]);
   return (
     <>
@@ -308,20 +348,28 @@ const News = () => {
         <meta property="og:description" content="{detailAdvertise.content}" />
         <meta property="og:image" content="{detailAdvertise.image}" />
       </Helmet>
+      <SideBar />
+      <Header />
       <SearchBox />
+      {/* <PageLoader /> */}
       {listLocal && (
         <div>
           {listLocalLoading ? (
-            <Loaders />
+            <PageLoader />
           ) : listLocalError ? (
             <ErrorMessage type="error" error={listLocalError} />
           ) : (
+            
             <div className={classes.container}>
+              {/* {listLocal && (
+
+              <FilterData datas={listLocal}/>
+              )} */}
               <div>
                 {listLocal.map((data) => (
                   <Link
                     className={classes.textLink}
-                    to={`/local-detail/${data.id}/${data.slug}#content`}
+                    to={`/local-detail/${data.id}/${data.slug}`}
                   >
                     <div className={classes.containerParent}>
                       <div className={classes.containerOne}>
@@ -352,11 +400,13 @@ const News = () => {
                           color="primary"
                           className={classes.date}
                         >
-                          UPDATED ON{" "}
-                          {data.createdAt && data.createdAt.split("T", 1)}{" "}
+                          Posted {" "}
+                          {/* {data.createdAt && data.createdAt.split("T", 1)}{" "}
                           {"Time"}{" "}
-                          {data.createdAt && data.createdAt.substr(11, 8)}
+                          {data.createdAt && data.createdAt.substr(11, 8)} */}
+                        <Moment fromNow >{data.createdAt}</Moment>
                         </h3>
+                        
 
                         <h3
                           className={classes.title}
@@ -380,16 +430,17 @@ const News = () => {
                         )}
 
                         <div className={classes.Buttom}>
-                          <div>
-                            <Button
-                              className={classes.button}
-                              variant="contained"
+                          <div className={classes.Readmore}>
+                            <h2
+                              style={{
+                                fontFamily: "Helvetica",
+                                fontSize: "10px",
+                                margin: "5px",
+                                color: "white",
+                              }}
                             >
                               Read More
-                            </Button>
-                          </div>
-                          <div className={classes.socialShare}>
-                            <SocialShare url={socialmedia} />
+                            </h2>
                           </div>
                         </div>
                       </div>
@@ -413,6 +464,9 @@ const News = () => {
       )}
 
       <Paginate keyword={keyword} page={page} pages={pages} />
+      <CategoryCarousel />
+      <ContactUs />
+      <Footers />
     </>
   );
 };

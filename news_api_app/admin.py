@@ -8,10 +8,10 @@ class LocalNewsGallaryInline(admin.TabularInline):
     model = LocalNewsGallary
     extra = 6
 
-class LocalNewsAdmin(admin.ModelAdmin):
+class LocalNewsAdmin(admin.ModelAdmin): 
     inlines =[LocalNewsGallaryInline]
 
-
+# admin.site.register(UserAccount)
 admin.site.register(Technology)
 admin.site.register(Science)
 admin.site.register(Health)

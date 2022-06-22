@@ -13,17 +13,15 @@ import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
 import { advertiseListAction } from "../actions/advertiseActions";
 import ImageGallery from "../components/ImageGallery";
 import ImageSlider from "../components/ImageSlider";
+import SideBar from "../components/SideBar";
+import Header from "../screen/Header";
+import Footers from "../components/Footers";
+import CategoryCarousel from "../components/CategoryCarousel";
+import ContactUs from "../components/ContactUs";
 import {Helmet} from "react-helmet";
 import parse from "html-react-parser";
+import PageLoader from "../components/PageLoader";
 
-import {
-  Typography,
-  Container,
-  Paper,
-  Card,
-  CardMedia,
-  CardContent,
-} from "@mui/material";
 
 // const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
 
@@ -333,10 +331,13 @@ const LocalDetail = () => {
         <meta property="og:description" content={detailLocal.content}/>
         <meta property="og:image" content={detailLocal.image}/>
       </Helmet>
+      <SideBar />
+      <Header />
       {detailLocal && (
         <div>
+          <IndexAdvertiseBanner index={1} />
           {detailLocalLoading ? (
-            <Loaders />
+            <PageLoader />
           ) : detailLocalError ? (
             <ErrorMessage type="error" error={listLocalError} />
           ) : (
@@ -361,7 +362,7 @@ const LocalDetail = () => {
                         className={classes.image}
                         key={detailLocal.id}
                         src="images/newsPlaceholder.jpg"
-                        alt={detailLocal.title}
+                        alt=""
                       />
                     )}
                   </div>
@@ -369,6 +370,7 @@ const LocalDetail = () => {
                 <div>
                   <h2>MEGHALAYA</h2>
                 </div>
+                
                 <div className={classes.containerTwo}>
                   <h3 variant="h6" color="primary" className={classes.date}>
                     UPDATED ON{" "}
@@ -388,23 +390,27 @@ const LocalDetail = () => {
                     {detailLocal.title}
                   </h3>
                   <hr />
+                  <IndexAdvertiseBanner index={2} />
+                  <IndexAdvertiseBanner index={3} />
                   {detailLocal.content && ( 
                     <pre className={classes.preTag}>{parse(detailLocal.content)}</pre>
                   )}
                   <hr />
+                  <IndexAdvertiseBanner index={4} />
 
                   <div className={classes.Buttom}>
                     <div className={classes.socialShare}>
                       <SocialShare url={socialmedia} />
                     </div>
                   </div>
+                  <IndexAdvertiseBanner index={5} />
                   <ImageSlider images={detailLocal.manyImages} />
                   <ImageGallery image={detailLocal.manyImages} />
-                  <IndexAdvertiseBanner index={1} />
-                  <IndexAdvertiseBanner index={2} />
-                  <IndexAdvertiseBanner index={3} />
-                  <IndexAdvertiseBanner index={4} />
-                  <IndexAdvertiseBanner index={5} />
+                  
+                  
+                  
+                  
+                  
                   <IndexAdvertiseBanner index={6} />
                   <IndexAdvertiseBanner index={7} />
                   <IndexAdvertiseBanner index={8} />
@@ -430,6 +436,9 @@ const LocalDetail = () => {
           )}
         </div>
       )}
+      <CategoryCarousel  />
+      <ContactUs/>
+      <Footers />
     </>
   );
 };

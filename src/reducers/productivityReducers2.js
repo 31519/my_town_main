@@ -32,6 +32,10 @@ import {
     RESELLER_LIST_SUCCESS,
     RESELLER_LIST_FAIL,
 
+    ALL_RESELLER_LIST_REQUEST,
+    ALL_RESELLER_LIST_SUCCESS,
+    ALL_RESELLER_LIST_FAIL,
+
     RESELLER_USER_LIST_REQUEST,
     RESELLER_USER_LIST_SUCCESS,
     RESELLER_USER_LIST_FAIL,
@@ -262,6 +266,25 @@ export const resellerListReducer = (state = {resellers: []}, action) => {
             };
 
         case RESELLER_LIST_FAIL:
+            return {loading:false, error: action.payload}
+
+        default:
+            return state;
+    }
+}
+
+export const allResellerListReducer = (state = {resellers: []}, action) => {
+    switch (action.type) {
+        case ALL_RESELLER_LIST_REQUEST:
+            return { loading: true, resellers:[]};
+        
+        case ALL_RESELLER_LIST_SUCCESS:
+            return {
+                loading: false,
+                resellers: action.payload
+            };
+
+        case ALL_RESELLER_LIST_FAIL:
             return {loading:false, error: action.payload}
 
         default:

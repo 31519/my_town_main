@@ -6,10 +6,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 
-import Slider from "react-slick";
+// import Slider from "react-slick";
 
 import { localListAction } from "../actions/advertiseActions";
 import { tourismsListAction } from "../actions/advertiseActions2";
@@ -19,60 +19,64 @@ import { celebrityListAction } from "../actions/advertiseActions";
 
 import axios from "axios";
 const useStyles = makeStyles((theme) => ({
-  // image: {
-  //   [theme.breakpoints.up("xs")]: {
-  //     height: "250px",
-  //   },
-  //   [theme.breakpoints.up("sm")]: {
-  //     height: "250px",
-  //   },
-  //   [theme.breakpoints.up("md")]: {
-  //     height: "450px",
-  //   },
-  //   [theme.breakpoints.up("ls")]: {
-  //     height: "450px",
-  //   },
-  // },
-  containerMain: {
+  MainError: {
+    width: "100%",
     display: "flex",
-    width: "90%",
+    marginBottom: "10px",
+    overflowX: "scroll",
+    overflowY: "hidden",
     justifyContent: "center",
-    margin: "5px auto",
+    whiteSpace: "noWrap",
     [theme.breakpoints.down("md")]: {
-      overflowX: "scroll",
+      display: "inline-block",
     },
     [theme.breakpoints.down("sm")]: {
-      overflowX: "scroll",
+      display:  "inline-block",
     },
     [theme.breakpoints.down("xs")]: {
-      overflowX: "scroll",
+      display:  "inline-block",
     },
-    
-
-    // borderShadow: "0px 5px 10px 0px rgba(0,0,0,0.5"
   },
-  // containerBackground:{
-  //   backgroundColor: "pink"
-  // },
+
   container: {
-    widht: "180px",
+    display: "inline-block",
+
     height: "320px",
     backgroundColor: "#e8f1f0",
 
-    margin: "5px 10px",
-    overflowY: "scroll",
+    width: "300px",
+    margin: "10px 10px",
+    overflowY : "scroll",
     scrollbarWidth: "none",
+    overflowWrap: "break-word",
+    wordWrap: "break-word",
+    whiteSpace: "pre-wrap",
+    [theme.breakpoints.down("md")]: {
+      width: "200px",
+      margin: "5px 5px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "200px",
+      margin: "5px 5px",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "200px",
+      margin: "5px 5px",
+    },
   },
   containerItem: {
     display: "flex",
     flexDirection: "row",
-    padding: "5px",
+    padding: "0px",
     alignItem: "center",
     textDecoration: "none",
+    overflowWrap: "break-word",
+    wordWrap: "break-word",
+    margin: "10px 0px"
   },
   containerImage: {
-    width: "100px",
-    height: "60px",
+    width: "60px",
+    height: "50px",
     objectFit: "cover",
 
     paddingTop: "0px",
@@ -93,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
   containerTitle: {
     margin: 0,
     padding: "0px 5px 0px 5px",
-    fontSize: "12px",
+    fontSize: "10px",
     letterSpacing: "1.2px",
     fontWeight: 600,
     fontFamily: "Helvetica",
@@ -119,7 +123,20 @@ const useStyles = makeStyles((theme) => ({
   textTypography: {
     fontFamily: "Helvetica",
     marginLeft: "10px",
+    fontSize: "10px",
+    position: 'sticky',
+    top : "0",
+    background: "#c8fffa",
+    zIndex:"6"
   },
+  gridTitle: {
+    width: "150px",
+    overflowWrap: "break-word",
+    wordBreak: "break-word",
+  },
+  containerBackground:{
+    background: "#efb3b6",
+  }
 }));
 
 const List = ({ classes, data, link, placeholder }) => {
@@ -132,14 +149,13 @@ const List = ({ classes, data, link, placeholder }) => {
       class={classes.containerItem}
     >
       <Grid item className={classes.containerBackground}>
-        {data.image ?(
+        {data.image ? (
           <img class={classes.containerImage} src={data.image} alt="" />
-        ):(
+        ) : (
           <img class={classes.containerImage} src={placeholder} alt="" />
         )}
-        
       </Grid>
-      <Grid item>
+      <Grid item className={classes.gridTitle}>
         <h4 class={classes.containerTitle}>{data.title}</h4>
       </Grid>
     </Grid>
@@ -216,128 +232,16 @@ const CategoryCarousel = () => {
 
   const classes = useStyles();
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 1000,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    swipeToSlide: true,
-    className: "center",
-    centerMode: true,
-    centerPadding: "60px",
-
-    appendDots: (dots) => (
-      <div
-        style={{
-          backgroundColor: "transparent",
-          borderRadius: "50%",
-          margin: " auto",
-
-        }}
-      >
-        <ul style={{ margin: "10px 0px" }}> {dots} </ul>
-      </div>
-    ),
-    customPaging: (i) => (
-      <div
-        style={{
-          marginTop: "10px",
-          width: "20px",
-          height: "20px",
-          color: "white",
-          backgroundColor: "#2b1b1b6e",
-          $hover:{
-            backgroundColor: "black"
-          }
-      
-        }}
-      >
-        {i + 1}
-      </div>
-    ),
-
-    responsive: [
-      {
-        breakpoint: 300,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          customPaging: (i) => (
-            <div
-              style={{
-                width: "20px",
-                height: "20px",
-                color: "white",
-                backgroundColor: "#2b1b1b6e",
-                $hover:{
-                  backgroundColor: "black"
-                }
-            
-              }}
-            >
-              {i + 1}
-            </div>
-          ),
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          customPaging: (i) => (
-            <div
-              style={{
-                width: "20px",
-                height: "20px",
-                color: "white",
-                backgroundColor: "#2b1b1b6e",
-                $hover:{
-                  backgroundColor: "black"
-                }
-            
-              }}
-            >
-              {i + 1}
-            </div>
-          ),
-        },
-      },
-      {
-        breakpoint: 800,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          customPaging: (i) => (
-            <div
-              style={{
-                width: "20px",
-                height: "20px",
-                color: "white",
-                backgroundColor: "#2b1b1b6e",
-                $hover:{
-                  backgroundColor: "black"
-                }
-            
-              }}
-            >
-              {i + 1}
-            </div>
-          ),
-        },
-      },
-    ],
-  };
 
   return (
-    <div>
-      <Slider {...settings}>
-        {listLocal && listLocal.length && (
+    <div className={classes.MainError}>
+      {listLocal && listLocal.length !== 0 && (
+        <div className={classes.container}>
           <div container class={classes.containerMain}>
-            <Grid item md={12} sm={12} lg={3} class={classes.container}>
+            <Grid item md={12} sm={12} lg={3} class={classes.containers}>
+              <div className={classes.sticky}>
+
+              </div>
               <Typography
                 className={classes.textTypography}
                 variant="h6"
@@ -353,17 +257,23 @@ const CategoryCarousel = () => {
               ) : (
                 <>
                   {listLocal.map((item) => (
-                    <List classes={classes} data={item} link="local-detail" placeholder="images/newsPlaceholder.jpg" />
+                    <List
+                      classes={classes}
+                      data={item}
+                      link="local-detail"
+                      placeholder="images/newsPlaceholder.jpg"
+                    />
                   ))}
                 </>
               )}
             </Grid>
           </div>
-        )}
-
-        {listAdvertise && listAdvertise.length && (
+        </div>
+      )}
+      {listAdvertise && listAdvertise.length !== 0 && (
+        <div className={classes.container}>
           <div container class={classes.containerMain}>
-            <Grid item md={12} sm={12} lg={3} class={classes.container}>
+            <Grid item md={12} sm={12} lg={3} class={classes.containers}>
               <Typography
                 className={classes.textTypography}
                 variant="h6"
@@ -390,11 +300,12 @@ const CategoryCarousel = () => {
               )}
             </Grid>
           </div>
-        )}
-
-        {listTourisms && listTourisms.length && (
+        </div>
+      )}
+      {listTourisms && listTourisms.length !== 0 && (
+        <div className={classes.container}>
           <div container class={classes.containerMain}>
-            <Grid item md={12} sm={12} lg={3} class={classes.container}>
+            <Grid item md={12} sm={12} lg={3} class={classes.containers}>
               <Typography
                 className={classes.textTypography}
                 variant="h6"
@@ -420,11 +331,12 @@ const CategoryCarousel = () => {
               )}
             </Grid>
           </div>
-        )}
-
-        {listJob && listJob.length && (
+        </div>
+      )}
+      {listJob && listJob.length !== 0 && (
+        <div className={classes.container}>
           <div container class={classes.containerMain}>
-            <Grid item md={12} sm={12} lg={3} class={classes.container}>
+            <Grid item md={12} sm={12} lg={3} class={classes.containers}>
               <Typography
                 className={classes.textTypography}
                 variant="h6"
@@ -440,44 +352,20 @@ const CategoryCarousel = () => {
               ) : (
                 <>
                   {listJob.map((item) => (
-                    <List classes={classes} data={item} link="job-detail"  placeholder="images/jobPlaceholder.jpg"/>
-                  ))}
-                </>
-              )}
-            </Grid>
-          </div>
-        )}
-
-        {listCelebrity && listCelebrity.length && (
-          <div container class={classes.containerMain}>
-            <Grid item md={12} sm={12} lg={3} class={classes.container}>
-              <Typography
-                className={classes.textTypography}
-                variant="h6"
-                gutterBottom="false"
-              >
-                Trend
-              </Typography>
-              <hr />
-              {listCelebrityLoading ? (
-                <Loaders />
-              ) : listCelebrityError ? (
-                <ErrorMessage type="error" error={listCelebrityError} />
-              ) : (
-                <>
-                  {listCelebrity.map((item) => (
                     <List
                       classes={classes}
                       data={item}
-                      link="celebrity-detail"
+                      link="job-detail"
+                      placeholder="images/jobPlaceholder.jpg"
                     />
                   ))}
                 </>
               )}
             </Grid>
           </div>
-        )}
-      </Slider>
+        </div>
+      )}
+
     </div>
   );
 };

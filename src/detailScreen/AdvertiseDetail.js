@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import PageLoader from "../components/PageLoader";
 import { advertiseListAction } from "../actions/advertiseActions";
 import ListCategory from "../components/ListCategory";
 import { useParams, useLocation } from "react-router-dom";
@@ -9,7 +9,12 @@ import Loaders from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import SocialShare from "../components/SocialShare";
 import IndexAdvertiseBanner from "../components/IndexAdvertiseBanner";
-import {Helmet} from "react-helmet";
+import SideBar from "../components/SideBar";
+import Header from "../screen/Header";
+import Footers from "../components/Footers";
+import CategoryCarousel from "../components/CategoryCarousel";
+import ContactUs from "../components/ContactUs";
+import { Helmet } from "react-helmet";
 import { makeStyles } from "@mui/styles";
 import parse from "html-react-parser";
 
@@ -43,35 +48,27 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   containerOne: {
-    height: "150px",
+    // height: "150px",
     width: "700px",
     [theme.breakpoints.down("xs")]: {
-      height: "200px",
+      // height: "200px",
       width: "100%",
     },
     [theme.breakpoints.down("md")]: {
-      height: "200px",
+      // height: "200px",
       width: "100%",
-    },
-    [theme.breakpoints.up("md")]: {
-      height: "400px",
-      width: "700px",
     },
   },
   image: {
     objectFit: "cover",
-    height: "400px",
+    height: "auto",
     width: "100%",
     [theme.breakpoints.down("xs")]: {
-      height: "200px",
+      height: "auto",
       width: "100%",
     },
     [theme.breakpoints.down("md")]: {
-      height: "200px",
-      width: "100%",
-    },
-    [theme.breakpoints.down("md")]: {
-      height: "200px",
+      height: "auto",
       width: "100%",
     },
   },
@@ -169,7 +166,6 @@ const useStyles = makeStyles((theme) => ({
       opacity: "0.7",
     },
     [theme.breakpoints.down("md")]: {
-      
       fontSize: "14px",
       opacity: "0.7",
     },
@@ -257,11 +253,14 @@ const useStyles = makeStyles((theme) => ({
       opacity: "0.8",
     },
   },
-  brand:{
+  brand: {
     margin: "0px 3px",
-    fontSize:"16px",
-    letterSpacing:"1px"
+    fontSize: "16px",
+    letterSpacing: "1px",
   },
+  ImageContainer:{
+    background: "#efb3b6",
+  }
 }));
 
 const AdvertiseDetail = () => {
@@ -270,8 +269,6 @@ const AdvertiseDetail = () => {
   const location = useLocation();
   let keyword = location.search;
   const socialmedia = window.location.href;
-
-
 
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -304,16 +301,18 @@ const AdvertiseDetail = () => {
         <title>{detailAdvertise.title}</title>
         <meta name="description" content={detailAdvertise.content} />
         {/* <!-- Open Graph / Facebook --> */}
-        <meta property="og:type" content="website"/>
-        <meta property="og:url" content={socialmedia}/>
-        <meta property="og:title" content={detailAdvertise.title}/>
-        <meta property="og:description" content={detailAdvertise.content}/>
-        <meta property="og:image" content={detailAdvertise.image}/>
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={socialmedia} />
+        <meta property="og:title" content={detailAdvertise.title} />
+        <meta property="og:description" content={detailAdvertise.content} />
+        <meta property="og:image" content={detailAdvertise.image} />
       </Helmet>
+      <SideBar />
+      <Header />
       {detailAdvertise && (
         <div>
           {detailAdvertiseLoading ? (
-            <Loaders />
+            <PageLoader />
           ) : detailAdvertiseError ? (
             <ErrorMessage type="error" error={detailAdvertise} />
           ) : (
@@ -321,29 +320,27 @@ const AdvertiseDetail = () => {
               <div className={classes.containerParent}>
                 <div className={classes.containerOne}>
                   <div className={classes.stateBox}>
-                    <h2 className={classes.brand} variant="p">Inmatown</h2>
+                    <h2 className={classes.brand} variant="p">
+                      Inmatown
+                    </h2>
                   </div>
                   <div className={classes.ImageContainer}>
-                    {
-                      detailAdvertise.image ? (
-                    <img
-                      className={classes.image}
-                      key={detailAdvertise.id}
-                      src={detailAdvertise.image}
-                      alt={detailAdvertise.title}
-                    />
-                      ):(
-                        <img
-                      className={classes.image}
-                      key={detailAdvertise.id}
-                      src="images/advertisePlaceholder.jpg"
-                      alt={detailAdvertise.title}
-                    />
-                      )
-                    }
-                    
+                    {detailAdvertise.image ? (
+                      <img
+                        className={classes.image}
+                        key={detailAdvertise.id}
+                        src={detailAdvertise.image}
+                        alt={detailAdvertise.title}
+                      />
+                    ) : (
+                      <img
+                        className={classes.image}
+                        key={detailAdvertise.id}
+                        src="images/advertisePlaceholder.jpg"
+                        alt={detailAdvertise.title}
+                      />
+                    )}
                   </div>
-                  
                 </div>
                 <div>
                   <h2>MEGHALAYA</h2>
@@ -366,11 +363,13 @@ const AdvertiseDetail = () => {
                   >
                     {detailAdvertise.title}
                   </h3>
-                  <hr/>
-                  {detailAdvertise.content && ( 
-                    <pre className={classes.preTag}>{parse(detailAdvertise.content)}</pre>
+                  <hr />
+                  {detailAdvertise.content && (
+                    <pre className={classes.preTag}>
+                      {detailAdvertise.content}
+                    </pre>
                   )}
-                  <hr/>
+                  <hr />
 
                   <div className={classes.Buttom}>
                     <div className={classes.socialShare}>
@@ -392,7 +391,7 @@ const AdvertiseDetail = () => {
                   <IndexAdvertiseBanner index={13} />
                 </div>
               </div>
-              
+
               <div className={classes.aside}>
                 <ListCategory
                   error={listAdvertiseError}
@@ -406,6 +405,9 @@ const AdvertiseDetail = () => {
           )}
         </div>
       )}
+      <CategoryCarousel />
+      <ContactUs />
+      <Footers />
     </>
   );
 };

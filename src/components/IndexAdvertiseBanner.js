@@ -13,25 +13,29 @@ import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   container: {
     width: "100%",
-    opacity: "0.6",
+    opacity: "0.8",
+    display:"flex",
+    justifyContent: "center",
+    border: "1px",
     [theme.breakpoints.up("md")]: {
-      height: "320px",
+      // height: "320px",
     },
     [theme.breakpoints.down("md")]: {
-      height: "220px",
+      // height: "220px",
     },
     postion: "relative",
   },
 
   image: {
+    width: "500px",
     [theme.breakpoints.up("md")]: {
-      height: "280px",
-      width: "100%",
+      height: "auto",
+      
 
       objectFit: "cover",
     },
     [theme.breakpoints.down("md")]: {
-      height: "180px",
+      height: "auto",
       width: "100%",
 
       objectFit: "cover",
@@ -42,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "20px",
     fontWeight: 600,
     fontFamily: "San-sarif",
-    opacity: "0.7",
+    opacity: "0.8",
     textAlign: "center",
     padding: "0px 0px",
     margin: "0px",
@@ -128,7 +132,6 @@ const IndexAdvertiseBanner = ({ index = 0, link = "advertise-detail" }) => {
                   </>
                 </Link>
               )}
-              <hr />
             </div>
           )}
         </div>

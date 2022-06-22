@@ -92,6 +92,11 @@ const useStyles = makeStyles((theme) => ({
     color: "green",
     padding: 0,
   },
+  Readmore: {
+    backgroundColor: "#218aae",
+    borderRadius: "0px"
+
+  }
 }));
 
 const CelebrityScreen = () => {
@@ -185,11 +190,21 @@ const CelebrityScreen = () => {
                             {parse(data.content)}
                           </Typography>
                         )}
-                        <Button className={classes.button} variant="contained">
-                          Read More ..
-                        </Button>
+                        <div className={classes.Readmore}>
+                            <h2
+                              style={{
+                                fontFamily: "Helvetica",
+                                fontSize: "10px",
+                                marginLeft: "5px",
+                                marginRight: "5px",
+                                color: "white",
+                              }}
+                            >
+                              Read More
+                            </h2>
+                          </div>
                       </CardContent>
-                      <SocialShare url={socialmedia} />
+                      {/* <SocialShare url={socialmedia} /> */}
                     </Card>
                   </Link>
                 </Paper>
@@ -200,6 +215,7 @@ const CelebrityScreen = () => {
         <IndexAdvertiseBanner index={3} />
       </div>
       <Paginate keyword={keyword} page={page} pages={pages} />
+      
     </>
   );
 };

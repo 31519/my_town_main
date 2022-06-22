@@ -6,8 +6,12 @@ import { useNavigate, Link } from "react-router-dom";
 import { Grid, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles({
+import ContactUs from "../components/ContactUs";
+import Header from "../screen/Header";
+import SideBar from "../components/SideBar";
+import Footers from "../components/Footers";
 
+const useStyles = makeStyles({
   gridContent: {
     justifyContent: "center",
     alignItem: "center",
@@ -17,6 +21,22 @@ const useStyles = makeStyles({
   },
   title: {
     fontFamily: "Helvetica",
+    margin: "30px",
+    fontSize: "25px",
+    fontWeight: "600",
+    letterSpacing: "1.2px",
+    lineSpacing: "1.2px",
+    opacity: "0.8",
+  },
+  aboutContent: {
+    fontFamily: "Helvetica",
+    margin: "30px",
+    fontSize: "20px",
+    fontWeight: "500",
+    letterSpacing: "1.2px",
+    lineSpacing: "1.2px",
+    opacity: "0.8",
+    textAlign: "start",
   },
   gridHeader: {
     justifyContent: "center",
@@ -25,7 +45,10 @@ const useStyles = makeStyles({
     backgrounColor: "white",
     color: "green",
   },
-
+  titleContainer: {
+    alignItems: "center",
+    textAlign: "center",
+  },
 });
 
 const AboutUs = () => {
@@ -41,32 +64,37 @@ const AboutUs = () => {
 
   return (
     <>
+      <SideBar />
+      <Header />
       <div className="techlist">
-
         <Grid className={classes.gridHeader} container item>
           <Button onClick={navigateHandler} color="info" variant="contained">
             Back
           </Button>
         </Grid>
 
-        <Grid spacing={2} className={classes.gridContent} container>
-
-
-          <Grid spacing={1} item xs={12} sm={6} lg={6} md={6}>
-            <Grid style={{ margin: "10px" }} item>
-              <h1 className={classes.title}>About Us</h1>
-              <h2 className={classes.title}>
-                We help people put their content in the web whether it be local shop,
-               youtube channel, video content ..etc . We help to advertise their content
-               for easy eccessibility let people know their business
-
-              </h2>
-            </Grid>
-          </Grid>
-
-
-        </Grid>
+        <div spacing={2} className={classes.gridContent} container>
+          <div className={classes.titleContainer}>
+            <p className={classes.title}>About Us</p>
+            <p className={classes.title}>- Our Mission -</p>
+            <p className={classes.title}>
+              To provide the people with latest news and information related to
+              education, jobs, schemes, tourisms, event and many other usefull
+              information which benefits the people
+            </p>
+            <hr />
+            <p className={classes.aboutContent}>
+              At inmatown.com we work hard every day to provide updated
+              informations to the people related to news, event , schemes,
+              tourisms, jobs. We also except partnership with our brand . We are
+              quick to work with you whether it be personal or to promote your
+              brand or to advertise according to your needs.
+            </p>
+          </div>
+        </div>
       </div>
+      <ContactUs />
+      <Footers />
     </>
   );
 };

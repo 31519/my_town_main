@@ -41,10 +41,11 @@ const useStyles = makeStyles((theme) => ({
   container: {
     widht: "180px",
     height: "320px",
-    backgroundColor: "#e8f1f0",
+    backgroundColor: "#171616",
 
     margin: "5px 10px",
     overflowY: "scroll",
+    borderRadius:"5px",
     scrollbarWidth: "none",
   },
   containerItem: {
@@ -53,6 +54,12 @@ const useStyles = makeStyles((theme) => ({
     padding: "5px",
     alignItem: "center",
     textDecoration: "none",
+  },
+  ImageContainer: {
+    width: "100px",
+    height: "60px",
+    background: "#ffc9dd",
+    borderRadius: "5px",
   },
   containerImage: {
     width: "100px",
@@ -76,11 +83,11 @@ const useStyles = makeStyles((theme) => ({
   },
   containerTitle: {
     margin: 0,
-    padding: "0px 5px 0px 5px",
+    padding: "5px",
     fontSize: "16px",
-    fontWeight: 500,
+    fontWeight: 800,
     fontFamily: "Helvetica",
-    color: "black",
+    color: "white",
 
     // [theme.breakpoints.down("md")]: {
     //   fontSize: "10px",
@@ -97,8 +104,11 @@ const useStyles = makeStyles((theme) => ({
   },
   textTypography: {
     fontFamily: "Helvetica",
-    marginLeft: "10px"
-  }
+    margin: "10px",
+    color: "white"
+    
+  },
+
 }));
 
 const ListCategory = ({ list, error, loading, link, name }) => {
@@ -126,7 +136,7 @@ const ListCategory = ({ list, error, loading, link, name }) => {
                   item
                   class={classes.containerItem}
                 >
-                  <Grid item>
+                  <Grid item className={classes.ImageContainer}>
                     <img
                       class={classes.containerImage}
                       src={data.image}
