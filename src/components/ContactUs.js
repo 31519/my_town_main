@@ -224,7 +224,7 @@ const ContactUs = () => {
     setSuccess("");
   };
 
-  const image = "images/static/contactus.png"
+  const image = "images/static/contactus.jpg"
 
   return (
     <>
