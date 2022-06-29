@@ -78,11 +78,11 @@ const useStyles = makeStyles({
     lineHeight: "20px",
     color: "rgb(0 224 255)",
     "&:hover": {
-      border: "2px solid #078295",
+      border: "2px solid rgb(0 224 255)",
     },
     transition: "all 0.2s ease",
     "&:focus": {
-      border: "2px solid #078295",
+      border: "2px solid rgb(0 224 255)",
       opacity: "1",
     },
     borderRadius: "2px",
@@ -246,7 +246,7 @@ const ResellerUpdate = () => {
       };
   
       const { data } = await axios.post(
-        `${process.env.REACT_APP_PORT}/api/resell/image/`,
+        `api/resell/image/`,
         formData,
         config
       );

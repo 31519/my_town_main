@@ -80,11 +80,6 @@ tr {
   color: #eeeeee;
 
 }
-table thead tr th {
-  position:sticky;
-  top: 0;
-  z-index: 111
-}
 th {
   font-size: 0.875rem;
   line-height: 0.1;

@@ -57,12 +57,12 @@ def ResellCreate(request):
     current_user = request.user
     resell = Resell.objects.create(
         user =current_user,
-        category="",
-        country= "",
-        state=   "",
-        address= "",
+        category="Bike",
+        country= "India",
+        state=   "Meghalaya",
+        address= "West Jaintia Hill District",
         image=   "",
-        title=   "Resell",
+        title=   "Resell ",
         content= ""
     )
     serializer = ResellSerializers(resell, many=False)
@@ -80,7 +80,7 @@ def ResellUpdate(request, pk, slug):
     resell.state = data['state']
     resell.address = data['address']
     resell.contact = data['contact']
-    resell.day=data['days']
+    resell.day=data['days'] 
     resell.title = data['title']
     resell.content = data['content']
     resell.price  = data['price']
@@ -108,7 +108,6 @@ def ResellAdminUpdate(request, pk):
     resell.save()
     serializer = ResellSerializers(resell, many=False)
     return Response(serializer.data)
-
 
 
 @api_view(['DELETE', 'GET'])
@@ -154,10 +153,10 @@ def UserResellList(request):
 # @permission_classes([IsAdminUser])
 def ResellApproved(request, pk, slug):
     data = request.data
-    print('data', data)
-    print("date", datetime.now() + timedelta(days = 2))
+    # print('data', data)
+    # print("date", datetime.now() + timedelta(days = 2))
     resell = Resell.objects.get(pk=pk, slug=slug)
-    day = int(resell.day)
+    day = int(resell.day) + 1
     resell.isApproved =data['isApprovedData']
     resell.approvedDate = datetime.now()
     resell.expireDate = datetime.now() + timedelta(days = day)

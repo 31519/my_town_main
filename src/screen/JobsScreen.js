@@ -325,7 +325,7 @@ const JobScreen = () => {
   const JobsViews = async (e) => {
     try {
       const { data } = await axios.put(
-        `${process.env.REACT_APP_PORT}/api/users/createViews/`,
+        `/api/users/createViews/`,
         { VeiwPage: "Jobs" }
       );
     } catch (eror) {

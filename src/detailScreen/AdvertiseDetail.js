@@ -87,6 +87,7 @@ const useStyles = makeStyles((theme) => ({
       overflowWrap: "break-word",
       wordBreak: "break-word",
     },
+    
   },
   cardHeader: {
     margin: 0,

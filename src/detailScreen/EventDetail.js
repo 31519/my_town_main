@@ -56,35 +56,35 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   containerOne: {
-    height: "150px",
+    // height: "150px",
     width: "700px",
     [theme.breakpoints.down("xs")]: {
-      height: "200px",
+      // height: "200px",
       width: "100%",
     },
     [theme.breakpoints.down("md")]: {
-      height: "200px",
+      // height: "200px",
       width: "100%",
     },
     [theme.breakpoints.up("md")]: {
-      height: "400px",
+      // height: "400px",
       width: "700px",
     },
   },
   image: {
     objectFit: "cover",
-    height: "400px",
+    height: "auto",
     width: "100%",
     [theme.breakpoints.down("xs")]: {
-      height: "200px",
+      height: "auto",
       width: "100%",
     },
     [theme.breakpoints.down("md")]: {
-      height: "200px",
+      height: "auto",
       width: "100%",
     },
     [theme.breakpoints.down("md")]: {
-      height: "200px",
+      height: "auto",
       width: "100%",
     },
   },
@@ -279,6 +279,12 @@ const useStyles = makeStyles((theme) => ({
   },
   ImageContainer:{
     background: "#efb3b6",
+  },
+  state:{
+    color:"#727677cf",
+    fontFamily: "Helvetica",
+    fontSize: "16px",
+    margin: "5px 0px"
   }
 }));
 
@@ -364,7 +370,7 @@ const EventDetail = () => {
                   </div>
                 </div>
                 <div>
-                  <h2>MEGHALAYA</h2>
+                  <h2 className={classes.state} >MEGHALAYA</h2>
                 </div>
                 
                 <div className={classes.containerTwo}>

@@ -308,7 +308,7 @@ const EducationScreen = () => {
   const EducationViews = async (e) => {
     try {
       const { data } = await axios.put(
-        `${process.env.REACT_APP_PORT}/api/users/createViews/`,
+        `/api/users/createViews/`,
         { VeiwPage: "Education" }
       );
     } catch (eror) {
@@ -356,14 +356,14 @@ const EducationScreen = () => {
                               className={classes.image}
                               key={data.id}
                               src={data.image}
-                              alt={data.title}
+                              alt=""
                             />
                           ) : (
                             <img
                               className={classes.image}
                               key={data.id}
                               src="images/newsPlaceholder.jpg"
-                              alt={data.title}
+                              alt=""
                             />
                           )}
                         </div>

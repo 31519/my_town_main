@@ -32,7 +32,7 @@ const OverviewDataTable = ({ model }) => {
           <div className="col-12 grid-margin">
             <div className="card">
               <div className="card-body">
-                <h4 className="card-title">Page Views</h4>
+                <h4 className="card-title">Page Views -- {model.length}</h4>
                 <div className="table-responsive">
                   <table className="table">
                     <thead>

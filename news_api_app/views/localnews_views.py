@@ -21,7 +21,7 @@ def LocalNewsList(request):
     local = LocalNews.objects.filter(title__icontains=query).order_by('-flag', '-createdAt')
 
     page = request.query_params.get('page')
-    paginator = Paginator(local, 2)
+    paginator = Paginator(local, 8)
     try:
         local = paginator.page(page)
     except EmptyPage:

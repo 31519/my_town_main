@@ -90,7 +90,7 @@ const AdvertiseBanners = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 40000,
+    autoplaySpeed: 10000,
     swipeToSlide: true,
   };
   const classes = useStyles();

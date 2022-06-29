@@ -51,6 +51,7 @@ import {
   eventDeleteAction,
   shopCreateAction,
   shopDeleteAction,
+  localListAction,
 } from "../actions/advertiseActions";
 
 import { objectViewListAction } from "../actions/analyticsActions";
@@ -121,6 +122,7 @@ const AdminDashboard = () => {
 
   // Analytics
 
+
   // ADVERTISE PORTION
   // ADVERTISE CREATE
 
@@ -179,6 +181,22 @@ const AdminDashboard = () => {
 
   // END OF ADVERTISE
 
+  // Local News Portion
+  const localList = useSelector((state) => state.localList);
+
+  const {
+    error: listLocalError,
+    loading: listLocalLoading,
+    locals: listLocal,
+    pages:listLocalPages,
+    page:listLocalPage,
+  } = localList;
+
+  useEffect(() => {
+    dispatch(localListAction(keyword));
+  }, [dispatch, keyword]);
+
+  // End of Local News Portion
   // CELEBRITIES PORTION
 
   // CELEBRITIES CREATE
@@ -648,7 +666,7 @@ const AdminDashboard = () => {
           <div>
             <a
               className={classes.admin}
-              href={`${process.env.REACT_APP_PORT}/admin`}
+              href={`https://www.inmatown.com/admin`}
               target="_blank"
             >
               Admin Headers
@@ -675,6 +693,7 @@ const AdminDashboard = () => {
           isApprovedViews={true}
           name="advertise-detail"
           isAdmin={true}
+
         />
 
         {/* RESELLER PORTIOn */}
@@ -761,19 +780,21 @@ const AdminDashboard = () => {
           user={detailUser}
         />
 
-        {/*  SHOP PORTIOn */}
+        {/*  Local PORTIOn */}
         <DataTable
-          listModelLoading={listShopLoading}
+          listModelLoading={listLocalLoading}
           listModelError={listShopError}
-          listModel={listShop}
-          page={listShopPage}
-          pages={listShopPages}
-          createModelError={createShopError}
-          deleteModelError={deleteShopError}
+          listModel={listLocal}
+          page={listLocalPage}
+          pages={listLocalPages}
+          // createModelError={createShopError}
+          // deleteModelError={deleteShopError}
           deleteModelLoading={deleteShopLoading}
-          modelCreateHandler={shopCreateHandler}
+          // modelCreateHandler={shopCreateHandler}
           modelDeleteHandler={shopDeleteHandler}
-          redirect="shop"
+          name="local-detail"
+          isAdmin={true}
+          redirect="News"
           user={detailUser}
         />
 

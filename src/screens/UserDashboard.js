@@ -334,6 +334,7 @@ const UserDashboard = () => {
               isApprovedViews={true}
               name="resell-detail"
               reseller={true}
+              views={true}
             />
           )}
 

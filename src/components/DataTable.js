@@ -28,7 +28,8 @@ const DataTable = ({
   isApprovedViews,
   name,
   isAdmin,
-  reseller
+  reseller,
+  views
 }) => {
   // const cats = cat;
   const classes = useStyles();
@@ -91,6 +92,7 @@ const DataTable = ({
                         <th> Delete </th>
                         {isApprovedViews === true && <th> Contact </th>}
                         {isApprovedViews === true && <th> Address </th>}
+                        {views === true && <th> Total Views </th>}
                         {isAdmin === true && <th> Total Views </th>}
                       </tr>
                     </thead>
@@ -244,6 +246,13 @@ const DataTable = ({
                           <td>
                             <div className="badge badge-outline-success">
                               {model.address} 
+                            </div>
+                          </td>
+                          )}
+                          {views === true && (
+                          <td>
+                            <div className="badge badge-outline-success">
+                              {model.views} Views
                             </div>
                           </td>
                           )}

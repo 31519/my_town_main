@@ -4,7 +4,7 @@ import {  createTheme,
 
 const green = "#181818"
 const white = "#763A7A"
-const secondary = "#1a1917"
+const secondary = "rgb(0 127 255);"
 
 
 export default createTheme({
@@ -15,6 +15,9 @@ export default createTheme({
         primary:{
             main:`${green}`
         },
+        // secondary:{
+        //     main: `${secondary}`
+        // },
         secondary:{
             main: `${secondary}`
         }

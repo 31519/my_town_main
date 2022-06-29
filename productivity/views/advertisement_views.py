@@ -57,11 +57,11 @@ def AdvertisementCreate(request):
     current_user = request.user
     advertisement = Advertisement.objects.create(
         user =current_user,
-        category="",
-        country='',
-        state=  '',
-        address='',
-        contact=91,
+        category="Advertisement",
+        country='India',
+        state=  'Meghalaya',
+        address='West Jaintia Hill District',
+        contact=00000000,
         image=  '',
         title=  'advertise',
         content=''
@@ -162,7 +162,7 @@ def AllAdvertisementList(request):
 def AdvertisementApproved(request, pk, slug):
     data = request.data
     advertisement = Advertisement.objects.get(pk=pk, slug=slug)
-    day = int(advertisement.day)
+    day = int(advertisement.day) + 1
     advertisement.isApproved =data['isApprovedData']
     advertisement.approvedDate = datetime.now()
     advertisement.expireDate = datetime.now() + timedelta(days = day)

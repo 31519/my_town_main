@@ -247,7 +247,7 @@ const TourismsScreen = () => {
   const TourismsViews = async (e) => {
     try {
       const { data } = await axios.put(
-        `${process.env.REACT_APP_PORT}/api/users/createViews/`,
+        `/api/users/createViews/`,
         { VeiwPage: "Tourisms" }
       );
     } catch (eror) {

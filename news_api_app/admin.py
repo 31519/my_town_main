@@ -13,9 +13,9 @@ class LocalNewsAdmin(admin.ModelAdmin):
 
 # admin.site.register(UserAccount)
 admin.site.register(Technology)
-admin.site.register(Science)
-admin.site.register(Health)
-admin.site.register(Business)
+# admin.site.register(Science)
+# admin.site.register(Health)
+# admin.site.register(Business)
 admin.site.register(LocalNews, LocalNewsAdmin)
 admin.site.register(Profile)
 admin.site.register(RequestForm)

@@ -13,7 +13,7 @@ def TechnologyList(request):
     if query ==None:
         query = ""
 
-    technology = Technology.objects.filter(title__icontains=query).order_by('-flag', '-createAt')
+    technology = Technology.objects.filter(title__icontains=query).order_by('-flag', '-createdAt')
 
     page = request.query_params.get('page')
     paginator = Paginator(technology, 8)

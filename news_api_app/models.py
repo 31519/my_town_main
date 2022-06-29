@@ -22,7 +22,9 @@ class Technology(models.Model):
     publishedAt = models.CharField(max_length=300, null=True,blank=True, default='PublishedAt')
     content = HTMLField(blank=True, null=True)
     # createdAt = models.DateTimeField(auto_now_add =True)
-    createAt = models.DateTimeField(auto_now_add=True)
+    isApproved = models.BooleanField(default=False)
+    image = models.ImageField(blank=True, null=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
     views = models.PositiveIntegerField(default=0, null=True, blank=True)
     flag = models.IntegerField(default=0, blank=True, null=True)
     slug = models.SlugField(max_length=500, blank=True, null=True)
@@ -131,6 +133,7 @@ class LocalNews(models.Model):
     flag = models.IntegerField(default=0, blank=True, null=True)
     slug = models.SlugField(max_length=500, blank=True, null=True)
     publishedAt = models.CharField(max_length=300, null=True,blank=True, default='PublishedAt')
+    isApproved = models.BooleanField(default=False)
 
 
     def save(self, *args, **kwargs):
