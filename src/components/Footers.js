@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from '@mui/icons-material/Instagram';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -49,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
   socialIcon: {
     // color: "blue",
-    background: "white",
+    // background: "white",
     margin: "0px",
     padding: "0px",
     borderRadius: "5px",
@@ -99,8 +101,32 @@ const Footers = () => {
             <Link className={classes.textLink} to="/about-us">
               <h2 className={classes.list}>About Us</h2>
             </Link>
-            <h2 className={classes.list}>Follow us on</h2>
+            <h2 className={classes.list}>Connect with us on</h2>
             <div className={classes.linkDiv}>
+              <div className={classes.linkDivList}>
+                <a
+                  className={classes.list}
+                  href="http://api.whatsapp.com/send?phone=8257984943"
+                  target="_blank"
+                >
+                  <WhatsAppIcon
+                    className={classes.socialIcon}
+                  />
+                </a>
+                {/* <p className={classes.linkName}>memelander</p> */}
+              </div>
+              <div className={classes.linkDivList}>
+                <a
+                  className={classes.list}
+                  href="instagram://user?username={inmatown}"
+                  target="_blank"
+                >
+                  <InstagramIcon
+                    className={classes.socialIcon}
+                  />
+                </a>
+                {/* <p className={classes.linkName}>memelander</p> */}
+              </div>
               <div className={classes.linkDivList}>
                 <a
                   className={classes.list}
@@ -108,25 +134,11 @@ const Footers = () => {
                   target="_blank"
                 >
                   <FacebookIcon
-                    color="secondary"
                     className={classes.socialIcon}
                   />
                 </a>
-                <p className={classes.linkName}>memelander</p>
+                {/* <p className={classes.linkName}>memelander</p> */}
               </div>
-              {/* <div className={classes.linkDivList}>
-                <a
-                  className={classes.list}
-                  href="http://www.facebook.com/memelanderofficial/"
-                  target="_blank"
-                >
-                  <FacebookIcon
-                    color="secondary"
-                    className={classes.socialIcon}
-                  />
-                </a>
-                <p className={classes.linkName}>memelander</p>
-              </div> */}
             </div>
           </div>
         </Grid>

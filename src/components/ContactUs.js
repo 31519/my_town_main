@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import { Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   header: {
-    fontSize: "25px",
+    fontSize: "16px",
     lineHeight: "24px",
     padding: "5px 30px",
     textAlign: "center",
@@ -144,7 +145,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "5px 10px",
     fontSize: "16px",
     opacity: "0.5",
-    cursor: "pointer"
+    cursor: "pointer",
   },
   poster: {
     // width: "280px",
@@ -155,30 +156,41 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
 
     [theme.breakpoints.up("md")]: {
-      
       width: "280px",
-      padding:"25px",
+      padding: "25px",
     },
 
     [theme.breakpoints.down("sm")]: {
-      
       // width: "150px",
     },
     [theme.breakpoints.down("md")]: {
-      
       // width: "260px",
     },
-
   },
   image: {
     height: "100%",
     // width: "100%",
     objectFit: "cover",
+  },
+  whatsappLink:{
+    padding: "6px 10px",
+    color:"white",
+    backgroundColor:"#14ffa3",
+    borderRadius: "25px",
+    letterSpacing: "1.5px",
+    fontFamily: "Helvetica",
+    display:"flex",
+    alignItems:"center",
 
   },
+  whatsappLinkDiv:{
+    display: "flex",
+    justifyContent:"center"
+  },
+  icons:{
+    margin:"0px 5px"
+  }
 }));
-
-
 
 const ContactUs = () => {
   const classes = useStyles();
@@ -224,13 +236,13 @@ const ContactUs = () => {
     setSuccess("");
   };
 
-  const image = "images/static/contactus.jpg"
+  const image = "images/static/contactus.jpg";
 
   return (
     <>
-    <div className={classes.poster}>
-      <img className={classes.image} src={image} alt="contact us"/>
-    </div>
+      <div className={classes.poster}>
+        <img className={classes.image} src={image} alt="contact us" />
+      </div>
       <div className={classes.container}>
         {success && (
           <div className={classes.success}>
@@ -241,7 +253,19 @@ const ContactUs = () => {
           </div>
         )}
         {/* Contact us  portion */}
-        <h2 className={classes.header}>Contact Us</h2>
+        <div className={classes.whatsappLinkDiv}>
+          <a
+            className={classes.whatsappLink}
+            href="http://api.whatsapp.com/send?phone=8257984943"
+            target="_blank"
+          >
+            <WhatsAppIcon className={classes.icons}/>
+            whatsapp
+          </a>
+        </div>
+        <h2 className={classes.header}>
+          Send Us Your Feedback , Complaint , Insights
+        </h2>
         <div className="signup-form">
           <form className="form" onSubmit={contactUsHandler}>
             <div className={classes.inputName}>
