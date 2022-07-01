@@ -106,7 +106,7 @@ const Footers = () => {
               <div className={classes.linkDivList}>
                 <a
                   className={classes.list}
-                  href="http://api.whatsapp.com/send?phone=8257984943"
+                  href="https://wa.me/8257984943?text=Hi"
                   target="_blank"
                 >
                   <WhatsAppIcon
@@ -118,7 +118,7 @@ const Footers = () => {
               <div className={classes.linkDivList}>
                 <a
                   className={classes.list}
-                  href="instagram://user?username={inmatown}"
+                  href="https://www.instagram.com/inmatown/"
                   target="_blank"
                 >
                   <InstagramIcon

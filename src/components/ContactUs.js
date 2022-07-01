@@ -181,6 +181,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Helvetica",
     display:"flex",
     alignItems:"center",
+    cursor:"pointer"
 
   },
   whatsappLinkDiv:{
@@ -256,7 +257,7 @@ const ContactUs = () => {
         <div className={classes.whatsappLinkDiv}>
           <a
             className={classes.whatsappLink}
-            href="http://api.whatsapp.com/send?phone=8257984943"
+            href="https://wa.me/8257984943?text=Hi"
             target="_blank"
           >
             <WhatsAppIcon className={classes.icons}/>
