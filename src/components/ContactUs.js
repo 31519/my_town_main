@@ -175,7 +175,7 @@ const useStyles = makeStyles((theme) => ({
   whatsappLink:{
     padding: "6px 10px",
     color:"white",
-    backgroundColor:"#14ffa3",
+    backgroundColor:"#00c176",
     borderRadius: "25px",
     letterSpacing: "1.5px",
     fontFamily: "Helvetica",
@@ -257,7 +257,7 @@ const ContactUs = () => {
         <div className={classes.whatsappLinkDiv}>
           <a
             className={classes.whatsappLink}
-            href="https://wa.me/8257984943?text=Hi"
+            href="https://wa.me/9366993068"
             target="_blank"
           >
             <WhatsAppIcon className={classes.icons}/>

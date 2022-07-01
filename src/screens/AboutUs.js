@@ -11,13 +11,27 @@ import Header from "../screen/Header";
 import SideBar from "../components/SideBar";
 import Footers from "../components/Footers";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
+  titleContainer:{
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign:"center"
+  },
   gridContent: {
     justifyContent: "center",
-    alignItem: "center",
+    alignItems: "center",
     display: "flex",
     paddingBottom: "20px",
     backgrounColor: "white",
+    width: "500px",
+    textAlign:"center",
+    margin: "5px auto",
+    [theme.breakpoints.down("xs")]: {
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+    },
   },
   title: {
     fontFamily: "Helvetica",
@@ -49,7 +63,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     textAlign: "center",
   },
-});
+}));
 
 const AboutUs = () => {
   const navigate = useNavigate();
@@ -84,11 +98,23 @@ const AboutUs = () => {
             </p>
             <hr />
             <p className={classes.aboutContent}>
-              At inmatown.com we work hard every day to provide updated
+              At inmatown.com we area group entrepreneur base at Jowai who
+               work hard every day to improve and provide updated
               informations to the people related to news, event , schemes,
               tourisms, jobs. We also except partnership with our brand . We are
               quick to work with you whether it be personal or to promote your
               brand or to advertise according to your needs.
+
+
+            </p>
+            <p className={classes.aboutContent}>
+              We work mainly on providing Jobs related information
+              and Tourisms and apart from this we provide latest news relating
+              to education, jobs , skill , ideas , business . We provide information 
+              about various schemes, events . We also let you to put any second hand
+              things in our site for reselling
+
+              
             </p>
           </div>
         </div>
