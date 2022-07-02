@@ -388,7 +388,7 @@ const News = () => {
                             <img
                               className={classes.image}
                               key={data.id}
-                              src="images/newsPlaceholder.jpg"
+                              src="images/default/newsPlaceholder.jpg"
                               alt={data.title}
                             />
                           )}

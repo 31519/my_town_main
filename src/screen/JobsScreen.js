@@ -378,7 +378,7 @@ const JobScreen = () => {
                             <img
                               className={classes.image}
                               key={data.id}
-                              src="images/jobPlaceholder.jpg"
+                              src="images/default/jobPlaceholder.jpg"
                               alt={data.title}
                             />
                           )}

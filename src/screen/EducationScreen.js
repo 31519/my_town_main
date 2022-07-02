@@ -362,7 +362,7 @@ const EducationScreen = () => {
                             <img
                               className={classes.image}
                               key={data.id}
-                              src="images/newsPlaceholder.jpg"
+                              src="images/default/educationPlaceholder.jpg"
                               alt=""
                             />
                           )}

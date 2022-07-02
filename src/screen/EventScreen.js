@@ -362,7 +362,7 @@ const EventScreen = () => {
                             <img
                               className={classes.image}
                               key={data.id}
-                              src="images/newsPlaceholder.jpg"
+                              src="images/default/eventPlaceholder.jpg"
                               alt={data.title}
                             />
                           )}

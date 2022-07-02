@@ -370,7 +370,7 @@ const AdvertiseScreen = () => {
                             <img
                               className={classes.image}
                               key={data.id}
-                              src="images/advertisePlaceholder.jpg"
+                              src="images/default/advertisePlaceholder.jpg"
                               alt=""
                             />
                           )}
