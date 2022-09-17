@@ -8,6 +8,7 @@ from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from tinymce.models import HTMLField
 from news_api_app.models import UserAccount
+from Dashboards.image_compressor import compressImage
 
 # Create your models here.
 
@@ -46,9 +47,9 @@ class Jobs(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        # if self.image:
-        #     if not self.id:
-        #         self.image = self.compressImage(self.image)
+        if self.image: 
+            if not self.id:
+                self.image = compressImage(self.image)
         super(Jobs,self).save(*args, **kwargs)
         
     def __str__(self):
@@ -102,6 +103,9 @@ class Event(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
+        if self.image: 
+            if not self.id:
+                self.image = compressImage(self.image)
         super(Event,self).save(*args, **kwargs)
 
 
@@ -131,9 +135,9 @@ class Advertisement(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        # if self.image:
-        #     if not self.id:
-        #         self.image = self.compressImage(self.image)
+        if self.image: 
+            if not self.id:
+                self.image = compressImage(self.image)
         super(Advertisement,self).save(*args, **kwargs)
         
     def __str__(self):
@@ -434,4 +438,5 @@ class Banner(models.Model):
 
 
     def __str__(self):
+
         return str(self.createdAt)

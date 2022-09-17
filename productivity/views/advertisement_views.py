@@ -8,6 +8,31 @@ from rest_framework import status
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from Dashboards.signals import object_viewed_signal, detail_object_viewed_signal
 from datetime import datetime , timedelta
+from rest_framework.pagination import PageNumberPagination
+
+
+@api_view(['GET'])
+def AdvertisementListMainList(request):
+    query = request.query_params.get('keyword')
+    if query ==None:
+        query = ""
+
+    advertisement = Advertisement.objects.filter(title__icontains=query).order_by('-id')
+
+    count = advertisement.count()
+
+    #Pagination
+    resPerPage = 2
+
+    paginator = PageNumberPagination()
+    paginator.page_size = resPerPage
+
+    queryset = paginator.paginate_queryset(advertisement, request)
+
+    serializer = AdvertisementSerializers(queryset, many=True)
+    # object_viewed_signal.send(local.__class__, instance="LocalNews", request=request)
+    return Response({"advertisement":serializer.data, "count":count, "resPerPage":resPerPage})
+
 
 
 
@@ -19,7 +44,7 @@ def AdvertisementList(request):
         query = ""
     advertisement = Advertisement.objects.filter(title__icontains=query, isApproved=True, expireDate__gte = current_date ).order_by('-flag', '-createdAt')
     page = request.query_params.get('page')
-    paginator = Paginator(advertisement, 8)
+    paginator = Paginator(advertisement, 6)
     try:
         advertisement = paginator.page(page)
     except EmptyPage:

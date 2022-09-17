@@ -21,15 +21,21 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
+from django.views.decorators.csrf import csrf_exempt
+from graphene_django.views import GraphQLView
+from graphql_jwt.decorators import jwt_cookie
 
 admin.autodiscover()
 admin.site.enable_nav_sidebar = False
 
+
 urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('img/favicon.ico'))),
     path('admin/', admin.site.urls),
+    path("graphql/", csrf_exempt(GraphQLView.as_view(graphiql=True))),
 
-    path('', TemplateView.as_view(template_name='index.html'),),
+    # path('', TemplateView.as_view(template_name='index.html'),),
+    # path('/news', TemplateView.as_view(template_name='news.html'),),
 
     path('api/technology/', include('news_api_app.urls.technology_urls')),
     path('api/business/', include('news_api_app.urls.business_urls')),

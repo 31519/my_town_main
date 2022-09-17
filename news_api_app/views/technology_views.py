@@ -5,6 +5,29 @@ from rest_framework.response import Response
 from news_api_app.serializers import TechnologySerializers
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from Dashboards.signals import object_viewed_signal, detail_object_viewed_signal
+from rest_framework.pagination import PageNumberPagination
+
+@api_view(['GET'])
+def TechnologyListMainList(request):
+    query = request.query_params.get('keyword')
+    if query ==None:
+        query = ""
+
+    technology = Technology.objects.filter(title__icontains=query).order_by('-id')
+
+    count = technology.count()
+
+    #Pagination
+    resPerPage = 2
+
+    paginator = PageNumberPagination()
+    paginator.page_size = resPerPage
+
+    queryset = paginator.paginate_queryset(technology, request)
+
+    serializer = TechnologySerializers(queryset, many=True)
+    # object_viewed_signal.send(local.__class__, instance="LocalNews", request=request)
+    return Response({"technology":serializer.data, "count":count, "resPerPage":resPerPage})
 
 
 @api_view(['GET'])
@@ -16,7 +39,7 @@ def TechnologyList(request):
     technology = Technology.objects.filter(title__icontains=query).order_by('-flag', '-createdAt')
 
     page = request.query_params.get('page')
-    paginator = Paginator(technology, 8)
+    paginator = Paginator(technology, 6)
     try:
         technology = paginator.page(page)
     except PageNotAnInteger:

@@ -8,6 +8,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from tinymce.models import HTMLField
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from Dashboards.models import UserAccount
+from Dashboards.image_compressor import compressImage
 
 # Create your models here.
 
@@ -111,19 +112,18 @@ class Health(models.Model):
 
 class LocalNews(models.Model):
     CATEGORY_CHOICES = [
-        ('EDUCATION', 'Education'),
-        ('TECHNOLOGY', 'Technology'),
-        ('ENVIRONMENT', 'Environment'),
-        ('SCIENCE', 'Science'),
-        ('POLITICS', 'Politics'),
-        ('JOBS', 'Jobs'),
-        ('Skill', 'Skill')
+        ('education', 'education'),
+        ('technology', 'technology'),
+        ('environment', 'environment'),
+        ('science', 'science'),
+        ('politics', 'politics'),
+        ('jobs', 'jobs'),
+        ('skill', 'skill')
     ]
     user = models.ForeignKey(UserAccount, on_delete=models.CASCADE )
     category = models.CharField(max_length=200, null=True, blank=True, choices=CATEGORY_CHOICES, default="EDUCATION")
     author = models.CharField(max_length=200, null=True, blank=True, default='Author')
     title = models.TextField(null=True, blank=True, default='Title')
-    description = models.TextField(null=True, blank=True, default='Description')
     url= models.CharField(max_length=500, null=True, blank=True, default='Url')
     image = models.ImageField(blank=True, null=True)
     content = HTMLField(blank=True, null=True)
@@ -138,22 +138,17 @@ class LocalNews(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        # if self.image: 
-        #     if not self.id:
-        #         self.image = self.compressImage(self.image)
+        if self.image: 
+            if not self.id:
+                self.image = compressImage(self.image)
         super(LocalNews,self).save(*args, **kwargs)
         
+
+
+
     def __str__(self):
         return str(self.title)
 
-    # def compressImage(self, image):
-    #     imageTemproary = Image.open(image)
-    #     outputIoStream = BytesIO()
-    #     imageTemproaryResize = imageTemproary.resize((1020, 573))
-    #     imageTemproary.save(outputIoStream, format='JPEG', quality=10)
-    #     outputIoStream.seek(0)
-    #     image = InMemoryUploadedFile(outputIoStream, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
-    #     return image
 
 
 
@@ -162,10 +157,9 @@ class LocalNewsGallary(models.Model):
     image = models.ImageField(blank=True, default='/placeholder.png', upload_to='localnewsImage')
 
     def save(self, *args, **kwargs):
-        # self.slug = slugify(self.local.title)
-        # if self.image: 
-        #     if not self.id:
-        #         self.image = self.compressImage(self.image)
+        if self.image: 
+            if not self.id:
+                self.image = compressImage(self.image)
         super(LocalNewsGallary,self).save(*args, **kwargs)
 
 

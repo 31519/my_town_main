@@ -2,6 +2,7 @@ from productivity.views import advertisement_views as views
 from django.urls import path
 
 urlpatterns = [
+    path('mainlist/', views.AdvertisementListMainList, name='list'),
     path('list/', views.AdvertisementList, name='list'),
     path('list/<int:pk>/<str:slug>/', views.AdvertisementDetailList, name='detail'),
     path('create/', views.AdvertisementCreate, name='create'),

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'news_api_app.apps.NewsApiAppConfig',
+    'graphene_django',
     'rest_framework',
     'rest_framework_simplejwt',
 
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
 
     'corsheaders',
     'tinymce',
+    'django_filters',
 
 ]
 
@@ -67,6 +69,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
 ]
 
 ROOT_URLCONF = 'news_all.urls'
@@ -75,7 +79,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'build')
+            os.path.join(BASE_DIR, '.next/server/pages')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -166,6 +170,24 @@ REST_FRAMEWORK = {
     
 }
 
+GRAPHENE = {
+    'SCHEMA': 'news_all.schema.schema',
+    "MIDDLEWARE": [
+        "graphql_jwt.middleware.JSONWebTokenMiddleware",
+    ],
+}
+
+AUTHENTICATION_BACKENDS = [
+    "graphql_jwt.backends.JSONWebTokenBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+GRAPHQL_JWT = {
+     'JWT_VERIFY_EXPIRATION':True,
+     'JWT_EXPIRATION_DELTA':timedelta(minutes=30),
+     'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=7)
+}
+
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10000),
@@ -201,7 +223,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/images/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'build/static'
+    BASE_DIR / '.next/static'
 ]
 
 
@@ -212,6 +234,10 @@ AUTH_USER_MODEL  = 'Dashboards.UserAccount'
 swappable ='AUTH_USER_MODEL'
 
 CORS_ALLOW_ALL_ORIGINS=True
+CORS_ORIGIN_WHITELIST = ([
+    'http://localhost:3000',
+    'http://127.0.0.1:8000'
+])
 
 
 

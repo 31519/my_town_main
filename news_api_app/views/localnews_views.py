@@ -5,9 +5,30 @@ from news_api_app.serializers import LocalNewsSerializers, LocalNewsGallarySeria
 from  rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework import status
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from rest_framework.pagination import PageNumberPagination
 # from analytics.mixins import ObjectViewedMixin
 from Dashboards.signals import object_viewed_signal, detail_object_viewed_signal
+from .filters import LocalFilter
 
+
+@api_view(['GET'])
+def LocalNewsMainList(request):
+    filterset = LocalFilter(request.GET, queryset=LocalNews.objects.all().order_by('-id'))
+
+    count = filterset.qs.count()
+    print("count", count)
+
+    #Pagination
+    resPerPage = 2
+
+    paginator = PageNumberPagination()
+    paginator.page_size = resPerPage
+
+    queryset = paginator.paginate_queryset(filterset.qs, request)
+
+    serializer = LocalNewsSerializers(queryset, many=True)
+    # object_viewed_signal.send(local.__class__, instance="LocalNews", request=request)
+    return Response({"local": serializer.data, "count":count, "resPerPage":resPerPage})
 
 
 
@@ -21,7 +42,7 @@ def LocalNewsList(request):
     local = LocalNews.objects.filter(title__icontains=query).order_by('-flag', '-createdAt')
 
     page = request.query_params.get('page')
-    paginator = Paginator(local, 8)
+    paginator = Paginator(local, 6)
     try:
         local = paginator.page(page)
     except EmptyPage:

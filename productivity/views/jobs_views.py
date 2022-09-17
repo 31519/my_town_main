@@ -7,8 +7,30 @@ from productivity.serializers import JobsSerializers
 from rest_framework import status
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from Dashboards.signals import object_viewed_signal, detail_object_viewed_signal
+from rest_framework.pagination import PageNumberPagination
 
 
+@api_view(['GET'])
+def JobsListMainList(request):
+    query = request.query_params.get('keyword')
+    if query ==None:
+        query = ""
+
+    jobs = Jobs.objects.filter(title__icontains=query).order_by('-id')
+
+    count = jobs.count()
+
+    #Pagination
+    resPerPage = 2
+
+    paginator = PageNumberPagination()
+    paginator.page_size = resPerPage
+
+    queryset = paginator.paginate_queryset(jobs, request)
+
+    serializer = JobsSerializers(queryset, many=True)
+    # object_viewed_signal.send(local.__class__, instance="LocalNews", request=request)
+    return Response({"jobs":serializer.data, "count":count, "resPerPage":resPerPage})
 
 
 @api_view(['GET'])
@@ -21,7 +43,7 @@ def JobsList(request):
     jobs = Jobs.objects.filter(title__icontains=query, isApproved=True).order_by('-flag', '-createdAt')
 
     page = request.query_params.get('page')
-    paginator = Paginator(jobs, 8)
+    paginator = Paginator(jobs, 6)
     try:
         jobs = paginator.page(page)
     except EmptyPage:
