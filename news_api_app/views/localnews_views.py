@@ -19,7 +19,7 @@ def LocalNewsMainList(request):
     print("count", count)
 
     #Pagination
-    resPerPage = 2
+    resPerPage = 8
 
     paginator = PageNumberPagination()
     paginator.page_size = resPerPage

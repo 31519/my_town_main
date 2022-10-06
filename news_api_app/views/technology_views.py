@@ -12,13 +12,14 @@ def TechnologyListMainList(request):
     query = request.query_params.get('keyword')
     if query ==None:
         query = ""
+    print("query", query)
 
     technology = Technology.objects.filter(title__icontains=query).order_by('-id')
 
     count = technology.count()
 
     #Pagination
-    resPerPage = 2
+    resPerPage = 8
 
     paginator = PageNumberPagination()
     paginator.page_size = resPerPage

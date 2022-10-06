@@ -22,7 +22,7 @@ def AdvertisementListMainList(request):
     count = advertisement.count()
 
     #Pagination
-    resPerPage = 2
+    resPerPage = 8
 
     paginator = PageNumberPagination()
     paginator.page_size = resPerPage

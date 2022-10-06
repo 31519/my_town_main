@@ -21,7 +21,7 @@ def JobsListMainList(request):
     count = jobs.count()
 
     #Pagination
-    resPerPage = 2
+    resPerPage = 8
 
     paginator = PageNumberPagination()
     paginator.page_size = resPerPage
