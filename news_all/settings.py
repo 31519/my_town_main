@@ -251,9 +251,7 @@ CORS_ORIGIN_WHITELIST = ([
 
 
 TINYMCE_DEFAULT_CONFIG = {
-    # 'style_formats': [
-    #     [{'title':'Dropcap','block':'p','classes':'has-dropcap'}]
-    # ],
+
     'height': 360,
     'width': 1120,
     'cleanup_on_startup': True,
